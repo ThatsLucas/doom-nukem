@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   home.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 18:36:47 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/04 19:58:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/Window.h"
+#include "Window.h"
 
 // void draw_home_menu(t_WIN *win)
 // {
