@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:06:56 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 17:13:13 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/04 18:41:08 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,13 @@ void create_rectangle(SDL_Renderer *renderer, int x, int y, int w, int h, t_RGB 
     rect.h = h;
     SDL_SetRenderDrawColor( renderer, rgb.r, rgb.g, rgb.b, rgb.alphaValue );
     SDL_RenderFillRect( renderer, &rect );
+}
+
+void get_screen_size(int *w, int *h)
+{
+    SDL_DisplayMode DM;
+
+    SDL_GetCurrentDisplayMode(1, &DM);
+    *w = DM.w;
+    *h = DM.h;
 }
