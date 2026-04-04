@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:06:56 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 18:41:08 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/04 19:58:32 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/GUI.h"
+#include "GUI.h"
 
 void create_rectangle(SDL_Renderer *renderer, int x, int y, int w, int h, t_RGB rgb)
 {

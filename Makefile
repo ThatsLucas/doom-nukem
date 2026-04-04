@@ -19,8 +19,9 @@ DEPS_DIR = deps
 SDL2_VERSION = 2.32.4
 SDL2_SYSTEM = /usr/lib64/libSDL2-2.0.so.0
 SDL2_LIB = $(DEPS_DIR)/sdl2/lib/libSDL2.a
+SDL2_HEADERS = /usr/include/SDL2/SDL.h
 
-ifeq ($(shell test -f $(SDL2_SYSTEM) && echo yes),yes)
+ifeq ($(shell test -f $(SDL2_SYSTEM) && test -f $(SDL2_HEADERS) && echo yes),yes)
     SDL2_LINK = $(SDL2_SYSTEM)
     SDL2_INC = /usr/include/SDL2
 else
@@ -29,7 +30,17 @@ else
 endif
 
 INCLUDES = includes
-LDFLAGS = $(SDL2_LINK) -lGL -ldl -lpthread -lm
+
+GL_SYSTEM_PATHS = /usr/lib64/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so.1 /usr/lib/libGL.so.1
+
+GL_LIB := $(firstword $(foreach path, $(GL_SYSTEM_PATHS), $(if $(wildcard $(path)), $(path),)))
+
+ifeq ($(GL_LIB),)
+    GL_LIB = -lGL
+endif
+
+LDFLAGS = $(SDL2_LINK) $(GL_LIB) -ldl -lpthread -lm
+
 INCLUDE_FLAGS = -I$(INCLUDES) -I$(SDL2_INC)
 OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(FILES))
 FILES = $(shell find srcs -name "*.c")
@@ -43,7 +54,7 @@ LIGHTBLUE = \033[1;94m
 all: deps $(LIBFT) $(NAME)
 
 deps:
-	@if [ -f $(SDL2_SYSTEM) ]; then \
+	@if [ -f $(SDL2_SYSTEM) ] && [ -f $(SDL2_HEADERS) ]; then \
 		echo "$(GREEN)SDL2 système trouvé.$(RESET)"; \
 	elif [ -f $(SDL2_LIB) ]; then \
 		echo "$(GREEN)SDL2 local trouvé.$(RESET)"; \
@@ -83,7 +94,7 @@ clean:
 dfclean:
 	rm -rf $(DEPS_DIR)
 
-fclean: clean dfclean
+fclean: clean
 	rm -f $(NAME)
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 

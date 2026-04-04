@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 17:18:37 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/04 19:54:21 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 # define WINDOW_H
 
-#include "../deps/sdl2/include/SDL2/SDL.h"
+#include <SDL.h>
 
 typedef struct s_WIN
 {
