@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 16:55:14 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:23:04 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,15 @@
 	97 = A
 	115 = S
 	100 = D
+	1073741903 = RIGHT
+	1073741904 = LEFT
 */
-void	key_handler(t_game *game, SDL_KeyboardEvent key)
+static void	key_handler(t_game *game, SDL_KeyboardEvent key)
 {
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
-	else if (key.keysym.sym == 119)
-		game->ply.pos_y -= 10;
-	else if (key.keysym.sym == 115)
-		game->ply.pos_y += 10;
-	else if (key.keysym.sym == 97)
-		game->ply.pos_x -= 10;
-	else if (key.keysym.sym == 100)
-		game->ply.pos_x += 10;
+	ply_movements(key.keysym.sym, game->ply, game);
+	ply_directions(key.keysym.sym, game->ply);
 }
 
 void	events_handler(t_game *game)
