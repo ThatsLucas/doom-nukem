@@ -1,0 +1,68 @@
+{
+   SDL_X11_leak
+   Memcheck:Leak
+   ...
+   obj:*/libX11.so*
+}
+{
+   SDL_init_leak
+   Memcheck:Leak
+   ...
+   fun:SDL_InitSubSystem_REAL*
+}
+{
+   dl_open_leak
+   Memcheck:Leak
+   ...
+   fun:_dl_open
+}
+{
+   SDL_calloc_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libSDL2*
+}
+{
+   LLVM_leak
+   Memcheck:Leak
+   ...
+   obj:*/libLLVM.so*
+}
+{
+   SDL_DBus_leak
+   Memcheck:Leak
+   ...
+   fun:SDL_DBus_CallMethod*
+}
+{
+   dl_close_leak
+   Memcheck:Leak
+   ...
+   fun:_dl_close*
+}
+{
+   SDL_X11_unload
+   Memcheck:Leak
+   ...
+   fun:SDL_X11_UnloadSymbols*
+}
+{
+   SDL_internal_realloc
+   Memcheck:Leak
+   fun:realloc
+   obj:*/libSDL2*
+}
+{
+   SDL_internal_calloc
+   Memcheck:Leak
+   fun:calloc
+   obj:*/libSDL2*
+}
+{
+   SDL_DBus_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect
+   ...
+   fun:SDL_DBus_Init_Spinlocked
+}
