@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 16:43:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:09:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	exit_game(t_game *game, char *type)
 	if (game->window && game->window->winPTR)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
+	free(game->ply);
+	free(game);
 	SDL_Quit();
 	ft_printf("And thanks for all the fish!\n");
 	exit(0);
