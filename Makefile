@@ -65,11 +65,13 @@ deps:
 $(SDL2_LIB):
 	@echo "$(LIGHTBLUE)Compilation de SDL2 depuis les sources...$(RESET)"
 	@mkdir -p $(DEPS_DIR)/sdl2
+	@mkdir -p $(DEPS_DIR)/tmp
 	@curl --fail -L \
 		https://github.com/libsdl-org/SDL/releases/download/release-$(SDL2_VERSION)/SDL2-$(SDL2_VERSION).tar.gz \
-		-o /tmp/sdl2.tar.gz || (echo "$(RED)Échec du téléchargement SDL2.$(RESET)"; exit 1)
-	@tar -xzf /tmp/sdl2.tar.gz -C /tmp/
-	@cd /tmp/SDL2-$(SDL2_VERSION) && \
+		-o sdl2.tar.gz || (echo "$(RED)Échec du téléchargement SDL2.$(RESET)"; exit 1)
+	@rm -rf $(DEPS_DIR)/tmp/SDL2-$(SDL2_VERSION)
+	@tar -xzf sdl2.tar.gz -C $(DEPS_DIR)/tmp/
+	@cd $(DEPS_DIR)/tmp/SDL2-$(SDL2_VERSION) && \
 		./configure --prefix=$(shell pwd)/$(DEPS_DIR)/sdl2 --disable-shared --enable-static && \
 		make -j$(shell nproc) && \
 		make install
