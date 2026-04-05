@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 20:01:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/04 20:39:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
         https://wiki.libsdl.org/SDL2/SDL_RendererFlags
         SDL_RENDERER_ACCELERATED utilise l'acceleration GPU c interdit par le sujet donc je suppose SDL_RENDERER_SOFTWARE ?
     */
-    windowDatas->renderPTR =  SDL_CreateRenderer( windowDatas->winPTR, -1, SDL_RENDERER_SOFTWARE );
-    if ((SDL_SetRenderDrawColor( windowDatas->renderPTR, 255, 0, 0, 255 ) < 0) || !windowDatas->renderPTR)
+    windowDatas->renderPTR = SDL_CreateRenderer( windowDatas->winPTR, -1, SDL_RENDERER_SOFTWARE );
+    if (!windowDatas->renderPTR || (SDL_SetRenderDrawColor( windowDatas->renderPTR, 255, 0, 0, 255 ) < 0))
     {
         SDL_DestroyWindow(windowDatas->winPTR);
         SDL_Quit();
