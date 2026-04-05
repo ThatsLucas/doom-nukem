@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/05 20:20:06 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/05 21:15:33 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,19 @@ int main(void)
 	buttoncolor.b = 255;
 	buttoncolor.alphaValue = 255;
 
-	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+	t_RGB hoverColor;
+	hoverColor.r = 90;
+	hoverColor.g = 60;
+	hoverColor.b = 150;
+	hoverColor.alphaValue = 255;
+
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
 	coords.x = 200;
 	coords.y = 300;
-	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
 	coords.x = 200;
 	coords.y = 400;
-	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
 
 
 	game->ply->pos_x = 500;
