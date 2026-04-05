@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 16:20:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/05 16:43:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	exit_game(t_game *game, char *type)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
 	SDL_Quit();
+	ft_printf("And thanks for all the fish!\n");
 	exit(0);
 }
