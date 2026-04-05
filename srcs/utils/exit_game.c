@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 17:09:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/05 19:28:10 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	exit_game(t_game *game, char *type)
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
 
+	if (game->window->buttonList)
+		free_buttons(game->window->buttonList);
 	if (game->window && game->window->renderPTR)
 		SDL_DestroyRenderer(game->window->renderPTR);
 	if (game->window && game->window->winPTR)

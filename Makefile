@@ -14,7 +14,7 @@ LIBFT_SRCS := libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnu
             libft/get_next_line/get_next_line_utils.c libft/ft_freeall.c libft/ft_lstget.c libft/ft_maxf.c
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 DEPS_DIR = deps
 SDL2_VERSION = 2.32.4
 SDL2_SYSTEM = /usr/lib64/libSDL2-2.0.so.0

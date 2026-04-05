@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   create_rectangle.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:46:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 11:46:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/05 19:15:10 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI.h"
 
-void create_rectangle(SDL_Renderer *renderer, int x, int y, int w, int h, t_RGB rgb)
+void create_rectangle(SDL_Renderer *renderer, t_coordinates coords, t_RGB rgb)
 {
 	SDL_Rect rect;
 
-	rect.x = x;
-	rect.y = y;
-	rect.w = w;
-	rect.h = h;
+	rect.x = coords.x;
+	rect.y = coords.y;
+	rect.w = coords.w;
+	rect.h = coords.h;
 	SDL_SetRenderDrawColor( renderer, rgb.r, rgb.g, rgb.b, rgb.alphaValue );
 	SDL_RenderFillRect( renderer, &rect );
 }

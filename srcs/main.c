@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/05 17:14:47 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/05 20:20:06 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ int main(void)
 	rgb.b = 255;
 	rgb.alphaValue = 255;
 
+	t_coordinates coords;
+	coords.x = 200;
+	coords.y = 200;
+	coords.w = 150;
+	coords.h = 80;
+
+	t_RGB buttoncolor;
+	buttoncolor.r = 0;
+	buttoncolor.g = 60;
+	buttoncolor.b = 255;
+	buttoncolor.alphaValue = 255;
+
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+	coords.x = 200;
+	coords.y = 300;
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+	coords.x = 200;
+	coords.y = 400;
+	create_button(&game->window->buttonList, NULL, coords, buttoncolor);
+
+
 	game->ply->pos_x = 500;
 	game->ply->pos_y = 500;
 	game->ply->dir_x = 0.0f;
@@ -42,11 +63,8 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 255, 0, 0, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
+		display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
-		create_rectangle(game->window->renderPTR, 50, 50, 200, 200, rgb);
-		create_rectangle(game->window->renderPTR, 650, 50, 200, 200, rgb);
-		create_rectangle(game->window->renderPTR, 900/2 - 25, 225, 50, 50, rgb);
-		create_rectangle(game->window->renderPTR, 50, 400, 800, 50, rgb);
 		SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 
 		// affichage du renderer sur la page
