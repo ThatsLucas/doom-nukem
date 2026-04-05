@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 20:39:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/05 20:12:07 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
         fprintf(stderr, "Couldn't allocation memory for create_window. Exiting...\n");
         return NULL;
     }
+    windowDatas->buttonList = NULL;
     
     windowDatas->winPTR = SDL_CreateWindow(title, x, y, w, h, flags);
     if (!windowDatas->winPTR)
