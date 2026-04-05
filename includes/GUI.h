@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/04 19:58:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/04 21:58:21 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <SDL.h>
 #include "Colors.h"
 
-void create_rectangle(SDL_Renderer *renderer, int x, int y, int w, int h, t_RGB rgb);
-void get_screen_size(int *w, int *h);
+void	create_rectangle(SDL_Renderer *renderer, int x, int y, int w, int h, t_RGB rgb);
+void	get_screen_size(int *w, int *h);
+int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
+int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
 
 #endif
