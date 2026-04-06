@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/05 21:15:33 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/06 12:55:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int main(void)
 
 	game->ply->pos_x = 500;
 	game->ply->pos_y = 500;
-	game->ply->dir_x = 0.0f;
-	game->ply->dir_y = -1.0f;
+	game->ply->dir_x = 1.0f;
+	game->ply->dir_y = 0.0f;
+	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	while (1)
 	{
@@ -71,7 +72,8 @@ int main(void)
 
 		display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
-		SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
+		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
+		draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);

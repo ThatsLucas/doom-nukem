@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 18:54:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/06 14:48:25 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,21 @@
 #  define M_PI 3.14159265359f
 # endif
 
+typedef struct	s_keys
+{
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+}			t_keys;
+
 typedef struct s_ply
 {
 	float		pos_x;
 	float		pos_y;
 	float		dir_x;
 	float		dir_y;
+	t_keys		keys;
 }				t_ply;
 
 typedef struct s_game

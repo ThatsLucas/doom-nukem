@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:06 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/05 17:23:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/06 14:44:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ply_directions(int key, t_ply *ply)
 	float	old_dir_x;
 	float	angle;
 
-	angle = 2.0f;
+	angle = 0.1f;
 	old_dir_x = ply->dir_x;
 	if (key == 1073741903)
 	{
