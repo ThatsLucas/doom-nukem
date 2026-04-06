@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/05 21:13:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/06 17:53:02 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static  void insert_new_button(t_buttons **button_list, void (*callback)(t_WIN *
         return;
     new->callback_func = callback;
     new->next = NULL;
-    printf("new = %p, new->next = %p\n", new, new->next);
     new->buttonCoords = coords;
     new->color = color;
     new->hoverColor = hoverColor;

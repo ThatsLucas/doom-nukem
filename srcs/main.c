@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 12:55:38 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/06 17:21:06 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 #include "GUI.h"
 #include "Game.h"
 #include "Events.h"
+#include "parser/PNG.h"
 
 int main(void)
 {
+
+	process_png("assets/png/doom_nukem.png");
+
 	t_game	*game;
 
 	game = init_game();
@@ -80,5 +84,6 @@ int main(void)
 	}
 
 	exit_game(game, NULL);
+
 	return 0;
 }
