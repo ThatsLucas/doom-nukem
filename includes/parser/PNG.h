@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PNG.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 17:30:31 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/07 14:16:22 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,38 @@
 
 typedef struct s_png
 {
-    int w;
-    int h;
     int fd;
     char *buf;
+    __uint32_t w;
+    __uint32_t h;
+    __uint8_t bit_depth; 
+    __uint8_t color_type; 
+    __uint8_t compression_method; 
+    __uint8_t filter_method; 
+    __uint8_t interlace_method; 
 }				t_png;
+
+typedef struct s_IHDR
+{
+    __uint32_t chunklen;
+    __uint32_t chunktype;
+    __uint32_t w;
+    __uint32_t h;
+    __uint8_t bit_depth; 
+    __uint8_t color_type; 
+    __uint8_t compression_method; 
+    __uint8_t filter_method; 
+    __uint8_t interlace_method; 
+    __uint32_t crc;
+}               t_IHDR;
+
+typedef struct s_IDAT
+{
+    __uint32_t chunklen;
+    __uint32_t chunktype;
+    __uint8_t *datas;
+    __uint32_t crc;
+}              t_IDAT;
 
 typedef struct s_readPNG
 {
@@ -34,10 +61,16 @@ typedef struct s_readPNG
 
 
 /*HEADER*/
-int find_png_header(t_png pngFile);
+int find_png_header(t_png *pngFile);
+
+/*IHDR*/
+int find_png_IHDR(t_png *pngFile);
 
 /*PROCESS*/
 int process_png(char *path);
 t_readPNG read_nbytes(int pngFile, int nbytes);
+
+/*UTILS*/
+__uint32_t big_endian_to_little_endian(__uint32_t n);
 
 #endif

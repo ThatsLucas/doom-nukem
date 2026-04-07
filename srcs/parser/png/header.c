@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:13:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 17:53:31 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/07 16:34:17 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int check_header_validity(char *buf)
     return (1);
 }
 
-int find_png_header(t_png pngFile)
+int find_png_header(t_png *pngFile)
 {
-    t_readPNG readDatas = read_nbytes(pngFile.fd, 8);
+    t_readPNG readDatas = read_nbytes(pngFile->fd, 8);
     readDatas.buf[readDatas.nbytes] = '\0';
     
     if (check_header_validity(readDatas.buf) == 0)
@@ -35,4 +35,10 @@ int find_png_header(t_png pngFile)
     else
         ft_printf("This file has not valid png header!\n");
     return (1);
+}
+
+int find_next_chunk()
+{
+    //todo
+    return 0;
 }
