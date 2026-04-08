@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/06 14:52:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:29:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	// printf("D ====> %d\n", ply->keys.d);
 	// printf("============================\n");
 
-	ply_movements(game->ply, game);
 	ply_directions(key.keysym.sym, game->ply);
 }
 
@@ -83,4 +82,7 @@ void	events_handler(t_game *game)
 		}
 
 	}
+	ply_movements(game->ply, game);
+
+	return ;
 }
