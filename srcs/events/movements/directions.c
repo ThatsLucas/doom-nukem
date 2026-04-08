@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:06 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/06 14:44:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 12:59:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	ply_directions(int key, t_ply *ply)
 	float	angle;
 
 	angle = 0.1f;
-	old_dir_x = ply->dir_x;
+	old_dir_x = ply->dir.x;
 	if (key == 1073741903)
 	{
-		ply->dir_x = old_dir_x * cosf(angle) - ply->dir_y * sinf(angle);
-		ply->dir_y = old_dir_x * sinf(angle) + ply->dir_y * cosf(angle);
+		ply->dir.x = old_dir_x * cosf(angle) - ply->dir.x * sinf(angle);
+		ply->dir.y = old_dir_x * sinf(angle) + ply->dir.y * cosf(angle);
 	}
 	else if (key == 1073741904)
 	{
-		ply->dir_x = old_dir_x * cosf(angle * -1) - ply->dir_y
+		ply->dir.x = old_dir_x * cosf(angle * -1) - ply->dir.y
 			* sinf(angle * -1);
-		ply->dir_y = old_dir_x * sinf(angle * -1) + ply->dir_y
+		ply->dir.y = old_dir_x * sinf(angle * -1) + ply->dir.y
 			* cosf(angle * -1);
 	}
 }
