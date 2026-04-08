@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/06 14:48:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:26:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,14 @@
 
 #include <SDL.h>
 #include "Window.h"
+#include "Player.h"
 #include "../libft/include/libft.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
 # endif
 
-typedef struct	s_keys
-{
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-}			t_keys;
-
-typedef struct s_ply
-{
-	float		pos_x;
-	float		pos_y;
-	float		dir_x;
-	float		dir_y;
-	t_keys		keys;
-}				t_ply;
+typedef struct s_ply t_ply;
 
 typedef struct s_game
 {
