@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/08 17:34:19 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/08 22:36:47 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/parser/PNG.h"
 
-static unsigned int is_IDAT_or_IEND(__uint32_t type)
+static void free_idat_list(t_IDAT *lst)
+{
+    while (lst)
+    {
+        t_IDAT *tmp = lst->next;
+        free(lst);
+        lst = tmp;
+    }
+    lst = NULL;
+}
+
+static void free_idat(t_IDAT *idat)
+{
+    free(idat->datas);
+    free(idat);
+    idat = NULL;
+}
+
+static int is_IDAT_or_IEND(__uint32_t type)
 {
     if (!ft_memcmp(&type, "IDAT", 4))
         return (1);
@@ -21,35 +39,95 @@ static unsigned int is_IDAT_or_IEND(__uint32_t type)
     return (0);
 }
 
-int find_all_IDAT(t_png *pngFile)
-{
-    t_IDAT_LIST *idata = malloc(sizeof(t_IDAT_LIST));
-    t_IDAT_LIST *tmp_idata = idata;
-    int endHeaderFound = 0;
 
-    while (!endHeaderFound)
+static void fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
+{
+    idat->datas = NULL;
+    if (!len)
+    {
+        free_idat(idat);
+        return;
+    }
+
+    idat->datas = malloc(len);
+    ssize_t bytes_read = read(fd, idat->datas, len);
+    if (bytes_read != len)
+    {
+        perror("idat fill:");
+        free_idat(idat);
+        return;
+    }
+    
+    idat->chunklen = len;
+    
+    bytes_read = read(fd, &idat->crc, sizeof(len));
+    if (bytes_read != len)
+    {
+        perror("crc:");
+        free_idat(idat);
+        return;
+    }
+
+    idat->next = NULL;
+}
+
+t_IDAT * find_all_IDAT(t_png *pngFile)
+{
+    t_IDAT *head = NULL;
+    t_IDAT *tmp_idata;
+    ft_printf("\n");
+    while (1)
     {
         __uint32_t len;
         __uint32_t type;
 
         ssize_t bytes_read = read(pngFile->fd, &len, sizeof(len));
         if (bytes_read != sizeof(len))
-            return (-1);
+        {
+            ft_printf("returned in invalid len\n");
+            free_idat_list(head);
+            return head;
+        }
+        len = big_endian_to_little_endian(len);
+
+
             
         bytes_read = read(pngFile->fd, &type, sizeof(type));
         if (bytes_read != sizeof(type))
-            return (-1);
-
-        type = is_IDAT_or_IEND(type);
-        if (type == 1)
         {
-            tmp_idata->datas = malloc(sizeof(t_IDAT));
-            //todo
+            printf("invalid type size\n");
+
+            free_idat_list(head);
+            return head;
+        }
+
+        int typeRet = is_IDAT_or_IEND(type);
+        ft_printf("type ret = %d\n", typeRet);
+        if (typeRet == 1)
+        {
+            tmp_idata = malloc(sizeof(t_IDAT));
+            fill_idat_struct(pngFile->fd, tmp_idata, len);
+            tmp_idata = tmp_idata->next;
+            ft_printf("[PNG PARSER] - just read an IDAT...\n");
+
+        }
+        else if (typeRet == 2)
+        {
+            ft_printf("[PNG PARSER] - end of image found returning...\n");
+            break;
         }
         else
         {
-            lseek(pngFile->fd, len, SEEK_CUR);
+            char *c = (char *)&type;
+            if (!(c[0] & 0x20))
+            {
+                free_idat_list(head);
+                ft_printf("[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
+                return head;
+            }
+            ft_printf("Skipped a header\n");
+            lseek(pngFile->fd, len + 4, SEEK_CUR);
         }
     }
-    return (0);
+    return (head);
 }
