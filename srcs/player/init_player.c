@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 12:02:08 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/08 17:39:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	config_starter(t_ply	*ply)
 
 	t_tool	jetpack = {
 		.type = TOOL_JETPACK,
-		.data.fuel = 100
+		.data.fuel = 40
 	};
 	ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
 }

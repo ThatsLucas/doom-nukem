@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:17:03 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 11:17:30 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:03:00 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define MAX_TOOLS 3
 
 # include "Items.h"
+# include <math.h>
+# include <stdio.h>
 
 typedef struct	s_inventory
 {
