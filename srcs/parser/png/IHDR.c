@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IHDR.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 11:06:48 by root-             #+#    #+#             */
-/*   Updated: 2026/04/07 13:51:27 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/08 12:29:24 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ int find_png_IHDR(t_png *pngFile)
         return (0);
     }
     convert_all_value_to_little_endian(pngFile);
-    printf("image w = %d h = %d", pngFile->w, pngFile->h);
+    printf("image w = %d h = %d\n", pngFile->w, pngFile->h);
     return (1);
 }
