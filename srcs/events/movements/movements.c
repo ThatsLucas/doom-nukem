@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 10:31:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 12:59:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	medial_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.w && ply->keys.s)
 		return ;
-	steps = 0.5f;
+	steps = 0.005f;
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
 		direction = -1;
-	next_x = ply->pos_x + ply->dir_x * steps * direction;
-	next_y = ply->pos_y + ply->dir_y * steps * direction;
-	ply->pos_x = next_x;
-	ply->pos_y = next_y;
+	next_x = ply->pos.x + ply->dir.x * steps * direction;
+	next_y = ply->pos.y + ply->dir.y * steps * direction;
+	ply->pos.x = next_x;
+	ply->pos.y = next_y;
 }
 
 /*Gere les mouvements lateraux*/
@@ -46,21 +46,21 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.a && ply->keys.d)
 		return ;
-	steps = 0.5f;
-	ax = ply->dir_x * cosf((M_PI / 2) * -1) - ply->dir_y * sinf((M_PI / 2) * -1);
-	ay = ply->dir_x * sinf((M_PI / 2) * -1) + ply->dir_y * cosf((M_PI / 2) * -1);
+	steps = 0.005f;
+	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
+	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)
 	{
-		next_x = ply->pos_x + ax * steps;
-		next_y = ply->pos_y + ay * steps;
+		next_x = ply->pos.x + ax * steps;
+		next_y = ply->pos.y + ay * steps;
 	}
 	if (ply->keys.d)
 	{
-		next_x = ply->pos_x - ax * steps;
-		next_y = ply->pos_y - ay * steps;
+		next_x = ply->pos.x - ax * steps;
+		next_y = ply->pos.y - ay * steps;
 	}
-	ply->pos_x = next_x;
-	ply->pos_y = next_y;
+	ply->pos.x = next_x;
+	ply->pos.y = next_y;
 }
 
 /*Gere les mouvements du joueur*/

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 12:43:31 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 12:33:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
+typedef struct s_game t_game;
 
 typedef struct s_coordinates
 {
@@ -38,7 +39,7 @@ typedef struct s_buttons
 
 /*utils*/
 void	get_screen_size(int *w, int *h);
-void	draw_player(SDL_Renderer *renderer, t_ply *ply, int size, t_RGB color);
+void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 /*circles*/
 int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
