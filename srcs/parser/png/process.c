@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/07 11:37:44 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/08 21:45:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,18 @@ t_readPNG read_nbytes(int pngFile, int nbytes)
 int process_png(char *path)
 {
     t_png pngFile;
+    t_IDAT *IDATS;
 
     pngFile.fd = open_png_file(path);
     if (!pngFile.fd)
         return (0);
     find_png_header(&pngFile);
     find_png_IHDR(&pngFile);
+    IDATS = find_all_IDAT(&pngFile);
+    while(IDATS)
+    {
+        printf("Image Data found\n");
+        IDATS = IDATS->next;
+    }
     return (1);
 }
