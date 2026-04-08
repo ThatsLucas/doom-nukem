@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/08 13:01:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:26:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int main(void)
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	game->mapSize[0] = 7;	game->mapSize[1] = 4;
-	t_vect2 p[4];
+	t_vect2	p[4];
+	int		elements = sizeof(p) / sizeof(t_vect2);
+	t_vect2	intersection;
 
 	p[0].x = 2.0f;	p[0].y = 0.5f;
 	p[1].x = 4.7f;	p[1].y = 1.2f;
@@ -86,10 +88,31 @@ int main(void)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 
 		SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 255, 255);
-		draw_wall(game, p[0], p[1]);
-		draw_wall(game, p[1], p[2]);
-		draw_wall(game, p[2], p[3]);
-		draw_wall(game, p[3], p[0]);
+		for (int i = 0; i < elements; i++)
+		{
+			if (i == elements - 1)
+			{
+				draw_wall(game, p[i], p[0], rgb);
+				if (!inter_point(game->ply->pos, game->ply->dir, p[i], edge(p[i], p[0]), &intersection))
+				{
+					SDL_RenderDrawCircle(game->window->renderPTR, to_pixelX(intersection.x, game), to_pixelY(intersection.y, game), 10, rgb);
+					// printf("Wall %d: POS:%f; %f; edge: %f; %f\n", i, p[i].x, p[i].y, edge(p[i], p[0]).x, edge(p[i], p[0]).y);
+					// printf("Player:\nPosition:	%f; %f\nDirection: %f; %f\n", game->ply->pos.x, game->ply->pos.y, game->ply->dir.x, game->ply->dir.y);
+					// printf("vector touche en %f; %f\n", intersection.x, intersection.y);
+				}
+			}
+			else
+			{
+				draw_wall(game, p[i], p[i + 1], rgb);
+				if (!inter_point(game->ply->pos, game->ply->dir, p[i], edge(p[i], p[i + 1]), &intersection))
+				{
+					SDL_RenderDrawCircle(game->window->renderPTR, to_pixelX(intersection.x, game), to_pixelY(intersection.y, game), 10, rgb);
+					// printf("Wall %d: POS:%f; %f; edge: %f; %f\n", i, p[i].x, p[i].y, edge(p[i], p[i + 1]).x, edge(p[i], p[i + 1]).y);
+					// printf("Player:\nPosition:	%f; %f\nDirection: %f; %f\n", game->ply->pos.x, game->ply->pos.y, game->ply->dir.x, game->ply->dir.y);
+					// printf("vector touche en %f; %f\n", intersection.x, intersection.y);
+				}
+			}
+		}
 
 		draw_player(game->window->renderPTR, game, 20, rgb);
 

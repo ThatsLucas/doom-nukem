@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 13:11:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:22:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_vect2	edge(t_vect2 a, t_vect2 b)
 	return (res);
 }
 
+/*	r × s = r.x * s.y - r.y * s.x	*/
 static float vect2_product(t_vect2 r, t_vect2 s)
 {
-	return (r.x * s.x - r.y * s.y);
+	return (r.x * s.y - r.y * s.x);
 }
 
 /*
