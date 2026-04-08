@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/08 12:33:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:26:51 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <SDL.h>
 #include "Colors.h"
 
-typedef struct s_ply t_ply;
-typedef struct s_WIN t_WIN;
-typedef struct s_game t_game;
+typedef struct s_ply	t_ply;
+typedef struct s_WIN	t_WIN;
+typedef struct s_game	t_game;
+typedef struct s_vect2	t_vect2;
 
 typedef struct s_coordinates
 {
@@ -39,7 +40,6 @@ typedef struct s_buttons
 
 /*utils*/
 void	get_screen_size(int *w, int *h);
-void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 /*circles*/
 int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
@@ -53,5 +53,9 @@ void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), t_coor
 int     check_button_pressed(t_WIN *win, t_buttons *button_list);
 void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
 void    free_buttons(t_buttons *buttonlist);
+
+/*minimap*/
+void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color);
+void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 #endif

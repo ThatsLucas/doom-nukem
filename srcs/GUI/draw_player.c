@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 12:03:18 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 13:00:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:13:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color)
 	points[2].position.x = -local_x * ply->dir.y + local_y * ply->dir.x + posx;
 	points[2].position.y = local_x * ply->dir.x + local_y * ply->dir.y + posy;
 	points[2].color = RGBtoSDLColor(color);
+
+	SDL_RenderDrawLineF(renderer, to_pixelX(ply->pos.x,game), to_pixelY(ply->pos.y, game), to_pixelX(ply->pos.x + ply->dir.x * 20, game), to_pixelY(ply->pos.y + ply->dir.y * 20, game));
 
 	SDL_RenderGeometry(renderer, NULL, points, 3, NULL, 0);
 }

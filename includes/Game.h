@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 13:01:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 15:25:15 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void	exit_game(t_game *game, char *type);
 t_game	*init_game(void);
 float	to_pixelX(float x, t_game *game);
 float	to_pixelY(float y, t_game *game);
-void	draw_wall(t_game *game, t_vect2 a, t_vect2 b);
 
 #endif
