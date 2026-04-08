@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 17:09:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:43:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_game	*init_game(void)
 {
 	t_game	*game;
-	int		w = 1920, h = 1080;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
@@ -24,8 +23,8 @@ t_game	*init_game(void)
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
-	// get_screen_size(&w, &h);
-	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL );
+	get_screen_size(&game->screenSize[0], &game->screenSize[1]);
+	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL );
 	if (!game->window)
 		exit_game(game, "create_window");
 	game->ply = malloc(sizeof(t_ply));
