@@ -6,7 +6,7 @@
 /*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/07 14:16:22 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/08 17:00:50 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_IDAT
     __uint8_t *datas;
     __uint32_t crc;
 }              t_IDAT;
+
+typedef struct s_IDAT_LIST
+{
+    t_IDAT *datas;
+    t_IDAT *next;
+}               t_IDAT_LIST;
 
 typedef struct s_readPNG
 {
