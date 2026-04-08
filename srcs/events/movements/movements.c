@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 12:59:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:22:15 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ static void	medial_moves(t_ply *ply, t_game *game)
 		direction = -1;
 	next_x = ply->pos.x + ply->dir.x * steps * direction;
 	next_y = ply->pos.y + ply->dir.y * steps * direction;
-	ply->pos.x = next_x;
-	ply->pos.y = next_y;
+	if (next_x >= 0.0f && next_x <= game->mapSize[0]
+		&& next_y >= 0.0f && next_y <= game->mapSize[1])
+	{
+		ply->pos.x = next_x;
+		ply->pos.y = next_y;
+	}
 }
 
 /*Gere les mouvements lateraux*/
@@ -59,8 +63,12 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 		next_x = ply->pos.x - ax * steps;
 		next_y = ply->pos.y - ay * steps;
 	}
-	ply->pos.x = next_x;
-	ply->pos.y = next_y;
+	if (next_x >= 0.0f && next_x <= game->mapSize[0]
+		&& next_y >= 0.0f && next_y <= game->mapSize[1])
+	{
+		ply->pos.x = next_x;
+		ply->pos.y = next_y;
+	}
 }
 
 /*Gere les mouvements du joueur*/

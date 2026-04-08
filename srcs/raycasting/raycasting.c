@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 15:22:23 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:11:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static float vect2_product(t_vect2 r, t_vect2 s)
 	Remplis les donnes de res avec le point de l'intersection SI la fonction return 0
 	Sinon une donnee est invalide ( pas d'intersection utile )
 */
-int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
+int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max)
 {
 	t_vect2	qp;
 	float	rs, t, u;
@@ -53,15 +53,19 @@ int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 	qp = edge(P, Q);
 
 	if (rs == 0)
-		return (1);
+		return (-1);
 	t = vect2_product(qp, s) / rs;
 	if (t < 0)
-		return (1);
+		return (-1);
 	u = vect2_product(qp, r) / rs;
 	if (u < 0 || u > 1)
-		return (1);
+		return (-1);
 
-	(*res).x = P.x + t * r.x;
-	(*res).y = P.y + t * r.y;
-	return (0);
+	if (t < *max)
+	{
+		*max = t;
+		(*res).x = P.x + t * r.x;
+		(*res).y = P.y + t * r.y;
+	}
+	return (t);
 }
