@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 10:53:49 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 12:09:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int main(void)
 	printf("------------------------------\n");	
 	printf("items:\n");
 
+	const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
 	for (int wep = 0; wep < game->ply->inventory.weap_count; wep++)
 	{
-		const char *weapon_names[] = {"Pistol", "Shotgun", "Rocket Launcher"};
 		t_weapon *w = &game->ply->inventory.weapons[wep];
 		printf("weapon[%d]: type=%s ammo=%d\n", wep, weapon_names[w->type], w->ammo);
 	}
@@ -84,6 +84,7 @@ int main(void)
 	}
 	printf("\n");
 	printf("Health: %d\n", game->ply->hp);
+	printf("Weapon held: %s\n", weapon_names[game->ply->held_weap->type]);
 	printf("------------------------------\n");
 
 	game->items[0] = (t_ground_item){
