@@ -6,9 +6,15 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 11:10:09 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:15:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
 #include "Game.h"
+
+int	create_bsp(t_game *game)
+{
+	(void)game;
+	return 1;
+}
