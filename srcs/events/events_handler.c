@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 10:29:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 12:27:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 	100 = D
 	1073741903 = RIGHT
 	1073741904 = LEFT
+	8 = BackSpace
 */
 static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 {
@@ -28,6 +29,8 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
+	if (key.keysym.sym == 8)
+		return (rm_last_wall(game));
 
 	ply = game->ply;
 	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == 119) ? 1 : ply->keys.w;
@@ -77,7 +80,9 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				check_button_pressed(game->window, game->window->buttonList);
+				check_button_pressed(game, game->window->buttonList);
+				if (game->status == -1)	//editor
+					add_wall(game);
 				break;
 		}
 
