@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:36 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/06 14:47:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 12:33:35 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 void	events_handler(t_game *game);
 void	ply_movements(t_ply *ply, t_game *game);
 void	ply_directions(int key, t_ply *ply);
+void	handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel);
 
 #endif
