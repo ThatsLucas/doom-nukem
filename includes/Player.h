@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 16:14:09 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 11:11:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define MAX_AMMO 800
 # define MAX_BATTERY 100
 # define MAX_FUEL 100
+# define INFINITE_AMMO -1
 
 typedef struct s_game t_game;
 
@@ -42,10 +43,11 @@ typedef struct s_ply
 
 	/* attributs */
 	t_inventory	inventory;
+	t_weapon	*held_weap;
+	int			current_weap_index;
 	int			hp;
 }				t_ply;
 
 void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_y);
-
 
 # endif
