@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/08 17:44:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 10:53:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ int main(void)
 		if (!game->items[6].texture)
 			printf("Erreur Texture: %s\n", SDL_GetError());
 	}
+
+	game->items_count += 7;
 
 	while (1)
 	{
