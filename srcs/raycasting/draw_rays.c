@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 10:38:29 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 12:10:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:10:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	get_smaller_ray(t_vect2 *inter, t_game *game, t_ray *ray)
 			next_wall = (t_wall *)current->next->content;
 		else
 			next_wall = (t_wall *)game->walls->content;
-		inter_point(game->ply->pos, ray->ray_dir, wall->coords, edge(wall->coords, next_wall->coords), inter, &min_t);
+		inter_point(game->ply->pos, ray->ray_dir, wall->start, edge(wall->start, next_wall->start), inter, &min_t);
 		current = current->next;
 	}
 

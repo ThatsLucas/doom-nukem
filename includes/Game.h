@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 12:29:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:09:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_ply
 
 typedef struct s_wall
 {
-	t_vect2	coords;
+	t_vect2	start;
+	t_vect2	end;
 	int		textureID;
 	float	transparency;
 }			t_wall;
