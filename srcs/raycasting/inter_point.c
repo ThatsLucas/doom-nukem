@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   inter_point.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 11:04:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:09:40 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting.h"
-
-typedef struct s_game t_game;
-
-t_vect2	edge(t_vect2 a, t_vect2 b)
-{
-	t_vect2	res;
-
-	res.x = (b.x - a.x);
-	res.y = (b.y - a.y);
-
-	return (res);
-}
-
-/*	r × s = r.x * s.y - r.y * s.x	*/
-static float vect2_product(t_vect2 r, t_vect2 s)
-{
-	return (r.x * s.y - r.y * s.x);
-}
 
 /*
 	Calcule le point d'intersection entre deux vecteurs ou:
@@ -44,7 +26,7 @@ static float vect2_product(t_vect2 r, t_vect2 s)
 	Remplis les donnes de res avec le point de l'intersection SI la fonction return 0
 	Sinon une donnee est invalide ( pas d'intersection utile )
 */
-int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max)
+int	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max)
 {
 	t_vect2	qp;
 	float	rs, t, u;
@@ -67,5 +49,27 @@ int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float 
 		(*res).x = P.x + t * r.x;
 		(*res).y = P.y + t * r.y;
 	}
+	return (t);
+}
+
+int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
+{
+	t_vect2	qp;
+	float	rs, t, u;
+
+	rs = vect2_product(r, s);
+	qp = edge(P, Q);
+
+	if (rs == 0)
+		return (-1);
+	t = vect2_product(qp, s) / rs;
+	if (t < 0)
+		return (-1);
+	u = vect2_product(qp, r) / rs;
+	if (u < 0 || u > 1)
+		return (-1);
+
+	(*res).x = P.x + t * r.x;
+	(*res).y = P.y + t * r.y;
 	return (t);
 }
