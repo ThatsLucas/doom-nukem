@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PNG.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/08 22:55:06 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/09 16:13:23 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,6 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "../../libft/include/libft.h"
-
-typedef struct s_png
-{
-    int fd;
-    char *buf;
-    __uint32_t w;
-    __uint32_t h;
-    __uint8_t bit_depth; 
-    __uint8_t color_type; 
-    __uint8_t compression_method; 
-    __uint8_t filter_method; 
-    __uint8_t interlace_method; 
-}				t_png;
 
 typedef struct s_IHDR
 {
@@ -46,6 +33,21 @@ typedef struct s_IHDR
     int bytes_per_pixel;
 }               t_IHDR;
 
+typedef struct s_png
+{
+    int fd;
+    __uint8_t **buf;
+    __uint32_t w;
+    __uint32_t h;
+    __uint8_t bit_depth; 
+    __uint8_t color_type; 
+    __uint8_t compression_method; 
+    __uint8_t filter_method; 
+    __uint8_t interlace_method; 
+    t_IHDR    IHDR;
+}				t_png;
+
+
 typedef struct s_IDAT t_IDAT;
 
 typedef struct s_IDAT
@@ -56,6 +58,20 @@ typedef struct s_IDAT
     t_IDAT      *next;
 }              t_IDAT;
 
+typedef struct  s_bitreader
+{
+    __uint8_t *buffer;
+    int bit_index;
+    __uint64_t byte_index;
+    __uint64_t buffer_len;
+}               t_bitreader;
+
+typedef struct s_inflate
+{
+    __uint8_t BTYPE;
+    __uint8_t BFINAL;
+}              t_inflate;
+
 typedef struct s_readPNG
 {
     ssize_t nbytes;
@@ -64,17 +80,29 @@ typedef struct s_readPNG
 
 
 /*HEADER*/
-int find_png_header(t_png *pngFile);
+int         find_png_header(t_png *pngFile);
 
 /*IHDR*/
-int find_png_IHDR(t_png *pngFile);
+int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile);
 
 /*IDAT*/
-t_IDAT * find_all_IDAT(t_png *pngFile);
+void        free_idat_list(t_IDAT *lst);
+t_IDAT      *find_all_IDAT(t_png *pngFile);
+__uint64_t get_total_compressed_size(t_IDAT *lst);
+__uint8_t   *merge_all_buffers(t_IDAT *lst);
+
+/*ZLIB*/
+void skip_zlib_header(int fd);
+
+/*DEFLATE*/
+void parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len);
+
+/*FILTER*/
+void fill_img_buffer(t_png *pngFile, __uint8_t *buff);
 
 /*PROCESS*/
-int process_png(char *path);
-t_readPNG read_nbytes(int pngFile, int nbytes);
+int         process_png(char *path);
+t_readPNG   read_nbytes(int pngFile, int nbytes);
 
 /*UTILS*/
 __uint32_t big_endian_to_little_endian(__uint32_t n);

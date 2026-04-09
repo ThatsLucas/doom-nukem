@@ -3,16 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/08 22:36:47 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/09 17:05:15 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/parser/PNG.h"
 
-static void free_idat_list(t_IDAT *lst)
+__uint64_t get_total_compressed_size(t_IDAT *lst)
+{
+    __uint64_t size = 0;
+    
+    while (lst)
+    {
+        size += lst->chunklen;
+        lst = lst->next;
+    }
+    return size;
+}
+
+__uint8_t *merge_all_buffers(t_IDAT *lst)
+{
+    __uint64_t compressedSize = get_total_compressed_size(lst);
+    __uint8_t *compressedBuffer = malloc(sizeof(__uint8_t) * compressedSize);
+    if (!compressedBuffer)
+    {
+        perror("compressed buffer allocation:");
+        return NULL;
+    }
+    __uint64_t i = 0;
+    while(lst)
+    {
+        ft_memmove(compressedBuffer + i, lst->datas, lst->chunklen);
+        i += lst->chunklen;
+        printf("Image Data found\n");
+        lst = lst->next;
+    }
+    return compressedBuffer;
+}
+
+void free_idat_list(t_IDAT *lst)
 {
     while (lst)
     {
@@ -40,13 +72,13 @@ static int is_IDAT_or_IEND(__uint32_t type)
 }
 
 
-static void fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
+static int fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
 {
     idat->datas = NULL;
     if (!len)
     {
         free_idat(idat);
-        return;
+        return (0);
     }
 
     idat->datas = malloc(len);
@@ -55,20 +87,21 @@ static void fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
     {
         perror("idat fill:");
         free_idat(idat);
-        return;
+        return (0);
     }
     
     idat->chunklen = len;
     
-    bytes_read = read(fd, &idat->crc, sizeof(len));
-    if (bytes_read != len)
+    bytes_read = read(fd, &idat->crc, sizeof(idat->crc));
+    if (bytes_read != (ssize_t)sizeof(idat->crc))
     {
         perror("crc:");
         free_idat(idat);
-        return;
+        return (0);
     }
 
     idat->next = NULL;
+    return (1);
 }
 
 t_IDAT * find_all_IDAT(t_png *pngFile)
@@ -106,10 +139,22 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
         if (typeRet == 1)
         {
             tmp_idata = malloc(sizeof(t_IDAT));
-            fill_idat_struct(pngFile->fd, tmp_idata, len);
-            tmp_idata = tmp_idata->next;
+            if(!fill_idat_struct(pngFile->fd, tmp_idata, len))
+            {
+                free_idat_list(head);
+                return NULL;
+            }
+            tmp_idata->next = NULL;
+            if (!head)
+                head = tmp_idata;
+            else
+            {
+                t_IDAT *last = head;
+                while (last->next)
+                    last = last->next;
+                last->next = tmp_idata;
+            }
             ft_printf("[PNG PARSER] - just read an IDAT...\n");
-
         }
         else if (typeRet == 2)
         {
