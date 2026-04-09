@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:15:48 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 12:05:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:19:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color)
 void	draw_walls(t_game *game, t_RGB rgb)
 {
 	t_list	*current = game->walls;
-	t_wall	*wall, *next_wall;
+	t_wall	*wall;
 	int		elements = ft_lstsize(game->walls);
 
 	if (elements <= 1)
@@ -37,11 +37,7 @@ void	draw_walls(t_game *game, t_RGB rgb)
 	while (current)
 	{
 		wall = (t_wall *)current->content;
-		if (current->next)
-			next_wall = (t_wall *)current->next->content;
-		else
-			next_wall = (t_wall *)game->walls->content;
-		draw_wall(game, wall->coords, next_wall->coords, rgb);
+		draw_wall(game, wall->start, wall->end, rgb);
 		current = current->next;
 	}
 
