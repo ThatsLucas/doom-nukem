@@ -6,12 +6,15 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:04:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 16:39:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 12:06:51 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
+
+typedef struct s_game	t_game;
+typedef struct s_RGB	t_RGB;
 
 typedef struct	s_vect2
 {
@@ -45,5 +48,6 @@ typedef struct s_ray
 
 t_vect2	edge(t_vect2 a, t_vect2 b);
 int		inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max);
+void	draw_rays(t_game *game, t_RGB rgb);
 
 #endif
