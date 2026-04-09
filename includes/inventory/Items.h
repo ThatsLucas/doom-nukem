@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 17:42:44 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 10:46:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	pickup_item(t_game *game, t_ground_item *item);
 void	update_item(t_game *game);
 void	pickup_flash(t_game *game);
 void	render_items(t_game *game);
+void	cleanup_items(t_game *game);
 
 #endif
