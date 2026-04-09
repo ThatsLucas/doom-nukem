@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 12:36:10 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 15:16:14 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "Game.h"
 #include "Events.h"
 #include "parser/PNG.h"
+#include <SDL_ttf.h>
+#include <time.h>
 
 int main(void)
 {
@@ -219,6 +221,26 @@ int main(void)
 
 	game->items_count += 7;
 
+	if (TTF_Init() == -1)
+	{
+		printf("TTF init %s\n", TTF_GetError());
+		exit_game(game, NULL);
+	}
+
+	TTF_Font *font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
+	if (!font)
+	{
+		printf("Erreur font %s\n", TTF_GetError());
+		exit_game(game, NULL);
+	}
+
+	SDL_Color font_color = {255, 255, 255, 255};
+	SDL_Rect Message_Rect;
+	Message_Rect.x = 500;
+	Message_Rect.y = 1000;
+	Message_Rect.h = 100;
+	Message_Rect.w = 1000;
+
 	while (1)
 	{
 		events_handler(game);
@@ -235,6 +257,16 @@ int main(void)
 
 		render_items(game);
 		pickup_flash(game);
+
+		time_t current_time;
+		time(&current_time);
+
+		SDL_Surface *surface_message = TTF_RenderText_Solid(font, ctime(&current_time), font_color);
+		if (!surface_message)
+			printf("Erreur message %s\n", TTF_GetError());
+		SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_message);
+
+		SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
 
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);

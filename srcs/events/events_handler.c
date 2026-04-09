@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 12:41:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 14:37:41 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	events_handler(t_game *game)
 
 			case SDL_MOUSEWHEEL:
 				const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
-				// printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
+				printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
 				handle_mousewheel(game, &event.wheel);
-				// printf("Nouvelle arme: %s\n", weapon_names[game->ply->current_weap_index]);
+				printf("Nouvelle arme: %s\n", weapon_names[game->ply->current_weap_index]);
 				break;
 
 			case SDL_QUIT:
