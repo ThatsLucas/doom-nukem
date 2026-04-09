@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 10:46:03 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 11:04:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_game t_game;
 
 typedef enum	e_weapon_type
 {
+	WEAP_FISTS,
 	WEAP_PISTOL,
 	WEAP_SHOTGUN,
 	WEAP_ROCKET_LAUNCHER
@@ -84,11 +85,12 @@ typedef struct	s_ground_item
 
 	float			pos_x;
 	float			pos_y;
+	float			pickup_range;
+
 	char			*texture_path;
 	SDL_Texture		*texture;
 	int				w;
 	int				h;
-	float			pickup_range;
 }				t_ground_item;
 
 int		is_near(float px, float py, float ix, float iy, float range);

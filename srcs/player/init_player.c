@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 17:39:49 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 11:15:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 /* Add starter pack to begin a mission */
 static void	config_starter(t_ply	*ply)
 {
+	t_weapon	fists = {
+		.type = WEAP_FISTS,
+		.ammo = -1
+	};
+	ply->inventory.weapons[ply->inventory.weap_count++] = fists;
+
 	t_weapon	pistol = {
 		.type = WEAP_PISTOL,
 		.ammo = 50
@@ -27,6 +33,8 @@ static void	config_starter(t_ply	*ply)
 		.data.fuel = 40
 	};
 	ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
+
+	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }
 
 /* 
@@ -38,7 +46,7 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 {
 	t_ply	*ply;
 
-	ply = malloc(sizeof(t_ply));
+	ply = calloc(1, sizeof(t_ply));
 	if (!ply)
 		exit_game(game, "player allocation");
 
@@ -47,13 +55,6 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->dir_x = dir_x;
 	ply->dir_y = dir_y;
 	ply->dir_z = 0.0f;
-
-	ft_bzero(&ply->keys, sizeof(t_keys));
-
-	ply->inventory.weap_count = 0;
-	ply->inventory.tool_count = 0;
-	ft_bzero(ply->inventory.tools,sizeof(ply->inventory.tools));
-	ft_bzero(ply->inventory.weapons, sizeof(ply->inventory.weapons));
 
 	ply->hp = 100;
 
