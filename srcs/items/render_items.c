@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 17:40:12 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 17:40:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/09 11:19:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	render_items(t_game *game)
 {
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < game->items_count; i++)
 	{
 		t_ground_item	*item = &game->items[i];
 		if (item->pos_x < 0)
