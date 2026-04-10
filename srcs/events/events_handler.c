@@ -6,12 +6,12 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 14:37:41 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:37:48 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 /*
 	27 = Escape
