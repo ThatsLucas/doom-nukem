@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/09 17:39:49 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/11 00:25:16 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 int main(void)
 {
-
-	process_png("assets/png/doom_nukem.png");
-
 	t_game	*game;
 
 	game = init_game();
@@ -66,13 +63,24 @@ int main(void)
 	game->ply->dir_y = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
+	t_png mainmenulogo;
+	if(!process_png(&mainmenulogo, "assets/png/doom_main_menu.png"))
+		return (1);
+
+	SDL_Texture *texture = create_image(&mainmenulogo, game->window->renderPTR);
+	// SDL_Rect destination = { 1920/2 - mainmenulogo.w / 2, 0, mainmenulogo.w, mainmenulogo.h };
+	SDL_Rect destination = { 0, 0, 1920, 1080 };
+	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
+	SDL_RenderPresent(game->window->renderPTR);
+
 	while (1)
 	{
 		events_handler(game);
-
+		
 		// Clear la page (fond rouge)
-		SDL_SetRenderDrawColor(game->window->renderPTR, 255, 0, 0, 255);
+		SDL_SetRenderDrawColor(game->window->renderPTR, 51, 20, 7, 255);
 		SDL_RenderClear(game->window->renderPTR);
+		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
 
 		display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
@@ -84,6 +92,7 @@ int main(void)
 	}
 
 	exit_game(game, NULL);
+	SDL_DestroyTexture(texture);
 
 	return 0;
 }
