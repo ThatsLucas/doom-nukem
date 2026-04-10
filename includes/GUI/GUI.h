@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 12:43:31 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:34:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GUI_H
 # define GUI_H
 
-#include <SDL.h>
-#include "Colors.h"
+# include <SDL.h>
+# include "Colors.h"
+# include "HUD.h"
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
+typedef struct s_game t_game;
 
 typedef struct s_coordinates
 {
