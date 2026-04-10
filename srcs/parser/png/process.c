@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 17:05:46 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/10 23:40:48 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,16 @@ t_readPNG read_nbytes(int pngFile, int nbytes)
     return (readDatas);
 }
 
-int process_png(char *path)
+int process_png(t_png *pngFile, char *path)
 {
-    t_png pngFile;
     t_IDAT *IDATS;
 
-    pngFile.fd = open_png_file(path);
-    if (!pngFile.fd)
+    pngFile->fd = open_png_file(path);
+    if (!pngFile->fd)
         return (0);
-    find_png_header(&pngFile);
-    find_png_IHDR(&pngFile.IHDR, &pngFile);
-    IDATS = find_all_IDAT(&pngFile);
+    find_png_header(pngFile);
+    find_png_IHDR(&pngFile->IHDR, pngFile);
+    IDATS = find_all_IDAT(pngFile);
     if (!IDATS)
     {
         ft_printf("Issue parsing IDATS, can't read img\n");
@@ -55,15 +54,8 @@ int process_png(char *path)
         free_idat_list(IDATS);
         return (0);
     }
-    parse_deflate_blocs(&pngFile, mergedBuffer, get_total_compressed_size(IDATS));
-    ft_printf("Here\n");
-    for (__uint32_t i = 0; i < pngFile.h; i++)
-    {
-        for (__uint32_t j = 0; j < pngFile.w * pngFile.IHDR.bytes_per_pixel; j++)
-        {
-            ft_printf(" %d ,", pngFile.buf[i][j]);
-        }
-        ft_printf("\n");
-    }
+    parse_deflate_blocs(pngFile, mergedBuffer, get_total_compressed_size(IDATS));
+    free(mergedBuffer);
+    free_idat_list(IDATS);
     return (1);
 }

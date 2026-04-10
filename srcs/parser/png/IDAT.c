@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/09 17:05:15 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/10 23:52:46 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ __uint8_t *merge_all_buffers(t_IDAT *lst)
     {
         ft_memmove(compressedBuffer + i, lst->datas, lst->chunklen);
         i += lst->chunklen;
-        printf("Image Data found\n");
         lst = lst->next;
     }
     return compressedBuffer;
@@ -49,6 +48,7 @@ void free_idat_list(t_IDAT *lst)
     while (lst)
     {
         t_IDAT *tmp = lst->next;
+        free(lst->datas);
         free(lst);
         lst = tmp;
     }
@@ -135,7 +135,6 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
         }
 
         int typeRet = is_IDAT_or_IEND(type);
-        ft_printf("type ret = %d\n", typeRet);
         if (typeRet == 1)
         {
             tmp_idata = malloc(sizeof(t_IDAT));
@@ -154,11 +153,11 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
                     last = last->next;
                 last->next = tmp_idata;
             }
-            ft_printf("[PNG PARSER] - just read an IDAT...\n");
+            // ft_printf("[PNG PARSER] - just read an IDAT...\n");
         }
         else if (typeRet == 2)
         {
-            ft_printf("[PNG PARSER] - end of image found returning...\n");
+            // ft_printf("[PNG PARSER] - end of image found returning...\n");
             break;
         }
         else
@@ -170,7 +169,6 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
                 ft_printf("[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
                 return head;
             }
-            ft_printf("Skipped a header\n");
             lseek(pngFile->fd, len + 4, SEEK_CUR);
         }
     }

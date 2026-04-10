@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PNG.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 16:13:23 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/10 23:08:46 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,18 @@ __uint8_t   *merge_all_buffers(t_IDAT *lst);
 void skip_zlib_header(int fd);
 
 /*DEFLATE*/
-void parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len);
+int parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len);
+__uint32_t read_bits(t_bitreader *bitReader, int bitsToRead);
+int read_symbol(t_bitreader *bitReader, int *table_symbol, int *table_len, int maxbits);
+
+/*LZ77*/
+void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader, int sym, int *dist_symbol, int *dist_len);
 
 /*FILTER*/
-void fill_img_buffer(t_png *pngFile, __uint8_t *buff);
+void fill_img_buffer(t_png *pngFile, __uint8_t *buff, __uint32_t len);
 
 /*PROCESS*/
-int         process_png(char *path);
+int         process_png(t_png *pngFile, char *path);
 t_readPNG   read_nbytes(int pngFile, int nbytes);
 
 /*UTILS*/

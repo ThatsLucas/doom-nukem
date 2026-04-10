@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 12:43:31 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 21:03:28 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <SDL.h>
 #include "Colors.h"
+#include "parser/PNG.h"
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
@@ -52,5 +53,9 @@ void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), t_coor
 int     check_button_pressed(t_WIN *win, t_buttons *button_list);
 void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
 void    free_buttons(t_buttons *buttonlist);
+
+/*Images*/
+SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
+
 
 #endif
