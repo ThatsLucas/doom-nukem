@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:25:51 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 10:54:59 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:14:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static void	get_timer(char *buf)
 	static struct timeval	start;
 	static int				init = 0;
 	struct timeval			now;
-	struct timezone			tz;
+	struct timezone			*tz = 0;
 
 	if (!init)
 	{
-		gettimeofday(&start, &tz);
+		gettimeofday(&start, tz);
 		init = 1;
 	}
 
-	gettimeofday(&now, &tz);
+	gettimeofday(&now, tz);
 	long	elapsed = now.tv_sec - start.tv_sec;
 	format_time(elapsed, buf);
 }
