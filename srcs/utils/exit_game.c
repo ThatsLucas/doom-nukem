@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 14:20:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/09 21:26:00 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	exit_game(t_game *game, char *type)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
 	free(game->ply);
+	free_bsp(game->bspTree);
 	ft_lstclear(&game->walls, &free);
 	free(game);
 	SDL_Quit();

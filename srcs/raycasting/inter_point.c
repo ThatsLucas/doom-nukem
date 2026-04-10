@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 15:09:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:28:51 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,24 @@ int	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, fl
 	return (t);
 }
 
-int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
+float	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
+{
+	t_vect2	qp;
+	float	rs, t;
+
+	rs = vect2_product(r, s);
+	qp = edge(P, Q);
+
+	if (rs == 0)
+		return (-1);
+	t = vect2_product(qp, s) / rs;
+
+	(*res).x = P.x + t * r.x;
+	(*res).y = P.y + t * r.y;
+	return (t);
+}
+
+float	inter_point_filter(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 {
 	t_vect2	qp;
 	float	rs, t, u;
@@ -73,3 +90,4 @@ int	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 	(*res).y = P.y + t * r.y;
 	return (t);
 }
+

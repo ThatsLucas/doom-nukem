@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 12:26:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:40:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void editor(t_game *game)
 	if (game->status == 0)
 		game->status = -1;
 	else if (game->status == -1)
+	{
 		game->status = 0;
+		game->bspTree = bsp(game, game->walls);
+	}
 	return ;
 }
 
@@ -74,7 +77,7 @@ int main(void)
 	game->ply->dir.y = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 7;	game->mapSize[1] = 4;
+	game->mapSize[0] = 20;	game->mapSize[1] = 15;
 
 	while (1)
 	{
@@ -94,7 +97,7 @@ int main(void)
 			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 255, 255);
 			draw_walls(game, rgb);
 			draw_player(game->window->renderPTR, game, 20, rgb);
-			draw_rays(game, rgb);
+			send_rays(game, rgb);
 		}
 		else if (game->status == -1)
 			draw_walls(game, rgb);

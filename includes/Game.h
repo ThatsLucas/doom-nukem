@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 14:09:19 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:53:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct	s_keys
 	int		a;
 	int		s;
 	int		d;
+	int		left;
+	int		right;
 }			t_keys;
 
 typedef struct s_ply
@@ -45,6 +47,13 @@ typedef struct s_wall
 	float	transparency;
 }			t_wall;
 
+typedef struct	s_bsp
+{
+	t_wall			splitter;
+	struct s_bsp	*front;
+	struct s_bsp	*back;
+}					t_bsp;
+
 typedef struct s_game
 {
 	int			status;			// 0 = mainPage, -1 = editor, >0 = gameLevel
@@ -53,6 +62,7 @@ typedef struct s_game
 	int			mapSize[2];
 	int			screenSize[2];
 	t_list		*walls;
+	t_bsp		*bspTree;
 }				t_game;
 
 /*init/exit game*/
@@ -65,7 +75,7 @@ float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
 
-void	add_wall(t_game *game);
+void	add_wall(t_game *game, float transparency);
 void	rm_last_wall(t_game *game);
 
 #endif

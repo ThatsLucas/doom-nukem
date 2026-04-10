@@ -6,13 +6,13 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:37:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 14:38:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:48:06 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 
-void	add_wall(t_game *game)
+void	add_wall(t_game *game, float transparency)
 {
 	t_coordinates	mouseCoords;
 	t_wall			*wall, *pwall, *first;
@@ -24,6 +24,7 @@ void	add_wall(t_game *game)
 		exit_game(game, "add_wall");
 	wall->end.x = to_PosX(mouseCoords.x, game);
 	wall->end.y = to_PosY(mouseCoords.y, game);
+	wall->transparency = transparency;
 	new = ft_lstnew(wall);
 	ft_lstadd_back(&game->walls, new);
 	if (new->previous)

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 11:43:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 12:00:03 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_game	*init_game(void)
 	game->ply = malloc(sizeof(t_ply));
 	if (!game->ply)
 		exit_game(game, "player malloc");
+	ft_bzero(game->ply, sizeof(t_ply));
 
 	return (game);
 }
