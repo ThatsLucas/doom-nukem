@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 12:27:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:55:34 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
-	if (key.keysym.sym == 8)
+	if (key.keysym.sym == 8 && event->type == SDL_KEYDOWN)
 		return (rm_last_wall(game));
 
 	ply = game->ply;
@@ -37,21 +37,15 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == 97) ? 1 : ply->keys.a;
 	ply->keys.s = (event->type == SDL_KEYDOWN && key.keysym.sym == 115) ? 1 : ply->keys.s;
 	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == 100) ? 1 : ply->keys.d;
+	ply->keys.left = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741904) ? 1 : ply->keys.left;
+	ply->keys.right = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741903) ? 1 : ply->keys.right;
 
 	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == 119) ? 0 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == 97) ? 0 : ply->keys.a;
 	ply->keys.s = (event->type == SDL_KEYUP && key.keysym.sym == 115) ? 0 : ply->keys.s;
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == 100) ? 0 : ply->keys.d;
-
-
-	// printf("============================\n");
-	// printf("W ====> %d\n", ply->keys.w);
-	// printf("A ====> %d\n", ply->keys.a);
-	// printf("S ====> %d\n", ply->keys.s);
-	// printf("D ====> %d\n", ply->keys.d);
-	// printf("============================\n");
-
-	ply_directions(key.keysym.sym, game->ply);
+	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
+	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
 }
 
 void	events_handler(t_game *game)
@@ -82,11 +76,12 @@ void	events_handler(t_game *game)
 			case SDL_MOUSEBUTTONDOWN:
 				check_button_pressed(game, game->window->buttonList);
 				if (game->status == -1)	//editor
-					add_wall(game);
+					add_wall(game, 1.0f);
 				break;
 		}
 
 	}
+	ply_directions(game->ply);
 	ply_movements(game->ply, game);
 
 	return ;
