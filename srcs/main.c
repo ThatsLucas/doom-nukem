@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 10:38:04 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:58:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int main(void)
 		update_item(game);
 
 		// Clear la page (fond rouge)
-		SDL_SetRenderDrawColor(game->window->renderPTR, 150, 0, 0, 255);
+		SDL_SetRenderDrawColor(game->window->renderPTR, 78, 78, 78, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
 		display_buttons(game->window->buttonList, game->window->renderPTR);
