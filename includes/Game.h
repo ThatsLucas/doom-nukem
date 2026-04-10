@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 10:52:44 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:40:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <SDL.h>
 #include "Window.h"
 #include "Player.h"
+#include "GUI/GUI.h"
 #include "../libft/include/libft.h"
 
 # ifndef M_PI
