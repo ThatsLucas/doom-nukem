@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:48:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 17:42:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:57:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	pickup_consumable(t_game *game, t_ground_item *item)
 			ply->hp += cons->amount;
 			if (ply->hp > MAX_HP)
 				ply->hp = MAX_HP;
-			printf("Heal ramasse ! Health: %d\n", ply->hp);
 			break;
 		case CONS_FUEL:
 			for (int i = 0; i < ply->inventory.tool_count; i++)
@@ -39,7 +38,6 @@ static void	pickup_consumable(t_game *game, t_ground_item *item)
 					ply->inventory.tools[i].data.fuel += cons->amount;
 					if (ply->inventory.tools[i].data.fuel > MAX_FUEL)
 						ply->inventory.tools[i].data.fuel = MAX_FUEL;
-					printf("Fuel ramasse ! Fuel: %d\n", ply->inventory.tools[i].data.fuel);
 					break;
 				}
 			}
@@ -52,7 +50,6 @@ static void	pickup_consumable(t_game *game, t_ground_item *item)
 					ply->inventory.tools[i].data.battery += cons->amount;
 					if (ply->inventory.tools[i].data.battery > MAX_BATTERY)
 						ply->inventory.tools[i].data.battery = MAX_BATTERY;
-					printf("Batterie ramassee ! Batterie: %d\n", ply->inventory.tools[i].data.battery);
 					break;
 				}
 			}
@@ -75,7 +72,6 @@ static void	pickup_weapon(t_game *game, t_ground_item *item)
 			ply->inventory.weapons[i].ammo += weap->ammo;
 			if (ply->inventory.weapons[i].ammo > MAX_AMMO)
 				ply->inventory.weapons[i].ammo = MAX_AMMO;
-			printf("Ammo ajoute ! total = %d\n", ply->inventory.weapons[i].ammo);
 			return ;
 		}
 	}
@@ -84,11 +80,6 @@ static void	pickup_weapon(t_game *game, t_ground_item *item)
 	{
 		ply->inventory.weapons[ply->inventory.weap_count] = *weap;
 		ply->inventory.weap_count += 1;
-		printf("Nouvelle arme ! Type = %d Ammo = %d\n", weap->type, weap->ammo);
-	}
-	else
-	{
-		printf("Inventaire plein\n");
 	}
 }
 
@@ -101,7 +92,6 @@ static void	pickup_tool(t_game *game, t_ground_item *item)
 	{
 		if (ply->inventory.tools[i].type == tool->type)
 		{
-			printf("Tool deja dans l'inventaire.\n");
 			return ;
 		}
 	}
@@ -110,10 +100,7 @@ static void	pickup_tool(t_game *game, t_ground_item *item)
 	{
 		ply->inventory.tools[ply->inventory.tool_count] = *tool;
 		ply->inventory.tool_count += 1;
-		printf("Nouveau tool: type %d\n", tool->type);
 	}
-	else
-		printf("Inventaire plein");
 }
 
 /* Choses pickup consumable/weapon depending on the item type if you are near the item */
