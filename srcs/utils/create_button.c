@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/06 17:53:02 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/10 10:38:10 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Window.h"
 
 static  void insert_new_button(t_buttons **button_list, void (*callback)(t_WIN *), t_coordinates coords, t_RGB color, t_RGB hoverColor)

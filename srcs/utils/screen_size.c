@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   screen_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:47:43 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/05 11:47:55 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 10:38:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 void get_screen_size(int *w, int *h)
 {
