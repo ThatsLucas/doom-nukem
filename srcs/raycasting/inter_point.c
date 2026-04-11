@@ -6,11 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 10:28:51 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
 
 /*
 	Calcule le point d'intersection entre deux vecteurs ou:

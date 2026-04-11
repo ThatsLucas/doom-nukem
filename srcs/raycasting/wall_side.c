@@ -6,11 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:14:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 15:14:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
 #include "Game.h"
 
 /*

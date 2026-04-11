@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 11:53:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:10:06 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <SDL.h>
 #include "Window.h"
 #include "../libft/include/libft.h"
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
+#include "Raycasting/Types.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
@@ -39,21 +40,6 @@ typedef struct s_ply
 	t_keys		keys;
 }				t_ply;
 
-typedef struct s_wall
-{
-	t_vect2	start;
-	t_vect2	end;
-	int		textureID;
-	float	transparency;
-}			t_wall;
-
-typedef struct	s_bsp
-{
-	t_wall			splitter;
-	struct s_bsp	*front;
-	struct s_bsp	*back;
-}					t_bsp;
-
 typedef struct s_game
 {
 	int			status;			// 0 = mainPage, -1 = editor, >0 = gameLevel
@@ -63,6 +49,10 @@ typedef struct s_game
 	int			screenSize[2];
 	t_list		*walls;
 	t_bsp		*bspTree;
+	SDL_Surface	*surface[4];
+	t_RGB		**text_colors;
+	SDL_Texture	*frame;
+	Uint32		*frame_buffer;
 }				t_game;
 
 /*init/exit game*/

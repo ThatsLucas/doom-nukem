@@ -6,11 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:36:28 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 15:37:27 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
 #include "Game.h"
 
 // calcule du score: |front - back| + cut * poids (poids = a quel point cut un mur est grave)

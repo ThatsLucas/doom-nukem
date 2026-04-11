@@ -6,11 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 21:23:14 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 21:25:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
 #include "Game.h"
 
 void	free_bsp(t_bsp *node)

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 21:26:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 19:22:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ void	exit_game(t_game *game, char *type)
 	free(game->ply);
 	free_bsp(game->bspTree);
 	ft_lstclear(&game->walls, &free);
+
+	SDL_FreeSurface(game->surface[0]);
+	SDL_FreeSurface(game->surface[1]);
+	SDL_FreeSurface(game->surface[2]);
+	SDL_FreeSurface(game->surface[3]);
+	for (int i = 0; i < 4; i++)
+		free(game->text_colors[i]);
+	free(game->text_colors);
+
 	free(game);
 	SDL_Quit();
 	ft_printf("And thanks for all the fish!\n");
