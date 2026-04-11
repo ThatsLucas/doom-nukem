@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/11 10:39:14 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 11:23:09 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,22 @@
 
 static void	display_tools_png(t_game *game, int x, int y)
 {
-	char	*key_path = "assets/png/hud/tools/key.bmp";
-	char	*jetpack_path = "assets/png/hud/tools/jetpack.bmp";
-	char	*flashlight_path = "assets/png/hud/tools/flashlight.bmp";
-
 	t_inventory *inv = &game->ply->inventory;
+	
+	char	*key_path = "assets/png/hud/tools/key.png";
+	char	*jetpack_path = "assets/png/hud/tools/jetpack.png";
+	char	*flashlight_path = "assets/png/hud/tools/flashlight.png";
+	
+	t_png		key_png;
+	t_png		jetpack_png;
+	t_png		flashlight_png;
 
-	SDL_Surface	*key_surface = SDL_LoadBMP(key_path);
-	SDL_Surface	*jetpack_surface = SDL_LoadBMP(jetpack_path);
-	SDL_Surface	*flashlight_surface = SDL_LoadBMP(flashlight_path);
+	if (!process_png(&key_png, key_path) || !process_png(&jetpack_png, jetpack_path) || !process_png(&flashlight_png, flashlight_path))
+		exit_game(game, "process png");
 
-	if (!key_surface || !jetpack_surface || !flashlight_surface)
-		exit_game(game, "surface");
-
-	SDL_Texture	*key_texture = SDL_CreateTextureFromSurface(game->window->renderPTR, key_surface);
-	SDL_Texture	*jetpack_texture = SDL_CreateTextureFromSurface(game->window->renderPTR, jetpack_surface);
-	SDL_Texture	*flashlight_texture = SDL_CreateTextureFromSurface(game->window->renderPTR, flashlight_surface);
-
-	if (!key_texture || !jetpack_texture || !flashlight_texture)
-		exit_game(game, "texture");
+	SDL_Texture	*key_texture = create_image(&key_png, game->window->renderPTR);
+	SDL_Texture	*jetpack_texture = create_image(&jetpack_png, game->window->renderPTR);
+	SDL_Texture	*flashlight_texture = create_image(&flashlight_png, game->window->renderPTR);
 
 	SDL_SetTextureAlphaMod(key_texture, 128);
 	SDL_SetTextureAlphaMod(jetpack_texture, 50);
@@ -48,10 +45,6 @@ static void	display_tools_png(t_game *game, int x, int y)
 		else if (inv->tools[i].type == TOOL_FLASHLIGHT)
 			SDL_SetTextureAlphaMod(flashlight_texture, 255);
 	}
-
-	SDL_FreeSurface(key_surface);
-	SDL_FreeSurface(jetpack_surface);
-	SDL_FreeSurface(flashlight_surface);
 
 	SDL_Rect	key_dest = {
 		.x = x,
