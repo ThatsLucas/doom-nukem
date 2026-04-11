@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:25:51 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 13:51:28 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:39:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_message);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(font);
 }
