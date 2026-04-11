@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 15:58:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:59:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 int main(void)
 {
-
-	process_png("assets/png/doom_nukem.png");
-
 	t_game	*game;
 
 	game = init_game();

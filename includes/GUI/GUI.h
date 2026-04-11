@@ -6,20 +6,21 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 10:34:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:52:24 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GUI_H
 # define GUI_H
 
-# include <SDL.h>
-# include "Colors.h"
-# include "HUD.h"
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include "Colors.h"
+#include "parser/PNG.h"
+#include "GUI/HUD.h"
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
-typedef struct s_game t_game;
 
 typedef struct s_coordinates
 {
@@ -54,5 +55,8 @@ void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), t_coor
 int     check_button_pressed(t_WIN *win, t_buttons *button_list);
 void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
 void    free_buttons(t_buttons *buttonlist);
+
+/*Images*/
+SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 
 #endif
