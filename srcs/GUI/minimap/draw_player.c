@@ -6,12 +6,13 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 12:03:18 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/08 16:12:49 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI.h"
 #include "Game.h"
+#include "Raycasting/Raycasting.h"
 
 static SDL_Color	RGBtoSDLColor(t_RGB color)
 {

@@ -6,11 +6,38 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 12:00:03 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 19:20:49 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
+
+void	init_textures(t_game *game)
+{
+	game->surface[0] = SDL_LoadBMP("assets/east.bmp");
+	game->surface[1] = SDL_LoadBMP("assets/north.bmp");
+	game->surface[2] = SDL_LoadBMP("assets/south.bmp");
+	game->surface[3] = SDL_LoadBMP("assets/west.bmp");
+	game->frame = SDL_CreateTexture(game->window->renderPTR,
+									SDL_PIXELFORMAT_ARGB8888,
+									SDL_TEXTUREACCESS_STREAMING,
+									game->screenSize[0],
+									game->screenSize[1]);
+	game->text_colors = calloc(4, sizeof(t_RGB *));
+	for (int i = 0; i < 4; i++)
+	{
+		SDL_Surface *s = game->surface[i];
+		if (!s)
+			exit_game(game, "init_textures");
+		SDL_Surface *converted = SDL_ConvertSurfaceFormat(s, SDL_PIXELFORMAT_ARGB8888, 0);
+		game->text_colors[i] = calloc(s->w * s->h, sizeof(t_RGB));
+		Uint32 *pixels = (Uint32 *)converted->pixels;
+		for (int j = 0; j < converted->w * converted->h; j++)
+		SDL_GetRGB(pixels[j], converted->format, &game->text_colors[i][j].r,
+		&game->text_colors[i][j].g, &game->text_colors[i][j].b);
+		SDL_FreeSurface(converted);
+	}
+}
 
 t_game	*init_game(void)
 {
@@ -24,13 +51,14 @@ t_game	*init_game(void)
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
 	get_screen_size(&game->screenSize[0], &game->screenSize[1]);
-	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL );
+	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL);
 	if (!game->window)
 		exit_game(game, "create_window");
 	game->ply = malloc(sizeof(t_ply));
-	if (!game->ply)
+	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
+	if (!game->ply || !game->frame_buffer)
 		exit_game(game, "player malloc");
 	ft_bzero(game->ply, sizeof(t_ply));
-
+	init_textures(game);
 	return (game);
 }

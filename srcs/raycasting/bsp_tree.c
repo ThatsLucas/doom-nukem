@@ -6,11 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:09:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 09:53:43 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
 #include "Game.h"
 
 static t_list	*copy_wall(t_game *game, t_list *wall)

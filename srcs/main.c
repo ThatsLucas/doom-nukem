@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 11:40:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:55:33 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int main(void)
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	game->mapSize[0] = 20;	game->mapSize[1] = 15;
+	Uint32 bg = SDL_MapRGB(SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888), 120, 52, 50);
 
 	while (1)
 	{
@@ -87,20 +88,27 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 120, 52, 50, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
-		if (game->status == 0 || game->status == -1)	//editor ou mainMenu
-			display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 
 		if (game->status == 0)
 		{
+			for (int i = 0; i < game->screenSize[0] * game->screenSize[1]; i++)
+				game->frame_buffer[i] = bg;
 			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 255, 255);
+			send_rays(game, rgb);
+			SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
+			SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 			draw_walls(game, rgb);
 			draw_player(game->window->renderPTR, game, 20, rgb);
-			send_rays(game, rgb);
+
 		}
 		else if (game->status == -1)
 			draw_walls(game, rgb);
+
+		if (game->status == 0 || game->status == -1)	//editor ou mainMenu
+			display_buttons(game->window->buttonList, game->window->renderPTR);
+
 
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);

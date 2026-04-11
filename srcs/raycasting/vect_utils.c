@@ -6,11 +6,12 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:53:07 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/09 14:54:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 11:39:18 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting.h"
+#include "Raycasting/Raycasting.h"
+#include "Game.h"
 
 t_vect2	edge(t_vect2 a, t_vect2 b)
 {
@@ -28,3 +29,11 @@ float vect2_product(t_vect2 r, t_vect2 s)
 	return (r.x * s.y - r.y * s.x);
 }
 
+float	dist_vect(t_vect2 a, t_vect2 b)
+{
+	float	len;
+
+	len	= sqrtf(powf(b.x - a.x, 2.0f) + (powf(b.y - a.y, 2.0f)));
+
+	return (len);
+}
