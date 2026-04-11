@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 10:31:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:54:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	medial_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.w && ply->keys.s)
 		return ;
-	steps = 0.5f;
+	steps = 1.0f;
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
@@ -46,7 +46,7 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.a && ply->keys.d)
 		return ;
-	steps = 0.5f;
+	steps = 1.0f;
 	ax = ply->dir_x * cosf((M_PI / 2) * -1) - ply->dir_y * sinf((M_PI / 2) * -1);
 	ay = ply->dir_x * sinf((M_PI / 2) * -1) + ply->dir_y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)
