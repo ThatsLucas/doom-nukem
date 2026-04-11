@@ -66,3 +66,57 @@
    ...
    fun:SDL_DBus_Init_Spinlocked
 }
+{
+   SDL_malloc_leak
+   Memcheck:Leak
+   fun:malloc
+   obj:*/libSDL2*
+}
+{
+   SDL_strdup_leak
+   Memcheck:Leak
+   fun:strdup
+   obj:*/libSDL2*
+}
+{
+   SDL_video_leak
+   Memcheck:Leak
+   ...
+   fun:SDL_VideoInit_REAL*
+}
+{
+   SDL_audio_leak
+   Memcheck:Leak
+   ...
+   fun:SDL_AudioInit_REAL*
+}
+{
+   SDL_GL_leak
+   Memcheck:Leak
+   ...
+   obj:*/libGL*
+}
+{
+   SDL_pulse_leak
+   Memcheck:Leak
+   ...
+   obj:*/libpulse*
+}
+{
+   SDL_wayland_leak
+   Memcheck:Leak
+   ...
+   obj:*/libwayland*
+}
+{
+   SDL_EGL_leak
+   Memcheck:Leak
+   ...
+   fun:SDL_EGL_LoadLibrary
+}
+{
+   GPU_driver_leak
+   Memcheck:Leak
+   ...
+   obj:*
+}

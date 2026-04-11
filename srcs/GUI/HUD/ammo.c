@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:23:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 15:59:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:40:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	display_ammo_nb(t_game *game, int x, int y, int w, int h)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_ammo);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(ammo_font);
 }
 
 static void	display_ammo(t_game *game, int x, int y, int w, int h)
@@ -70,6 +71,7 @@ static void	display_ammo(t_game *game, int x, int y, int w, int h)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_ammo);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(ammo_font);
 }
 
 void	display_module_ammo(t_game *game, int x, int y, int w, int h)

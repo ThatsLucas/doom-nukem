@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 15:10:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:39:14 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static void	display_tools(t_game *game, int x, int y, int w, int h)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_health);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(tools_font);
 }
 
 void	display_module_tools(t_game *game, int x, int y, int w, int h)

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 14:12:27 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 16:01:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 10:40:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	display_hp(t_game *game, int x, int y, int w, int h)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_health);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(hp_font);
 }
 
 static void	display_health(t_game *game, int x, int y, int w, int h)
@@ -57,6 +58,7 @@ static void	display_health(t_game *game, int x, int y, int w, int h)
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_health);
 
 	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
+	TTF_CloseFont(health_font);
 }
 
 void	display_module_health(t_game *game, int x, int y, int w, int h)
