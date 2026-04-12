@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 19:20:49 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 09:40:26 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ t_game	*init_game(void)
 		exit_game(game, "create_window");
 	game->ply = malloc(sizeof(t_ply));
 	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
-	if (!game->ply || !game->frame_buffer)
+	game->rays = calloc(game->screenSize[0], sizeof(t_ray));
+	game->fps = NULL;
+	if (!game->ply || !game->frame_buffer || !game->rays)
 		exit_game(game, "player malloc");
 	ft_bzero(game->ply, sizeof(t_ply));
 	init_textures(game);
