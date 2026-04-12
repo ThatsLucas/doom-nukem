@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 23:08:46 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 00:39:30 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include "../../libft/include/libft.h"
+#include <SDL.h>
 
 typedef struct s_IHDR
 {
@@ -37,6 +38,7 @@ typedef struct s_png
 {
     int fd;
     __uint8_t **buf;
+    SDL_Texture *texture;
     __uint32_t w;
     __uint32_t h;
     __uint8_t bit_depth; 
