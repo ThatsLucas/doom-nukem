@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 15:55:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 09:45:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int main(void)
 		if (game->status == 0 || game->status == -1)	//editor ou mainMenu
 			display_buttons(game->window->buttonList, game->window->renderPTR);
 
-
+		display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 	}
