@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/12 20:11:34 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 20:52:15 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
+void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
 
 /*MENUS*/
 
