@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/11 11:15:11 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 09:46:58 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,70 +16,31 @@
 
 static void	display_weapon(t_game *game, int x, int y)
 {
-	t_inventory *inv = &game->ply->inventory;
-	t_weapon	*current = &inv->weapons[game->ply->current_weap_index];
-	SDL_Rect weapon_dest;
-	t_png	weapon_png;
-	char	*path;
+	static const int	layout[][4] = {
+		[WEAP_FISTS] = {10, 0, 100, 90},
+		[WEAP_PISTOL] = {0, -500, 130, 100},
+		[WEAP_SHOTGUN] = {-35, -10, 190, 90},
+		[WEAP_ROCKET_LAUNCHER] = {-60, 0, 250, 60}
+	};
 
-	weapon_dest.y = y;
-	if (current->type == WEAP_FISTS)
-	{
-		path = "assets/png/hud/weapons/fist.png";
-		weapon_dest.w = 100;
-		weapon_dest.h = 90;
-		weapon_dest.x = x + 10;
-	}
-	else if (current->type == WEAP_PISTOL)
-	{
-		path = "assets/png/hud/weapons/pistol.png";
-		weapon_dest.w = 130;
-		weapon_dest.h = 100;
-		weapon_dest.x = x;
-	}
-	if (current->type == WEAP_SHOTGUN)
-	{
-		path = "assets/png/hud/weapons/shotgun.png";
-		weapon_dest.w = 190;
-		weapon_dest.h = 90;
-		weapon_dest.x = x - 35;
-		weapon_dest.y = y - 10;
-	}
-	if (current->type == WEAP_ROCKET_LAUNCHER)
-	{
-		path = "assets/png/hud/weapons/rocket.png";
-		weapon_dest.w = 250;
-		weapon_dest.h = 60;
-		weapon_dest.x = x - 60;
-	}
+	int				idx = game->ply->current_weap_index;
+	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
+	SDL_Rect		dest = {x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3]};
 
-	if (!process_png(&weapon_png, path))
-		exit_game(game, "process png");
-
-	SDL_Texture	*weapon_texture = create_image(&weapon_png, game->window->renderPTR);
-	SDL_RenderCopy(game->window->renderPTR, weapon_texture, NULL, &weapon_dest);
+	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures[type], NULL, &dest);
 }
 
 static void	display_weapons(t_game *game, int x, int y, int w, int h)
 {
-	TTF_Font *weapons_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
-	if (!weapons_font)
-			exit_game(game, (char *)TTF_GetError());
+	SDL_Color	fg = {255, 255, 255, 255};
+	SDL_Rect	rect = {x, y, w, h};
+	SDL_Surface	*surface = TTF_RenderText_Solid(game->hud_cache.weapons_font, "WEAPONS", fg);
 
-	SDL_Color weapons_color = {255, 255, 255, 255};
-	SDL_Rect Message_Rect;
-	Message_Rect.x = x;
-	Message_Rect.y = y;
-	Message_Rect.h = h;
-	Message_Rect.w = w;
-
-	SDL_Surface *surface_health = TTF_RenderText_Solid(weapons_font, "WEAPONS", weapons_color);
-	if (!surface_health)
+	if (!surface)
 		exit_game(game, (char *)TTF_GetError());
-	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_health);
-
-	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
-	TTF_CloseFont(weapons_font);
+	SDL_Texture	*texture = SDL_CreateTextureFromSurface(game->window->renderPTR, surface);
+	SDL_FreeSurface(surface);
+	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &rect);
 }
 
 void	display_module_weapons(t_game *game, int x, int y, int w, int h)

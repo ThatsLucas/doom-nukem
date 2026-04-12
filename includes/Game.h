@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 10:40:43 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 11:36:41 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_game
 	t_WIN			*window;
 	t_ground_item	items[10];
 	int				items_count;
-	float		flash_alpha;
+	float			flash_alpha;
+	t_hud_cache		hud_cache;
 }				t_game;
 
 void	exit_game(t_game *game, char *type);

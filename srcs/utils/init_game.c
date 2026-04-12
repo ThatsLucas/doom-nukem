@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 10:41:31 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 11:40:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_game	*init_game(void)
 
 	if (TTF_Init() == -1)
 		exit_game(game, (char *)TTF_GetError());
+
+	init_hud_cache(game);
 
 	init_player(game, 500, 500, 0.0f, 1.0f);
 

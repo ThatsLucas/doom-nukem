@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 15:08:00 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/11 12:01:24 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exit_game(t_game *game, char *type)
 	}
 
 	cleanup_items(game);
+	free_hud_cache(game);
 	if (game->window->buttonList)
 		free_buttons(game->window->buttonList);
 	if (game->window && game->window->renderPTR)
