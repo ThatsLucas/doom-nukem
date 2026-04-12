@@ -6,59 +6,112 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/12 15:30:56 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 20:18:36 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Window.h"
 #include "Game.h"
+#include "menus/menus.h"
 // #include "../../../includes/GUI.h"
 
-static int init_home_menu(SDL_Renderer *renderer, t_png *background, t_png *logo, t_png *button)
+static int init_home_menu(t_game *game, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
 {
-    if(!process_png(background, "assets/png/main_menu/background.png"))
+    if(!process_png(&MainMenu->background, "assets/png/main_menu/background.png"))
 		return (0);
-    background->texture = create_image(background, renderer);
+    MainMenu->background.texture = create_image(&MainMenu->background, renderer);
 
-    if(!process_png(logo, "assets/png/main_menu/logo.png"))
+    if(!process_png(&MainMenu->logo, "assets/png/main_menu/logo.png"))
 		return (0);
-    logo->texture = create_image(logo, renderer);
+    MainMenu->logo.texture = create_image(&MainMenu->logo, renderer);
 
-    if(!process_png(button, "assets/png/main_menu/button.png"))
+    if(!process_png(&MainMenu->button, "assets/png/main_menu/button.png"))
 		return (0);
-    button->texture = create_image(button, renderer);
+    MainMenu->button.texture = create_image(&MainMenu->button, renderer);
 
+
+    SDL_Color red = {221, 21, 0, 255};
+    SDL_Color white = {255, 255, 255, 255};
+    MainMenu->btn_one_text.color = white;
+    MainMenu->btn_one_text.size = 60;
+
+    MainMenu->btn_one_text_hover.color = red;
+    MainMenu->btn_one_text_hover.size = 60;
+
+    MainMenu->btn_two_text.color = white;
+    MainMenu->btn_two_text.size = 60;
+
+    MainMenu->btn_two_text_hover.color = red;
+    MainMenu->btn_two_text_hover.size = 60;
+
+    MainMenu->btn_three_text.color = white;
+    MainMenu->btn_three_text.size = 60;
+
+    MainMenu->btn_three_text_hover.color = red;
+    MainMenu->btn_three_text_hover.size = 60;
+
+    create_text(&MainMenu->btn_one_text, renderer, "PLAY", "assets/fonts/AmazDooMLeftOutline.ttf");
+    create_text(&MainMenu->btn_one_text_hover, renderer, "PLAY", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&MainMenu->btn_two_text, renderer, "MULTIPLAYER", "assets/fonts/AmazDooMLeftOutline.ttf");
+    create_text(&MainMenu->btn_two_text_hover, renderer, "MULTIPLAYER", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&MainMenu->btn_three_text, renderer, "LEVEL EDITOR", "assets/fonts/AmazDooMLeftOutline.ttf");
+    create_text(&MainMenu->btn_three_text_hover, renderer, "LEVEL EDITOR", "assets/fonts/AmazDooMLeft.ttf");
+
+    MainMenu->btn_one_text.textHOffset = -10;
+    MainMenu->btn_one_text_hover.textHOffset = -10;
+    MainMenu->btn_two_text.textHOffset = -10;
+    MainMenu->btn_two_text_hover.textHOffset = -10;
+    MainMenu->btn_one_text.textHOffset = -10;
+    MainMenu->btn_one_text.textHOffset = -10;
+    
+    int winW = game->window->w;
+    t_RGB color = {0, 255, 0, 0}; 
+    SDL_Rect coords = { winW / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5 };
+    create_button(&game->window->buttonList, NULL, coords, color, color, &MainMenu->btn_one_text, &MainMenu->btn_one_text_hover, 1);
+    coords.y += button_offset;
+    create_button(&game->window->buttonList, NULL, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 1);
+    coords.y += button_offset + 5;
+    create_button(&game->window->buttonList, NULL, coords, color, color, &MainMenu->btn_three_text, &MainMenu->btn_three_text_hover, 1);
     return (1);
 } 
 
 void draw_main_menu(t_game *game)
 {
-    static t_png background;
-    static t_png logo;
-    static t_png button;
-    static int has_init = 0;
-    
-    if (!has_init)
-        has_init = init_home_menu(game->window->renderPTR, &background, &logo, &button);
-    
-    int winW = game->window->w;
-    int winH = game->window->h;
+    static t_main_menu MainMenu;
 
-    //background
+    int button_offset = 150;
+    int button_pos_h = 450;
+
+    if (!MainMenu.has_init)
+        MainMenu.has_init = init_home_menu(game, game->window->renderPTR, &MainMenu, button_offset);
+    
+    int winW = 1920;
+    int winH = 1080;
+
+    // background
     SDL_Rect bg_dest = { 0, 0, winW, winH };
-	SDL_RenderCopy(game->window->renderPTR, background.texture, NULL, &bg_dest);
+    to_responsive(game->window, &bg_dest);
+	SDL_RenderCopy(game->window->renderPTR, MainMenu.background.texture, NULL, &bg_dest);
 
     //logo
     SDL_Rect logo_dest = { winW / 2 - 250, -20, 500, 500};
-	SDL_RenderCopy(game->window->renderPTR, logo.texture, NULL, &logo_dest);
+    to_responsive(game->window, &logo_dest);
+	SDL_RenderCopy(game->window->renderPTR, MainMenu.logo.texture, NULL, &logo_dest);
 
     // //button
-    SDL_Rect button_dest = { winW / 2 - (button.w / 5) / 2, 450, button.w / 5, button.h / 5 };
-	SDL_RenderCopy(game->window->renderPTR, button.texture, NULL, &button_dest);
+    SDL_Rect button_dest = { winW / 2 - (MainMenu.button.w / 5) / 2, button_pos_h, MainMenu.button.w / 5, MainMenu.button.h / 5 };
+    to_responsive(game->window, &button_dest);
+	SDL_RenderCopy(game->window->renderPTR, MainMenu.button.texture, NULL, &button_dest);
 
-    SDL_Rect button2_dest = { winW / 2 - (button.w / 5) / 2, 600, button.w / 5, button.h / 5 };
-	SDL_RenderCopy(game->window->renderPTR, button.texture, NULL, &button2_dest);
+    button_pos_h += button_offset;
+    SDL_Rect button2_dest = { winW / 2 - (MainMenu.button.w / 5) / 2, button_pos_h, MainMenu.button.w / 5, MainMenu.button.h / 5 };
+    to_responsive(game->window, &button2_dest);
+	SDL_RenderCopy(game->window->renderPTR, MainMenu.button.texture, NULL, &button2_dest);
 
-    SDL_Rect button3_dest = { winW / 2 - (button.w / 5) / 2, 750, button.w / 5, button.h / 5 };
-	SDL_RenderCopy(game->window->renderPTR, button.texture, NULL, &button3_dest);
+    button_pos_h += button_offset;
+    SDL_Rect button3_dest = { winW / 2 - (MainMenu.button.w / 5) / 2, button_pos_h, MainMenu.button.w / 5, MainMenu.button.h / 5 };
+    to_responsive(game->window, &button3_dest);
+	SDL_RenderCopy(game->window->renderPTR, MainMenu.button.texture, NULL, &button3_dest);
+
+    display_buttons(game->window->buttonList, game->window, 1);
 }
