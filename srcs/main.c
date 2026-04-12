@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/11 10:59:55 by edurance         ###   ########.fr       */
+/*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
+/*   Updated: 2026/04/12 10:11:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,14 +216,26 @@ int main(void)
 
 	game->items_count += 7;
 
+	t_png mainmenulogo;
+	if(!process_png(&mainmenulogo, "assets/png/doom_main_menu.png"))
+		return (1);
+
+	SDL_Texture *texture = create_image(&mainmenulogo, game->window->renderPTR);
+	// SDL_Rect destination = { 1920/2 - mainmenulogo.w / 2, 0, mainmenulogo.w, mainmenulogo.h };
+	SDL_Rect destination = { 0, 0, 1920, 1080 };
+	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
+	SDL_RenderPresent(game->window->renderPTR);
+
 	while (1)
 	{
 		events_handler(game);
 		update_item(game);
 
-		// Clear la page (fond rouge)
+		// Clear la page (fondW rouge)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 78, 78, 78, 255);
 		SDL_RenderClear(game->window->renderPTR);
+		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
+		printf("%d; %d || %d; %d\n", destination.x, destination.y, destination.w,destination.h);
 
 		display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
@@ -240,6 +252,7 @@ int main(void)
 	}
 
 	exit_game(game, NULL);
+	SDL_DestroyTexture(texture);
 
 	return 0;
 }
