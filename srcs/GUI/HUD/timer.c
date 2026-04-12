@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:25:51 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/11 10:39:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:21:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,20 @@ static void	get_timer(char *buf)
 
 void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 {
-	TTF_Font *font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
-	if (!font)
-			exit_game(game, (char *)TTF_GetError());
-
-	SDL_Color font_color = {rgb.r, rgb.g, rgb.b, rgb.alphaValue};
-	SDL_Rect Message_Rect;
-	Message_Rect.x = x;
-	Message_Rect.y = y;
-	Message_Rect.h = h;
-	Message_Rect.w = w;
+	SDL_Color fg = {rgb.r, rgb.g, rgb.b, rgb.alphaValue};
+	SDL_Rect dest = {x, y, w, h};
 	char	buf[6];
+
 	get_timer(buf);
 
-	SDL_Surface *surface_message = TTF_RenderText_Solid(font, buf, font_color);
-	if (!surface_message)
+	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.number_font, buf, fg);
+	if (!surface)
 		exit_game(game, (char *)TTF_GetError());
-	SDL_Texture *Message = SDL_CreateTextureFromSurface(game->window->renderPTR, surface_message);
 
-	SDL_RenderCopy(game->window->renderPTR, Message, NULL, &Message_Rect);
-	TTF_CloseFont(font);
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(game->window->renderPTR, surface);
+	SDL_FreeSurface(surface);
+	if (!texture)
+		exit_game(game, (char *)SDL_GetError());
+
+	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
 }
