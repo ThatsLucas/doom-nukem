@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 09:43:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 10:59:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	init_hud_cache(t_game *game)
 		if (!process_png(&tmp, paths[i]))
 			exit_game(game, "process png");
 		game->hud_cache.weapon_textures[i] = create_image(&tmp, game->window->renderPTR);
+		if (!game->hud_cache.weapon_textures[i])
+			exit_game(game, "game_HUD_cache");
 	}
 	game->hud_cache.weapons_font = 	TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	if (!game->hud_cache.weapons_font)

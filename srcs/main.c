@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/12 10:11:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 11:01:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,6 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 78, 78, 78, 255);
 		SDL_RenderClear(game->window->renderPTR);
 		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
-		printf("%d; %d || %d; %d\n", destination.x, destination.y, destination.w,destination.h);
 
 		display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
