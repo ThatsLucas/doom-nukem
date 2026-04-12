@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 10:08:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:56:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_game	*init_game(void)
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
 	// get_screen_size(&w, &h);
+	game->screenSize[0] = w; game->screenSize[1] = h;
 	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL );
 	if (!game->window)
 		exit_game(game, "create_window");

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 11:36:41 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:55:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_game
 	int				items_count;
 	float			flash_alpha;
 	t_hud_cache		hud_cache;
+	int				screenSize[2];
 }				t_game;
 
 void	exit_game(t_game *game, char *type);
