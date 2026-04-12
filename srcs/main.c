@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/12 09:45:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:43:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void editor(t_game *game)
 		game->status = -1;
 	else if (game->status == -1)
 	{
-		game->status = 0;
+		game->status = 1;
 		game->bspTree = bsp(game, game->walls);
+		SDL_ShowCursor(SDL_DISABLE);
 	}
 	return ;
 }
@@ -91,7 +92,7 @@ int main(void)
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 
-		if (game->status == 0)
+		if (game->status > 0)
 		{
 			for (int i = 0; i < game->screenSize[0] * game->screenSize[1]; i++)
 				game->frame_buffer[i] = bg;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:41:37 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 12:38:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 11:48:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	texture_wall(t_game *game, t_ray *ray)
 	t_RGB		c;
 	float		text_y_start;
 	int			tex_x, tex_y;
-	SDL_Surface	*surface = game->surface[ray->splitter.textureID];
-	int			draw_start_orig = (game->screenSize[1] / 2) - (ray->height / 2);
-	int			draw_end_orig   = (game->screenSize[1] / 2) + (ray->height / 2);
+	SDL_Surface	*surface		= game->surface[ray->splitter.textureID];
+	int			draw_start_orig	= (game->screenSize[1] / 2) + game->ply->pitch - ray->height / 2;
+	int			draw_end_orig	= (game->screenSize[1] / 2) + game->ply->pitch + ray->height / 2;
 
 	ray->draw_start	= draw_start_orig > 0 ? draw_start_orig : 0;
 	ray->draw_end	= draw_end_orig > game->screenSize[1] ? game->screenSize[1] : draw_end_orig;

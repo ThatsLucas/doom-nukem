@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 13:01:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:32:39 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	exit_game(t_game *game, char *type)
 {
 	const char	*error = SDL_GetError();
 
+	printf("%p\n", game->window->renderPTR);
 	if (type && error && error[0])
 	{
 		ft_putstr_fd(type, STDERR_FILENO);
@@ -26,11 +27,6 @@ void	exit_game(t_game *game, char *type)
 
 	if (game->window->buttonList)
 		free_buttons(game->window->buttonList);
-	if (game->window && game->window->renderPTR)
-		SDL_DestroyRenderer(game->window->renderPTR);
-	if (game->window && game->window->winPTR)
-		SDL_DestroyWindow(game->window->winPTR);
-	free(game->window);
 	free(game->ply);
 	free_bsp(game->bspTree);
 	ft_lstclear(&game->walls, &free);
@@ -45,6 +41,12 @@ void	exit_game(t_game *game, char *type)
 
 	free(game->rays);
 	free(game->fps);
+
+	if (game->window && game->window->renderPTR)
+		SDL_DestroyRenderer(game->window->renderPTR);
+	if (game->window && game->window->winPTR)
+		SDL_DestroyWindow(game->window->winPTR);
+	free(game->window);
 
 	free(game);
 	SDL_Quit();

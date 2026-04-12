@@ -6,12 +6,13 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 11:55:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:17:39 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
 #include "GUI.h"
+#include "Game.h"
 
 /*
 	27 = Escape
@@ -21,6 +22,8 @@
 	100 = D
 	1073741903 = RIGHT
 	1073741904 = LEFT
+	1073741906 = UP
+	1073741905 = DOWN
 	8 = BackSpace
 */
 static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
@@ -31,7 +34,8 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		exit_game(game, NULL);
 	if (key.keysym.sym == 8 && event->type == SDL_KEYDOWN)
 		return (rm_last_wall(game));
-
+	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
+		ply_pitch(game, game->ply, key);
 	ply = game->ply;
 	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == 119) ? 1 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == 97) ? 1 : ply->keys.a;
@@ -56,6 +60,7 @@ void	events_handler(t_game *game)
 		switch (event.type)
 		{
 			case SDL_MOUSEMOTION:
+				mouse_moves(event.motion.x, event.motion.y, game);
 				// printf("Mouse pos = %d, %d\n", event.motion.x, event.motion.y);
 				break;
 
@@ -79,8 +84,8 @@ void	events_handler(t_game *game)
 					add_wall(game, 1.0f);
 				break;
 		}
-
 	}
+
 	ply_directions(game->ply);
 	ply_movements(game->ply, game);
 
