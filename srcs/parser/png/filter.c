@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:34:27 by root-             #+#    #+#             */
-/*   Updated: 2026/04/10 23:39:16 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 11:08:05 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static t_filterType find_filter_direction(int i, int j, int bytes_per_pixel, __u
 
 void fill_img_buffer(t_png *pngFile, __uint8_t *buff, __uint32_t len)
 {
-    static __uint32_t i = 0;
-    static __uint32_t j = 0;
+    __uint32_t i = 0;
+    __uint32_t j = 0;
     __uint32_t w = pngFile->w;
     __uint32_t h = pngFile->h;
     int bytesPerPixel = pngFile->IHDR.bytes_per_pixel;
