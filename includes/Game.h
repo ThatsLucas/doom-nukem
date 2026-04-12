@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 16:10:06 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 13:00:25 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GAME_H
 
 #include <SDL.h>
+#include <sys/time.h>
 #include "Window.h"
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
@@ -53,6 +54,8 @@ typedef struct s_game
 	t_RGB		**text_colors;
 	SDL_Texture	*frame;
 	Uint32		*frame_buffer;
+	t_ray		*rays;
+	char		*fps;
 }				t_game;
 
 /*init/exit game*/

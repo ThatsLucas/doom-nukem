@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 11:37:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 14:36:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 12:01:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	add_wall(t_game *game, float transparency)
 	wall->end.x = to_PosX(mouseCoords.x, game);
 	wall->end.y = to_PosY(mouseCoords.y, game);
 	wall->transparency = transparency;
-	wall->textureID = rand() % 4;
+	wall->textureID = rand() % 2;
 	new = ft_lstnew(wall);
 	ft_lstadd_back(&game->walls, new);
 	if (new->previous)

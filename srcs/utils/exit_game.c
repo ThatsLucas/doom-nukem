@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 19:22:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 13:01:54 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	exit_game(t_game *game, char *type)
 	for (int i = 0; i < 4; i++)
 		free(game->text_colors[i]);
 	free(game->text_colors);
+
+	free(game->rays);
+	free(game->fps);
 
 	free(game);
 	SDL_Quit();

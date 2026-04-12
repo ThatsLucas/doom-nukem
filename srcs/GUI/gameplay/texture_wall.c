@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:41:37 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 11:44:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 12:38:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	texture_wall(t_game *game, t_ray *ray)
 		tex_y		= (int)(ray->text_y * surface->h);
 		c			= game->text_colors[ray->splitter.textureID][tex_y * surface->w + tex_x];
 
-		game->frame_buffer[i * game->screenSize[0] + ray->screen_x] = 
-					(c.r << 16) | (c.g << 8) | c.b;
+		game->frame_buffer[i * game->screenSize[0] + ray->screen_x] = (c.r << 16) | (c.g << 8) | c.b;
 	}
 
 	return ;

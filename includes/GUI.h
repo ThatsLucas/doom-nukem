@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/11 11:43:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/11 13:00:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_buttons
 
 /*utils*/
 void	get_screen_size(int *w, int *h);
+void	display_fps(t_game *game);
 
 /*circles*/
 int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
@@ -63,5 +64,7 @@ void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 /*Gameplay*/
 void	send_rays(t_game *game, t_RGB rgb);
 void	texture_wall(t_game *game, t_ray *ray);
+void	texture_floor(t_game *game, t_ray *rays);
+void	texture_ceiling(t_game *game, t_ray *rays);
 
 #endif
