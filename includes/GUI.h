@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/10 21:03:28 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 00:38:52 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
+typedef struct s_game t_game;
 
 typedef struct s_coordinates
 {
@@ -57,5 +58,8 @@ void    free_buttons(t_buttons *buttonlist);
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 
+/*MENUS*/
+
+void draw_main_menu(t_game *game);
 
 #endif

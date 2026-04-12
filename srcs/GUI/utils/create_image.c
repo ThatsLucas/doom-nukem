@@ -6,14 +6,14 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 19:52:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/10 23:43:05 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/12 00:35:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI.h"
 #include "Window.h"
-#include "../../includes/parser/PNG.h"
-#include "../../includes/parser/huffman.h"
+#include "../../../includes/parser/PNG.h"
+#include "../../../includes/parser/huffman.h"
 
 static SDL_PixelFormatEnum decidePixelFormat(uint8_t color_type)
 {
