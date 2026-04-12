@@ -42,6 +42,7 @@ int process_png(t_png *pngFile, char *path)
     find_png_header(pngFile);
     find_png_IHDR(&pngFile->IHDR, pngFile);
     IDATS = find_all_IDAT(pngFile);
+    close(pngFile->fd);
     if (!IDATS)
     {
         ft_printf("Issue parsing IDATS, can't read img\n");
