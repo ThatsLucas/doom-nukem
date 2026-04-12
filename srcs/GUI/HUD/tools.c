@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 12:15:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 13:18:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	display_tools_png(t_game *game, int x, int y)
 	t_inventory *inv = &game->ply->inventory;
 
 	for (int i = 0; i < MAX_TOOLS; i++)
-		SDL_SetTextureAlphaMod(game->hud_cache.tools_texture[i], 50);
+		SDL_SetTextureAlphaMod(game->hud_cache.tools_textures[i], 50);
 
 	for (int i = 0; i < inv->tool_count; i++)
 	{
 		int	type = inv->tools[i].type;
 		if (type < MAX_TOOLS)
-			SDL_SetTextureAlphaMod(game->hud_cache.tools_texture[type], 255);
+			SDL_SetTextureAlphaMod(game->hud_cache.tools_textures[type], 255);
 	}
 
 	static const int	layout[][4] = {
@@ -36,7 +36,7 @@ static void	display_tools_png(t_game *game, int x, int y)
 	for (int i = 0; i < MAX_TOOLS; i++)
 	{
 		SDL_Rect	dest = {x + layout[i][0], y + layout[i][1], .w = layout[i][2], .h = layout[i][3]};
-		SDL_RenderCopy(game->window->renderPTR, game->hud_cache.tools_texture[i], NULL, &dest);
+		SDL_RenderCopy(game->window->renderPTR, game->hud_cache.tools_textures[i], NULL, &dest);
 	}
 }
 
