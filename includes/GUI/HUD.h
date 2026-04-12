@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/11 12:01:07 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/12 11:21:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ typedef struct	s_RGB t_RGB;
 typedef struct	s_hud_cache
 {
 	SDL_Texture	*weapon_textures[MAX_WEAPONS];
-	TTF_Font	*weapons_font;
+	SDL_Texture	*tools_texture[MAX_TOOLS];
+	TTF_Font	*text_font;
+	TTF_Font	*number_font;
 }				t_hud_cache;
 
 void	display_timer(t_game *game, int x, int y, int h, int w, t_RGB rgb);
