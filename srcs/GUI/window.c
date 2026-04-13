@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/11 23:49:25 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 14:09:07 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,9 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
 
     windowDatas->w = w;
     windowDatas->h = h;
+    ft_printf("loading main menu\n");
+    init_home_menu(windowDatas, windowDatas->renderPTR, &windowDatas->MainMenu, 150);
+    windowDatas->MainMenu.has_init = 1;
+    ft_printf("Finished loading main menu\n");
     return windowDatas;
 }

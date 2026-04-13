@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 17:24:59 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 14:00:36 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
+#include "menus/menus.h"
 
 void	exit_game(t_game *game, char *type)
 {
@@ -23,7 +24,8 @@ void	exit_game(t_game *game, char *type)
 		ft_putstr_fd((char *)error, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
-
+	if (game->window->MainMenu.has_init)
+		destroy_main_menu(&game->window->MainMenu);
 	if (game->window->buttonList)
 		free_buttons(game->window->buttonList);
 	if (game->window && game->window->renderPTR)

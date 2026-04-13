@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 17:24:46 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 14:24:52 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ t_game	*init_game(void)
 		return (NULL);
 	ft_bzero(game, sizeof(t_game));
 
+	if (TTF_Init() < 0)
+		exit_game(game, "TTF Init");
+
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
 	// get_screen_size(&w, &h);
@@ -31,8 +34,5 @@ t_game	*init_game(void)
 	game->ply = malloc(sizeof(t_ply));
 	if (!game->ply)
 		exit_game(game, "player malloc");
-
-	if (TTF_Init() < 0)
-		exit_game(game, "TTF Init");
 	return (game);
 }
