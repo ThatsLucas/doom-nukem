@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 11:40:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:04:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	display_weapon(t_game *game, int x, int y)
 	SDL_Rect		dest = {x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3]};
 	to_responsive(game->window, &dest);
 
-	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures[type], NULL, &dest);
+	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures_2D[type], NULL, &dest);
 }
 
 /* Adds "WEAPON" on the renderer */
@@ -51,9 +51,22 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &rect);
 }
 
+/* Adds the current weapon on the render in 3D */
+static void	display_held_weapon(t_game *game)
+{
+	int				idx = game->ply->current_weap_index;
+	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
+	t_weapon_3D		*w = &game->hud_cache.weapons_3D[type];
+	SDL_Rect		dest = w->frames[w->current_frame].dest;
+
+	to_responsive(game->window, &dest);
+	SDL_RenderCopy(game->window->renderPTR, w->frames[w->current_frame].texture, NULL, &dest);
+}
+
 /* Display "WEAPON" and the current weapons asset */
 void	display_module_weapons(t_game *game, int x, int y, int w, int h)
 {
+	display_held_weapon(game);
 	display_weapons(game, x, y, w, h);
 	display_weapon(game, x + 55, y + 70);
 }

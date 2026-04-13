@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 12:20:00 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:06:46 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	init_weapons_cache(t_game *game)
 	{
 		if (!process_png(&tmp, weap_paths[i]))
 			exit_game(game, "process png");
-		game->hud_cache.weapon_textures[i] = create_image(&tmp, game->window->renderPTR);
-		if (!game->hud_cache.weapon_textures[i])
+		game->hud_cache.weapon_textures_2D[i] = create_image(&tmp, game->window->renderPTR);
+		if (!game->hud_cache.weapon_textures_2D[i])
 			exit_game(game, "game_HUD_cache");
 	}
 }
@@ -86,6 +86,78 @@ static void	init_player_cache(t_game *game)
 	}
 }
 
+/* Initialize 3D weapon */
+static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect *rects, int frame_count, int fire_rate)
+{
+	t_weapon_3D	*w = &game->hud_cache.weapons_3D[weapon_idx];
+
+	w->fire_rate = fire_rate;
+	w->frame_count = frame_count;
+	w->current_frame = 0;
+	w->frames = malloc(sizeof(t_weapon_3D_frame) * frame_count);
+	if (!w->frames)
+		exit_game(game, "malloc weapon frames");
+
+	for (int i = 0; i < frame_count; i++)
+	{
+		t_png	tmp;
+		if (!process_png(&tmp, paths[i]))
+			exit_game(game, "process png weapon 3d");
+		w->frames[i].texture = create_image(&tmp, game->window->renderPTR);
+		if (!w->frames[i].texture)
+			exit_game(game, "create image weapon 3d");
+		w->frames[i].dest = rects[i];
+	}
+}
+
+/* Initialize 3D weapons */
+static void	init_3D_weapons(t_game *game)
+{
+	static char	*fists_paths[] = {
+		"assets/png/hud/weapons/3d/fists/fists_default.png",
+		"assets/png/hud/weapons/3d/fists/fists_1.png",
+		"assets/png/hud/weapons/3d/fists/fists_2.png",
+		"assets/png/hud/weapons/3d/fists/fists_3.png"
+	};
+
+	static char	*pistol_paths[] = {
+		"assets/png/hud/weapons/3d/pistol/pistol_default.png",
+		"assets/png/hud/weapons/3d/pistol/pistol_shoot.png"
+	};
+
+	static char	*shotgun_paths[] = {
+		"assets/png/hud/weapons/3d/shotgun/shotgun_default.png",
+		"assets/png/hud/weapons/3d/shotgun/shotgun_1.png",
+		"assets/png/hud/weapons/3d/shotgun/shotgun_2.png",
+		"assets/png/hud/weapons/3d/shotgun/shotgun_3.png",
+		"assets/png/hud/weapons/3d/shotgun/shotgun_4.png",
+	};
+
+	static SDL_Rect	fists_rects[] = {
+		{600, 750, 800, 350},
+		{600, 750, 800, 350},
+		{600, 750, 800, 350},
+		{600, 750, 800, 350}
+	};
+
+	static SDL_Rect	pistol_rects[] = {
+		{815, 730, 300, 400},
+		{800, 730, 300, 400}
+	};
+
+	static SDL_Rect	shotgun_rects[] = {
+		{700, 750, 430, 350},
+		{700, 750, 430, 350},
+		{680, 750, 400, 350},
+		{680, 750, 400, 350},
+		{680, 750, 400, 350}
+	};
+
+	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 10);
+	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 10);
+	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 16);
+}
+
 /*
 	Initialize weapons, tools and player assets to keep a cache of textures
 	Open and keep fonts in cache
@@ -95,8 +167,10 @@ void	init_hud_cache(t_game *game)
 	init_weapons_cache(game);
 	init_tools_cache(game);
 	init_player_cache(game);
+	init_3D_weapons(game);
 
 	game->hud_cache.ply_tick = 0;
+	game->hud_cache.weap_tick = 0;
 	game->hud_cache.text_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
 	if (!game->hud_cache.text_font || !game->hud_cache.number_font)
