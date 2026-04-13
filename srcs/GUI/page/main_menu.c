@@ -6,7 +6,7 @@
 /*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 14:33:39 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/13 20:20:28 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,29 @@
 #include "menus/menus.h"
 // #include "../../../includes/GUI.h"
 
-int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
+static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
 {
-    if(!process_png(&MainMenu->background, "assets/png/main_menu/background.png"))
+    MainMenu->background.path = ft_strdup("assets/png/main_menu/background.png");
+    if(!process_png(&MainMenu->background))
 		return (0);
     MainMenu->background.texture = create_image(&MainMenu->background, renderer);
 
-    if(!process_png(&MainMenu->logo, "assets/png/main_menu/logo.png"))
+    MainMenu->logo.path = ft_strdup("assets/png/main_menu/logo.png");
+    if(!process_png(&MainMenu->logo))
 		return (0);
     MainMenu->logo.texture = create_image(&MainMenu->logo, renderer);
 
-    if(!process_png(&MainMenu->button, "assets/png/main_menu/button.png"))
+    MainMenu->button.path = ft_strdup("assets/png/main_menu/button.png");
+    if(!process_png(&MainMenu->button))
 		return (0);
     MainMenu->button.texture = create_image(&MainMenu->button, renderer);
+    return (1);
+}
 
-
+int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
+{
+    if (!init_imgs(renderer, MainMenu))
+        return (0);
     SDL_Color red = {221, 21, 0, 255};
     SDL_Color white = {255, 255, 255, 255};
     MainMenu->btn_one_text.color = white;
