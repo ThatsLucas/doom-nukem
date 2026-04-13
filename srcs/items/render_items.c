@@ -6,12 +6,13 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 17:40:12 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 12:10:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:21:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 
+/* Adds items on the renderer (2D) */
 void	render_items(t_game *game)
 {
 	for (int i = 0; i < game->items_count; i++)
