@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:17:52 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:16:17 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:40:11 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	display_player_module(t_game *game, int x, int y, int w, int h)
 	int			frame = game->hud_cache.ply_frame;
 	int			hp = game->ply->hp;
 	SDL_Rect	dest = {x, y, w, h};
+
+	to_responsive(game->window, &dest);
 
 	if (hp <= 0)
 		texture = game->hud_cache.ply_textures[5];

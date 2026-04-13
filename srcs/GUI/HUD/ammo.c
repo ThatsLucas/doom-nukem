@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:23:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:07:48 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:39:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	display_ammo_nb(t_game *game, int x, int y, int w, int h)
 	SDL_Texture	*texture;
 	SDL_Color	color = {150, 0, 0, 255};
 	SDL_Rect	dest = {x, y, w, h};
+
+	to_responsive(game->window, &dest);
 	int ammo = game->ply->inventory.weapons[game->ply->current_weap_index].ammo;
 
 	if (ammo < 0)
@@ -58,6 +60,7 @@ static void	display_ammo(t_game *game, int x, int y, int w, int h)
 	SDL_Color color = {255, 255, 255, 255};
 	SDL_Rect dest = {x, y, w, h};
 
+	to_responsive(game->window, &dest);
 	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, "AMMO", color);
 	if (!surface)
 		exit_game(game, (char *)TTF_GetError());

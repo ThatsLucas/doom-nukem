@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:25:51 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:04:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:40:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 	char	buf[6];
 
 	get_timer(buf);
+	to_responsive(game->window, &dest);
 
 	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.number_font, buf, fg);
 	if (!surface)

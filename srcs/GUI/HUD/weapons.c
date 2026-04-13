@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:18:45 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:40:51 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	display_weapon(t_game *game, int x, int y)
 	int				idx = game->ply->current_weap_index;
 	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
 	SDL_Rect		dest = {x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3]};
+	to_responsive(game->window, &dest);
 
 	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures[type], NULL, &dest);
 }
@@ -37,6 +38,7 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 	SDL_Color	fg = {255, 255, 255, 255};
 	SDL_Rect	rect = {x, y, w, h};
 
+	to_responsive(game->window, &rect);
 	SDL_Surface	*surface = TTF_RenderText_Solid(game->hud_cache.text_font, "WEAPONS", fg);
 	if (!surface)
 		exit_game(game, (char *)TTF_GetError());
