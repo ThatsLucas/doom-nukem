@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 13:59:06 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/13 21:44:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_WIN
     int w;
     int h;
     t_main_menu MainMenu;
+    t_png       Popup;
 }	t_WIN;
 
 t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags);
