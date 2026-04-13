@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:48:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 10:57:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:21:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	pickup_weapon(t_game *game, t_ground_item *item)
 	}
 }
 
+/* Adds a tool in your inventory */
 static void	pickup_tool(t_game *game, t_ground_item *item)
 {
 	t_ply	*ply = game->ply;

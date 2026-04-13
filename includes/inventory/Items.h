@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 11:04:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:20:23 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_ply t_ply;
 typedef struct s_game t_game;
 
+/* WEAPONS */
 typedef enum	e_weapon_type
 {
 	WEAP_FISTS,
@@ -33,6 +34,8 @@ typedef	struct	s_weapon
 	
 }				t_weapon;
 
+
+/* CONSUMABLES (items on the floor) */
 typedef enum	e_consumable_type
 {
 	CONS_HEAL,
@@ -46,6 +49,8 @@ typedef struct	s_consumable
 	int					amount;
 }				t_consumable;
 
+
+/* TOOLS */
 typedef enum	e_tool_type
 {
 	TOOL_FLASHLIGHT,
@@ -64,6 +69,8 @@ typedef struct	s_tool
 	}		data;
 }				t_tool;
 
+
+/* ITEMS IN GENERAL */
 typedef enum	s_item_type
 {
 	ITEM_CONSUMABLE,
@@ -78,6 +85,7 @@ typedef union	u_item_data
 	t_tool			tool;
 }				t_item_data;
 
+/* ITEMS ON THE GROUND */
 typedef struct	s_ground_item
 {
 	t_item_type			type;

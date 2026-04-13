@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flash.c                                            :+:      :+:    :+:   */
+/*   pickup_flash.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 17:34:37 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 17:40:35 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:21:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 
+/* Adds a flash when you pick the item on the floor */
 void	pickup_flash(t_game *game)
 {
 	/* flash alpha -> intensite du flash*/
