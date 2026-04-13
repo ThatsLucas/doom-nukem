@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 12:01:24 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:39:35 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	exit_game(t_game *game, char *type)
 	free(game->window);
 	free(game->ply);
 	free(game);
+	TTF_Quit();
 	SDL_Quit();
 	ft_printf("And thanks for all the fish!\n");
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 12:56:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:39:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ t_game	*init_game(void)
 
 	init_player(game, 500, 500, 0.0f, 1.0f);
 
+	if (TTF_Init() < 0)
+		exit_game(game, "TTF Init");
 	return (game);
 }
