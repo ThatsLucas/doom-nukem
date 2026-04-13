@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:15:31 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:20:00 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 static void	init_weapons_cache(t_game *game)
 {
 	static char	*weap_paths[MAX_WEAPONS] = {
-		"assets/png/hud/weapons/fist.png",
-		"assets/png/hud/weapons/pistol.png",
-		"assets/png/hud/weapons/shotgun.png",
-		"assets/png/hud/weapons/rocket.png",
+		"assets/png/hud/weapons/2d/fist.png",
+		"assets/png/hud/weapons/2d/pistol.png",
+		"assets/png/hud/weapons/2d/shotgun.png",
+		"assets/png/hud/weapons/2d/rocket.png",
 	};
 
 	t_png	tmp;
@@ -59,16 +59,24 @@ static void	init_tools_cache(t_game *game)
 /* Initialize player assets cache in hud_cache.player_textures */
 static void	init_player_cache(t_game *game)
 {
-	static char	*player_paths[5] = {
-		"assets/png/hud/player/default/f_default.png",
-		"assets/png/hud/player/default/f_breathing1.png",
-		"assets/png/hud/player/harmed/f_harmed.png",
-		"assets/png/hud/player/harmed/f_harmed_breathing1.png",
-		"assets/png/hud/player/f_dead.png",
+	static char	*player_paths[10] = {
+		"assets/png/hud/player/default/default_1.png",
+		"assets/png/hud/player/default/default_2.png",
+		"assets/png/hud/player/default/default_3.png",
+
+		"assets/png/hud/player/injured/injured_1.png",
+		"assets/png/hud/player/injured/injured_2.png",
+		"assets/png/hud/player/injured/injured_3.png",
+
+		"assets/png/hud/player/bleeding/bleeding_1.png",
+		"assets/png/hud/player/bleeding/bleeding_2.png",
+		"assets/png/hud/player/bleeding/bleeding_3.png",
+
+		"assets/png/hud/player/dead/dead_1.png",
 	};
 
 	t_png	tmp;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		if (!process_png(&tmp, player_paths[i]))
 			exit_game(game, "process png");

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:08:31 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:10:48 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:27:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	display_hud(t_game *game)
 	display_module_tools(game, 600, 908, 210, 70);
 	display_module_ammo(game, 1100, 908, 200, 70);
 	display_module_weapons(game, 1400, 908, 240, 70);
-	display_player_module(game, 60, 900, 150, 160);
+	display_player_module(game, 60, 908, 120, 140);
 }

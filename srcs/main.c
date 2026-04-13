@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/13 10:38:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:30:27 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int main(void)
 	if (!game)
 		return (1);
 
-	// t_RGB rgb;
-	// rgb.r = 51;
-	// rgb.g = 153;
-	// rgb.b = 255;
-	// rgb.alphaValue = 255;
+	 t_RGB rgb;
+	 rgb.r = 51;
+	 rgb.g = 153;
+	 rgb.b = 255;
+	 rgb.alphaValue = 255;
 
 	// t_coordinates coords;
 	// coords.x = 200;
@@ -242,6 +242,8 @@ int main(void)
 
 		render_items(game);
 		pickup_flash(game);
+
+		draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
 		display_hud(game);
 

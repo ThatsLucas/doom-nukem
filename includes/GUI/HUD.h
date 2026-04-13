@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:02:41 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 12:24:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,24 @@
 typedef struct	s_game t_game;
 typedef struct	s_RGB t_RGB;
 
+#define FRAME_COUNT 3
+#define STATE_DEFAULT 0
+#define STATE_INJURED 3
+#define STATE_BLEEDING 6
+#define STATE_DEAD 9
+
+typedef enum	e_player_state {
+	PLY_DEFAULT,
+	PLY_INJURED,
+	PLY_BLEEDING,
+	PLY_DEAD
+}				t_player_state;
+
 typedef struct	s_hud_cache
 {
 	SDL_Texture		*weapon_textures[MAX_WEAPONS];
 	SDL_Texture		*tools_textures[MAX_TOOLS];
-	SDL_Texture		*ply_textures[5];
+	SDL_Texture		*ply_textures[10];
 	int				ply_frame;
 	int				ply_tick;
 	TTF_Font		*text_font;
