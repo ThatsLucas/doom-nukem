@@ -6,13 +6,14 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 14:12:27 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 12:19:50 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:09:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI/HUD.h"
 #include "Game.h"
 
+/* Adds hp amount on the renderer */
 static void	display_hp(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {150, 0, 0, 255};
@@ -35,6 +36,7 @@ static void	display_hp(t_game *game, int x, int y, int w, int h)
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
 }
 
+/* Adds "HEALTH" on the renderer */
 static void	display_health(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -52,6 +54,7 @@ static void	display_health(t_game *game, int x, int y, int w, int h)
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
 }
 
+/* Display "HEALTH" and the current hp of the player on the screen */
 void	display_module_health(t_game *game, int x, int y, int w, int h)
 {
 	display_health(game, x, y, w, h);
