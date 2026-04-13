@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/12 10:02:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:38:05 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,30 @@
 
 typedef struct s_ply t_ply;
 typedef struct s_WIN t_WIN;
+typedef struct s_game t_game;
 
-typedef struct s_coordinates
+typedef struct s_font
 {
-    int x;
-    int y;
+    TTF_Font    *font;
+    char        *str;
+    int         size;
+    SDL_Color   color;
+    SDL_Texture *texture;
     int w;
     int h;
-}				t_coordinates;
+    int     textHOffset; // ya des  fonts de merde qui renvoie pas la bonne hauteur du texte
+}   t_font;
 
 typedef struct s_buttons
 {
-    t_coordinates buttonCoords;
+    SDL_Rect buttonCoords;
     t_RGB color;
     t_RGB hoverColor;
     void (*callback_func)(t_WIN *);
     struct s_buttons *next;
+    t_font *text;
+    t_font *textHover;
+    int page_id; // 1 = main menu, 2 = ?
 }   t_buttons;
 
 /*utils*/
@@ -48,15 +56,26 @@ int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RG
 int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
 
 /*rectangles*/
-void    create_rectangle(SDL_Renderer *renderer, t_coordinates coords, t_RGB rgb);
+void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
-void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), t_coordinates coords, t_RGB color, t_RGB hoverColor);
+void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
 int     check_button_pressed(t_WIN *win, t_buttons *button_list);
-void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
+void    display_buttons(t_buttons *button_list, t_WIN *win, int pageID);
 void    free_buttons(t_buttons *buttonlist);
 
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
+
+/*Text*/
+void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
+void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
+
+/*MENUS*/
+
+void draw_main_menu(t_game *game);
+
+/*RESPONSIVENESS*/
+void to_responsive(t_WIN *win, SDL_Rect *cur);
 
 #endif

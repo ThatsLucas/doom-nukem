@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/05 20:12:07 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/11 23:49:25 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
         return NULL;
     }
     SDL_RenderClear(windowDatas->renderPTR);
+
+    windowDatas->w = w;
+    windowDatas->h = h;
     return windowDatas;
 }
