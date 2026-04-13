@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 12:16:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:18:45 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser/PNG.h"
 #include "GUI/HUD.h"
 
+/* Display the current weapons asset (the one being held by the player)*/
 static void	display_weapon(t_game *game, int x, int y)
 {
 	static const int	layout[][4] = {
@@ -30,6 +31,7 @@ static void	display_weapon(t_game *game, int x, int y)
 	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures[type], NULL, &dest);
 }
 
+/* Adds "WEAPON" on the renderer */
 static void	display_weapons(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color	fg = {255, 255, 255, 255};
@@ -47,6 +49,7 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &rect);
 }
 
+/* Display "WEAPON" and the current weapons asset */
 void	display_module_weapons(t_game *game, int x, int y, int w, int h)
 {
 	display_weapons(game, x, y, w, h);
