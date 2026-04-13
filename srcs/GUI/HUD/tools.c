@@ -6,13 +6,18 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 13:18:54 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:17:46 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "GUI/HUD.h"
 
+/*
+	Display tools assets
+	If the player has the tool -> opacity 100%
+	Else if the player has not the tool yet -> opacity decreased to 50%
+*/
 static void	display_tools_png(t_game *game, int x, int y)
 {
 	t_inventory *inv = &game->ply->inventory;
@@ -40,6 +45,7 @@ static void	display_tools_png(t_game *game, int x, int y)
 	}
 }
 
+/* Adds "TOOLS" on the renderer */
 static void	display_tools(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -57,6 +63,7 @@ static void	display_tools(t_game *game, int x, int y, int w, int h)
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
 }
 
+/* Display "TOOLS" and tools assets */
 void	display_module_tools(t_game *game, int x, int y, int w, int h)
 {
 	display_tools(game, x, y, w, h);

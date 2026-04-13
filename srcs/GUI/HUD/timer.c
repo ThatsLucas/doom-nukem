@@ -6,13 +6,14 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:25:51 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 12:21:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:04:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "GUI/HUD.h"
 
+/* To format an amount of seconds in MM:SS */
 static void	format_time(long total_seconds, char *buf)
 {
 	int	minutes = total_seconds / 60;
@@ -26,6 +27,7 @@ static void	format_time(long total_seconds, char *buf)
 	buf[5] = '\0';
 }
 
+/* Get the elapsed time between the start and now */
 static void	get_timer(char *buf)
 {
 	static struct timeval	start;
@@ -44,6 +46,7 @@ static void	get_timer(char *buf)
 	format_time(elapsed, buf);
 }
 
+/* Display formated time (MM:SS) on the screen */
 void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 {
 	SDL_Color fg = {rgb.r, rgb.g, rgb.b, rgb.alphaValue};
