@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 10:38:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 16:17:50 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				check_button_pressed(game->window, game->window->buttonList);
+				if (event.button.button == SDL_BUTTON_LEFT)
+					player_shoot(game);
+				else
+					check_button_pressed(game->window, game->window->buttonList);
 				break;
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
