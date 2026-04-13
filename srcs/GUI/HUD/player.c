@@ -6,13 +6,14 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:17:52 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/12 13:56:47 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 10:16:17 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI/HUD.h"
 #include "Game.h"
 
+/* Updates the current frame to make a sprite animation of the player */
 void	update_hud_anim(t_game *game)
 {
 	game->hud_cache.ply_tick++;
@@ -23,6 +24,7 @@ void	update_hud_anim(t_game *game)
 	}
 }
 
+/* Display the players current asset (base on frames) */
 void	display_player_module(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Texture	*texture;
