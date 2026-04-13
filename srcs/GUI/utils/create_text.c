@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:10:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/12 20:51:22 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 14:33:08 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fo
         ft_printf("Error while opening font : %s\n", TTF_GetError());
     SDL_Surface* surfaceMessage = TTF_RenderText_Solid(textData->font, text, textData->color); 
     textData->texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    SDL_FreeSurface(surfaceMessage);
     TTF_SizeText(textData->font, text, &textData->w, &textData->h);
 }
 
@@ -31,5 +32,6 @@ void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char 
         ft_printf("Error while opening font : %s\n", TTF_GetError());
     SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(textData->font, text, textData->color, maxW); 
     textData->texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    SDL_FreeSurface(surfaceMessage);
     TTF_SizeText(textData->font, text, &textData->w, &textData->h);
 }
