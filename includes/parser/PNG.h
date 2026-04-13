@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PNG.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/12 00:39:30 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 14:54:04 by root-            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_png
 {
     int fd;
     __uint8_t **buf;
+    char        *path;
     SDL_Texture *texture;
     __uint32_t w;
     __uint32_t h;
@@ -108,7 +109,7 @@ void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitR
 void fill_img_buffer(t_png *pngFile, __uint8_t *buff, __uint32_t len);
 
 /*PROCESS*/
-int         process_png(t_png *pngFile, char *path);
+void        *process_png(void *pngStruct);
 t_readPNG   read_nbytes(int pngFile, int nbytes);
 
 /*UTILS*/
