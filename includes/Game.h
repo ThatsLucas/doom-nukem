@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 13:58:41 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/13 20:32:52 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 
+#include <pthread.h>
 #include <SDL.h>
 #include "Window.h"
 #include "Player.h"
 #include "../libft/include/libft.h"
-
 # ifndef M_PI
 #  define M_PI 3.14159265359f
 # endif
