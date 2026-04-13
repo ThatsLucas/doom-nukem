@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 14:58:44 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/13 21:02:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void *process_png(void *pngStruct)
     {
         free(pngFile->path);
         pngFile->path = NULL;
-        return (NULL);
+        return ((void *)(long)0);
     }
     find_png_header(pngFile);
     find_png_IHDR(&pngFile->IHDR, pngFile);
@@ -52,7 +52,7 @@ void *process_png(void *pngStruct)
         ft_printf("Issue parsing IDATS, can't read img\n");
         free(pngFile->path);
         pngFile->path = NULL;
-        return (NULL);
+        return ((void *)(long)0);
     }
     __uint8_t *mergedBuffer = merge_all_buffers(IDATS);
     if (!mergedBuffer)
@@ -61,12 +61,12 @@ void *process_png(void *pngStruct)
         free_idat_list(IDATS);
         free(pngFile->path);
         pngFile->path = NULL;
-        return (NULL);
+        return ((void *)(long)0);
     }
     parse_deflate_blocs(pngFile, mergedBuffer, get_total_compressed_size(IDATS));
     free(mergedBuffer);
     free_idat_list(IDATS);
     free(pngFile->path);
     pngFile->path = NULL;
-    return (pngFile);
+    return ((void *)(long)1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 20:20:28 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/13 21:27:51 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,35 @@
 
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
 {
+    pthread_t thread, thread2, thread3;
+    void  *ret = NULL;
+    int finalRet = 1;
+
     MainMenu->background.path = ft_strdup("assets/png/main_menu/background.png");
-    if(!process_png(&MainMenu->background))
-		return (0);
-    MainMenu->background.texture = create_image(&MainMenu->background, renderer);
-
     MainMenu->logo.path = ft_strdup("assets/png/main_menu/logo.png");
-    if(!process_png(&MainMenu->logo))
-		return (0);
-    MainMenu->logo.texture = create_image(&MainMenu->logo, renderer);
-
     MainMenu->button.path = ft_strdup("assets/png/main_menu/button.png");
-    if(!process_png(&MainMenu->button))
-		return (0);
-    MainMenu->button.texture = create_image(&MainMenu->button, renderer);
-    return (1);
+    pthread_create(&thread, NULL, process_png, &MainMenu->background);
+    pthread_create(&thread2, NULL, process_png, &MainMenu->logo);
+    pthread_create(&thread3, NULL, process_png, &MainMenu->button);
+    
+    pthread_join(thread, &ret);
+    if (!ret)
+        finalRet = 0;
+    else
+        MainMenu->background.texture = create_image(&MainMenu->background, renderer);
+
+    pthread_join(thread2, &ret);
+    if (!ret)
+        finalRet = 0;
+    else
+        MainMenu->logo.texture = create_image(&MainMenu->logo, renderer);
+
+    pthread_join(thread3, &ret);
+    if (!ret)
+        finalRet = 0;
+    else
+        MainMenu->button.texture = create_image(&MainMenu->button, renderer);
+    return (finalRet);
 }
 
 int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
