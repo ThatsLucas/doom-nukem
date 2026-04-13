@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 14:12:27 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:09:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:39:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	display_hp(t_game *game, int x, int y, int w, int h)
 	SDL_Color color = {150, 0, 0, 255};
 	SDL_Rect dest = {x, y, w, h};
 
+	to_responsive(game->window, &dest);
 	char *buf = ft_itoa(game->ply->hp);
 	if (!buf)
 		exit_game(game, "hp display");
@@ -42,6 +43,7 @@ static void	display_health(t_game *game, int x, int y, int w, int h)
 	SDL_Color color = {255, 255, 255, 255};
 	SDL_Rect dest = {x, y, w, h};
 
+	to_responsive(game->window, &dest);
 	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, "HEALTH", color);
 	if (!surface)
 		exit_game(game, (char *)TTF_GetError());

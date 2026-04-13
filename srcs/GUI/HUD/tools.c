@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:17:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/13 11:40:35 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	display_tools_png(t_game *game, int x, int y)
 	for (int i = 0; i < MAX_TOOLS; i++)
 	{
 		SDL_Rect	dest = {x + layout[i][0], y + layout[i][1], .w = layout[i][2], .h = layout[i][3]};
+		to_responsive(game->window, &dest);
 		SDL_RenderCopy(game->window->renderPTR, game->hud_cache.tools_textures[i], NULL, &dest);
 	}
 }
@@ -51,6 +52,7 @@ static void	display_tools(t_game *game, int x, int y, int w, int h)
 	SDL_Color color = {255, 255, 255, 255};
 	SDL_Rect dest = {x, y, w, h};
 
+	to_responsive(game->window, &dest);
 	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, "TOOLS", color);
 	if (!surface)
 		exit_game(game, (char *)TTF_GetError());
