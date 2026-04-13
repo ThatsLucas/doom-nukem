@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/11 13:00:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:41:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
 void    free_buttons(t_buttons *buttonlist);
 
 /*minimap*/
-void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color);
-void	draw_walls(t_game *game, t_RGB rgb);
+// void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color);
+// void	draw_walls(t_game *game, t_RGB rgb);
 void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 /*Gameplay*/
-void	send_rays(t_game *game, t_RGB rgb);
-void	texture_wall(t_game *game, t_ray *ray);
-void	texture_floor(t_game *game, t_ray *rays);
-void	texture_ceiling(t_game *game, t_ray *rays);
+// void	send_rays(t_game *game, t_RGB rgb);
+// void	texture_wall(t_game *game, t_ray *ray);
+// void	texture_floor(t_game *game, t_ray *rays);
+// void	texture_ceiling(t_game *game, t_ray *rays);
 
 #endif

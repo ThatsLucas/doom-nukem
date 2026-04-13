@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 11:27:49 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:39:59 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct	s_keys
 typedef struct s_ply
 {
 	t_vect2		pos;
+	float		z;
 	t_vect2		dir;
 	t_keys		keys;
 	int			pitch;
+	int			sector;
 }				t_ply;
 
 typedef struct s_game
@@ -49,10 +51,7 @@ typedef struct s_game
 	t_WIN		*window;
 	int			mapSize[2];
 	int			screenSize[2];
-	t_list		*walls;
-	t_bsp		*bspTree;
-	SDL_Surface	*surface[4];
-	t_RGB		**text_colors;
+	t_map		*map;
 	SDL_Texture	*frame;
 	Uint32		*frame_buffer;
 	t_ray		*rays;
@@ -69,7 +68,7 @@ float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
 
-void	add_wall(t_game *game, float transparency);
-void	rm_last_wall(t_game *game);
+// void	add_wall(t_game *game, float transparency);
+// void	rm_last_wall(t_game *game);
 
 #endif

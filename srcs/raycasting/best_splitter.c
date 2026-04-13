@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 15:36:28 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:22:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,39 @@
 /*
 	Renvoie le meilleur splitter pour le noeux BSP
 */
-t_list	*best_splitter(t_list **first)
-{
-	int		front, back, cut;
-	t_list	*best = NULL;
-	int		best_score;
+// t_list	*best_splitter(t_list **first)
+// {
+// 	int		front, back, cut;
+// 	t_list	*best = NULL;
+// 	int		best_score;
 
-	for (t_list *x = *first; x; x = x->next)
-	{
-		front = 0, back = 0, cut = 0;
-		for (t_list *y = *first; y; y = y->next)
-		{
-			if (x != y)
-			{
-				switch (wall_side(x->content, y->content))
-				{
-				case 1:
-					front++;
-					break;
-				case 2:
-					back++;
-					break;
-				case 3:
-					cut++;
-					break;
-				}
-			}
-		}
-		if (!best || best_score > abs(front - back) + cut * 4)
-		{
-			best_score = abs(front - back) + cut * 4;
-			best = x;
-		}
-	}
+// 	for (t_list *x = *first; x; x = x->next)
+// 	{
+// 		front = 0, back = 0, cut = 0;
+// 		for (t_list *y = *first; y; y = y->next)
+// 		{
+// 			if (x != y)
+// 			{
+// 				switch (wall_side(x->content, y->content))
+// 				{
+// 				case 1:
+// 					front++;
+// 					break;
+// 				case 2:
+// 					back++;
+// 					break;
+// 				case 3:
+// 					cut++;
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		if (!best || best_score > abs(front - back) + cut * 4)
+// 		{
+// 			best_score = abs(front - back) + cut * 4;
+// 			best = x;
+// 		}
+// 	}
 
-	return (best);
-}
+// 	return (best);
+// }

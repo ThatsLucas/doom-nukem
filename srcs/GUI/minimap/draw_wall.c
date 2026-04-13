@@ -6,40 +6,40 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:15:48 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 09:55:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:41:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "GUI.h"
 
-void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color)
-{
-	SDL_SetRenderDrawColor(	game->window->renderPTR,
-							color.r, color.g, color.b,
-							color.alphaValue);
-	SDL_RenderDrawLineF(game->window->renderPTR,
-						to_pixelX(a.x, game), to_pixelY(a.y, game),
-						to_pixelX(b.x, game), to_pixelY(b.y, game));
+// void	draw_wall(t_game *game, t_vect2 a, t_vect2 b, t_RGB color)
+// {
+// 	SDL_SetRenderDrawColor(	game->window->renderPTR,
+// 							color.r, color.g, color.b,
+// 							color.alphaValue);
+// 	SDL_RenderDrawLineF(game->window->renderPTR,
+// 						to_pixelX(a.x, game), to_pixelY(a.y, game),
+// 						to_pixelX(b.x, game), to_pixelY(b.y, game));
 
-	return ;
-}
+// 	return ;
+// }
 
-void	draw_walls(t_game *game, t_RGB rgb)
-{
-	t_list	*current = game->walls;
-	t_wall	*wall;
-	int		elements = ft_lstsize(game->walls);
+// void	draw_walls(t_game *game, t_RGB rgb)
+// {
+// 	t_list	*current = game->walls;
+// 	t_wall	*wall;
+// 	int		elements = ft_lstsize(game->walls);
 
-	if (elements <= 1)
-		return ;
+// 	if (elements <= 1)
+// 		return ;
 
-	while (current)
-	{
-		wall = (t_wall *)current->content;
-		draw_wall(game, wall->start, wall->end, rgb);
-		current = current->next;
-	}
+// 	while (current)
+// 	{
+// 		wall = (t_wall *)current->content;
+// 		draw_wall(game, wall->start, wall->end, rgb);
+// 		current = current->next;
+// 	}
 
-	return ;
-}
+// 	return ;
+// }
