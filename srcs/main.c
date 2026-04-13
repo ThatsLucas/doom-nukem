@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/13 14:02:01 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/14 00:04:46 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,53 +25,15 @@ int main(void)
 	if (!game)
 		return (1);
 
-	// t_RGB rgb;
-	// rgb.r = 51;
-	// rgb.g = 153;
-	// rgb.b = 255;
-	// rgb.alphaValue = 255;
-
-	// t_coordinates coords;
-	// coords.x = 200;
-	// coords.y = 200;
-	// coords.w = 150;
-	// coords.h = 80;
-
-	// t_RGB buttoncolor;
-	// buttoncolor.r = 0;
-	// buttoncolor.g = 60;
-	// buttoncolor.b = 255;
-	// buttoncolor.alphaValue = 255;
-
-	// t_RGB hoverColor;
-	// hoverColor.r = 90;
-	// hoverColor.g = 60;
-	// hoverColor.b = 150;
-	// hoverColor.alphaValue = 255;
-
-	// create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
-	// coords.x = 200;
-	// coords.y = 300;
-	// create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
-	// coords.x = 200;
-	// coords.y = 400;
-	// create_button(&game->window->buttonList, NULL, coords, buttoncolor, hoverColor);
-
-
 	game->ply->pos_x = 500;
 	game->ply->pos_y = 500;
 	game->ply->dir_x = 1.0f;
 	game->ply->dir_y = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	// t_png img;
-	// if(!process_png(&img, "assets/png/hud/weapons/shotgun.png"))
-	// 	return (1);
-
-	// SDL_Texture *texture = create_image(&img, game->window->renderPTR);
-	// SDL_Rect destination = { 0, 0, img.w, img.h };
-	// SDL_RenderCopy(game->window->renderPTR, texture, NULL, &destination);
-	// SDL_RenderPresent(game->window->renderPTR);
+	t_notif_buf *notifbuf = NULL;
+	create_notif(&notifbuf, "Ceci est un test", 5);
+	int wait = 1000;
 	while (1)
 	{
 		events_handler(game);
@@ -81,6 +43,10 @@ int main(void)
 		SDL_RenderClear(game->window->renderPTR);
 
 		draw_main_menu(&game->window->MainMenu, game);
+		if (wait > 2500)
+			display_notif(game->window, &notifbuf);
+		wait++;
+		printf("wait = %d\n", wait);
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
