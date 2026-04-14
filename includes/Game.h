@@ -6,19 +6,19 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 12:55:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:46:34 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 
+#include <pthread.h>
 #include <SDL.h>
 #include "Window.h"
 #include "Player.h"
 #include "GUI/GUI.h"
 #include "../libft/include/libft.h"
-
 # ifndef M_PI
 #  define M_PI 3.14159265359f
 # endif

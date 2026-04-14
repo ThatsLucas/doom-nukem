@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 12:27:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:47:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ t_game	*init_game(void)
 	if (!game)
 		return (NULL);
 	ft_bzero(game, sizeof(t_game));
+
+	if (TTF_Init() < 0)
+		exit_game(game, "TTF Init");
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");

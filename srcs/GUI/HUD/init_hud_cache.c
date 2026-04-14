@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 17:06:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:53:58 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static void	init_weapons_cache(t_game *game)
 		"assets/png/hud/weapons/2d/rocket.png",
 	};
 
-	t_png	tmp;
 	for (int i = 0; i < MAX_WEAPONS; i++)
 	{
-		if (!process_png(&tmp, weap_paths[i]))
+		t_png	tmp;
+		tmp.path = ft_strdup(weap_paths[i]);
+		if (!process_png(&tmp))
 			exit_game(game, "process png");
 		game->hud_cache.weapon_textures_2D[i] = create_image(&tmp, game->window->renderPTR);
 		if (!game->hud_cache.weapon_textures_2D[i])
@@ -45,10 +46,11 @@ static void	init_tools_cache(t_game *game)
 		"assets/png/hud/tools/jetpack.png",
 	};
 
-	t_png	tmp;
 	for (int i = 0; i < MAX_TOOLS; i++)
 	{
-		if (!process_png(&tmp, tools_paths[i]))
+		t_png	tmp;
+		tmp.path = ft_strdup(tools_paths[i]);
+		if (!process_png(&tmp))
 			exit_game(game, "process png");
 		game->hud_cache.tools_textures[i] = create_image(&tmp, game->window->renderPTR);
 		if (!game->hud_cache.tools_textures[i])
@@ -75,10 +77,11 @@ static void	init_player_cache(t_game *game)
 		"assets/png/hud/player/dead/dead_1.png",
 	};
 
-	t_png	tmp;
 	for (int i = 0; i < 10; i++)
 	{
-		if (!process_png(&tmp, player_paths[i]))
+		t_png	tmp;
+		tmp.path = ft_strdup(player_paths[i]);
+		if (!process_png(&tmp))
 			exit_game(game, "process png");
 		game->hud_cache.ply_textures[i] = create_image(&tmp, game->window->renderPTR);
 		if (!game->hud_cache.ply_textures[i])
@@ -101,7 +104,8 @@ static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect 
 	for (int i = 0; i < frame_count; i++)
 	{
 		t_png	tmp;
-		if (!process_png(&tmp, paths[i]))
+		tmp.path = ft_strdup(paths[i]);
+		if (!process_png(&tmp))
 			exit_game(game, "process png weapon 3d");
 		w->frames[i].texture = create_image(&tmp, game->window->renderPTR);
 		if (!w->frames[i].texture)

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 10:38:05 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:46:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
 void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
-
-/*MENUS*/
-
-void draw_main_menu(t_game *game);
 
 /*RESPONSIVENESS*/
 void to_responsive(t_WIN *win, SDL_Rect *cur);
