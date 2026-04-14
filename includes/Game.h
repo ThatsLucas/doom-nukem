@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 10:46:34 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:51:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_game
 	t_ply			*ply;
 	t_WIN			*window;
 	t_ground_item	items[10];
+	t_projectile	*projectiles;
 	int				items_count;
 	float			flash_alpha;
 	t_hud_cache		hud_cache;

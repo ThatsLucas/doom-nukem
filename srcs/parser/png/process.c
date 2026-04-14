@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 10:52:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:12:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ void *process_png(void *pngStruct)
     parse_deflate_blocs(pngFile, mergedBuffer, get_total_compressed_size(IDATS));
     free(mergedBuffer);
     free_idat_list(IDATS);
-	printf("la\n");
     free(pngFile->path);
-	printf("ici\n");
     pngFile->path = NULL;
     return ((void *)(long)1);
 }
