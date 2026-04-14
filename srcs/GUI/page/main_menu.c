@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 21:27:51 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/14 23:33:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,4 @@ void draw_main_menu(t_main_menu *MainMenu, t_game *game)
 	SDL_RenderCopy(game->window->renderPTR, MainMenu->button.texture, NULL, &button3_dest);
 
     display_buttons(game->window->buttonList, game->window, 1);
-}
-
-void destroy_main_menu(t_main_menu *MainMenu)
-{
-   if (MainMenu->has_init)
-   {
-        TTF_CloseFont(MainMenu->btn_one_text.font);
-        TTF_CloseFont(MainMenu->btn_one_text_hover.font);
-        TTF_CloseFont(MainMenu->btn_two_text.font);
-        TTF_CloseFont(MainMenu->btn_two_text_hover.font);
-        TTF_CloseFont(MainMenu->btn_three_text.font);
-        TTF_CloseFont(MainMenu->btn_three_text_hover.font);
-   } 
 }
