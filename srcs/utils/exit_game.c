@@ -6,24 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:42:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 09:58:18 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
-
-void	free_map(t_map *map)
-{
-	for (int i = 0; i < map->num_textures; i++)
-		SDL_FreeSurface(map->surface[i]);
-			for (int i = 0; i < map->num_textures; i++)
-		free(map->text_colors[i]);
-	free(map->text_colors);
-	free(map);
-	map = NULL;
-
-	return;
-}
 
 void	exit_game(t_game *game, char *type)
 {

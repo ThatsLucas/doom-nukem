@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:39:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:05:11 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ typedef struct s_game
 /*init/exit game*/
 void	exit_game(t_game *game, char *type);
 t_game	*init_game(void);
+void	free_map(t_map *map);
+t_map	*init_test_map(void);
 
 /*utils*/
 float	to_pixelX(float x, t_game *game);
 float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
-
-// void	add_wall(t_game *game, float transparency);
-// void	rm_last_wall(t_game *game);
-
 #endif

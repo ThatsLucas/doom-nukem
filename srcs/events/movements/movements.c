@@ -6,11 +6,13 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 16:22:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:46:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
+#include "Game.h"
+#include "Raycasting/Raycasting.h"
 
 /*Gere les mouvements mediaux*/
 static void	medial_moves(t_ply *ply, t_game *game)
@@ -71,11 +73,20 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 	}
 }
 
-/*Gere les mouvements du joueur*/
+/*
+	Gere les mouvements du joueur
+	Met a jour sa position z et son secteur
+*/
 void	ply_movements(t_ply *ply, t_game *game)
 {
+	t_vect2	oldpos;
+	oldpos = ply->pos;
+
 	if (ply->keys.w || ply->keys.s)
 		medial_moves(ply, game);
 	if (ply->keys.a || ply->keys.d)
 		lateral_moves(ply, game);
+	update_player_sector(game, oldpos);
+	ply->z = get_plane_z(game->map->sectors[ply->sector].floor_plane,
+						 ply->pos.x, ply->pos.y) + EYES_HEIGTH;
 }

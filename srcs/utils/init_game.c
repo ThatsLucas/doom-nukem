@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:44:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 09:57:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_textures(t_game *game, t_map *map)
 
 void	init_map(t_game *game)
 {
-	game->map = calloc(1, sizeof(t_map));
+	game->map = init_test_map();
 	if (!game->map)
 		exit_game(game, "Init map");
 	game->map->num_textures = 4;
