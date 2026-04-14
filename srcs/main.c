@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 12:38:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 16:34:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int main(void)
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	game->mapSize[0] = 12;	game->mapSize[1] = 8;
-	Uint32 bg = SDL_MapRGB(SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888), 120, 52, 50);
 
 	while (1)
 	{
@@ -53,8 +52,7 @@ int main(void)
 		SDL_RenderClear(game->window->renderPTR);
 
 		// Creation du renderer (de la frame)
-		for (int i = 0; i < game->screenSize[0] * game->screenSize[1]; i++)
-			game->frame_buffer[i] = bg;
+		ft_bzero(game->frame_buffer, sizeof(game->frame_buffer));
 		SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 255, 255);
 		send_rays(game);
 		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
