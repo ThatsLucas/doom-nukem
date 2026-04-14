@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/11 23:49:25 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/14 00:02:33 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 flag == le mode d'affichage de la fenetre, fullscreen, borderless ect
 https://wiki.libsdl.org/SDL2/SDL_WindowFlags 
 */
+
+// tout doit être free mise à part 
+int init_all_imgs(t_WIN *win)
+{
+    if (!init_home_menu(win, win->renderPTR, &win->MainMenu, 150))
+        return (0);
+    if (!init_notif(&win->Popup, win->renderPTR))
+    {
+       destroy_main_menu(&win->MainMenu); 
+       return (0);
+    }
+    return (1);
+}
+
 t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags)
 {
     t_WIN* windowDatas = malloc(sizeof(t_WIN));
@@ -50,5 +64,15 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
 
     windowDatas->w = w;
     windowDatas->h = h;
+    ft_printf("loading all imgs\n");
+    if (!init_all_imgs(windowDatas))
+    {
+        SDL_DestroyWindow(windowDatas->winPTR);
+        SDL_Quit();
+        fprintf(stderr, "Issue with imgs creation. Exiting...\n");
+        return NULL;
+    }
+    windowDatas->MainMenu.has_init = 1;
+    ft_printf("Finished loading main menu\n");
     return windowDatas;
 }

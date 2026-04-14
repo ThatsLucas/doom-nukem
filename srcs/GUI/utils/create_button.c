@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 10:39:01 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:47:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void display_buttons(t_buttons *button_list, t_WIN *win, int pageID)
             textFont = button_list->textHover;
             HOffset = button_list->textHover->textHOffset;
         }
-        create_rectangle(win->renderPTR, button_list->buttonCoords, color);
+        if (color.alphaValue > 0)
+            create_rectangle(win->renderPTR, button_list->buttonCoords, color);
         if (textFont->texture)
         {
             int x = button_list->buttonCoords.x + (button_list->buttonCoords.w / 2 - textFont->w / 2);
