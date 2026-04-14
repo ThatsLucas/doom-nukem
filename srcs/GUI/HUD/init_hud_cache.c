@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 10:53:58 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 11:53:47 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,16 @@ static void	init_3D_weapons(t_game *game)
 		"assets/png/hud/weapons/3d/shotgun/shotgun_4.png",
 	};
 
+	static char	*rocket_paths[] = {
+		"assets/png/hud/weapons/3d/rocket/rocket_1.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_2.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_3.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_4.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_5.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_6.png",
+		"assets/png/hud/weapons/3d/rocket/rocket_7.png"
+	};
+
 	static SDL_Rect	fists_rects[] = {
 		{600, 750, 800, 350},
 		{600, 750, 800, 350},
@@ -145,21 +155,32 @@ static void	init_3D_weapons(t_game *game)
 	};
 
 	static SDL_Rect	pistol_rects[] = {
-		{815, 730, 300, 400},
-		{800, 730, 300, 400}
+		{820, 755, 225, 325},
+		{800, 755, 225, 325}
 	};
 
 	static SDL_Rect	shotgun_rects[] = {
-		{700, 750, 430, 350},
-		{700, 750, 430, 350},
-		{680, 750, 400, 350},
-		{680, 750, 400, 350},
-		{680, 750, 400, 350}
+		{755, 830, 330, 250},
+		{755, 830, 330, 250},
+		{735, 830, 300, 250},
+		{735, 830, 300, 250},
+		{735, 830, 300, 250}
 	};
 
-	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 10);
-	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 10);
-	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 16);
+	static SDL_Rect	rocket_rects[] = {
+		{810, 830, 330, 250},
+		{810, 830, 330, 250},
+		{810, 830, 300, 250},
+		{810, 830, 300, 250},
+		{810, 830, 300, 250},
+		{810, 830, 300, 250},
+		{810, 830, 300, 250}
+	};
+
+	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 12);
+	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 18);
+	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 20);
+	init_3D_weapon(game, WEAP_ROCKET_LAUNCHER, rocket_paths, rocket_rects, 7, 20);
 }
 
 /*

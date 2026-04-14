@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 12:31:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/14 11:52:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ static void	config_starter(t_ply	*ply)
 		.ammo = 50
 	};
 	ply->inventory.weapons[ply->inventory.weap_count++] = pistol;
+
+	t_weapon	shotgun = {
+		.type = WEAP_SHOTGUN,
+		.ammo = 50
+	};
+	ply->inventory.weapons[ply->inventory.weap_count++] = shotgun;
+
+	t_weapon	rocket = {
+		.type = WEAP_ROCKET_LAUNCHER,
+		.ammo = 50
+	};
+	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
 
 	t_tool	jetpack = {
 		.type = TOOL_JETPACK,
@@ -56,7 +68,7 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->dir_y = dir_y;
 	ply->dir_z = 0.0f;
 
-	ply->hp = 0;
+	ply->hp = 20;
 
 	config_starter(ply);
 	game->ply = ply;
