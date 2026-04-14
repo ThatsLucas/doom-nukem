@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 14:24:52 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/14 23:12:13 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_game	*init_game(void)
 	game->ply = malloc(sizeof(t_ply));
 	if (!game->ply)
 		exit_game(game, "player malloc");
+	game->window->PopupPtr.notif_buf = NULL;
 	return (game);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:13:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/09 14:31:17 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/14 22:59:53 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ int find_png_header(t_png *pngFile)
     t_readPNG readDatas = read_nbytes(pngFile->fd, 8);
     readDatas.buf[readDatas.nbytes] = '\0';
     
-    if (check_header_validity(readDatas.buf) == 0)
-        ft_printf("This file has a valid png header!\n");
-    else
+    if (check_header_validity(readDatas.buf) != 0)
         ft_printf("This file has not valid png header!\n");
     return (1);
 }

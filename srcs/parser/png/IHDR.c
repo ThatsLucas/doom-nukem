@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IHDR.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 11:06:48 by root-             #+#    #+#             */
-/*   Updated: 2026/04/09 17:30:49 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/14 23:00:14 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile)
         return (0);
     }
     convert_all_value_to_little_endian(pngFile);
-    ft_printf("color type = %d\n", headerIHDR->color_type);
     if (headerIHDR->color_type == 2)
         headerIHDR->bytes_per_pixel = 3;
     else if (headerIHDR->color_type == 6)
@@ -111,6 +110,6 @@ int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile)
         headerIHDR->bytes_per_pixel = 1;
     else if (headerIHDR->color_type == 4)
         headerIHDR->bytes_per_pixel = 2;
-    printf("image w = %d h = %d\n", pngFile->w, pngFile->h);
+    // printf("image w = %d h = %d\n", pngFile->w, pngFile->h);
     return (1);
 }
