@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:04:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:44:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:07:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Types.h"
 
+# define	EYES_HEIGTH 1.6	// mdr il fait 1m 60
+# define	FOV 0.66
+
 typedef struct s_game	t_game;
+typedef struct s_ply	t_ply;
 
 /*utils vect*/
 t_vect2	edge(t_vect2 a, t_vect2 b);
@@ -26,13 +30,17 @@ float	dist_vect(t_vect2 a, t_vect2 b);
 /*Raycasting*/
 float	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res);
 float	inter_point_filter(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res);
-int		max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max);
-// int		wall_side(t_wall *splitter, t_wall *wall);
+void	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_ray *ray, int wall_idx);
+float	get_plane_z(t_plane p, float x, float y);
+t_vect2	get_cam_plane(t_vect2 dir);
+t_vect2	get_ray_dir(t_ray *ray, t_ply *ply);
 
-/*BSP*/
-// t_list	*best_splitter(t_list **first);
-// t_bsp	*bsp(t_game *game, t_list *walls);
-// void	free_bsp(t_bsp *node);
-// void	get_smaller_ray(t_game *game, t_bsp *node, t_ray *ray, float *t);
+/* envoie de rayon */
+void	send_rays(t_game *game);
+void	find_smaller_ray(t_game *game, t_sector *sector, t_ray *ray, int skip_wall);
+int		find_mirror_wall(t_map *map, int wall_idx, int next_sector_id);
+void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall);
+
+void	update_player_sector(t_game *game, t_vect2 oldpos);
 
 #endif

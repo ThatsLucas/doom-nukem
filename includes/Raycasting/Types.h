@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:42:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:09:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,21 @@ typedef struct s_sector
 typedef struct s_ray
 {
 	t_vect2		dir;			/* direction du rayon (constante) */
+	t_vect2		plane;			/* plan de camera */
 	int			screen_x;		/* colonne de l'écran */
 	int			y_top;			/* limite haute de pixels restants */
 	int			y_bot;			/* limite basse de pixels restants */
+	float		t;				/* de quelle distance du mur le rayon a ete lance */
+	float		u;				/* position sur le mur du hit */
+	t_vect2		hit;			/* point de hit */
+	int			wall_idx;		/* Index du mur touche */
+	float		perp_dist;		/* distance perpendiculaire elimine le fish eye */
+	float		z_floor;		/* hauteur du sol et plafond au point d'impact */
+	float		z_ceil;
+	float		camera_x;		/* repere sur l'ecran (-1 = gauche ----> 1 = droite) */
+	int			y_wall_top;		/* position haute et basse du mur */
+	int			y_wall_bot;
+	float		focal;
 }				t_ray;
 
 typedef struct s_map

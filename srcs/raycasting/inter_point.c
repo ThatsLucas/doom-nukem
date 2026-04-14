@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:09:15 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:02:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 	t doit etre superieur ou egal a 0 (sinon l'intersection est derriere le vecteur P)
 	u doit etre entre 0 et 1 sinon l'intersection est en dehors de l'edge
 
-	Remplis les donnes de res avec le point de l'intersection SI la fonction return 0
+	Remplis les donnes de ray avec le point de l'intersection
 	Sinon une donnee est invalide ( pas d'intersection utile )
 */
-int	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, float *max)
+void	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_ray *ray, int wall_idx)
 {
 	t_vect2	qp;
 	float	rs, t, u;
@@ -35,21 +35,23 @@ int	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res, fl
 	qp = edge(P, Q);
 
 	if (rs == 0)
-		return (-1);
+		return ;
 	t = vect2_product(qp, s) / rs;
 	if (t < 0)
-		return (-1);
+		return ;
 	u = vect2_product(qp, r) / rs;
 	if (u < 0 || u > 1)
-		return (-1);
+		return ;
 
-	if (t < *max)
+	if (t < ray->t)
 	{
-		*max = t;
-		(*res).x = P.x + t * r.x;
-		(*res).y = P.y + t * r.y;
+		ray->t			= t;
+		ray->u			= u;
+		ray->hit.x		= P.x + t * r.x;
+		ray->hit.y		= P.y + t * r.y;
+		ray->wall_idx	= wall_idx;
 	}
-	return (t);
+	return ;
 }
 
 float	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
