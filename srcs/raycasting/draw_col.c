@@ -9,12 +9,38 @@ static void	draw_offset(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x)
 	int step_ny_top	= SDL_clamp(ny_top, 0, sH - 1);
 	int step_ny_bot	= SDL_clamp(ny_bot, 0, sH - 1);
 	int step_bot	= SDL_clamp(ray->y_bot, 0, sH - 1);
+	t_wall	*w;
+	float	u_world, wall_len, v;
+	int		tex_x, tex_y;
+	t_RGB	c;
 
-	for (int i = step_top; i < step_ny_top; i++)
-		game->frame_buffer[i * sW + x] = (47 << 16) | (79 << 8) | 79;
+	w			= &game->map->walls[ray->wall_idx];
+	wall_len	= dist_vect(game->map->vertices[w->v1], game->map->vertices[w->v2]);
+	u_world		= ray->u * wall_len;
 
-	for (int i = step_ny_bot; i < step_bot; i++)
-		game->frame_buffer[i * sW + x] = (47 << 16) | (79 << 8) | 79;
+	if (w->tex_upper >= 0)
+	{
+		tex_x		= (int)(u_world * game->map->surface[w->tex_upper]->w) % game->map->surface[w->tex_upper]->w;
+		for (int y = step_top; y < step_ny_top; y++)
+		{
+			v		= (float)(y - ny_top) / (float)(ny_bot - ny_top);
+			tex_y	= (int)(v * game->map->surface[w->tex_upper]->h) % game->map->surface[w->tex_upper]->h;
+			c		= game->map->text_colors[w->tex_upper][tex_y * game->map->surface[w->tex_upper]->w + tex_x];
+			game->frame_buffer[y * sW + x] = (c.r << 16) | (c.g << 8) | c.b;
+		}
+	}
+
+	if (w->tex_lower >= 0)
+	{
+		tex_x		= (int)(u_world * game->map->surface[w->tex_lower]->w) % game->map->surface[w->tex_lower]->w;
+		for (int y = step_ny_bot; y < step_bot; y++)
+		{
+			v		= (float)(y - ny_top) / (float)(ny_bot - ny_top);
+			tex_y	= (int)(v * game->map->surface[w->tex_lower]->h) % game->map->surface[w->tex_lower]->h;
+			c		= game->map->text_colors[w->tex_lower][tex_y * game->map->surface[w->tex_lower]->w + tex_x];
+			game->frame_buffer[y * sW + x] = (c.r << 16) | (c.g << 8) | c.b;
+		}
+	}
 
 	ny_top		= SDL_clamp(ny_top, ray->y_top, ray->y_bot);
 	ny_bot		= SDL_clamp(ny_bot, ray->y_top, ray->y_bot);
@@ -45,18 +71,18 @@ void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 
 	if (game->map->walls[ray->wall_idx].next_sector == -1)
 	{
-		draw_ceil(game, ray, x);
+		draw_ceil(game, ray, x, sector);
 		draw_wall(game, ray, x);
-		draw_floor(game, ray, x);
+		draw_floor(game, ray, x, sector);
 		return ;
 	}
 
-	sector = &game->map->sectors[game->map->walls[ray->wall_idx].next_sector];
-	draw_ceil(game, ray, x);
-	draw_floor(game, ray, x);
+	draw_ceil(game, ray, x, sector);
+	draw_floor(game, ray, x, sector);
 
-	nz_floor	= get_plane_z(sector->floor_plane, ray->hit.x, ray->hit.y);
-	nz_ceil		= get_plane_z(sector->ceil_plane,  ray->hit.x, ray->hit.y);
+	t_sector *next_sec = &game->map->sectors[game->map->walls[ray->wall_idx].next_sector];
+	nz_floor	= get_plane_z(next_sec->floor_plane, ray->hit.x, ray->hit.y);
+	nz_ceil		= get_plane_z(next_sec->ceil_plane,  ray->hit.x, ray->hit.y);
 	ny_bot		= sH / 2 - ((nz_floor - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
 	ny_top		= sH / 2 - ((nz_ceil  - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
 

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:35 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 13:08:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/14 16:08:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,22 @@
 /* affiche un mur */
 void	draw_wall(t_game *game, t_ray *ray, int x)
 {
-	int	draw_top = (ray->y_wall_top > ray->y_top) ? ray->y_wall_top : ray->y_top;
-	int draw_bot = (ray->y_wall_bot < ray->y_bot) ? ray->y_wall_bot : ray->y_bot;
+	int		draw_top = (ray->y_wall_top > ray->y_top) ? ray->y_wall_top : ray->y_top;
+	int		draw_bot = (ray->y_wall_bot < ray->y_bot) ? ray->y_wall_bot : ray->y_bot;
+	t_wall	*w;
+	float	u_world, wall_len, v;
+	int		tex_x, tex_y;
+	t_RGB	c;
+
+	w			= &game->map->walls[ray->wall_idx];
+	wall_len	= dist_vect(game->map->vertices[w->v1], game->map->vertices[w->v2]);
+	u_world		= ray->u * wall_len;
+	tex_x		= (int)(u_world * game->map->surface[w->tex_mid]->w) % game->map->surface[w->tex_mid]->w;
 	for (int y = draw_top; y < draw_bot; y++)
 	{
-		game->frame_buffer[y * game->screenSize[0] + x] = (255 << 16) | (255 << 8) | 255;
+		v		= (float)(y - ray->y_wall_top) / (float)(ray->y_wall_bot - ray->y_wall_top);
+		tex_y	= (int)(v * game->map->surface[w->tex_mid]->h) % game->map->surface[w->tex_mid]->h;
+		c		= game->map->text_colors[w->tex_mid][tex_y * game->map->surface[w->tex_mid]->w + tex_x];
+		game->frame_buffer[y * game->screenSize[0] + x] = (c.r << 16) | (c.g << 8) | c.b;
 	}
 }
