@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/15 10:59:08 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:36:19 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_WIN
     int h;
     t_main_menu MainMenu;
     t_notif_ptr PopupPtr;
+    t_settings_menu settingsMenu;
     
 }	t_WIN;
 

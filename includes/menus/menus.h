@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/16 23:20:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:36:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ typedef struct s_notif_ptr {
     t_notif_buf         *notif_buf;
     t_png               Popup;
 }               t_notif_ptr;
+
+
+typedef struct s_settings_menu {
+    t_png background;
+}               t_settings_menu;
 
 
 /*MAIN MENU*/
