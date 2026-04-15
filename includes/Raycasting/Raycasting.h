@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:04:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 13:07:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:55:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "Raycasting/Types.h"
 
 # define	EYES_HEIGTH 1.6	// mdr il fait 1m 60
-# define	FOV 0.66
+# define	FOV 0.80
 
 typedef struct s_game	t_game;
 typedef struct s_ply	t_ply;

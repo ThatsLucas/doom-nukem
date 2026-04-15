@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:06 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/10 12:02:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 12:59:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ply_directions(t_ply *ply)
 	float	old_dir_x;
 	float	angle;
 
-	angle = 0.003f;
+	angle = 0.03f;
 	old_dir_x = ply->dir.x;
 	if (ply->keys.right && ply->keys.left)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 12:09:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:34:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,13 @@ typedef struct s_ray
 	float		focal;
 }				t_ray;
 
+typedef struct s_tex
+{
+	int		w;
+	int		h;
+	t_RGB	*colors;
+}		t_tex;
+
 typedef struct s_map
 {
 	/* --- Géométrie --- */
@@ -108,6 +115,7 @@ typedef struct s_map
 	int			cap_sectors;
 
 	/* --- Ressources --- */
+	t_tex		*textures;
 	SDL_Surface	*surface[4];
 	int			num_textures;
 	t_RGB		**text_colors;
