@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/14 00:01:33 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/14 23:07:42 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,26 @@ typedef struct s_main_menu {
 
 typedef struct s_notif {
     char *text;
-    int duration; // in ms
+    uint32_t duration; // in ms
     int time_left; // in ms
     int state; // 0 not showed yet, 1 moving to pos, 2 going back to no show
+    int w;
+    int h;
+    t_font font;
     SDL_Rect coords;
 }               t_notif;
 
 typedef struct s_notif_buf {
-    t_notif         *notif;
-    struct s_notif_buf     *next;
+    t_notif                 *notif;
+    struct s_notif_buf      *next;
 }               t_notif_buf;
+
+
+typedef struct s_notif_ptr {
+    t_notif_buf         *notif_buf;
+    t_png               Popup;
+}               t_notif_ptr;
+
 
 /*MAIN MENU*/
 
@@ -54,7 +64,8 @@ void destroy_main_menu(t_main_menu *MainMenu);
 
 /*NOTIFS*/
 int init_notif(t_png *notifImg, SDL_Renderer *renderer);
-void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms);
+void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms, int fontSize);
 void display_notif(t_WIN *win, t_notif_buf **notif_buf);
+void destroy_notif_node(t_notif_buf **notif_buf);
 
 #endif
