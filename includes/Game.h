@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 12:51:26 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 12:02:07 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "Window.h"
 #include "Player.h"
 #include "GUI/GUI.h"
+#include "parser/PNG.h"
 #include "../libft/include/libft.h"
 # ifndef M_PI
 #  define M_PI 3.14159265359f

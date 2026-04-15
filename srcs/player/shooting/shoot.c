@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:38:16 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 15:51:40 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 12:05:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	player_shoot(t_game *game)
 
 	if (game->ply->inventory.weapons[idx].type == WEAP_ROCKET_LAUNCHER)
 	{
-		float	tx = game->screenSize[0] / 2;
-		float	ty = game->screenSize[1] / 2;
-		spawn_rocket(game, tx, ty);
+		//float	tx = game->screenSize[0] / 2;
+		//float	ty = game->screenSize[1] / 2;
+		// spawn_rocket(game, tx, ty);
 	}
 
 	w->current_frame = 0;

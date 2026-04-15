@@ -6,11 +6,11 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:03:49 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 13:14:35 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 12:03:07 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI/HUD.h"
+#include "GUI/GUI.h"
 #include "Game.h"
 
 /* Updates the current frame to make a sprite animation of the player and the weapons */

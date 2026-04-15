@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 11:53:47 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 12:39:12 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,57 @@
 #include "parser/PNG.h"
 #include "Game.h"
 
-/* Initialize weapons assets cache in hud_cache.weapon_textures */
-static void	init_weapons_cache(t_game *game)
+/* Processing png on a path (thread_worker) */
+static void	*load_png_thread(void *arg)
 {
-	static char	*weap_paths[MAX_WEAPONS] = {
+	t_load_job	*job = (t_load_job *)arg;
+
+	job->success = 1;
+	job->result.path = ft_strdup(job->path);
+	if (!process_png(&job->result))
+	{
+		job->success = 0;
+		ft_printf("Error loading %s\n", job->path);
+	}
+
+	return (NULL);
+}
+
+/* Fill jobs with the good paths, index and types */
+static int	fill_jobs(t_game *game, t_load_job *jobs)
+{
+	int i = 0;
+
+	static char *weap_paths[] = {
 		"assets/png/hud/weapons/2d/fist.png",
 		"assets/png/hud/weapons/2d/pistol.png",
 		"assets/png/hud/weapons/2d/shotgun.png",
 		"assets/png/hud/weapons/2d/rocket.png",
 	};
 
-	for (int i = 0; i < MAX_WEAPONS; i++)
+	for (int j = 0; j < 4; j++, i++)
 	{
-		t_png	tmp;
-		tmp.path = ft_strdup(weap_paths[i]);
-		if (!process_png(&tmp))
-			exit_game(game, "process png");
-		game->hud_cache.weapon_textures_2D[i] = create_image(&tmp, game->window->renderPTR);
-		if (!game->hud_cache.weapon_textures_2D[i])
-			exit_game(game, "game_HUD_cache");
+		jobs[i].game = game;
+		jobs[i].path = weap_paths[j];
+		jobs[i].type = ASSET_WEAPON2D;
+		jobs[i].index = j;
 	}
-}
 
-/* Initialize tools assets cache in hud_cache.tools_textures */
-static void	init_tools_cache(t_game *game)
-{
-	static char	*tools_paths[MAX_TOOLS] = {
+	static char *tools_paths[] = {
 		"assets/png/hud/tools/flashlight.png",
 		"assets/png/hud/tools/key.png",
 		"assets/png/hud/tools/jetpack.png",
 	};
 
-	for (int i = 0; i < MAX_TOOLS; i++)
+	for (int j = 0; j < 3; j++, i++)
 	{
-		t_png	tmp;
-		tmp.path = ft_strdup(tools_paths[i]);
-		if (!process_png(&tmp))
-			exit_game(game, "process png");
-		game->hud_cache.tools_textures[i] = create_image(&tmp, game->window->renderPTR);
-		if (!game->hud_cache.tools_textures[i])
-			exit_game(game, "game_HUD_cache");
+		jobs[i].game = game;
+		jobs[i].path = tools_paths[j];
+		jobs[i].type = ASSET_TOOL;
+		jobs[i].index = j;
 	}
-}
 
-/* Initialize player assets cache in hud_cache.player_textures */
-static void	init_player_cache(t_game *game)
-{
-	static char	*player_paths[10] = {
+	static char *player_paths[] = {
 		"assets/png/hud/player/default/default_1.png",
 		"assets/png/hud/player/default/default_2.png",
 		"assets/png/hud/player/default/default_3.png",
@@ -77,22 +81,62 @@ static void	init_player_cache(t_game *game)
 		"assets/png/hud/player/dead/dead_1.png",
 	};
 
-	for (int i = 0; i < 10; i++)
+	for (int j = 0; j < 10; j++, i++)
 	{
-		t_png	tmp;
-		tmp.path = ft_strdup(player_paths[i]);
-		if (!process_png(&tmp))
-			exit_game(game, "process png");
-		game->hud_cache.ply_textures[i] = create_image(&tmp, game->window->renderPTR);
-		if (!game->hud_cache.ply_textures[i])
-			exit_game(game, "game_HUD_cache");
+		jobs[i].game = game;
+		jobs[i].path = player_paths[j];
+		jobs[i].type = ASSET_PLAYER;
+		jobs[i].index = j;
+	}
+
+	return (i);
+}
+
+/* Creating threads to process all the assets and join them to create images */
+static void	init_all_assets(t_game *game)
+{
+	pthread_t	threads[64]; // valeur par defaut pour avoir une taille
+	t_load_job	jobs[64];
+
+	int count = fill_jobs(game, jobs);
+
+	for (int i = 0; i < count; i++)
+	{
+		if (pthread_create(&threads[i], NULL, load_png_thread, &jobs[i]) != 0)
+			exit_game(game, "pthread_create failed");
+	}
+
+	for (int i = 0; i < count; i++)
+	{
+		pthread_join(threads[i], NULL);
+
+		if (!jobs[i].success)
+			exit_game(game, "process_png failed");
+
+		if (jobs[i].type == ASSET_WEAPON2D)
+		{
+			if (!(game->hud_cache.weapon_textures_2D[jobs[i].index] = create_image(&jobs[i].result, game->window->renderPTR)))
+				exit_game(game, "create image failed");
+		}
+		else if (jobs[i].type == ASSET_TOOL)
+		{
+			if (!(game->hud_cache.tools_textures[jobs[i].index] = create_image(&jobs[i].result, game->window->renderPTR)))
+				exit_game(game, "create image failed");
+		}
+		else if (jobs[i].type == ASSET_PLAYER)
+		{
+			if (!(game->hud_cache.ply_textures[jobs[i].index] = create_image(&jobs[i].result, game->window->renderPTR)))
+				exit_game(game, "create image failed");
+		}
 	}
 }
 
-/* Initialize 3D weapon */
+/* Initialize 3D weapon in multi threads*/
 static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect *rects, int frame_count, int fire_rate)
 {
 	t_weapon_3D	*w = &game->hud_cache.weapons_3D[weapon_idx];
+	pthread_t	threads[frame_count];
+	t_load_job	jobs[frame_count];
 
 	w->fire_rate = fire_rate;
 	w->frame_count = frame_count;
@@ -103,11 +147,21 @@ static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect 
 
 	for (int i = 0; i < frame_count; i++)
 	{
-		t_png	tmp;
-		tmp.path = ft_strdup(paths[i]);
-		if (!process_png(&tmp))
-			exit_game(game, "process png weapon 3d");
-		w->frames[i].texture = create_image(&tmp, game->window->renderPTR);
+		jobs[i].game = game;
+		jobs[i].path = paths[i];
+		jobs[i].index = i;
+
+		if (pthread_create(&threads[i], NULL, load_png_thread, &jobs[i]) != 0)
+			exit_game(game, "pthread_create_failed");
+	}
+
+	for (int i = 0; i < frame_count; i++)
+	{
+		pthread_join(threads[i], NULL);
+		if (!jobs[i].success)
+			exit_game(game, "process_png failed");
+
+		w->frames[i].texture = create_image(&jobs[i].result, game->window->renderPTR);
 		if (!w->frames[i].texture)
 			exit_game(game, "create image weapon 3d");
 		w->frames[i].dest = rects[i];
@@ -189,10 +243,10 @@ static void	init_3D_weapons(t_game *game)
 */
 void	init_hud_cache(t_game *game)
 {
-	init_weapons_cache(game);
-	init_tools_cache(game);
-	init_player_cache(game);
+	ft_printf("loading hud assets\n");
+
 	init_3D_weapons(game);
+	init_all_assets(game);
 
 	game->hud_cache.ply_tick = 0;
 	game->hud_cache.weap_tick = 0;
@@ -200,4 +254,6 @@ void	init_hud_cache(t_game *game)
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
 	if (!game->hud_cache.text_font || !game->hud_cache.number_font)
 		exit_game(game, (char *)TTF_GetError());
+
+	ft_printf("finished loading hud assets\n");
 }
