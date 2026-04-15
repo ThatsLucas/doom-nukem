@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 11:30:11 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 12:07:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:00:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
 	int	newpitch;
 	int	step;
 
-	step = 10;
+	step = 50;
 	newpitch = ply->pitch;
 	if (key.keysym.sym == 1073741906)
 		newpitch = ply->pitch + step;

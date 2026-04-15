@@ -47,7 +47,7 @@ static int	init_vertices(t_map *map)
 }
 
 static void	set_wall(t_wall *w, int v1, int v2, int next_sector,
-				int tex_mid, int tex_upper, int tex_lower)
+				int tex_mid, int tex_upper, int tex_lower, float alpha)
 {
 	w->v1 = v1;
 	w->v2 = v2;
@@ -57,7 +57,7 @@ static void	set_wall(t_wall *w, int v1, int v2, int next_sector,
 	w->tex_lower = tex_lower;
 	w->u_offset = 0.0f;
 	w->v_offset = 0.0f;
-	w->alpha = 1.0f;
+	w->alpha = alpha;
 }
 
 static int	init_walls(t_map *map)
@@ -70,22 +70,22 @@ static int	init_walls(t_map *map)
 
 	/* ── Secteur 0 : polygone fermé [0→1→4→3→0] ── */
 	/*          v1  v2  next  mid  upper  lower       */
-	set_wall(&map->walls[0],  0, 1,  -1,   0,   -1,  -1);  /* nord  (solide) */
-	set_wall(&map->walls[1],  1, 4,   1,   0,   -1,  -1);  /* est   (portail → sec 1) */
-	set_wall(&map->walls[2],  4, 3,  -1,   0,   -1,  -1);  /* sud   (solide) */
-	set_wall(&map->walls[3],  3, 0,  -1,   0,   -1,  -1);  /* ouest (solide) */
+	set_wall(&map->walls[0],  0, 1,  -1,   0,   -1,  -1, 1.0f);  /* nord  (solide) */
+	set_wall(&map->walls[1],  1, 4,   1,   0,   -1,  -1, 0.5f);  /* est   (portail → sec 1) */
+	set_wall(&map->walls[2],  4, 3,  -1,   0,   -1,  -1, 1.0f);  /* sud   (solide) */
+	set_wall(&map->walls[3],  3, 0,  -1,   0,   -1,  -1, 1.0f);  /* ouest (solide) */
 
 	/* ── Secteur 1 : polygone fermé [1→2→5→4→1] ── */
-	set_wall(&map->walls[4],  1, 2,  -1,   1,   -1,  -1);  /* nord  (solide) */
-	set_wall(&map->walls[5],  2, 5,  -1,   1,   -1,  -1);  /* est   (solide) */
-	set_wall(&map->walls[6],  5, 4,   2,   1,    2,   2);   /* sud   (portail → sec 2) */
-	set_wall(&map->walls[7],  4, 1,   0,   1,   -1,  -1);  /* ouest (portail → sec 0) */
+	set_wall(&map->walls[4],  1, 2,  -1,   1,   -1,  -1, 1.0f);  /* nord  (solide) */
+	set_wall(&map->walls[5],  2, 5,  -1,   1,   -1,  -1, 1.0f);  /* est   (solide) */
+	set_wall(&map->walls[6],  5, 4,   2,   1,    2,   2, 1.0f);   /* sud   (portail → sec 2) */
+	set_wall(&map->walls[7],  4, 1,   0,   1,   -1,  -1, 0.9f);  /* ouest (portail → sec 0) */
 
 	/* ── Secteur 2 : polygone fermé [4→5→7→6→4] ── */
-	set_wall(&map->walls[8],  4, 5,   1,   3,    2,   2);   /* nord  (portail → sec 1) */
-	set_wall(&map->walls[9],  5, 7,  -1,   3,   -1,  -1);  /* est   (solide) */
-	set_wall(&map->walls[10], 7, 6,  -1,   3,   -1,  -1);  /* sud   (solide) */
-	set_wall(&map->walls[11], 6, 4,  -1,   3,   -1,  -1);  /* ouest (solide) */
+	set_wall(&map->walls[8],  4, 5,   1,   3,    2,   2, 1.0f);   /* nord  (portail → sec 1) */
+	set_wall(&map->walls[9],  5, 7,  -1,   3,   -1,  -1, 1.0f);  /* est   (solide) */
+	set_wall(&map->walls[10], 7, 6,  -1,   3,   -1,  -1, 1.0f);  /* sud   (solide) */
+	set_wall(&map->walls[11], 6, 4,  -1,   3,   -1,  -1, 1.0f);  /* ouest (solide) */
 
 	return (0);
 }
@@ -110,7 +110,7 @@ static int	init_one_sector(t_sector *sec, int *wall_ids, int num_walls,
 	sec->ceil_plane = ceil_p;
 	sec->floor_tex = floor_tex;
 	sec->ceil_tex = ceil_tex;
-	sec->sky_tex = -1;
+	sec->sky_tex = 0;
 	sec->light_level = light;
 	return (0);
 }
@@ -134,17 +134,17 @@ static int	init_sectors(t_map *map)
 	/* Secteur 1 : sol z=0, plafond z=4 (même niveau que secteur 0) */
 	if (init_one_sector(&map->sectors[1],
 		(int[]){4, 5, 6, 7}, 4,
-		(t_plane){-0.1f, 0, 1, 0.6f},   /* sol : z=0 à x=6, monte de 0.1 par unité de x */
+		(t_plane){-0.2f, 0, 1, 0.6f},   /* sol : z=0 à x=6, monte de 0.1 par unité de x */
 		(t_plane){0, 0, 1, -4},       /* plaf plat z=4  */
-		0, 1, 200) == -1)
+		0, 1, 100) == -1)
 		return (-1);
 
 	/* Secteur 2 : sol z=1, plafond z=3 (plus étroit → steps visibles) */
 	if (init_one_sector(&map->sectors[2],
 		(int[]){8, 9, 10, 11}, 4,
 		(t_plane){0, 0, 1, -1},       /* sol plat z=1   */
-		(t_plane){0, 0, 1, -6},       /* plaf plat z=3  */
-		2, 3, 150) == -1)
+		(t_plane){0.2f, 0, 1, -3.5f},   /* z = -0.1*x + 3.5 */
+		2, 3, 25) == -1)
 		return (-1);
 
 	return (0);

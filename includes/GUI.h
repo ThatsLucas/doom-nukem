@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 16:57:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:18:31 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ void    free_buttons(t_buttons *buttonlist);
 void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 /* gameplay */
+Uint32	write_color(int r, int g, int b, int sect_light);
 void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector);
-void	draw_wall(t_game *game, t_ray *ray, int x);
+void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector);
+void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sector *sector);
 
 #endif
