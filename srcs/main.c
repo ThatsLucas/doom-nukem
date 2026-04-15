@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/15 11:01:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:10:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,9 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 78, 78, 78, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
-		draw_main_menu(&game->window->MainMenu, game);
+		//draw_main_menu(&game->window->MainMenu, game);
 
-		display_notif(game->window, &game->window->PopupPtr.notif_buf);
+		//display_notif(game->window, &game->window->PopupPtr.notif_buf);
 
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)

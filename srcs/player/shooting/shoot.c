@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:38:16 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 12:05:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:18:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ void	player_shoot(t_game *game)
 
 	w->current_frame = 0;
 	w->is_firing = 1;
-	game->hud_cache.weap_tick = 0;
 }

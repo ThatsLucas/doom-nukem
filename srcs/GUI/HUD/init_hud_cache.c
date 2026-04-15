@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 12:39:12 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:19:29 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,10 +231,10 @@ static void	init_3D_weapons(t_game *game)
 		{810, 830, 300, 250}
 	};
 
-	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 12);
-	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 18);
-	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 20);
-	init_3D_weapon(game, WEAP_ROCKET_LAUNCHER, rocket_paths, rocket_rects, 7, 20);
+	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 90);
+	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 130);
+	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 130);
+	init_3D_weapon(game, WEAP_ROCKET_LAUNCHER, rocket_paths, rocket_rects, 7, 100);
 }
 
 /*
@@ -248,8 +248,6 @@ void	init_hud_cache(t_game *game)
 	init_3D_weapons(game);
 	init_all_assets(game);
 
-	game->hud_cache.ply_tick = 0;
-	game->hud_cache.weap_tick = 0;
 	game->hud_cache.text_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
 	if (!game->hud_cache.text_font || !game->hud_cache.number_font)
