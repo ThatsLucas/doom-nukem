@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 12:33:08 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:18:34 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_weapon_3D
 	int					frame_count;
 	int					current_frame;
 	int					is_firing;
+	long long			last_anim_time;
 }				t_weapon_3D;
 
 typedef struct	s_hud_cache
@@ -56,11 +57,12 @@ typedef struct	s_hud_cache
 	t_weapon_3D		weapons_3D[MAX_WEAPONS];
 	SDL_Texture		*tools_textures[MAX_TOOLS];
 	SDL_Texture		*ply_textures[10];
-	int				ply_frame;
-	int				ply_tick;
-	int				weap_tick;
 	TTF_Font		*text_font;
 	TTF_Font		*number_font;
+
+	long long ply_last_time;
+	long long weap_last_time;
+	int ply_frame;
 }				t_hud_cache;
 
 typedef enum	e_asset_type

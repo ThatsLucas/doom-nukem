@@ -6,35 +6,46 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:03:49 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 12:03:07 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:17:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI/GUI.h"
 #include "Game.h"
 
-/* Updates the current frame to make a sprite animation of the player and the weapons */
-void	update_hud_anim(t_game *game)
+long long get_time_ms(void)
 {
-	int				idx = game->ply->current_weap_index;
-	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
-	t_weapon_3D		*w = &game->hud_cache.weapons_3D[type];
+    struct timeval tv;
 
-	game->hud_cache.weap_tick++;
-	game->hud_cache.ply_tick++;
-	if (game->hud_cache.ply_tick >= 500)
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
+}
+
+
+
+/* Updates the current frame to make a sprite animation of the player and the weapons */
+void update_hud_anim(t_game *game)
+{
+	int idx = game->ply->current_weap_index;
+	t_weapon_type type = game->ply->inventory.weapons[idx].type;
+	t_weapon_3D *w = &game->hud_cache.weapons_3D[type];
+
+	long long now = get_time_ms();
+
+	if (now - game->hud_cache.ply_last_time >= 1000)
 	{
-		game->hud_cache.ply_tick = 0;
+		game->hud_cache.ply_last_time = now;
 		game->hud_cache.ply_frame = (game->hud_cache.ply_frame + 1) % 3;
 	}
 
 	if (!w->is_firing)
-		return ;
+		return;
 
-	if (game->hud_cache.weap_tick < w->fire_rate)
-		return ;
+	if (now - w->last_anim_time < w->fire_rate)
+		return;
 
-	game->hud_cache.weap_tick = 0;
+	w->last_anim_time = now;
+
 	w->current_frame++;
 
 	if (w->current_frame >= w->frame_count)
