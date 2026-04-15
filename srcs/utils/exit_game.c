@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 10:47:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 11:04:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void	exit_game(t_game *game, char *type)
 	cleanup_items(game);
 	free_hud_cache(game);
 
-	if (game->window->MainMenu.has_init)
-		destroy_main_menu(&game->window->MainMenu);
-
+	while (game->window->PopupPtr.notif_buf)
+		destroy_notif_node(&game->window->PopupPtr.notif_buf);
 	if (game->window->buttonList)
 		free_buttons(game->window->buttonList);
 	if (game->window && game->window->renderPTR)

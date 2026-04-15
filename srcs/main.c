@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/14 13:23:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 11:01:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,9 +217,13 @@ int main(void)
 
 	game->items_count += 7;
 
-	t_notif_buf *notifbuf = NULL;
-	create_notif(&notifbuf, "Ceci est un test", 5);
-	// int wait = 1000;
+	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
+
+	create_notif(&game->window->PopupPtr.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
+
+	create_notif(&game->window->PopupPtr.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
+
+	create_notif(&game->window->PopupPtr.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
 		events_handler(game);
@@ -229,11 +233,10 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 78, 78, 78, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
-		//draw_main_menu(&game->window->MainMenu, game);
-		//if (wait > 2500)
-		//	display_notif(game->window, &notifbuf);
-		//wait++;
-		// printf("wait = %d\n", wait);
+		draw_main_menu(&game->window->MainMenu, game);
+
+		display_notif(game->window, &game->window->PopupPtr.notif_buf);
+
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);

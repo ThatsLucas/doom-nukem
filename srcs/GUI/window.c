@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 00:02:33 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/14 23:41:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int init_all_imgs(t_WIN *win)
 {
     if (!init_home_menu(win, win->renderPTR, &win->MainMenu, 150))
         return (0);
-    if (!init_notif(&win->Popup, win->renderPTR))
+    if (!init_notif(&win->PopupPtr.Popup, win->renderPTR))
     {
-       destroy_main_menu(&win->MainMenu); 
+        ft_printf("ERROR NOTIF INIT\n");
        return (0);
     }
     return (1);

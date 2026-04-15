@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 10:46:43 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 10:59:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_WIN
     int w;
     int h;
     t_main_menu MainMenu;
-    t_png       Popup;
+    t_notif_ptr PopupPtr;
+    
 }	t_WIN;
 
 t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags);

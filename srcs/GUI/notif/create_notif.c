@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 20:46:10 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/14 00:16:57 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/15 00:13:03 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_notif_buf *allocate_new_notif_buf(void)
     return (new_notif_buf);
 }
 
-static t_notif *allocate_new_notif(char *str, int duration_ms)
+static t_notif *allocate_new_notif(char *str, int duration_ms, int fontSize)
 {
     t_notif *notif = malloc(sizeof(t_notif));
     if (!notif)
@@ -36,15 +36,18 @@ static t_notif *allocate_new_notif(char *str, int duration_ms)
     SDL_Rect new_pos = {-500, -500, 0, 0};
     notif->coords = new_pos;
     notif->time_left = -1;
-    notif->state = 0;
+    notif->state = NOTIF_NOT_SHOWED;
+    notif->font.size = fontSize;
+    notif->font.texture = NULL;
     return (notif);
 }
 
-static void destroy_notif_node(t_notif_buf **notif_buf)
+void destroy_notif_node(t_notif_buf **notif_buf)
 {
     t_notif_buf *tmp = (*notif_buf)->next;
     if ((*notif_buf)->notif)
     {
+        SDL_DestroyTexture((*notif_buf)->notif->font.texture);
         free((*notif_buf)->notif->text);
         free((*notif_buf)->notif);
     }
@@ -61,14 +64,14 @@ int init_notif(t_png *notifImg, SDL_Renderer *renderer)
     return (1);
 }
 
-void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms)
+void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms, int fontSize)
 {
     if (!*notif_buf)
     {
         *notif_buf = allocate_new_notif_buf();
         if (!*notif_buf)
             return;
-        (*notif_buf)->notif = allocate_new_notif(str, duration_ms);
+        (*notif_buf)->notif = allocate_new_notif(str, duration_ms, fontSize);
     }
     else
     {
@@ -76,9 +79,26 @@ void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms)
         while (tmp->next)
             tmp = tmp->next;
         tmp->next = allocate_new_notif_buf();
-        tmp->next->notif = allocate_new_notif(str, duration_ms);
+        tmp->next->notif = allocate_new_notif(str, duration_ms, fontSize);
         return;
     }
+}
+
+static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, int notifW, int notifH)
+{
+    if (!notif->font.texture)
+    {
+        ft_printf("Invalid Texture inside Notif\n");
+        return;
+    }
+    int x = notifX + (notifW - notif->w) /2;
+    int y = notifY + (notifH - notif->h) /2;
+    int w = notif->w;
+    int h = notif->h;
+    SDL_Rect notifText = {x, y, w, h};
+    to_responsive(win, &notifText);
+    if (SDL_RenderCopy(win->renderPTR, notif->font.texture, NULL, &notifText)  < 0)
+        ft_printf("ERROR: %s\n", SDL_GetError());
 }
 
 void display_notif(t_WIN *win, t_notif_buf **notif_buf)
@@ -87,13 +107,26 @@ void display_notif(t_WIN *win, t_notif_buf **notif_buf)
         return;
     if ((*notif_buf)->notif->state == NOTIF_NOT_SHOWED)
     {
-        SDL_Rect new_pos = { win->w / 2 - win->Popup.w / 3 / 2, win->Popup.h / 3 - (win->Popup.h / 3 - 2), win->Popup.w / 3, win->Popup.h / 3};
+        SDL_Rect new_pos = { 1920 / 2 - (win->PopupPtr.Popup.w / 3 / 2) , -win->PopupPtr.Popup.h / 3 + 2, win->PopupPtr.Popup.w / 3, win->PopupPtr.Popup.h / 3};
         (*notif_buf)->notif->coords = new_pos;
         (*notif_buf)->notif->state = NOTIF_SPAWNING;
+
+        SDL_Color color = {255, 255, 255, 255};
+        (*notif_buf)->notif->font.color = color;
+        create_text_multiple_lines(&(*notif_buf)->notif->font, win->renderPTR, (*notif_buf)->notif->text, "assets/fonts/AmazDooMLeft.ttf", win->PopupPtr.Popup.w / 3 - 120);
+        if (!(*notif_buf)->notif->font.texture)
+        {
+            destroy_notif_node(notif_buf);
+            return;
+        }
+        (*notif_buf)->notif->w = (*notif_buf)->notif->font.w;
+        (*notif_buf)->notif->h = (*notif_buf)->notif->font.h;
+        (*notif_buf)->notif->duration = SDL_GetTicks() + (*notif_buf)->notif->duration * 1000;
+        return;
     }
     else if ((*notif_buf)->notif->state == NOTIF_SPAWNING)
     {
-        if (((*notif_buf)->notif->coords.y * win->h) / 1080 < (win->h * 150 + (long)win->Popup.h / 3) / 1080)
+        if (((*notif_buf)->notif->coords.y * win->h) / 1080 < (win->h * 50 + (long)win->PopupPtr.Popup.h / 3) / 1080)
         {
             SDL_Rect new_pos = (*notif_buf)->notif->coords;
             new_pos.y += 1;
@@ -104,18 +137,27 @@ void display_notif(t_WIN *win, t_notif_buf **notif_buf)
     }
     else if ((*notif_buf)->notif->state == NOTIF_DELETING)
     {
-        if ((((*notif_buf)->notif->coords.y + win->Popup.h / 3)) * win->h > 0)
-        {
-            SDL_Rect new_pos = (*notif_buf)->notif->coords;
-            new_pos.y -= 1;
-            (*notif_buf)->notif->coords = new_pos;
-        }
-        else
-        {
-            destroy_notif_node(notif_buf);
-            return;
+        if ((*notif_buf)->notif->duration < SDL_GetTicks())
+        {   
+            SDL_Rect notifPos = (*notif_buf)->notif->coords;
+            to_responsive(win, &notifPos);
+            if (((notifPos.y + win->PopupPtr.Popup.h / 3)) * win->h > 0)
+            {
+                SDL_Rect new_pos = (*notif_buf)->notif->coords;
+                new_pos.y -= 1;
+                (*notif_buf)->notif->coords = new_pos;
+            }
+            else
+            {
+                destroy_notif_node(notif_buf);
+                return;
+            }
         }
     }
-    to_responsive(win, &(*notif_buf)->notif->coords);
-	SDL_RenderCopy(win->renderPTR, win->Popup.texture, NULL, &(*notif_buf)->notif->coords);
+    SDL_Rect dest = (*notif_buf)->notif->coords;
+    to_responsive(win, &dest);
+    SDL_RenderCopy(win->renderPTR, win->PopupPtr.Popup.texture, NULL, &dest);
+    draw_notif_text(win, (*notif_buf)->notif,
+    (*notif_buf)->notif->coords.x, (*notif_buf)->notif->coords.y,
+    (*notif_buf)->notif->coords.w, (*notif_buf)->notif->coords.h);
 }
