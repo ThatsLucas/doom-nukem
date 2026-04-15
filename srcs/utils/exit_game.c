@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 11:04:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/15 11:53:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	exit_game(t_game *game, char *type)
 		ft_putstr_fd(" => ", STDERR_FILENO);
 		ft_putstr_fd((char *)error, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+	else if (type)
+	{
+		ft_putstr_fd(type, STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 
 	cleanup_items(game);
