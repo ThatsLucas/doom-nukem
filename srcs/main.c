@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/14 23:22:52 by lucas            ###   ########.fr       */
+/*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
+/*   Updated: 2026/04/14 16:34:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "Game.h"
 #include "Events.h"
 #include "parser/PNG.h"
+
+
 
 int main(void)
 {
@@ -55,6 +57,7 @@ int main(void)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
+		display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 	}

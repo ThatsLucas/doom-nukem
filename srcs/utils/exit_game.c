@@ -28,12 +28,18 @@ void	exit_game(t_game *game, char *type)
 		destroy_notif_node(&game->window->PopupPtr.notif_buf);
 	if (game->window->buttonList)
 		free_buttons(game->window->buttonList);
+	free(game->ply);
+
+	free_map(game->map);
+	free(game->rays);
+	free(game->fps);
+
 	if (game->window && game->window->renderPTR)
 		SDL_DestroyRenderer(game->window->renderPTR);
 	if (game->window && game->window->winPTR)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
-	free(game->ply);
+
 	free(game);
 	TTF_Quit();
 	SDL_Quit();
