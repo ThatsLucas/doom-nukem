@@ -12,6 +12,7 @@
 
 #include "Window.h"
 #include "GUI.h"
+#include "menus/menus.h"
 #include "Game.h"
 #include "Events.h"
 #include "parser/PNG.h"
@@ -20,45 +21,41 @@
 
 int main(void)
 {
-	// process_png("assets/png/doom_nukem.png");
-
 	t_game	*game;
 
 	game = init_game();
 	if (!game)
 		return (1);
 
-	t_RGB rgb;
-	rgb.r = 51;
-	rgb.g = 153;
-	rgb.b = 255;
-	rgb.alphaValue = 255;
-
-	game->ply->pos.x = 3.0f;
-	game->ply->pos.y = 2.0f;
-	game->ply->dir.x = 0.0f;
-	game->ply->dir.y = 1.0f;
+	game->ply->pos_x = 500;
+	game->ply->pos_y = 500;
+	game->ply->dir_x = 1.0f;
+	game->ply->dir_y = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 12;	game->mapSize[1] = 8;
+	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
 
+	create_notif(&game->window->PopupPtr.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
+
+	create_notif(&game->window->PopupPtr.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
+
+	create_notif(&game->window->PopupPtr.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
 		events_handler(game);
-		// game->ply->z = get_plane_z(game->map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y) + EYES_HEIGTH;
-
+		
 		// Clear la page (fond rouge)
-		SDL_SetRenderDrawColor(game->window->renderPTR, 120, 52, 50, 255);
+		SDL_SetRenderDrawColor(game->window->renderPTR, 51, 20, 7, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
-		// Creation du renderer (de la frame)
-		ft_bzero(game->frame_buffer, sizeof(game->frame_buffer));
-		SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 255, 255);
-		send_rays(game);
-		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
-		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+		draw_main_menu(&game->window->MainMenu, game);
 
-		draw_player(game->window->renderPTR, game, 20, rgb);
+		display_notif(game->window, &game->window->PopupPtr.notif_buf);
+
+		// display_buttons(game->window->buttonList, game->window->renderPTR);		
+		// Creation du renderer (de la frame)
+		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
+		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
 		display_fps(game);
 		// affichage du renderer sur la page
@@ -66,6 +63,5 @@ int main(void)
 	}
 
 	exit_game(game, NULL);
-
 	return 0;
 }

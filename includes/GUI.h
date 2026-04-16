@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
 /*   Updated: 2026/04/15 13:18:31 by aabouyaz         ###   ########.fr       */
@@ -14,6 +14,7 @@
 # define GUI_H
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include "Colors.h"
 #include "Raycasting/Types.h"
 
@@ -22,21 +23,28 @@ typedef struct s_WIN	t_WIN;
 typedef struct s_game	t_game;
 typedef struct s_vect2	t_vect2;
 
-typedef struct s_coordinates
+typedef struct s_font
 {
-    int x;
-    int y;
+    TTF_Font    *font;
+    char        *str;
+    int         size;
+    SDL_Color   color;
+    SDL_Texture *texture;
     int w;
     int h;
-}				t_coordinates;
+    int     textHOffset; // ya des  fonts de merde qui renvoie pas la bonne hauteur du texte
+}   t_font;
 
 typedef struct s_buttons
 {
-    t_coordinates buttonCoords;
+    SDL_Rect buttonCoords;
     t_RGB color;
     t_RGB hoverColor;
     void (*callback_func)(t_game *);
     struct s_buttons *next;
+    t_font *text;
+    t_font *textHover;
+    int page_id; // 1 = main menu, 2 = ?
 }   t_buttons;
 
 /*utils*/
@@ -48,7 +56,7 @@ int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RG
 int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
 
 /*rectangles*/
-void    create_rectangle(SDL_Renderer *renderer, t_coordinates coords, t_RGB rgb);
+void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
 void    create_button(t_buttons **button_list, void (*callback)(t_game *), t_coordinates coords, t_RGB color, t_RGB hoverColor);
@@ -65,5 +73,15 @@ void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sector *sector);
+
+/*Images*/
+SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
+
+/*Text*/
+void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
+void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
+
+/*RESPONSIVENESS*/
+void to_responsive(t_WIN *win, SDL_Rect *cur);
 
 #endif

@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:12:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/13 20:32:52 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 
+#include <pthread.h>
 #include <SDL.h>
 #include <sys/time.h>
 #include <pthread.h>
 #include "Window.h"
+#include "Player.h"
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
@@ -25,25 +27,7 @@
 #  define M_PI 3.14159265359f
 # endif
 
-typedef struct	s_keys
-{
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-	int		left;
-	int		right;
-}			t_keys;
-
-typedef struct s_ply
-{
-	t_vect2		pos;
-	float		z;
-	t_vect2		dir;
-	t_keys		keys;
-	int			pitch;
-	int			sector;
-}				t_ply;
+typedef struct s_ply t_ply;
 
 typedef struct s_game
 {
