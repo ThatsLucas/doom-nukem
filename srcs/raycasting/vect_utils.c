@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 14:53:07 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/11 11:39:18 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:54:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	dist_vect(t_vect2 a, t_vect2 b)
 {
 	float	len;
 
-	len	= sqrtf(powf(b.x - a.x, 2.0f) + (powf(b.y - a.y, 2.0f)));
+	len = sqrtf(powf(b.x - a.x, 2.0f) + (powf(b.y - a.y, 2.0f)));
 
 	return (len);
 }

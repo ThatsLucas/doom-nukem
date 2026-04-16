@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 16:37:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:47:03 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:56:34 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 /* melange les pixels pour obtenir un effet transparent */
 void	blend_pixels(t_game *game, t_wall *w, t_ray *ray, int x, t_sector *sector)
 {
-	int		draw_top = (ray->y_wall_top > ray->y_top) ? ray->y_wall_top : ray->y_top;
-	int		draw_bot = (ray->y_wall_bot < ray->y_bot) ? ray->y_wall_bot : ray->y_bot;
-	t_tex	*tex		 = &game->map->textures[w->tex_mid];
 	float	u_world, vh, vh_step;
 	int		tex_x, tex_y;
+	int		draw_top = (ray->y_wall_top > ray->y_top) ? ray->y_wall_top : ray->y_top;
+	int		draw_bot = (ray->y_wall_bot < ray->y_bot) ? ray->y_wall_bot : ray->y_bot;
+	t_tex	*tex	 = &game->map->textures[w->tex_mid];
 
 	u_world		= ray->u * game->map->walls[ray->wall_idx].length;
 	tex_x		= (int)(u_world * tex->w) % tex->w;
 	t_RGB	behind;
 	t_RGB	color;
-	vh_step = (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
+	vh_step		= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
 	vh = (float)(draw_top - ray->y_wall_top) * vh_step;
-	Uint32 *fb = &game->frame_buffer[draw_top * game->screenSize[0] + x];
-	for (int y = draw_top; y < draw_bot; ++y)
+	Uint32 *fb	= &game->frame_buffer[draw_top * game->screenSize[0] + x];
+	for (int y	= draw_top; y < draw_bot; ++y)
 	{
 		tex_y		= (int)vh % tex->h;
 		vh			+= vh_step;

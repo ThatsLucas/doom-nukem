@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:46:32 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 13:09:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:54:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ void	update_player_sector(t_game *game, t_vect2 oldpos)
 			continue ;
 		a = game->map->vertices[w->v1];
 		b = game->map->vertices[w->v2];
-		side_old = (b.x - a.x) * (oldpos.y - a.y)
-				 - (b.y - a.y) * (oldpos.x - a.x);
-		side_new = (b.x - a.x) * (game->ply->pos.y - a.y)
-				 - (b.y - a.y) * (game->ply->pos.x - a.x);
+		side_old = (b.x - a.x) * (oldpos.y - a.y) - (b.y - a.y) * (oldpos.x - a.x);
+		side_new = (b.x - a.x) * (game->ply->pos.y - a.y) - (b.y - a.y) * (game->ply->pos.x - a.x);
 		if ((side_old > 0 && side_new <= 0) || (side_old <= 0 && side_new > 0))
 		{
 			game->ply->sector = w->next_sector;
