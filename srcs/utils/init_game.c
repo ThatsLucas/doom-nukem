@@ -67,6 +67,9 @@ t_game	*init_game(void)
 		return (NULL);
 	ft_bzero(game, sizeof(t_game));
 
+	if (TTF_Init() < 0)
+		exit_game(game, "TTF Init");
+
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
 	get_screen_size(&game->screenSize[0], &game->screenSize[1]);
@@ -86,5 +89,6 @@ t_game	*init_game(void)
 		exit_game(game, "player malloc");
 	ft_bzero(game->ply, sizeof(t_ply));
 	init_map(game);
+	game->window->PopupPtr.notif_buf = NULL;
 	return (game);
 }
