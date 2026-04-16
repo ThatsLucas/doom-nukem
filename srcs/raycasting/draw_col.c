@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:55:38 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:53:48 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 {
 	t_sector	*sector;
-	int			sH = game->screenSize[1];
 	t_ray		temp;
-	int			is_transparent = 0;
 	int			next_id, mirror;
+	int			is_transparent = 0;
+	int			sH = game->screenSize[1];
 
 	ray->t			= FLT_MAX;
 	sector			= &game->map->sectors[sector_id];

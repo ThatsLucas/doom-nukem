@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:13:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:49:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:54:24 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	send_rays(t_game *game)
 		infos[i].x_end		= start + parts;
 		if (i == RAYCAST_THREADS - 1)
 			infos[i].x_end	= game->screenSize[0];
-		start	+= parts;
+		start += parts;
 
 		if (pthread_create(&threads[i], NULL, send_threads_ray, &infos[i]))
 		{

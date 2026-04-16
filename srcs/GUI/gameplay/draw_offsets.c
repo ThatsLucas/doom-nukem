@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:45:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:56:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	u_world		= ray->u * w->length;
 	if (w->tex_upper >= 0 && ny_top - ray->y_top > 1)
 	{
-		tex_x	= (int)(u_world * tex->w) % tex->w;
-		vh_step	= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
-		vh		= (float)(step_top - ray->y_wall_top) * vh_step;
-		Uint32 *fb = &game->frame_buffer[step_top * sW + x];
+		tex_x		= (int)(u_world * tex->w) % tex->w;
+		vh_step		= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
+		vh			= (float)(step_top - ray->y_wall_top) * vh_step;
+		Uint32 *fb	= &game->frame_buffer[step_top * sW + x];
 		for (int y = step_top; y < step_ny_top; y++)
 		{
 			tex_y	= (int)vh % tex->h;
@@ -59,9 +59,9 @@ static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	if (w->tex_lower >= 0 && ray->y_bot - ny_bot > 1)
 	{
 		tex_x = (int)(u_world * tex->w) % tex->w;
-		vh_step	= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
-		vh		= (float)(step_ny_bot - ray->y_wall_top) * vh_step;
-		Uint32 *fb = &game->frame_buffer[step_ny_bot * sW + x];
+		vh_step		= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
+		vh			= (float)(step_ny_bot - ray->y_wall_top) * vh_step;
+		Uint32 *fb	= &game->frame_buffer[step_ny_bot * sW + x];
 		for (int y = step_ny_bot; y < step_bot; y++)
 		{
 			tex_y	= (int)vh % tex->h;
