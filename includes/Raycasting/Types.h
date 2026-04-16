@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 10:34:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:06:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ typedef struct s_wall
 
 	/* --- Connexion --- */
 	int		next_sector;	/* -1 = solide, >= 0 = indice du voisin */
+	float	length;			/* longueur d'un mur precalculee au demarrage */
+	int		mirror;			/* mur mur mirroir dans le secteur à coté */
 
 	/* --- Textures (indices dans map->textures, -1 = aucune) --- */
 	int		tex_mid;		/* texture principale */
 	int		tex_upper;		/* texture step du haut (portail) */
 	int		tex_lower;		/* texture step du bas (portail) */
-
-	/* --- Alignement de texture --- */
-	float	u_offset;		/* décalage horizontal (le long du mur) */
-	float	v_offset;		/* décalage vertical (haut en bas) */
 
 	/* --- Transparence --- */
 	float	alpha;			/* 1.0 = opaque, 0.0 = invisible */
@@ -90,6 +88,7 @@ typedef struct s_ray
 	int			y_wall_top;		/* position haute et basse du mur */
 	int			y_wall_bot;
 	float		focal;
+	float		inv_focal;		/* Inverser la focal une fois par frame pour pas avoir a faire de div */
 }				t_ray;
 
 typedef struct s_tex
@@ -116,9 +115,8 @@ typedef struct s_map
 
 	/* --- Ressources --- */
 	t_tex		*textures;
-	SDL_Surface	*surface[4];
 	int			num_textures;
-	t_RGB		**text_colors;
+	int			cap_textures;
 }				t_map;
 
 #endif

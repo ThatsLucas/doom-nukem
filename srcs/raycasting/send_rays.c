@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:13:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 13:08:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 16:50:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void	send_rays(t_game *game)
 	t_ray		ray;
 	int			sW = game->screenSize[0], sH = game->screenSize[1];
 
-	ray.plane = get_cam_plane(game->ply->dir);
+	ray.plane		= get_cam_plane(game->ply->dir);
+	ray.focal		= sW / (2.0f * FOV);
+	ray.inv_focal	= 1.0f / ray.focal;
 
 	for (int x = 0; x < sW; x++)
 	{
-		ray.y_top = 0;
-		ray.y_bot = sH - 1;
+		ray.y_top		= 0;
+		ray.y_bot		= sH - 1;
 		ray.camera_x	= 2.0f * x / (float)sW - 1.0f;
 		ray.dir			= get_ray_dir(&ray, game->ply);
-		ray.focal		= sW / (2.0f * FOV);
 		draw_col(game, &ray, x, game->ply->sector, -1);
 	}
 

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 09:57:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 16:56:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,33 @@
 
 void	init_textures(t_game *game, t_map *map)
 {
-	map->surface[0] = SDL_LoadBMP("assets/east.bmp");
-	map->surface[1] = SDL_LoadBMP("assets/north.bmp");
-	map->surface[2] = SDL_LoadBMP("assets/south.bmp");
-	map->surface[3] = SDL_LoadBMP("assets/west.bmp");
-	map->text_colors = calloc(4, sizeof(t_RGB *));
+	SDL_Surface	*surface;
+	SDL_Surface *converted;
+
+	char *assets[4] = {"assets/east.bmp", "assets/west.bmp", "assets/north.bmp", "assets/south.bmp"};
+
+	map->textures = calloc(4, sizeof(t_tex));
+	if (!map->textures)
+			exit_game(game, "init_textures");
+	map->cap_textures = 4;
 	for (int i = 0; i < 4; i++)
 	{
-		SDL_Surface *s = map->surface[i];
-		if (!s)
+		map->num_textures++;
+		surface = SDL_LoadBMP(assets[i]);
+		if (!surface)
 			exit_game(game, "init_textures");
-		SDL_Surface *converted = SDL_ConvertSurfaceFormat(s, SDL_PIXELFORMAT_ARGB8888, 0);
-		map->text_colors[i] = calloc(s->w * s->h, sizeof(t_RGB));
+		converted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_ARGB8888, 0);
+		map->textures[i].colors = malloc(sizeof(t_RGB) * converted->w * converted->h);
+		if (!map->textures[i].colors)
+			exit_game(game, "init_textures");
 		Uint32 *pixels = (Uint32 *)converted->pixels;
 		for (int j = 0; j < converted->w * converted->h; j++)
-		SDL_GetRGB(pixels[j], converted->format, &map->text_colors[i][j].r,
-		&map->text_colors[i][j].g, &map->text_colors[i][j].b);
+			SDL_GetRGB(pixels[j], converted->format, &map->textures[i].colors[j].r,
+			&map->textures[i].colors[j].g, &map->textures[i].colors[j].b);
+		map->textures[i].w = converted->w;
+		map->textures[i].h = converted->h;
 		SDL_FreeSurface(converted);
+		SDL_FreeSurface(surface);
 	}
 
 	return ;
@@ -41,8 +51,8 @@ void	init_map(t_game *game)
 	game->map = init_test_map();
 	if (!game->map)
 		exit_game(game, "Init map");
-	game->map->num_textures = 4;
 
+	precompute_mirrors(game->map);
 	init_textures(game, game->map);
 
 	return ;

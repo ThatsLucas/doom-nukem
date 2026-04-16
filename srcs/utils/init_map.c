@@ -87,6 +87,9 @@ static int	init_walls(t_map *map)
 	set_wall(&map->walls[10], 7, 6,  -1,   3,   -1,  -1, 1.0f);  /* sud   (solide) */
 	set_wall(&map->walls[11], 6, 4,  -1,   3,   -1,  -1, 1.0f);  /* ouest (solide) */
 
+	for(int i = 0; i < map->num_walls; ++i)
+		map->walls[i].length = dist_vect(map->vertices[map->walls[i].v1], map->vertices[map->walls[i].v2]);
+
 	return (0);
 }
 
@@ -94,23 +97,17 @@ static int	init_one_sector(t_sector *sec, int *wall_ids, int num_walls,
 					t_plane floor_p, t_plane ceil_p,
 					int floor_tex, int ceil_tex, int light)
 {
-	int	i;
-
 	sec->num_walls = num_walls;
 	sec->walls = malloc(sizeof(int) * num_walls);
 	if (!sec->walls)
 		return (-1);
-	i = 0;
-	while (i < num_walls)
-	{
+	for (int i = 0; i < num_walls; i++)
 		sec->walls[i] = wall_ids[i];
-		i++;
-	}
 	sec->floor_plane = floor_p;
 	sec->ceil_plane = ceil_p;
 	sec->floor_tex = floor_tex;
 	sec->ceil_tex = ceil_tex;
-	sec->sky_tex = 0;
+	sec->sky_tex = -1;
 	sec->light_level = light;
 	return (0);
 }
@@ -177,24 +174,25 @@ t_map	*init_test_map(void)
 		free_map(map);
 		return (NULL);
 	}
-	map->num_textures = 4;
+
 	return (map);
 }
 
 void	free_map(t_map *map)
 {
-	int	i;
-
 	if (!map)
 		return ;
-	i = 0;
-	while (i < map->num_sectors)
-	{
+
+	for (int i = 0; i < map->num_sectors; i++)
 		free(map->sectors[i].walls);
-		i++;
-	}
+
+	for (int y = 0; y < map->num_textures; y++)
+		free(map->textures[y].colors);
+
 	free(map->sectors);
 	free(map->walls);
 	free(map->vertices);
+	free(map->textures);
+
 	free(map);
 }
