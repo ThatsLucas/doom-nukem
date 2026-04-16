@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/15 11:05:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:47:18 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
         }
         len = big_endian_to_little_endian(len);
 
-
-            
         bytes_read = read(pngFile->fd, &type, sizeof(type));
         if (bytes_read != sizeof(type))
         {

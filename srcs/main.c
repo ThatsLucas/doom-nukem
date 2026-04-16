@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
 /*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
+=======
+/*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
+/*   Updated: 2026/04/17 00:05:42 by lucas            ###   ########.fr       */
+>>>>>>> 2c8c80d (feat (settings / gui): Reworked how menus are choosen on the sreen, added settings menu begin)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +38,15 @@ int main(void)
 
 	game->mapSize[0] = 12;	game->mapSize[1] = 8;
 
-	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
+	create_notif(&game->window->menus.notif.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
 
-	create_notif(&game->window->PopupPtr.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
+	create_notif(&game->window->menus.notif.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
 
-	create_notif(&game->window->PopupPtr.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
+	create_notif(&game->window->menus.notif.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
 
-	create_notif(&game->window->PopupPtr.notif_buf, "BANGER CE JEU", 5, 90);
+	create_notif(&game->window->menus.notif.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
-		events_handler(game);
-		
-		// Clear la page (fond rouge)
-		SDL_SetRenderDrawColor(game->window->renderPTR, 51, 20, 7, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
 		// draw_main_menu(&game->window->MainMenu, game);
@@ -53,7 +54,9 @@ int main(void)
 		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
 		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 
-		// display_notif(game->window, &game->window->PopupPtr.notif_buf);
+		events_handler(game);
+		display_notif(game->window, &game->window->menus.notif.notif_buf);
+		draw_current_menu(game);
 
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)

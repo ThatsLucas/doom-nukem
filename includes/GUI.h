@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/16 23:34:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:43:23 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
 void    create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
-int     check_button_pressed(t_game *win, t_buttons *button_list);
-void	display_buttons(t_buttons *button_list, t_game *game, int pageID);
+int     check_button_pressed(t_game *game, t_buttons *button_list);
+void    display_buttons(t_buttons *button_list, t_WIN *win, int pageID);
 void    free_buttons(t_buttons *buttonlist);
 
 /*minimap*/
