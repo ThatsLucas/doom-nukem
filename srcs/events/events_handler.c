@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:57:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:45:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.button == SDL_BUTTON_LEFT)
+				if (event.button.button == SDL_BUTTON_LEFT) /*FIXME C'est pas good ca*/
 					player_shoot(game);
 				else
 					check_button_pressed(game, game->window->buttonList);
