@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:57:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:12:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <SDL.h>
 #include <sys/time.h>
+#include <pthread.h>
 #include "Window.h"
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"

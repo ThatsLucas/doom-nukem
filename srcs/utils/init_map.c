@@ -55,8 +55,6 @@ static void	set_wall(t_wall *w, int v1, int v2, int next_sector,
 	w->tex_mid = tex_mid;
 	w->tex_upper = tex_upper;
 	w->tex_lower = tex_lower;
-	w->u_offset = 0.0f;
-	w->v_offset = 0.0f;
 	w->alpha = alpha;
 }
 
