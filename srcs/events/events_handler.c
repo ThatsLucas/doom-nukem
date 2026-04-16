@@ -6,12 +6,13 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 20:02:42 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 22:40:16 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
 #include "GUI.h"
+#include "Game.h"
 
 /*
 	27 = Escape
@@ -21,6 +22,9 @@
 	100 = D
 	1073741903 = RIGHT
 	1073741904 = LEFT
+	1073741906 = UP
+	1073741905 = DOWN
+	8 = BackSpace
 */
 static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 {
@@ -28,27 +32,22 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
-
+	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
+		ply_pitch(game, game->ply, key);
 	ply = game->ply;
 	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == 119) ? 1 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == 97) ? 1 : ply->keys.a;
 	ply->keys.s = (event->type == SDL_KEYDOWN && key.keysym.sym == 115) ? 1 : ply->keys.s;
 	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == 100) ? 1 : ply->keys.d;
+	ply->keys.left = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741904) ? 1 : ply->keys.left;
+	ply->keys.right = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741903) ? 1 : ply->keys.right;
 
 	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == 119) ? 0 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == 97) ? 0 : ply->keys.a;
 	ply->keys.s = (event->type == SDL_KEYUP && key.keysym.sym == 115) ? 0 : ply->keys.s;
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == 100) ? 0 : ply->keys.d;
-
-
-	// printf("============================\n");
-	// printf("W ====> %d\n", ply->keys.w);
-	// printf("A ====> %d\n", ply->keys.a);
-	// printf("S ====> %d\n", ply->keys.s);
-	// printf("D ====> %d\n", ply->keys.d);
-	// printf("============================\n");
-
-	ply_directions(key.keysym.sym, game->ply);
+	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
+	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
 }
 
 void	events_handler(t_game *game)
@@ -59,6 +58,7 @@ void	events_handler(t_game *game)
 		switch (event.type)
 		{
 			case SDL_MOUSEMOTION:
+				mouse_moves(event.motion.x, event.motion.y, game);
 				// printf("Mouse pos = %d, %d\n", event.motion.x, event.motion.y);
 				break;
 
@@ -77,7 +77,7 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				check_button_pressed(game->window, game->window->buttonList);
+				check_button_pressed(game, game->window->buttonList);
 				break;
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
@@ -86,8 +86,9 @@ void	events_handler(t_game *game)
 					game->window->h = event.window.data2;
 				}
 		}
-
 	}
+
+	ply_directions(game->ply);
 	ply_movements(game->ply, game);
 
 	return ;

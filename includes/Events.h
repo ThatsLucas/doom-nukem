@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:36 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/06 14:47:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/12 12:17:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 void	events_handler(t_game *game);
 void	ply_movements(t_ply *ply, t_game *game);
-void	ply_directions(int key, t_ply *ply);
+void	ply_directions(t_ply *ply);
+void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key);
+void	mouse_moves(int x, int y, t_game *game);
 
 #endif
