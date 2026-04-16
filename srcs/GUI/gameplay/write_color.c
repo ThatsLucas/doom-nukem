@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:24:01 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 13:17:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:03:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
-/* Renvoie une couleur par rapport au facteur de lumiere */
+/*
+	Renvoie une couleur par rapport au facteur de lumiere 
+	le bit shift de 8 est une division par 256 et pas 255 => résultat imparfait mais optimisé
+*/
 Uint32  write_color(int r, int g, int b, int sect_light)
 {
-	if (sect_light < 0)
-		return (0);
-	if (sect_light >= 255)
-		return ((r << 16) | (g << 8) | b);
-	r = r * sect_light / 255;
-	g = g * sect_light / 255;
-	b = b * sect_light / 255;
-
+	r = (r * sect_light) >> 8;
+	g = (g * sect_light) >> 8;
+	b = (b * sect_light) >> 8;
 	return ((r << 16) | (g << 8) | b);
 }

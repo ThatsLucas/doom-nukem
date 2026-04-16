@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 13:15:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 16:43:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,33 @@ void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 	int			end		= SDL_clamp(ray->y_bot, 0, sH - 1);
 	int			tex_x, tex_y;
 	t_RGB		c;
-	SDL_Surface	*S	= game->map->surface[sector->floor_tex];
+	t_tex		*tex		= &game->map->textures[sector->floor_tex];
 
 	float dot		= ray->dir.x * game->ply->dir.x + ray->dir.y * game->ply->dir.y;
 	float numer		= -(sector->floor_plane.a * game->ply->pos.x
 					+ sector->floor_plane.b * game->ply->pos.y
 					+ sector->floor_plane.c * game->ply->z
 					+ sector->floor_plane.d);
-	float denom_xy	= sector->floor_plane.a * ray->dir.x / dot
-					+ sector->floor_plane.b * ray->dir.y / dot;
+	float	dx_dot	= ray->dir.x / dot;
+	float	dy_dot	= ray->dir.y / dot;
+	float	denom_xy	= sector->floor_plane.a * dx_dot
+					+ sector->floor_plane.b * dy_dot;
+	Uint32	*fb = &game->frame_buffer[start * sW + x];
 	for (int y = start; y <= end; y++)
 	{
-		float vz	= (float)(sH / 2 - y + game->ply->pitch) / ray->focal;
+		float vz	= (float)(sH / 2 - y + game->ply->pitch) * ray->inv_focal;
 		float dist	= numer / (denom_xy + sector->floor_plane.c * vz);
-		float wx	= game->ply->pos.x + dist * ray->dir.x / dot;
-		float wy	= game->ply->pos.y + dist * ray->dir.y / dot;
+		float wx	= game->ply->pos.x + dist * dx_dot;
+		float wy	= game->ply->pos.y + dist * dy_dot;
 
-		tex_x = (int)(wx * S->w) % S->w;
-		tex_y = (int)(wy * S->h) % S->h;
-		if (tex_x < 0) tex_x += S->w;
-		if (tex_y < 0) tex_y += S->h;
+		tex_x = (int)(wx * tex->w) % tex->w;
+		tex_y = (int)(wy * tex->h) % tex->h;
+		if (tex_x < 0) tex_x += tex->w;
+		if (tex_y < 0) tex_y += tex->h;
 
-		c = game->map->text_colors[sector->floor_tex][tex_y * S->w + tex_x];
-		game->frame_buffer[y * sW + x] = write_color(c.r, c.g, c.b, sector->light_level);
+		c	= tex->colors[tex_y * tex->w + tex_x];
+		*fb	= write_color(c.r, c.g, c.b, sector->light_level);
+		fb	+= sW;
 	}
 	if (ray->y_wall_bot < ray->y_bot)
 	ray->y_bot = ray->y_wall_bot;
