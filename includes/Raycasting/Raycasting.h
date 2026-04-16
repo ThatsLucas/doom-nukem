@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:04:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:38:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:46:03 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Types.h"
 
-# define	EYES_HEIGTH 1.6	// mdr il fait 1m 60
+# define	EYES_HEIGTH 1.6		// mdr il fait 1m 60
 # define	FOV 0.80
+# define	RAYCAST_THREADS 8	// dont set this value too high or negative
 
 typedef struct s_game	t_game;
 typedef struct s_ply	t_ply;

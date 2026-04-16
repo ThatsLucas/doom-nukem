@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:06:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 17:30:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include <SDL.h>
 #include "Colors.h"
+
+typedef struct s_game	t_game;
 
 typedef struct	s_vect2
 {
@@ -118,5 +120,13 @@ typedef struct s_map
 	int			num_textures;
 	int			cap_textures;
 }				t_map;
+
+typedef struct s_raythread
+{
+	t_game	*game;
+	int		x_start;		/* Colonne ou le thread commence et fini d'écrire */
+	int		x_end;
+}			t_raythread;
+
 
 #endif
