@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   create_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 21:37:43 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/16 23:34:39 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI.h"
 #include "Window.h"
+#include "Game.h"
 
-static  void insert_new_button(t_buttons **button_list, void (*callback)(t_WIN *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
+static  void insert_new_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
 {
     t_buttons *new;
 
@@ -49,12 +50,12 @@ static int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoord
     return 1;
 }
 
-void create_button(t_buttons **button_list, void (*callback)(t_WIN *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
+void create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
 {
     insert_new_button(button_list, callback, coords, color, hoverColor, text, textHover, pageID);
 }
 
-void display_buttons(t_buttons *button_list, t_WIN *win, int pageID)
+void display_buttons(t_buttons *button_list, t_game *game, int pageID)
 {
     SDL_Rect mouseCoords;
     SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
@@ -69,7 +70,7 @@ void display_buttons(t_buttons *button_list, t_WIN *win, int pageID)
         t_font *textFont = button_list->text;
         int HOffset = button_list->text->textHOffset;
         SDL_Rect buttonCoords = button_list->buttonCoords;
-        to_responsive(win, &buttonCoords);
+        to_responsive(game->window, &buttonCoords);
         if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
         {
             color = button_list->hoverColor;
@@ -77,7 +78,7 @@ void display_buttons(t_buttons *button_list, t_WIN *win, int pageID)
             HOffset = button_list->textHover->textHOffset;
         }
         if (color.alphaValue > 0)
-            create_rectangle(win->renderPTR, button_list->buttonCoords, color);
+            create_rectangle(game->window->renderPTR, button_list->buttonCoords, color);
         if (textFont->texture)
         {
             int x = button_list->buttonCoords.x + (button_list->buttonCoords.w / 2 - textFont->w / 2);
@@ -85,14 +86,14 @@ void display_buttons(t_buttons *button_list, t_WIN *win, int pageID)
             int w = textFont->w;
             int h = textFont->h; 
             SDL_Rect btn_text_dest = {x, y, w, h};
-            to_responsive(win, &btn_text_dest);
-            SDL_RenderCopy(win->renderPTR, textFont->texture, NULL, &btn_text_dest);
+            to_responsive(game->window, &btn_text_dest);
+            SDL_RenderCopy(game->window->renderPTR, textFont->texture, NULL, &btn_text_dest);
         }
         button_list = button_list->next;
     }
 }
 
-int check_button_pressed(t_WIN *win, t_buttons *button_list)
+int check_button_pressed(t_game *game, t_buttons *button_list)
 {
     SDL_Rect mouseCoords;
     SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
@@ -103,7 +104,7 @@ int check_button_pressed(t_WIN *win, t_buttons *button_list)
         {
             printf("Button has been pressed!\n");
             if (button_list->callback_func)
-                button_list->callback_func(win);
+                button_list->callback_func(game);
             return 1;
         }
         button_list = button_list->next;

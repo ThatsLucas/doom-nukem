@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 16:34:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 23:25:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ int main(void)
 	if (!game)
 		return (1);
 
-	game->ply->pos_x = 500;
-	game->ply->pos_y = 500;
-	game->ply->dir_x = 1.0f;
-	game->ply->dir_y = 0.0f;
+	game->ply->pos.x = 3.0f;
+	game->ply->pos.y = 2.0f;
+	game->ply->dir.x = 0.0f;
+	game->ply->dir.y = 1.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
+
+	game->mapSize[0] = 12;	game->mapSize[1] = 8;
 
 	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
 
@@ -48,9 +50,12 @@ int main(void)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 51, 20, 7, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
-		draw_main_menu(&game->window->MainMenu, game);
+		// draw_main_menu(&game->window->MainMenu, game);
+		send_rays(game);
+		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
+		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 
-		display_notif(game->window, &game->window->PopupPtr.notif_buf);
+		// display_notif(game->window, &game->window->PopupPtr.notif_buf);
 
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)

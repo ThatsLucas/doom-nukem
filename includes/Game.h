@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 20:32:52 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/16 23:40:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@
 # ifndef M_PI
 #  define M_PI 3.14159265359f
 # endif
+
+# ifndef EYES_HEIGTH
+#  define EYES_HEIGTH 1.6
+# endif
+
+# ifndef FOV
+#  define FOV 0.80
+# endif
+
+# ifndef RAYCAST_THREADS
+#  define RAYCAST_THREADS 8
+# endif
+
 
 typedef struct s_ply t_ply;
 

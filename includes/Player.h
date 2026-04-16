@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/08 11:09:01 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/16 23:35:55 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,19 @@ typedef struct	s_keys
 	int		a;
 	int		s;
 	int		d;
+	int		left;
+	int		right;
 }			t_keys;
 
 typedef struct s_ply
 {
 	/* events */
-	float		pos_x;
-	float		pos_y;
-	float		dir_x;
-	float		dir_y;
+	t_vect2		pos;
+	float		z;
+	t_vect2		dir;
 	t_keys		keys;
+	int			pitch;
+	int			sector;
 
 	/* attributs */
 	t_inventory	inventory;
