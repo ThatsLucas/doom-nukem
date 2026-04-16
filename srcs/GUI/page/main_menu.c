@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 23:33:54 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/16 23:35:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,5 @@ void draw_main_menu(t_main_menu *MainMenu, t_game *game)
     to_responsive(game->window, &button3_dest);
 	SDL_RenderCopy(game->window->renderPTR, MainMenu->button.texture, NULL, &button3_dest);
 
-    display_buttons(game->window->buttonList, game->window, 1);
+    display_buttons(game->window->buttonList, game, 1);
 }

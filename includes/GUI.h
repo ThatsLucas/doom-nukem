@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/15 13:18:31 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/16 23:34:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include "../libft/include/libft.h"
 #include "Colors.h"
 #include "Raycasting/Types.h"
 
@@ -22,6 +23,7 @@ typedef struct s_ply	t_ply;
 typedef struct s_WIN	t_WIN;
 typedef struct s_game	t_game;
 typedef struct s_vect2	t_vect2;
+typedef struct s_png	t_png;
 
 typedef struct s_font
 {
@@ -59,9 +61,9 @@ int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RG
 void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
-void    create_button(t_buttons **button_list, void (*callback)(t_game *), t_coordinates coords, t_RGB color, t_RGB hoverColor);
+void    create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
 int     check_button_pressed(t_game *win, t_buttons *button_list);
-void    display_buttons(t_buttons *button_list, SDL_Renderer *renderer);
+void	display_buttons(t_buttons *button_list, t_game *game, int pageID);
 void    free_buttons(t_buttons *buttonlist);
 
 /*minimap*/

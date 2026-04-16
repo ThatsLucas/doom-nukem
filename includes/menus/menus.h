@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/14 23:07:42 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/16 23:20:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "Window.h"
 #include <SDL.h>
+#include "parser/PNG.h"
 
 typedef struct s_main_menu {
     t_png background;
