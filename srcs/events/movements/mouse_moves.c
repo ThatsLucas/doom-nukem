@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_moves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 12:17:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 12:43:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:16 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Game.h"
 
 static void	mouse_x(int x, int middle_x, t_ply *pl)

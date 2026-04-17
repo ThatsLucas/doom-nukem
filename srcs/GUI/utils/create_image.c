@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 19:52:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/12 00:35:45 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 10:39:09 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Window.h"
 #include "../../../includes/parser/PNG.h"
 #include "../../../includes/parser/huffman.h"

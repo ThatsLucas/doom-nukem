@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/16 23:35:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:51:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void draw_main_menu(t_main_menu *MainMenu, t_game *game)
     if (!MainMenu->has_init)
         return;
     
-    int winW = 1920;
-    int winH = 1080;
+    int winW = 1600;
+    int winH = 900;
 
     // background
     SDL_Rect bg_dest = { 0, 0, winW, winH };

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw_fps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 12:58:35 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 09:44:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 /*Recuperer la timestamp actuelle en ms*/
 static long	get_timestamp(void)

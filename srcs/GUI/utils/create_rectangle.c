@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_rectangle.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:46:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 19:13:40 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 10:39:12 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 void create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb)
 {

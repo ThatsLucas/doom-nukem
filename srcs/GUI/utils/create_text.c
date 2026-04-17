@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:10:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/14 23:36:02 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/15 10:59:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include <SDL_ttf.h>
 
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath)

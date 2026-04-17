@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_offsets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:56:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_sector *sector)
 {

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:56:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:15:29 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 /* affiche un sol */
 void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)

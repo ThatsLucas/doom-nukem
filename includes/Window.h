@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 23:06:35 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/15 10:59:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define WINDOW_H
 
 #include <SDL.h>
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "menus/menus.h"
 
 typedef struct s_WIN

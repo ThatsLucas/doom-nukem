@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/10 23:52:46 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/15 11:05:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
 {
     t_IDAT *head = NULL;
     t_IDAT *tmp_idata;
-    ft_printf("\n");
+    // ft_printf("\n");
     while (1)
     {
         __uint32_t len;
