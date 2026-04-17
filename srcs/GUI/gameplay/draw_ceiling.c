@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:04:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:55:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:17 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 /* Affiche le ciel si il y en a un */
 static void	draw_sky(t_game *game, t_ray *ray, int x, t_sector *sector)

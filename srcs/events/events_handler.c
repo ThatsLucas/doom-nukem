@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:40:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:57:51 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Game.h"
 
 /*
@@ -62,6 +62,13 @@ void	events_handler(t_game *game)
 				// printf("Mouse pos = %d, %d\n", event.motion.x, event.motion.y);
 				break;
 
+			case SDL_MOUSEWHEEL:
+				// const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
+				// printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
+				handle_mousewheel(game, &event.wheel);
+				// printf("Nouvelle arme: %s\n", weapon_names[game->ply->current_weap_index]);
+				break;
+
 			case SDL_QUIT:
 				exit_game(game, NULL);
 				break;
@@ -77,7 +84,10 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				check_button_pressed(game, game->window->buttonList);
+				if (event.button.button == SDL_BUTTON_LEFT)
+					player_shoot(game);
+				else
+					check_button_pressed(game, game->window->buttonList);
 				break;
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_RESIZED)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 21:02:56 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/14 13:12:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void *process_png(void *pngStruct)
     find_png_header(pngFile);
     find_png_IHDR(&pngFile->IHDR, pngFile);
     IDATS = find_all_IDAT(pngFile);
-    close(pngFile->fd);
+	close(pngFile->fd);
     if (!IDATS)
     {
         ft_printf("Issue parsing IDATS, can't read img\n");

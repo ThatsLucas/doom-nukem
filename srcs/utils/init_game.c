@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:56:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:56:18 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,12 @@ t_game	*init_game(void)
 	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL);
 	if (!game->window)
 		exit_game(game, "create_window");
-	game->ply = malloc(sizeof(t_ply));
+
+	init_hud_cache(game);
+	init_player(game, 500, 500, 0.0f, 1.0f);
+	if (TTF_Init() < 0)
+		exit_game(game, "TTF Init");
+
 	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
 	game->rays = calloc(game->screenSize[0], sizeof(t_ray));
 	game->fps = NULL;
@@ -85,10 +90,10 @@ t_game	*init_game(void)
 								SDL_TEXTUREACCESS_STREAMING,
 								game->screenSize[0],
 								game->screenSize[1]);
-	if (!game->ply || !game->frame_buffer || !game->rays || !game->frame)
-		exit_game(game, "player malloc");
-	ft_bzero(game->ply, sizeof(t_ply));
+	if (!game->frame_buffer || !game->rays || !game->frame)
+		exit_game(game, "game malloc (frames)");
 	init_map(game);
 	game->window->PopupPtr.notif_buf = NULL;
+
 	return (game);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 12:03:18 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 15:20:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:10:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 

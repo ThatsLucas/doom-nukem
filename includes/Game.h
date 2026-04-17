@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 23:40:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:13:31 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <pthread.h>
 #include "Window.h"
 #include "Player.h"
+#include "GUI/GUI.h"
+#include "parser/PNG.h"
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
@@ -42,18 +44,23 @@
 
 typedef struct s_ply t_ply;
 
-typedef struct s_game
+typedef struct	s_game
 {
-	int			status;			// 0 = mainPage, -1 = editor, >0 = gameLevel
-	t_ply		*ply;
-	t_WIN		*window;
-	int			mapSize[2];
-	int			screenSize[2];
-	t_map		*map;
-	SDL_Texture	*frame;
-	Uint32		*frame_buffer;
-	t_ray		*rays;
-	char		*fps;
+	t_ply			*ply;
+	t_WIN			*window;
+	t_ground_item	items[10];
+	t_projectile	*projectiles;
+	int				items_count;
+	float			flash_alpha;
+	t_hud_cache		hud_cache;
+	int				screenSize[2];
+	int				status;			// 0 = mainPage, -1 = editor, >0 = gameLevel
+	int				mapSize[2];
+	t_map			*map;
+	SDL_Texture		*frame;
+	Uint32			*frame_buffer;
+	t_ray			*rays;
+	char			*fps;
 }				t_game;
 
 /*init/exit game*/

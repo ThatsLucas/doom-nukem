@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   write_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:24:01 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:03:43 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
