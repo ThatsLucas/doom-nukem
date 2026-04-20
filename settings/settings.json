@@ -1,0 +1,9 @@
+// DO NOT MODIFY THIS FILE MANUALLY, ITS SUPPOSED TO BE CHANGED IN GAME !!
+{
+    "Controls": {
+        "Forward": 119,
+        "Backward": 115,
+        "Left": 97,
+        "Right": 100
+    }
+}

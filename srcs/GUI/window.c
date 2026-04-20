@@ -6,7 +6,7 @@
 /*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/17 00:13:23 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/17 18:34:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int init_all_imgs(t_WIN *win)
     to_responsive(win, &text_dest);
     SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
     SDL_RenderPresent(win->renderPTR);
-    
     if (!init_home_menu(win, win->renderPTR, &win->menus.main, 150))
         return (0);
     if (!init_notif(&win->menus.notif.Popup, win->renderPTR))
@@ -39,7 +38,7 @@ int init_all_imgs(t_WIN *win)
         ft_printf("ERROR NOTIF INIT\n");
        return (0);
     }
-    if (!init_settings_menu(win->renderPTR, &win->menus.settings))
+    if (!init_settings_menu(win, win->renderPTR, &win->menus.settings))
         return (0);
     return (1);
 }
