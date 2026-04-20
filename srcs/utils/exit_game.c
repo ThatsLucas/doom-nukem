@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/15 11:53:56 by edurance         ###   ########.fr       */
-=======
-/*   Updated: 2026/04/16 23:40:46 by lucas            ###   ########.fr       */
->>>>>>> 2c8c80d (feat (settings / gui): Reworked how menus are choosen on the sreen, added settings menu begin)
+/*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
+/*   Updated: 2026/04/21 13:50:12 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +16,7 @@
 void	exit_game(t_game *game, char *type)
 {
 	const char	*error = SDL_GetError();
+	t_WIN		*win;
 
 	if (type && error && error[0])
 	{
@@ -28,6 +25,7 @@ void	exit_game(t_game *game, char *type)
 		ft_putstr_fd((char *)error, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	else if (type)
 	{
@@ -58,6 +56,24 @@ void	exit_game(t_game *game, char *type)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
 
+=======
+	if (!game)
+		exit(1);
+	win = game->window;
+	if (win)
+	{
+		while (win->menus.notif.notif_buf)
+			destroy_notif_node(&win->menus.notif.notif_buf);
+		if (win->buttonList)
+			free_buttons(win->buttonList);
+		if (win->renderPTR)
+			SDL_DestroyRenderer(win->renderPTR);
+		if (win->winPTR)
+			SDL_DestroyWindow(win->winPTR);
+		free(win);
+	}
+	free(game->ply);
+>>>>>>> f9e42e3 (feat (settings): fixed crash when no img found and begin slider)
 	free(game);
 	TTF_Quit();
 	SDL_Quit();

@@ -44,6 +44,8 @@ static t_notif *allocate_new_notif(char *str, int duration_ms, int fontSize)
 
 void destroy_notif_node(t_notif_buf **notif_buf)
 {
+    if (!notif_buf || !*notif_buf)
+        return;
     t_notif_buf *tmp = (*notif_buf)->next;
     if ((*notif_buf)->notif)
     {

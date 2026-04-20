@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 13:42:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 13:51:30 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ t_game	*init_game(void)
 	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL);
 	if (!game->window)
 		exit_game(game, "create_window");
+	if (!init_all_imgs(game->window))
+    {
+        exit_game(game, "Img Loading\n");
+    }
+    game->window->menus.main.has_init = 1;
 
 	init_hud_cache(game);
 	init_player(game, 500, 500, 0.0f, 1.0f);

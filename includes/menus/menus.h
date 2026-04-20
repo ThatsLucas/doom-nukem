@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/21 13:47:56 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 13:49:05 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_settings_menu {
     t_png scroll;
     t_png scroll_grab;
     t_font texts[10];
+    t_png slider_bar;
+    t_png slider_grab;
 }               t_settings_menu;
 
 
@@ -92,6 +94,7 @@ void destroy_notif_node(t_notif_buf **notif_buf);
 
 /*SETTINGS*/
 void    draw_settings_menu(t_game *game);
-int    init_settings_menu(t_WIN *win, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
+int     init_settings_menu(t_WIN *win, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
+void    handle_click(t_game *game, t_settings_menu *menu, SDL_MouseButtonEvent *MouseDatas);
 
 #endif

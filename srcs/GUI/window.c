@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/17 18:34:57 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/20 16:38:44 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
         fprintf(stderr, "Couldn't allocation memory for create_window. Exiting...\n");
         return NULL;
     }
+    ft_bzero(windowDatas, sizeof(t_WIN));
     windowDatas->buttonList = NULL;
     
     windowDatas->winPTR = SDL_CreateWindow(title, x, y, w, h, flags);
@@ -76,15 +77,5 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
 
     windowDatas->w = w;
     windowDatas->h = h;
-    ft_printf("loading all imgs\n");
-    if (!init_all_imgs(windowDatas))
-    {
-        SDL_DestroyWindow(windowDatas->winPTR);
-        SDL_Quit();
-        fprintf(stderr, "Issue with imgs creation. Exiting...\n");
-        return NULL;
-    }
-    windowDatas->menus.main.has_init = 1;
-    ft_printf("Finished loading main menu\n");
     return windowDatas;
 }
