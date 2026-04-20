@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 13:43:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 13:49:11 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ int check_button_pressed(t_game *game, t_buttons *button_list)
 
     while(button_list)
     {
+        if (game->window->menus.current != button_list->page_id)
+        {
+            button_list = button_list->next;
+            continue;
+        }
         if (is_mouse_pos_inside_button(mouseCoords, button_list->buttonCoords))
         {
             printf("Button has been pressed!\n");

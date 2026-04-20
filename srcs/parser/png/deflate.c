@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deflate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 10:50:03 by root-             #+#    #+#             */
-/*   Updated: 2026/04/10 23:30:39 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/20 16:22:17 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,11 @@ int parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len)
     __uint32_t out_len = 0;
 
     allocate_png_buffer(pngFile);
-
+    if (!pngFile->buf)
+    {
+        free(out_buf);
+        return (0);
+    }
     while (1)
     {
         __uint8_t bfinal = read_bits(&bitReader, 1);
