@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:10:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/15 10:59:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 13:47:59 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fo
     textData->font = TTF_OpenFont(fontPath, textData->size);
     if (!textData->font)
         ft_printf("Error while opening font : %s\n", TTF_GetError());
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(textData->font, text, textData->color); 
+    SDL_Surface* surfaceMessage = TTF_RenderUTF8_Solid(textData->font, text, textData->color); 
     if (!surfaceMessage)
         return;
     textData->texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
@@ -33,7 +33,7 @@ void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char 
     textData->font = TTF_OpenFont(fontPath, textData->size);
     if (!textData->font)
         ft_printf("Error while opening font : %s\n", TTF_GetError());
-    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(textData->font, text, textData->color, maxW);
+    SDL_Surface* surfaceMessage = TTF_RenderUTF8_Solid_Wrapped(textData->font, text, textData->color, maxW);
     if (!surfaceMessage)
         return;
     textData->texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
