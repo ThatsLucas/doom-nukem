@@ -23,41 +23,49 @@ static int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoord
     return 1;
 }
 
-static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseButtonEvent *MouseDatas)
+static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
+    if (!menu->isGrabbingSlider && !click)
+        return (0);
     SDL_Rect mouseCoords = {MouseDatas->x - (1920 - 1044) / 2, MouseDatas->y - 136, 0, 0};
     SDL_Rect sliderCoords = {menu->slider_grab.x, menu->slider_grab.y, menu->slider_grab.w/6, menu->slider_grab.h/6};
     to_responsive(game->window, &mouseCoords);
     to_responsive(game->window, &sliderCoords);
-    if (!is_mouse_pos_inside_button(mouseCoords, sliderCoords))
-        return (0);
-    ft_printf("Yes im here and %d and %d\n", MouseDatas->state, SDL_PRESSED);
-    if (MouseDatas->state == SDL_PRESSED)
+    if (!menu->isGrabbingSlider)
     {
-        SDL_Event event;
-
-        while (SDL_PollEvent(&event)) {
-
-            ft_printf("Yes im inside while\n");
-                
-            if (event.type != SDL_PRESSED)
-                continue;
-            if (event.motion.state == SDL_RELEASED)
-                return (1);
-            menu->scroll_grab.x += event.motion.xrel;
-            ft_printf("New pos = %d\n", menu->scroll_grab.x);
-            if (menu->scroll_grab.x < (game->window->w * 200) / 1920)
-                menu->scroll_grab.x = 200;
-            else if (menu->scroll_grab.x > (game->window->w * 680) / 1920)
-                menu->scroll_grab.x = 680;
-            draw_settings_menu(game);
-        }
+        if (!is_mouse_pos_inside_button(mouseCoords, sliderCoords))
+            return (0);
+        menu->isGrabbingSlider = 1;
     }
+    if (MouseDatas->xrel > 1000) // big value frist click
+        MouseDatas->xrel = 0;
+    menu->slider_grab.x += MouseDatas->xrel;
+    if (menu->slider_grab.x < (game->window->w * 200) / 1920)
+        menu->slider_grab.x = 200;
+    else if (menu->slider_grab.x > (game->window->w * 680) / 1920)
+        menu->slider_grab.x = 680;
+    ft_printf("New pos = %d, xrel = %d\n", menu->slider_grab.x, MouseDatas->xrel);
     return (1);
 }
 
-void handle_click(t_game *game, t_settings_menu *menu, SDL_MouseButtonEvent *MouseDatas)
+void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
-    if (grab_fov(game, menu, MouseDatas))
+    if (grab_fov(game, menu, MouseDatas, click))
         return;
+}
+
+void handle_settings_released(t_settings_menu *menu)
+{
+    if (menu->isGrabbingSlider)
+    {
+        menu->isGrabbingSlider = 0;
+        ft_printf("released received, slidder = %d\n", menu->isGrabbingSlider);
+        return;
+    }
+
+    if (menu->isGrabbingScrollBar)
+    {
+        menu->isGrabbingScrollBar = 0;
+        return;
+    }
 }
