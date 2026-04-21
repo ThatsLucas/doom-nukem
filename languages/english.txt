@@ -1,0 +1,10 @@
+loading=LOADING...
+play=PLAY
+settings=SETTINGS
+level_editor=LEVEL EDITOR
+move_forward=Move Forward
+move_backward=Move Backward
+move_left=Move Left
+move_right=Move Right
+fov=FOV
+languages=LANGUAGES
