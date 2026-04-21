@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 14:34:29 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 18:17:03 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ void	exit_game(t_game *game, char *type)
 	free_map(game->map);
 	free(game->rays);
 	free(game->fps);
-
-	if (game->window && game->window->renderPTR)
-		SDL_DestroyRenderer(game->window->renderPTR);
-	if (game->window && game->window->winPTR)
-		SDL_DestroyWindow(game->window->winPTR);
 	win = game->window;
 	if (win)
 	{

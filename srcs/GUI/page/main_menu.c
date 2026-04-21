@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 15:42:17 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 16:23:53 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, in
 
 void draw_main_menu(t_game *game)
 {
-    ft_printf("drawing main menu\n");
     t_main_menu *menu = &game->window->menus.main;
     int button_offset = 150;
     int button_pos_h = 450;
