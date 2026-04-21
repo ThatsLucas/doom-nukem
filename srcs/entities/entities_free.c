@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup_items.c                                    :+:      :+:    :+:   */
+/*   entities_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/09 10:41:50 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 12:10:18 by edurance         ###   ########.fr       */
+/*   Created: 2026/04/17 14:37:02 by edurance          #+#    #+#             */
+/*   Updated: 2026/04/17 14:38:53 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Game.h"
+#include "entities/Entities.h"
 
-/* Function to free items textures */
-void	cleanup_items(t_game *game)
+void	free_entities(t_entities *e)
 {
-	for (int i = 0; i < game->items_count; i++)
-	{
-		if (game->items[i].texture)
-		{
-			SDL_DestroyTexture(game->items[i].texture);
-			game->items[i].texture = NULL;
-		}
-	}
+	if (e->list)
+		free(e->list);
+
+	e->list = NULL;
+	e->count = 0;
+	e->capacity = 0;
 }

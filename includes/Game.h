@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:13:31 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 12:38:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
+#include "entities/Entities.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
@@ -41,16 +42,16 @@
 #  define RAYCAST_THREADS 8
 # endif
 
-
 typedef struct s_ply t_ply;
 
 typedef struct	s_game
 {
 	t_ply			*ply;
 	t_WIN			*window;
-	t_ground_item	items[10];
-	t_projectile	*projectiles;
+	t_ground_item	*items;
 	int				items_count;
+	int				items_capacity;
+	t_projectile	*projectiles;
 	float			flash_alpha;
 	t_hud_cache		hud_cache;
 	int				screenSize[2];
@@ -61,6 +62,7 @@ typedef struct	s_game
 	Uint32			*frame_buffer;
 	t_ray			*rays;
 	char			*fps;
+	t_entities		entities;
 }				t_game;
 
 /*init/exit game*/
@@ -75,5 +77,7 @@ float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
 void	precompute_mirrors(t_map *map);
+
+void render_entities(t_game *game);
 
 #endif

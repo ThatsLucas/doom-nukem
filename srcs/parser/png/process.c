@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 13:12:54 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/19 12:10:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void *process_png(void *pngStruct)
 	close(pngFile->fd);
     if (!IDATS)
     {
-        ft_printf("Issue parsing IDATS, can't read img\n");
+        ft_printf("Issue parsing IDATS, can't read img for path %s\n", pngFile->path);
         free(pngFile->path);
         pngFile->path = NULL;
         return ((void *)(long)0);

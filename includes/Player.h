@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/17 16:52:46 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_ply
 	t_keys		keys;
 	int			pitch;
 	int			sector;
+	t_vect2		plane;
 
 	/* attributs */
 	t_inventory	inventory;

@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_items.c                                     :+:      :+:    :+:   */
+/*   entity_add.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/08 17:40:12 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:21:36 by edurance         ###   ########.fr       */
+/*   Created: 2026/04/17 14:34:27 by edurance          #+#    #+#             */
+/*   Updated: 2026/04/17 14:36:39 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "entities/Entities.h"
 #include "Game.h"
 
-/* Adds items on the renderer (2D) */
-void	render_items(t_game *game)
+void	add_entity(t_game *game, t_entities *e, t_entity entity)
 {
-	for (int i = 0; i < game->items_count; i++)
+	if (e->count >= e->capacity)
 	{
-		t_ground_item	*item = &game->items[i];
-		if (item->pos_x < 0)
-			continue ;
-
-		if (!game->items->texture)
-			continue;
-		
-		SDL_Rect dest = {
-			(int)item->pos_x,
-			(int)item->pos_y,
-			item->w,
-			item->h
-		};
-		SDL_RenderCopy(game->window->renderPTR, item->texture, NULL, &dest);
+		e->capacity *= 2;
+		e->list = realloc(e->list, sizeof(t_entity) * e->capacity);
+		if (!e->list)
+			exit_game(game, "realloc entity failed");
 	}
+
+	e->list[e->count++] = entity;
 }

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:48:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:21:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/19 12:21:18 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	pickup_item(t_game *game, t_ground_item *item)
 	t_ply	*ply = game->ply;
 	if (!item)
 		return ;
-	if (!is_near(ply->pos_x, ply->pos_y, item->pos_x, item->pos_y, item->pickup_range))
+	if (!is_near(ply->pos.x, ply->pos.y, item->pos_x, item->pos_y, item->pickup_range))
 		return ;
 
 	if (item->type == ITEM_CONSUMABLE)
@@ -121,5 +121,5 @@ void	pickup_item(t_game *game, t_ground_item *item)
 		pickup_tool(game, item);
 
 	game->flash_alpha = 0.5f;
-	item->pos_x = -1000;
+	item->picked_up = 1;
 }

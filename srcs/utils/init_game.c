@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:56:18 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 11:47:34 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ t_game	*init_game(void)
 		exit_game(game, "game malloc (frames)");
 	init_map(game);
 	game->window->PopupPtr.notif_buf = NULL;
+
+	init_entities(&game->entities);
+	game->items = malloc(sizeof(t_ground_item) * 16);
+	if (!game->items)
+		exit_game(game, "failed malloc items");
+	game->items_count = 0;
+	game->items_capacity = 16;
 
 	return (game);
 }
