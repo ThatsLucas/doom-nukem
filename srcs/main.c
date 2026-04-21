@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/21 14:07:24 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 15:43:14 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ int main(void)
 	while (1)
 	{
 		SDL_RenderClear(game->window->renderPTR);
-
-		// draw_main_menu(&game->window->MainMenu, game);
-		send_rays(game);
-		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
-		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
-
 		events_handler(game);
 		display_notif(game->window, &game->window->menus.notif.notif_buf);
 		draw_current_menu(game);

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 14:21:46 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 15:42:17 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "Game.h"
 #include "menus/menus.h"
 // #include "../../../includes/GUI.h"
+
+static void draw_game_menu(t_game *game)
+{
+    game->window->menus.current = 0;
+}
 
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
 {
@@ -88,7 +93,7 @@ int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, in
     
     t_RGB color = {0, 255, 0, 0}; 
     SDL_Rect coords = { 1920 / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5 };
-    create_button(&win->buttonList, NULL, coords, color, color, &MainMenu->btn_one_text, &MainMenu->btn_one_text_hover, 1);
+    create_button(&win->buttonList, &draw_game_menu, coords, color, color, &MainMenu->btn_one_text, &MainMenu->btn_one_text_hover, 1);
     coords.y += button_offset;
     create_button(&win->buttonList, &draw_settings_menu, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 1);
     coords.y += button_offset + 5;
@@ -98,6 +103,7 @@ int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, in
 
 void draw_main_menu(t_game *game)
 {
+    ft_printf("drawing main menu\n");
     t_main_menu *menu = &game->window->menus.main;
     int button_offset = 150;
     int button_pos_h = 450;

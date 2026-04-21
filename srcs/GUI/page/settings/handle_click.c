@@ -27,9 +27,8 @@ static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *M
 {
     if (!menu->isGrabbingSlider && !click)
         return (0);
-    SDL_Rect mouseCoords = {MouseDatas->x - (1920 - 1044) / 2, MouseDatas->y - 136, 0, 0};
+    SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};
     SDL_Rect sliderCoords = {menu->slider_grab.x, menu->slider_grab.y, menu->slider_grab.w/6, menu->slider_grab.h/6};
-    to_responsive(game->window, &mouseCoords);
     to_responsive(game->window, &sliderCoords);
     if (!menu->isGrabbingSlider)
     {
@@ -37,14 +36,22 @@ static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *M
             return (0);
         menu->isGrabbingSlider = 1;
     }
-    if (MouseDatas->xrel > 1000) // big value frist click
+    
+    if (MouseDatas->xrel > 1000 || MouseDatas->xrel < -1000) // big value frist click
         MouseDatas->xrel = 0;
     menu->slider_grab.x += MouseDatas->xrel;
-    if (menu->slider_grab.x < (game->window->w * 200) / 1920)
+    game->settings.FOV += ((float)MouseDatas->xrel) * ((MAX_FOV - MIN_FOV)/480);
+    if (menu->slider_grab.x < 200)
+    {
         menu->slider_grab.x = 200;
-    else if (menu->slider_grab.x > (game->window->w * 680) / 1920)
+        game->settings.FOV = MIN_FOV;
+    }
+    else if (menu->slider_grab.x > 680)
+    {
         menu->slider_grab.x = 680;
-    ft_printf("New pos = %d, xrel = %d\n", menu->slider_grab.x, MouseDatas->xrel);
+        game->settings.FOV = MAX_FOV;
+    }
+    printf("FOV = %f\n", game->settings.FOV);
     return (1);
 }
 
@@ -59,7 +66,6 @@ void handle_settings_released(t_settings_menu *menu)
     if (menu->isGrabbingSlider)
     {
         menu->isGrabbingSlider = 0;
-        ft_printf("released received, slidder = %d\n", menu->isGrabbingSlider);
         return;
     }
 

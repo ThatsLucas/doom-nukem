@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 22:22:22 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/21 11:42:57 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 15:59:10 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,30 @@ static void draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *te
     SDL_RenderCopy(win->renderPTR, texture, NULL, &dest);
 }
 
-static int draw_FOV(int yPos, int *scrollH, t_WIN *win, t_settings_menu *menu)
+static int draw_FOV(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
+    t_WIN *win = game->window;
     int separatorW = menu->separator.w / 1.8;
     int separatorH = menu->separator.h / 1.8;
 
     yPos += 150;
     draw_texture((1044 - menu->separator.w / 1.8) / 2, yPos - *scrollH, separatorW, separatorH, win, menu->separator.texture);
     draw_texture((1044 - menu->texts[3].w) / 2, yPos + 25 - *scrollH, menu->texts[3].w, menu->texts[3].h, win, menu->texts[3].texture);
-    yPos += separatorH + 20;
+    yPos += separatorH;
+
+    t_font fovText;
+    fovText.color = (SDL_Color){255, 255, 255, 255};
+    fovText.size = 60;
+    char *fovSTR = ft_itoa(game->settings.FOV * 100);
+    if (fovSTR)
+    {
+        create_text(&fovText, win->renderPTR, fovSTR, "assets/fonts/AmazDooMLeft.ttf");
+        free(fovSTR);
+        draw_texture((1044 - fovText.w) / 2, yPos - *scrollH, fovText.w, fovText.h, win, fovText.texture);
+        SDL_DestroyTexture(fovText.texture);
+    }
+
+    yPos += 40;
     draw_texture((1044 - menu->slider_bar.w/2) / 2, yPos - *scrollH, menu->slider_bar.w/2, menu->slider_bar.h/2, win, menu->slider_bar.texture);
     menu->slider_grab.y = yPos - *scrollH + ((menu->slider_bar.h/2 - menu->slider_grab.h/6) / 2);
     draw_texture(menu->slider_grab.x, menu->slider_grab.y, menu->slider_grab.w/6, menu->slider_grab.h/6, win, menu->slider_grab.texture);
@@ -141,7 +156,6 @@ static int draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu)
 
 void    draw_settings_menu(t_game *game)
 {
-
     SDL_Renderer *renderer = game->window->renderPTR;
     t_WIN *win = game->window;
     t_settings_menu *menu = &win->menus.settings;
@@ -164,13 +178,14 @@ void    draw_settings_menu(t_game *game)
     /*Viewport*/
     dest = (SDL_Rect){ viewportX, 136, 1044, 842 };
     to_responsive(win, &dest);
+    menu->ViewPortCoords = dest;
 
     // t_RGB rgb = {255, 0, 0, 255};
     // create_rectangle(renderer, dest, rgb);
     SDL_RenderSetViewport(renderer, &dest);
     int yPos = 0;
     yPos = draw_controls(&scrollH, win, menu);
-    draw_FOV(yPos, &scrollH, win, menu);
+    draw_FOV(yPos, &scrollH, game, menu);
 
     SDL_RenderSetViewport(renderer, NULL);
     /*Viewport END*/
