@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 22:22:22 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/20 18:36:05 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 11:42:57 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int init_settings_menu(t_WIN *win, SDL_Renderer *renderer,
     void *ret = NULL;
     int finalRet = 1;
 
+    ft_bzero(SettingsMenu, sizeof(t_settings_menu));
     t_png *images[7] = {
         &SettingsMenu->background,
         &SettingsMenu->keys,

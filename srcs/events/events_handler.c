@@ -6,7 +6,11 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/04/21 13:49:54 by lle-duc          ###   ########.fr       */
+=======
+/*   Updated: 2026/04/21 13:27:09 by lle-duc          ###   ########.fr       */
+>>>>>>> c902836 (feat (settings): Slidder done for fov)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +61,6 @@ void	events_handler(t_game *game)
 	while (SDL_PollEvent(&event)) {
 		switch (event.type)
 		{
-			case SDL_MOUSEMOTION:
-				mouse_moves(event.motion.x, event.motion.y, game);
-				// printf("Mouse pos = %d, %d\n", event.motion.x, event.motion.y);
-				break;
-
 			case SDL_MOUSEWHEEL:
 				// const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
 				// printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
@@ -72,24 +71,35 @@ void	events_handler(t_game *game)
 			case SDL_QUIT:
 				exit_game(game, NULL);
 				break;
-
+			
 			case SDL_KEYDOWN:
 				key_handler(game, event.key, &event);
-				// printf("Key Pressed: %d\n", event.key.keysym.sym);
 				break;
-
+				// printf("Key Pressed: %d\n", event.key.keysym.sym);
+			
 			case SDL_KEYUP:
 				key_handler(game, event.key, &event);
 				// printf("Key Released: %d\n", event.key.keysym.sym);
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.button == SDL_BUTTON_LEFT) /*FIXME C'est pas good ca*/
+				/*FIXME C'est pas good ca*/
+				if (event.button.button == SDL_BUTTON_LEFT) 
 					player_shoot(game);
 				else
 				{
 					check_button_pressed(game, game->window->buttonList);
 					handle_click(game, &game->window->menus.settings, &event.motion);
+				}
+				break;
+			case SDL_MOUSEMOTION:
+				if (game->window->menus.current == 2)
+					handle_settings_click(game, &game->window->menus.settings, &event.motion, 0);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				if (event.button.state == SDL_RELEASED)
+				{
+					handle_settings_released(&game->window->menus.settings);
 				}
 				break;
 			case SDL_WINDOWEVENT:
