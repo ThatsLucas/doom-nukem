@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:13:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:54:24 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:39:11 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	*send_threads_ray(void *arg)
 	sW = game->screenSize[0];
 	sH = game->screenSize[1];
 
-	ray.plane		= get_cam_plane(game->ply->dir);
-	ray.focal		= sW / (2.0f * FOV);
+	ray.plane		= get_cam_plane(game->settings.FOV, game->ply->dir);
+	ray.focal		= sW / (2.0f * game->settings.FOV);
 	ray.inv_focal	= 1.0f / ray.focal;
 
 	for (int x = infos->x_start; x < infos->x_end; x++)

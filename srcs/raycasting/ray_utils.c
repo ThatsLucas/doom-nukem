@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:08:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 13:03:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:38:56 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "Game.h"
 
 /* calcule le plan de camera */
-t_vect2	get_cam_plane(t_vect2 dir)
+t_vect2	get_cam_plane(float FOV, t_vect2 dir)
 {
 	t_vect2 plane;
 

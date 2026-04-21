@@ -6,11 +6,16 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 13:51:30 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 15:32:59 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
+
+static void load_settings(t_game *game)
+{
+	game->settings.FOV = DEFAULT_FOV;
+}
 
 void	init_textures(t_game *game, t_map *map)
 {
@@ -66,7 +71,7 @@ t_game	*init_game(void)
 	if (!game)
 		return (NULL);
 	ft_bzero(game, sizeof(t_game));
-
+	load_settings(game);
 	if (TTF_Init() < 0)
 		exit_game(game, "TTF Init");
 

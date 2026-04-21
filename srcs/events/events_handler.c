@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 14:13:28 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:41:56 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	events_handler(t_game *game)
 				break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				/*FIXME C'est pas good ca*/
 				if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0) 
 					player_shoot(game);
 				else

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 13:49:00 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 16:02:25 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,22 @@
 #  define EYES_HEIGTH 1.6
 # endif
 
-# ifndef FOV
-#  define FOV 0.80
+
+/*FOV*/
+
+# ifndef MIN_FOV // jamais negatif
+#  define MIN_FOV 0.80
 # endif
+
+# ifndef MAX_FOV
+#  define MAX_FOV 1.80
+# endif
+
+# ifndef DEFAULT_FOV
+#  define DEFAULT_FOV (MAX_FOV + MIN_FOV) / 2
+# endif
+
+
 
 # ifndef RAYCAST_THREADS
 #  define RAYCAST_THREADS 8
@@ -43,6 +56,12 @@
 
 
 typedef struct s_ply t_ply;
+
+typedef struct	s_settings
+{
+	float			FOV;
+}				t_settings;
+
 
 typedef struct	s_game
 {
@@ -61,6 +80,7 @@ typedef struct	s_game
 	Uint32			*frame_buffer;
 	t_ray			*rays;
 	char			*fps;
+	t_settings		settings;
 }				t_game;
 
 /*init/exit game*/

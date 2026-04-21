@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/21 13:51:47 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:52:48 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_settings_menu {
     t_png slider_grab;
     int isGrabbingSlider;
     int isGrabbingScrollBar;
+    SDL_Rect ViewPortCoords;
 }               t_settings_menu;
 
 
