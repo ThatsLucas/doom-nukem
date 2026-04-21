@@ -6,11 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/21 13:49:54 by lle-duc          ###   ########.fr       */
-=======
-/*   Updated: 2026/04/21 13:27:09 by lle-duc          ###   ########.fr       */
->>>>>>> c902836 (feat (settings): Slidder done for fov)
+/*   Updated: 2026/04/21 14:13:28 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +80,12 @@ void	events_handler(t_game *game)
 			
 			case SDL_MOUSEBUTTONDOWN:
 				/*FIXME C'est pas good ca*/
-				if (event.button.button == SDL_BUTTON_LEFT) 
+				if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0) 
 					player_shoot(game);
 				else
 				{
 					check_button_pressed(game, game->window->buttonList);
-					handle_click(game, &game->window->menus.settings, &event.motion);
+					handle_settings_click(game, &game->window->menus.settings, &event.motion, 1);
 				}
 				break;
 			case SDL_MOUSEMOTION:

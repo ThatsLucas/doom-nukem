@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
-=======
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/04/17 00:05:42 by lucas            ###   ########.fr       */
->>>>>>> 2c8c80d (feat (settings / gui): Reworked how menus are choosen on the sreen, added settings menu begin)
+/*   Updated: 2026/04/21 14:07:24 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +58,8 @@ int main(void)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
-		display_hud(game);
-		display_fps(game);
+		// display_hud(game);
+		// display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 	}
