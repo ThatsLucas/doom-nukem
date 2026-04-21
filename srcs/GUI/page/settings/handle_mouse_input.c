@@ -55,9 +55,63 @@ static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *M
     return (1);
 }
 
+void    handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL_MouseWheelEvent *wheel)
+{
+	int scroll = wheel->y;
+	if (wheel->direction == SDL_MOUSEWHEEL_FLIPPED)
+		scroll *= -1;
+    if (scroll > 1000 || scroll < -1000) // big value frist click
+        scroll = 0;
+    menu->scrollH += -scroll * 15;
+    menu->scroll_grab.y += -scroll * 15;
+    if (menu->scroll_grab.y < 40)
+    {
+        menu->scroll_grab.y = 40;
+        game->window->menus.settings.scrollH = 0;
+    }
+    else if (menu->scroll_grab.y > 1040 - (int)menu->scroll_grab.h/14)
+    {
+        menu->scroll_grab.y = 1040 - (int)menu->scroll_grab.h/14;
+        game->window->menus.settings.scrollH = 908;
+    }
+}
+
+static int grab_scroll(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
+{
+    if (!menu->isGrabbingScrollBar && !click)
+        return (0);
+    SDL_Rect mouseCoords = {MouseDatas->x, MouseDatas->y, 0, 0};
+    SDL_Rect scrollCoords = {1890 - menu->scroll.w / 5 + (menu->scroll.w/5 - menu->scroll_grab.w/14) / 2, menu->scroll_grab.y, menu->scroll_grab.w/14, menu->scroll_grab.h/14};
+    to_responsive(game->window, &scrollCoords);
+    if (!menu->isGrabbingScrollBar)
+    {
+        if (!is_mouse_pos_inside_button(mouseCoords, scrollCoords))
+            return (0);
+        menu->isGrabbingScrollBar = 1;
+    }
+    
+    if (MouseDatas->yrel > 1000 || MouseDatas->yrel < -1000) // big value frist click
+        MouseDatas->yrel = 0;
+    menu->scroll_grab.y += MouseDatas->yrel;
+    game->window->menus.settings.scrollH += MouseDatas->yrel;
+    if (menu->scroll_grab.y < 40)
+    {
+        menu->scroll_grab.y = 40;
+        game->window->menus.settings.scrollH = 0;
+    }
+    else if (menu->scroll_grab.y > 1040 - (int)menu->scroll_grab.h/14)
+    {
+        menu->scroll_grab.y = 1040 - (int)menu->scroll_grab.h/14;
+        game->window->menus.settings.scrollH = 908;
+    }
+    return (1);
+}
+
 void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (grab_fov(game, menu, MouseDatas, click))
+        return;
+    if (grab_scroll(game, menu, MouseDatas, click))
         return;
 }
 

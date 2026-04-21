@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 14:41:56 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 17:05:57 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	events_handler(t_game *game)
 			case SDL_MOUSEWHEEL:
 				// const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
 				// printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
-				handle_mousewheel(game, &event.wheel);
+				if (game->window->menus.current == 0)
+					handle_mousewheel(game, &event.wheel);
+				if (game->window->menus.current == 2)
+					handle_settings_scroll_mouse_wheel(game, &game->window->menus.settings, &event.wheel);
 				// printf("Nouvelle arme: %s\n", weapon_names[game->ply->current_weap_index]);
 				break;
 
