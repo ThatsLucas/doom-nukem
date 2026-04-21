@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 13:43:44 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:21:46 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, in
     MainMenu->btn_three_text.textHOffset = -7;
     MainMenu->btn_three_text_hover.textHOffset = -7;
     
-    int winW = win->w;
     t_RGB color = {0, 255, 0, 0}; 
-    SDL_Rect coords = { winW / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5 };
+    SDL_Rect coords = { 1920 / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5 };
     create_button(&win->buttonList, NULL, coords, color, color, &MainMenu->btn_one_text, &MainMenu->btn_one_text_hover, 1);
     coords.y += button_offset;
     create_button(&win->buttonList, &draw_settings_menu, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 1);

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 13:49:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/21 14:26:26 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int check_button_pressed(t_game *game, t_buttons *button_list)
             button_list = button_list->next;
             continue;
         }
-        if (is_mouse_pos_inside_button(mouseCoords, button_list->buttonCoords))
+        SDL_Rect buttonCoords = button_list->buttonCoords;
+        to_responsive(game->window, &buttonCoords);
+        if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
         {
             printf("Button has been pressed!\n");
             if (button_list->callback_func)
