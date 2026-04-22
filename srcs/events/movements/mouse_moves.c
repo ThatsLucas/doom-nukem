@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 12:17:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/12 12:43:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:28:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	mouse_y(int y, int middle_y, t_ply *pl, t_game *game)
 	if (y > middle_y + 10)
 		pl->pitch -= step;
 
-	if (pl->pitch > game->screenSize[1] || pl->pitch <= -(game->screenSize[1]))
+	if (pl->pitch > game->window->h || pl->pitch <= -(game->window->h))
 		pl->pitch = oldpitch;
 	return ;
 }
@@ -60,8 +60,8 @@ void	mouse_moves(int x, int y, t_game *game)
 		return ;
 	if (!middle_x)
 	{
-		middle_x = game->screenSize[0] / 2;
-		middle_y = game->screenSize[1] / 2;
+		middle_x = game->window->w / 2;
+		middle_y = game->window->h / 2;
 	}
 	mouse_x(x, middle_x, game->ply);
 	mouse_y(y, middle_y, game->ply, game);

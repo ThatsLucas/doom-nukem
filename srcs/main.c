@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/16 23:25:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:49:48 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,39 @@ int main(void)
 	create_notif(&game->window->PopupPtr.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
 
 	create_notif(&game->window->PopupPtr.notif_buf, "BANGER CE JEU", 5, 90);
+
+	game->status = -1;
+
 	while (1)
 	{
 		events_handler(game);
-		
+		display_fps(game);
 		// Clear la page (fond rouge)
 		SDL_SetRenderDrawColor(game->window->renderPTR, 51, 20, 7, 255);
 		SDL_RenderClear(game->window->renderPTR);
 
+		if (game->status == -1)
+		{
+			display_editor(game);
+			SDL_RenderPresent(game->window->renderPTR);
+			continue;
+		}
+
+
 		// draw_main_menu(&game->window->MainMenu, game);
-		send_rays(game);
-		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
-		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+		// send_rays(game);
+		// SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->window->w * sizeof(Uint32));
+		// SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 
 		// display_notif(game->window, &game->window->PopupPtr.notif_buf);
 
-		// display_buttons(game->window->buttonList, game->window->renderPTR);		
+		// display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
 
-		display_fps(game);
 		// affichage du renderer sur la page
-		SDL_RenderPresent(game->window->renderPTR);
+		// SDL_RenderPresent(game->window->renderPTR);
 	}
 
 	exit_game(game, NULL);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:56:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:28:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 {	
 	int			tex_x, tex_y;
 	t_RGB		c;
-	int			sW		= game->screenSize[0], sH = game->screenSize[1];
+	int			sW		= game->window->w, sH = game->window->h;
 	int			start	= SDL_clamp(ray->y_wall_bot, ray->y_top, sH - 1);
 	int			end		= SDL_clamp(ray->y_bot, 0, sH - 1);
 	t_tex		*tex		= &game->map->textures[sector->floor_tex];

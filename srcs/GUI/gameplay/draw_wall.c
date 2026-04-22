@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:35 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:56:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:28:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector)
 	tex_x		= (int)(u_world * tex->w) % tex->w;
 	vh_step = (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
 	vh = (float)(draw_top - ray->y_wall_top) * vh_step;
-	Uint32 *fb	= &game->frame_buffer[draw_top * game->screenSize[0] + x];
+	Uint32 *fb	= &game->frame_buffer[draw_top * game->window->w + x];
 	for (int y = draw_top; y < draw_bot; y++)
 	{
 		tex_y	= (int)vh % tex->h;
 		vh		+= vh_step;
 		c		= tex->colors[tex_y * tex->w + tex_x];
 		*fb		= write_color(c.r, c.g, c.b, sector->light_level);
-		fb		+= game->screenSize[0];
+		fb		+= game->window->w;
 	}
 }

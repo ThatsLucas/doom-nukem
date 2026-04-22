@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:53:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:28:07 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 {
 	float		nz_floor, nz_ceil;
 	int			ny_top, ny_bot;
-	int			sH = game->screenSize[1];
+	int			sH = game->window->h;
 
 	t_sector *next_sec	= &game->map->sectors[game->map->walls[ray->wall_idx].next_sector];
 	nz_floor			= get_plane_z(next_sec->floor_plane, ray->hit.x, ray->hit.y);
@@ -68,7 +68,7 @@ void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 	t_ray		temp;
 	int			next_id, mirror;
 	int			is_transparent = 0;
-	int			sH = game->screenSize[1];
+	int			sH = game->window->h;
 
 	ray->t			= FLT_MAX;
 	sector			= &game->map->sectors[sector_id];

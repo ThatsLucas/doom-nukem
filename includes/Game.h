@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 23:40:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:26:18 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
+#include "Editor.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
@@ -48,7 +49,6 @@ typedef struct s_game
 	t_ply		*ply;
 	t_WIN		*window;
 	int			mapSize[2];
-	int			screenSize[2];
 	t_map		*map;
 	SDL_Texture	*frame;
 	Uint32		*frame_buffer;

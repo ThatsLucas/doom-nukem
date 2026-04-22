@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:04:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:55:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/22 14:28:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	draw_sky(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	int		tex_x, tex_y;
 	t_RGB	c;
-	int		sW		= game->screenSize[0], sH = game->screenSize[1];
+	int		sW		= game->window->w, sH = game->window->h;
 	int		start	= SDL_clamp(ray->y_top, 0, sH - 1);
 	int		end		= SDL_clamp(ray->y_wall_top, 0, ray->y_bot);
 	t_tex	*tex	= &game->map->textures[sector->sky_tex];
@@ -48,7 +48,7 @@ void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	int			tex_x, tex_y;
 	t_RGB		c;
-	int			sW		= game->screenSize[0], sH = game->screenSize[1];
+	int			sW		= game->window->w, sH = game->window->h;
 	int			start	= SDL_clamp(ray->y_top, 0, sH - 1);
 	int			end		= SDL_clamp(ray->y_wall_top, 0, ray->y_bot);
 	t_tex		*tex	= &game->map->textures[sector->ceil_tex];

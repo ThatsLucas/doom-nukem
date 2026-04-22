@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/13 22:40:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/20 15:26:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ void	events_handler(t_game *game)
 			case SDL_MOUSEBUTTONDOWN:
 				check_button_pressed(game, game->window->buttonList);
 				break;
+
 			case SDL_WINDOWEVENT:
 				if (event.window.event == SDL_WINDOWEVENT_RESIZED)
 				{
 					game->window->w = event.window.data1;
 					game->window->h = event.window.data2;
 				}
+				break;
 		}
 	}
 
