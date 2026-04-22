@@ -1,0 +1,6 @@
+- definir des aires
+- hauteurs des plafonds et sols
+- pentes
+- textures
+- pnjs (par la suite)
+- actions et interactions (par la suite)
