@@ -23,6 +23,118 @@ static int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoord
     return 1;
 }
 
+static int handle_language_selection(t_game *game, t_settings_menu *menu,
+    SDL_MouseMotionEvent *MouseDatas, int click)
+{
+    SDL_Rect mouseCoords;
+    int keyH;
+    int yPos;
+    int separatorH;
+    int languageXOffset;
+
+    if (!click)
+        return (0);
+    mouseCoords.x = MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2;
+    mouseCoords.y = MouseDatas->y - menu->ViewPortCoords.y;
+    mouseCoords.w = 0;
+    mouseCoords.h = 0;
+    if (mouseCoords.x < 0 || mouseCoords.x > menu->ViewPortCoords.w
+        || mouseCoords.y < 0 || mouseCoords.y > menu->ViewPortCoords.h)
+        return (0);
+
+    keyH = menu->keys.h / 8;
+    yPos = (keyH + 20) * 3;
+    separatorH = menu->separator.h / 1.8;
+    yPos += 150 + separatorH + 20 + menu->texts[3].h + 20 + 60;
+    yPos += 150 + separatorH + 20 + menu->texts[4].h + 20;
+    languageXOffset = (1044 - (20 * 3 + (menu->languages[0].w / 9 * 4))) / 2;
+    for (int i = 0; i < 4; i++)
+    {
+        SDL_Rect languageCoords = {
+            languageXOffset,
+            yPos + 25 - menu->scrollH,
+            menu->languages[i].w / 9,
+            menu->languages[i].h / 9
+        };
+        to_responsive(game->window, &languageCoords);
+        if (is_mouse_pos_inside_button(mouseCoords, languageCoords))
+        {
+            if (game->selected_language == i)
+                return (1);
+            game->selected_language = i;
+            free_languages(game);
+            parse_languages(game, i);
+            refresh_main_menu_texts(game);
+            refresh_settings_texts(game, menu);
+            return (1);
+        }
+        languageXOffset += menu->languages[i].w / 9 + 20;
+    }
+    return (0);
+}
+
+int handle_key_control_selected(t_game *game, int key)
+{
+    t_settings_menu *menu = &game->window->menus.settings;
+    const char *keyName = SDL_GetKeyName(key);
+
+    if (game->window->menus.current != 2)
+        return (0);
+    
+    int controlAsked = menu->is_selecting_control;
+    
+    if (controlAsked == 1)
+    {
+        game->settings.move_forward = key;
+        destroy_text_texture(&menu->texts[9]);
+        create_text(&menu->texts[9], game->window->renderPTR, (char *)keyName,
+            DNFONT);
+    }
+    else if (controlAsked == 2)
+    {
+        game->settings.move_backward = key;
+        destroy_text_texture(&menu->texts[10]);
+        create_text(&menu->texts[10], game->window->renderPTR, (char *)keyName,
+            DNFONT);
+    }
+    else if (controlAsked == 3)
+    {
+        game->settings.move_left = key;
+        destroy_text_texture(&menu->texts[11]);
+        create_text(&menu->texts[11], game->window->renderPTR, (char *)keyName,
+            DNFONT);
+    }
+    else if (controlAsked == 4)
+    {
+        game->settings.move_right = key;
+        destroy_text_texture(&menu->texts[12]);
+        create_text(&menu->texts[12], game->window->renderPTR, (char *)keyName,
+            DNFONT);
+    }
+    
+    menu->is_selecting_control = 0;
+    return (1);
+}
+
+static int handle_click_control(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas)
+{
+    SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};
+    SDL_Rect keyCoords;
+
+    for (int i = 0; i < 4; i++)
+    {
+        keyCoords = menu->keysCoords[i];
+        to_responsive(game->window, &keyCoords);
+        if (is_mouse_pos_inside_button(mouseCoords, keyCoords))
+        {
+            menu->is_selecting_control = i + 1;
+            return (1);
+        }
+    }
+    return (0);
+}
+
+
 static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (!menu->isGrabbingSlider && !click)
@@ -51,7 +163,6 @@ static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *M
         menu->slider_grab.x = 680;
         game->settings.FOV = MAX_FOV;
     }
-    printf("FOV = %f\n", game->settings.FOV);
     return (1);
 }
 
@@ -112,6 +223,10 @@ void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionE
     if (grab_fov(game, menu, MouseDatas, click))
         return;
     if (grab_scroll(game, menu, MouseDatas, click))
+        return;
+    if (handle_language_selection(game, menu, MouseDatas, click))
+        return;
+    if (click && handle_click_control(game, menu, MouseDatas))
         return;
 }
 

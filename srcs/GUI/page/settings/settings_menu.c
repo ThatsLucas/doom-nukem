@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 22:22:22 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/21 18:23:12 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:50:18 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,91 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-static void *init_texts(void *window)
+static void change_menu_to_main_menu(t_game *game)
 {
-    t_WIN *win = (t_WIN *)window;
+    game->window->menus.current = 1;
+}
+
+static void *init_texts(void *gameStruct)
+{
+    t_game *game = (t_game *)gameStruct;
+    t_WIN *win = game->window;
+    t_languages *lang = game->languages;
     SDL_Renderer *renderer = win->renderPTR;
     t_settings_menu *menu = &win->menus.settings;
     menu->texts[0].size = 80;
     menu->texts[0].color = (SDL_Color){255, 255, 255, 255};
-    create_text(&menu->texts[0], renderer, "SETTINGS", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&menu->texts[0], renderer, lang->settings, DNFONT);
     menu->texts[1].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[1].size = 50;
-    create_text(&menu->texts[1], renderer, "- Move forward", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&menu->texts[1], renderer, lang->move_forward, DNFONT);
 
     menu->texts[2].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[2].size = 50;
-    create_text(&menu->texts[2], renderer, "- Move backward", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&menu->texts[2], renderer, lang->move_backward, DNFONT);
 
     menu->texts[3].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[3].size = 80;
-    create_text(&menu->texts[3], renderer, "FOV", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&menu->texts[3], renderer, lang->fov, DNFONT);
 
     menu->texts[4].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[4].size = 80;
-    create_text(&menu->texts[4], renderer, "LANGUAGES", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&menu->texts[4], renderer, lang->languages, DNFONT);
 
-    // int scrollH = 136;
-    // SDL_Rect dest = { (1920 - menu->keys.w / 2) / 2, *scrollH, menu->keys.w / 4, menu->keys.h / 4 };
-    // t_RGB col = {0, 0, 0, 0};
-    // create_button(&win->buttonList, NULL, dest, col, col, )
+    menu->texts[5].color = (SDL_Color){221, 21, 0, 255};
+    menu->texts[5].size = 60;
+    menu->texts[5].textHOffset = -10;    
+    create_text(&menu->texts[5], renderer, lang->main_menu, DNFONT);
+
+    menu->texts[6].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[6].size = 60;
+    menu->texts[6].textHOffset = -10;    
+    create_text(&menu->texts[6], renderer, lang->main_menu, DNFONTOUTLINED);
+    
+    menu->texts[7].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[7].size = 50;
+    create_text(&menu->texts[7], renderer, lang->move_left, DNFONT);
+
+    menu->texts[8].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[8].size = 50;
+    create_text(&menu->texts[8], renderer, lang->move_right, DNFONT);
+
+    /*CONTROLS*/
+    menu->texts[9].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[9].size = 80;
+    create_text(&menu->texts[9], renderer, (char*)&game->settings.move_forward, DNFONT);
+
+    menu->texts[10].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[10].size = 80;
+    create_text(&menu->texts[10], renderer, (char*)&game->settings.move_backward, DNFONT);
+
+    menu->texts[11].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[11].size = 80;
+    create_text(&menu->texts[11], renderer, (char*)&game->settings.move_left, DNFONT);
+
+    menu->texts[12].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[12].size = 80;
+    create_text(&menu->texts[12], renderer, (char*)&game->settings.move_right, DNFONT);
+
+    menu->texts[13].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[13].size = 80;
+    create_text(&menu->texts[13], renderer, lang->pick_a_key, DNFONT);
+
+    t_RGB color = {255, 255, 255, 0}; 
+    SDL_Rect coords = { 20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5 };
+    create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[6], &menu->texts[5], 2);
+
+    /*LANGUAGES*/
+    // create_button(&win->buttonList, &change_menu_to_main_menu, (SDL_Rect){1000, 900, 100, 100}, color, color, NULL, NULL, 2);
+    // create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, NULL, NULL, 2);
+    // create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, NULL, NULL, 2);
+    // create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, NULL, NULL, 2);
+
+
     return ((void*)1);
 }
 
-int init_settings_menu(t_WIN *win, SDL_Renderer *renderer,
+int init_settings_menu(t_game *game, SDL_Renderer *renderer,
                        t_settings_menu *SettingsMenu)
 {
     pthread_t threads[13];
@@ -84,15 +137,12 @@ int init_settings_menu(t_WIN *win, SDL_Renderer *renderer,
     };
 
     for (int i = 0; i < 12; i++)
-    {
-        printf("i = %d\n", i);
         images[i]->path = ft_strdup(paths[i]);
-    }
 
     for (int i = 0; i < 12; i++)
         pthread_create(&threads[i], NULL, process_png, images[i]);
 
-    pthread_create(&threads[12], NULL, init_texts, win);
+    pthread_create(&threads[12], NULL, init_texts, game);
 
     for (int i = 0; i < 12; i++)
     {
@@ -141,5 +191,11 @@ void    draw_settings_menu(t_game *game)
 
     SDL_RenderSetViewport(renderer, NULL);
     /*Viewport END*/
+    draw_texture(20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
+    
+    if (menu->is_selecting_control > 0)
+        draw_pick_a_key(win);
+    else
+        display_buttons(game->window->buttonList, game, 2);
 }
 //SDL_RenderSetClipRect

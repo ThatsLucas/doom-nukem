@@ -1,0 +1,12 @@
+loading=UCITAVANJE...
+play=IGRAJ
+settings=PODESAVANJA
+level_editor=EDITOR NIVOA
+pick_a_key=Molimo vas da unesete klyuch koji zhelite da koristite
+move_forward= - Kretanje napred
+move_backward= - Kretanje nazad
+move_left= - Kretanje levo
+move_right= - Kretanje desno
+fov=VIDNO POLJE
+languages=JEZICI
+main_menu=GLAVNI MENI

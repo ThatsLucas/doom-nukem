@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 16:02:25 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:05:17 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
+#include "languages/language.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
@@ -60,6 +61,10 @@ typedef struct s_ply t_ply;
 typedef struct	s_settings
 {
 	float			FOV;
+	int				move_forward;
+	int				move_backward;
+	int				move_left;
+	int				move_right;
 }				t_settings;
 
 
@@ -81,6 +86,8 @@ typedef struct	s_game
 	t_ray			*rays;
 	char			*fps;
 	t_settings		settings;
+    int  			selected_language;
+	t_languages		*languages;
 }				t_game;
 
 /*init/exit game*/
@@ -95,7 +102,7 @@ float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
 void	precompute_mirrors(t_map *map);
-int 	init_all_imgs(t_WIN *win);
+int 	init_all_imgs(t_game *game, t_WIN *win);
 
 
 #endif

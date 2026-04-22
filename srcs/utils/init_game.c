@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 15:32:59 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:06:31 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 static void load_settings(t_game *game)
 {
 	game->settings.FOV = DEFAULT_FOV;
+	game->settings.move_forward = 'w';
+	game->settings.move_backward = 's';
+	game->settings.move_left = 'a';
+	game->settings.move_right = 'd';
 }
 
 void	init_textures(t_game *game, t_map *map)
@@ -70,8 +74,9 @@ t_game	*init_game(void)
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (NULL);
-	ft_bzero(game, sizeof(t_game));
 	load_settings(game);
+	game->selected_language = 0;
+	parse_languages(game, game->selected_language); //english par defaut
 	if (TTF_Init() < 0)
 		exit_game(game, "TTF Init");
 
@@ -81,10 +86,11 @@ t_game	*init_game(void)
 	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL);
 	if (!game->window)
 		exit_game(game, "create_window");
-	if (!init_all_imgs(game->window))
+	if (!init_all_imgs(game, game->window))
     {
         exit_game(game, "Img Loading\n");
     }
+	free_languages(game);
     game->window->menus.main.has_init = 1;
 
 	init_hud_cache(game);
@@ -105,6 +111,6 @@ t_game	*init_game(void)
 	init_map(game);
 	game->window->menus.notif.notif_buf = NULL;
 	game->window->menus.current = 1;
-
+		
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 18:17:03 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 14:48:52 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exit_game(t_game *game, char *type)
 	free_map(game->map);
 	free(game->rays);
 	free(game->fps);
+	free_languages(game);
 	win = game->window;
 	if (win)
 	{
