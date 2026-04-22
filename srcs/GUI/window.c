@@ -6,39 +6,39 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/20 16:38:44 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 15:13:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Window.h"
 #include <stdio.h>
-
+#include "Game.h"
 /* 
 flag == le mode d'affichage de la fenetre, fullscreen, borderless ect
 https://wiki.libsdl.org/SDL2/SDL_WindowFlags 
 */
 
 // tout doit être free mise à part 
-int init_all_imgs(t_WIN *win)
+int init_all_imgs(t_game *game, t_WIN *win)
 {
     SDL_Color white = {255, 255, 255, 255};
     t_font font;
     font.color = white;
     font.size = 120;
 
-    create_text(&font, win->renderPTR, "CHARGEMENT...", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
     SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h)/2, font.w, font.h};
     to_responsive(win, &text_dest);
     SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
     SDL_RenderPresent(win->renderPTR);
-    if (!init_home_menu(win, win->renderPTR, &win->menus.main, 150))
+    if (!init_home_menu(game, win, win->renderPTR, &win->menus.main, 150))
         return (0);
     if (!init_notif(&win->menus.notif.Popup, win->renderPTR))
     {
         ft_printf("ERROR NOTIF INIT\n");
        return (0);
     }
-    if (!init_settings_menu(win, win->renderPTR, &win->menus.settings))
+    if (!init_settings_menu(game, win->renderPTR, &win->menus.settings))
         return (0);
     return (1);
 }

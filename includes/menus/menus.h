@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/21 18:02:01 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:56:02 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_settings_menu {
     t_png       separator;
     t_png       scroll;
     t_png       scroll_grab;
-    t_font      texts[10];
+    t_font      texts[14];
     t_png       slider_bar;
     t_png       slider_grab;
     t_png       languages[5];
@@ -71,6 +71,8 @@ typedef struct s_settings_menu {
     int         isGrabbingScrollBar;
     int         scrollH;
     SDL_Rect    ViewPortCoords;
+    int         is_selecting_control;
+    SDL_Rect    keysCoords[4];
 }               t_settings_menu;
 
 
@@ -87,7 +89,7 @@ void draw_current_menu(t_game *game);
 /*MAIN MENU*/
 
 void draw_main_menu(t_game *game);
-int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset);
+int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset);
 void destroy_main_menu(t_main_menu *MainMenu);
 
 /*NOTIFS*/
@@ -99,13 +101,17 @@ void destroy_notif_node(t_notif_buf **notif_buf);
 
 /*SETTINGS*/
 void    draw_settings_menu(t_game *game);
-int     init_settings_menu(t_WIN *win, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
+int     init_settings_menu(t_game *game, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
 void    handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
 void    handle_settings_released(t_settings_menu *menu);
 void    draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
 int     draw_FOV(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 int     draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu);
+void    draw_pick_a_key(t_WIN *win);
+int     handle_key_control_selected(t_game *game, int key);
 void    draw_scroll_bar(t_game *game, t_settings_menu *menu);
 void    handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL_MouseWheelEvent *wheel);
 int     draw_languages(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+void    refresh_settings_texts(t_game *game, t_settings_menu *menu);
+void    refresh_main_menu_texts(t_game *game);
 #endif

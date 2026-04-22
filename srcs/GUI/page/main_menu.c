@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 16:23:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 15:06:49 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
     return (finalRet);
 }
 
-int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
+int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
 {
     if (!init_imgs(renderer, MainMenu))
         return (0);
@@ -77,12 +77,12 @@ int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, in
     MainMenu->btn_three_text_hover.color = red;
     MainMenu->btn_three_text_hover.size = 60;
 
-    create_text(&MainMenu->btn_one_text, renderer, "PLAY", "assets/fonts/AmazDooMLeftOutline.ttf");
-    create_text(&MainMenu->btn_one_text_hover, renderer, "PLAY", "assets/fonts/AmazDooMLeft.ttf");
-    create_text(&MainMenu->btn_two_text, renderer, "SETTINGS", "assets/fonts/AmazDooMLeftOutline.ttf");
-    create_text(&MainMenu->btn_two_text_hover, renderer, "SETTINGS", "assets/fonts/AmazDooMLeft.ttf");
-    create_text(&MainMenu->btn_three_text, renderer, "LEVEL EDITOR", "assets/fonts/AmazDooMLeftOutline.ttf");
-    create_text(&MainMenu->btn_three_text_hover, renderer, "LEVEL EDITOR", "assets/fonts/AmazDooMLeft.ttf");
+    create_text(&MainMenu->btn_one_text, renderer, game->languages->play, DNFONTOUTLINED);
+    create_text(&MainMenu->btn_one_text_hover, renderer, game->languages->play, DNFONT);
+    create_text(&MainMenu->btn_two_text, renderer, game->languages->settings, DNFONTOUTLINED);
+    create_text(&MainMenu->btn_two_text_hover, renderer, game->languages->settings, DNFONT);
+    create_text(&MainMenu->btn_three_text, renderer, game->languages->level_editor, DNFONTOUTLINED);
+    create_text(&MainMenu->btn_three_text_hover, renderer, game->languages->level_editor, DNFONT);
 
     MainMenu->btn_one_text.textHOffset = -10;
     MainMenu->btn_one_text_hover.textHOffset = -10;

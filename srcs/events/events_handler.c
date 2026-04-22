@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 17:05:57 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 17:57:37 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
 	ply = game->ply;
-	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == 119) ? 1 : ply->keys.w;
-	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == 97) ? 1 : ply->keys.a;
-	ply->keys.s = (event->type == SDL_KEYDOWN && key.keysym.sym == 115) ? 1 : ply->keys.s;
-	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == 100) ? 1 : ply->keys.d;
+	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_forward) ? 1 : ply->keys.w;
+	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_left) ? 1 : ply->keys.a;
+	ply->keys.s = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_backward) ? 1 : ply->keys.s;
+	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_right) ? 1 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741904) ? 1 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741903) ? 1 : ply->keys.right;
 
-	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == 119) ? 0 : ply->keys.w;
-	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == 97) ? 0 : ply->keys.a;
-	ply->keys.s = (event->type == SDL_KEYUP && key.keysym.sym == 115) ? 0 : ply->keys.s;
-	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == 100) ? 0 : ply->keys.d;
+	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_forward) ? 0 : ply->keys.w;
+	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_left) ? 0 : ply->keys.a;
+	ply->keys.s = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_backward) ? 0 : ply->keys.s;
+	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_right) ? 0 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
 }
@@ -77,6 +77,7 @@ void	events_handler(t_game *game)
 				// printf("Key Pressed: %d\n", event.key.keysym.sym);
 			
 			case SDL_KEYUP:
+				handle_key_control_selected(game, event.key.keysym.sym);
 				key_handler(game, event.key, &event);
 				// printf("Key Released: %d\n", event.key.keysym.sym);
 				break;

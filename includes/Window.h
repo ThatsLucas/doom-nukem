@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 13:43:27 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/22 15:01:48 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include <SDL.h>
 #include "GUI/GUI.h"
 #include "menus/menus.h"
+
+#define DNFONT "assets/fonts/AmazDooMLeft.ttf"
+#define DNFONTOUTLINED "assets/fonts/AmazDooMLeftOutline.ttf"
+
 
 typedef struct s_WIN
 {
