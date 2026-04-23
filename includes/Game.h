@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:13:31 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/22 17:05:17 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "../libft/include/libft.h"
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
+#include "languages/language.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265359f
@@ -33,9 +34,22 @@
 #  define EYES_HEIGTH 1.6
 # endif
 
-# ifndef FOV
-#  define FOV 0.80
+
+/*FOV*/
+
+# ifndef MIN_FOV // jamais negatif
+#  define MIN_FOV 0.80
 # endif
+
+# ifndef MAX_FOV
+#  define MAX_FOV 1.80
+# endif
+
+# ifndef DEFAULT_FOV
+#  define DEFAULT_FOV (MAX_FOV + MIN_FOV) / 2
+# endif
+
+
 
 # ifndef RAYCAST_THREADS
 #  define RAYCAST_THREADS 8
@@ -43,6 +57,16 @@
 
 
 typedef struct s_ply t_ply;
+
+typedef struct	s_settings
+{
+	float			FOV;
+	int				move_forward;
+	int				move_backward;
+	int				move_left;
+	int				move_right;
+}				t_settings;
+
 
 typedef struct	s_game
 {
@@ -61,6 +85,9 @@ typedef struct	s_game
 	Uint32			*frame_buffer;
 	t_ray			*rays;
 	char			*fps;
+	t_settings		settings;
+    int  			selected_language;
+	t_languages		*languages;
 }				t_game;
 
 /*init/exit game*/
@@ -75,5 +102,7 @@ float	to_pixelY(float y, t_game *game);
 float	to_PosX(float x, t_game *game);
 float	to_PosY(float y, t_game *game);
 void	precompute_mirrors(t_map *map);
+int 	init_all_imgs(t_game *game, t_WIN *win);
+
 
 #endif

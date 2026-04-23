@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/17 11:11:04 by edurance         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:26:26 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,23 @@ void display_buttons(t_buttons *button_list, t_game *game, int pageID)
         }
         t_RGB color = button_list->color;
         t_font *textFont = button_list->text;
-        int HOffset = button_list->text->textHOffset;
+        int HOffset = 0;
+        if (textFont)
+            HOffset = textFont->textHOffset;
         SDL_Rect buttonCoords = button_list->buttonCoords;
         to_responsive(game->window, &buttonCoords);
         if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
         {
             color = button_list->hoverColor;
-            textFont = button_list->textHover;
-            HOffset = button_list->textHover->textHOffset;
+            if (button_list->textHover)
+            {
+                textFont = button_list->textHover;
+                HOffset = button_list->textHover->textHOffset;
+            }
         }
         if (color.alphaValue > 0)
             create_rectangle(game->window->renderPTR, button_list->buttonCoords, color);
-        if (textFont->texture)
+        if (textFont && textFont->texture)
         {
             int x = button_list->buttonCoords.x + (button_list->buttonCoords.w / 2 - textFont->w / 2);
             int y = button_list->buttonCoords.y + (button_list->buttonCoords.h / 2 - textFont->h / 2) - HOffset;
@@ -100,7 +105,14 @@ int check_button_pressed(t_game *game, t_buttons *button_list)
 
     while(button_list)
     {
-        if (is_mouse_pos_inside_button(mouseCoords, button_list->buttonCoords))
+        if (game->window->menus.current != button_list->page_id)
+        {
+            button_list = button_list->next;
+            continue;
+        }
+        SDL_Rect buttonCoords = button_list->buttonCoords;
+        to_responsive(game->window, &buttonCoords);
+        if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
         {
             printf("Button has been pressed!\n");
             if (button_list->callback_func)

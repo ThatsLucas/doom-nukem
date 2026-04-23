@@ -1,0 +1,17 @@
+loading=CHARGEMENT...
+play=JOUER
+settings=PARAMETRES
+level_editor=EDITEUR DE CARTE
+pick_a_key=Entrez la touche que vous voulez utiliser
+move_forward= - Avancer
+move_backward= - Reculer
+move_left= - Gauche
+move_right= - Droite
+fov=FOV
+languages=LANGUES
+resolution=RESOLUTION
+display_mode=MODE D'AFFICHAGE
+borderless=sans bordure
+fullscreen=plein ecran
+windowed=fenetre
+main_menu=MENU PRINCIPAL
