@@ -13,7 +13,7 @@
 #include "languages/language.h"
 #include "Game.h"
 
-void    free_languages(t_game *game)
+void free_languages(t_game *game)
 {
     if (!game->languages)
         return;
@@ -28,8 +28,13 @@ void    free_languages(t_game *game)
     free(game->languages->move_right);
     free(game->languages->fov);
     free(game->languages->languages);
+    free(game->languages->resolution);
+    free(game->languages->display_mode);
+    free(game->languages->fullscreen);
+    free(game->languages->borderless);
+    free(game->languages->windowed);
     free(game->languages->main_menu);
-    
+
     game->languages->loading = NULL;
     game->languages->play = NULL;
     game->languages->settings = NULL;
@@ -41,14 +46,19 @@ void    free_languages(t_game *game)
     game->languages->move_right = NULL;
     game->languages->fov = NULL;
     game->languages->languages = NULL;
+    game->languages->resolution = NULL;
+    game->languages->display_mode = NULL;
+    game->languages->fullscreen = NULL;
+    game->languages->borderless = NULL;
+    game->languages->windowed = NULL;
     game->languages->main_menu = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
-static void fill_language_texts(t_game *game, int index, char* str)
+static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[12]={
+    char **tab[17] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -60,10 +70,15 @@ static void fill_language_texts(t_game *game, int index, char* str)
         &game->languages->move_right,
         &game->languages->fov,
         &game->languages->languages,
+        &game->languages->resolution,
+        &game->languages->display_mode,
+        &game->languages->fullscreen,
+        &game->languages->borderless,
+        &game->languages->windowed,
         &game->languages->main_menu,
     };
 
-    if (index > 12)
+    if (index > 17)
     {
         ft_printf("Error in language file (miss configuration)\n");
         return;
@@ -99,7 +114,7 @@ static int open_language_file(int language)
 void parse_languages(t_game *game, int language)
 {
     int fd = open_language_file(language);
-    
+
     if (fd < 0)
         exit_game(game, "Could not Open language File\n");
     off_t size = lseek(fd, 0, SEEK_END);

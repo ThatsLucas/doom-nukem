@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 22:22:22 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:18 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/04/23 12:09:01 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static void *init_texts(void *gameStruct)
 
     menu->texts[5].color = (SDL_Color){221, 21, 0, 255};
     menu->texts[5].size = 60;
-    menu->texts[5].textHOffset = -10;    
+    menu->texts[5].textHOffset = -10;
     create_text(&menu->texts[5], renderer, lang->main_menu, DNFONT);
 
     menu->texts[6].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[6].size = 60;
-    menu->texts[6].textHOffset = -10;    
+    menu->texts[6].textHOffset = -10;
     create_text(&menu->texts[6], renderer, lang->main_menu, DNFONTOUTLINED);
-    
+
     menu->texts[7].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[7].size = 50;
     create_text(&menu->texts[7], renderer, lang->move_left, DNFONT);
@@ -66,26 +66,58 @@ static void *init_texts(void *gameStruct)
     /*CONTROLS*/
     menu->texts[9].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[9].size = 80;
-    create_text(&menu->texts[9], renderer, (char*)&game->settings.move_forward, DNFONT);
+    create_text(&menu->texts[9], renderer, (char *)&game->settings.move_forward, DNFONT);
 
     menu->texts[10].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[10].size = 80;
-    create_text(&menu->texts[10], renderer, (char*)&game->settings.move_backward, DNFONT);
+    create_text(&menu->texts[10], renderer, (char *)&game->settings.move_backward, DNFONT);
 
     menu->texts[11].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[11].size = 80;
-    create_text(&menu->texts[11], renderer, (char*)&game->settings.move_left, DNFONT);
+    create_text(&menu->texts[11], renderer, (char *)&game->settings.move_left, DNFONT);
 
     menu->texts[12].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[12].size = 80;
-    create_text(&menu->texts[12], renderer, (char*)&game->settings.move_right, DNFONT);
+    create_text(&menu->texts[12], renderer, (char *)&game->settings.move_right, DNFONT);
 
     menu->texts[13].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[13].size = 80;
     create_text(&menu->texts[13], renderer, lang->pick_a_key, DNFONT);
 
-    t_RGB color = {255, 255, 255, 0}; 
-    SDL_Rect coords = { 20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5 };
+    menu->texts[14].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[14].size = 80;
+    create_text(&menu->texts[14], renderer, lang->resolution, DNFONT);
+
+    menu->texts[15].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[15].size = 70;
+    create_text(&menu->texts[15], renderer, "1280 x 720", DNFONT);
+
+    menu->texts[16].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[16].size = 70;
+    create_text(&menu->texts[16], renderer, "1920 x 1080", DNFONT);
+
+    menu->texts[17].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[17].size = 70;
+    create_text(&menu->texts[17], renderer, "2560 x 1440", DNFONT);
+
+    menu->texts[18].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[18].size = 70;
+    create_text(&menu->texts[18], renderer, lang->display_mode, DNFONT);
+
+    menu->texts[19].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[19].size = 70;
+    create_text(&menu->texts[19], renderer, lang->fullscreen, DNFONT);
+
+    menu->texts[20].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[20].size = 70;
+    create_text(&menu->texts[20], renderer, lang->borderless, DNFONT);
+
+    menu->texts[21].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[21].size = 70;
+    create_text(&menu->texts[21], renderer, lang->windowed, DNFONT);
+
+    t_RGB color = {255, 255, 255, 0};
+    SDL_Rect coords = {20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[6], &menu->texts[5], 2);
 
     /*LANGUAGES*/
@@ -94,8 +126,7 @@ static void *init_texts(void *gameStruct)
     // create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, NULL, NULL, 2);
     // create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, NULL, NULL, 2);
 
-
-    return ((void*)1);
+    return ((void *)1);
 }
 
 int init_settings_menu(t_game *game, SDL_Renderer *renderer,
@@ -118,8 +149,7 @@ int init_settings_menu(t_game *game, SDL_Renderer *renderer,
         &SettingsMenu->languages[1],
         &SettingsMenu->languages[2],
         &SettingsMenu->languages[3],
-        &SettingsMenu->languages[4]
-    };
+        &SettingsMenu->languages[4]};
 
     const char *paths[12] = {
         "assets/png/settings/background.png",
@@ -158,12 +188,12 @@ int init_settings_menu(t_game *game, SDL_Renderer *renderer,
 
     if (!ret)
         finalRet = 0;
-    SettingsMenu->slider_grab.x = (1044 - SettingsMenu->slider_grab.w/6) / 2;
+    SettingsMenu->slider_grab.x = (1044 - SettingsMenu->slider_grab.w / 6) / 2;
     SettingsMenu->scroll_grab.y = 40;
     return finalRet;
 }
 
-void    draw_settings_menu(t_game *game)
+void draw_settings_menu(t_game *game)
 {
     SDL_Renderer *renderer = game->window->renderPTR;
     t_WIN *win = game->window;
@@ -177,7 +207,7 @@ void    draw_settings_menu(t_game *game)
     draw_scroll_bar(game, menu);
 
     /*Viewport*/
-    SDL_Rect dest = { viewportX, 136, 1044, 842 };
+    SDL_Rect dest = {viewportX, 136, 1044, 842};
     to_responsive(win, &dest);
     menu->ViewPortCoords = dest;
 
@@ -188,14 +218,16 @@ void    draw_settings_menu(t_game *game)
     yPos = draw_controls(&menu->scrollH, win, menu);
     yPos = draw_FOV(yPos, &menu->scrollH, game, menu);
     yPos = draw_languages(yPos, &menu->scrollH, game, menu);
+    yPos = draw_resolution(yPos, &menu->scrollH, game, menu);
+    yPos = draw_display_mode(yPos, &menu->scrollH, game, menu);
 
     SDL_RenderSetViewport(renderer, NULL);
     /*Viewport END*/
     draw_texture(20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
-    
+
     if (menu->is_selecting_control > 0)
         draw_pick_a_key(win);
     else
         display_buttons(game->window->buttonList, game, 2);
 }
-//SDL_RenderSetClipRect
+// SDL_RenderSetClipRect

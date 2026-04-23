@@ -17,7 +17,8 @@
 
 typedef struct s_game t_game;
 
-typedef struct s_languages {
+typedef struct s_languages
+{
     char *loading;
     char *play;
     char *settings;
@@ -29,10 +30,15 @@ typedef struct s_languages {
     char *move_right;
     char *fov;
     char *languages;
+    char *resolution;
+    char *display_mode;
+    char *borderless;
+    char *fullscreen;
+    char *windowed;
     char *main_menu;
-}               t_languages;
+} t_languages;
 
-void    parse_languages(t_game *game, int language);
-void    free_languages(t_game *game);
+void parse_languages(t_game *game, int language);
+void free_languages(t_game *game);
 
 #endif
