@@ -17,10 +17,10 @@
 	1073741906 = UP
 	1073741905 = DOWN
 */
-void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
+void ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
 {
-	int	newpitch;
-	int	step;
+	int newpitch;
+	int step;
 
 	step = 50;
 	newpitch = ply->pitch;
@@ -31,6 +31,5 @@ void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
 
 	if (newpitch <= game->screenSize[1] && newpitch > -(game->screenSize[1]))
 		ply->pitch = newpitch;
-	return ;
+	return;
 }
-

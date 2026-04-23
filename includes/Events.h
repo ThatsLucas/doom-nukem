@@ -11,15 +11,16 @@
 /* ************************************************************************** */
 
 #ifndef EVENTS_H
-# define EVENTS_H
+#define EVENTS_H
 
-# include "Game.h"
+#include "Game.h"
 
-void	events_handler(t_game *game);
-void	ply_movements(t_ply *ply, t_game *game);
-void	ply_directions(t_ply *ply);
-void	handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel);
-void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key);
-void	mouse_moves(int x, int y, t_game *game);
+void events_handler(t_game *game);
+void ply_movements(t_ply *ply, t_game *game);
+void ply_directions(t_ply *ply);
+void handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel);
+void ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key);
+void ply_pitch_mouse(t_game *game, t_ply *ply, int yChange);
+void mouse_moves(int x, int y, t_game *game);
 
 #endif

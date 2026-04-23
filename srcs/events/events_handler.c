@@ -96,6 +96,8 @@ void events_handler(t_game *game)
 		case SDL_MOUSEMOTION:
 			if (game->window->menus.current == 2)
 				handle_settings_click(game, &game->window->menus.settings, &event.motion, 0);
+			if (game->window->menus.current == 0)
+				mouse_moves(event.motion.xrel, event.motion.yrel, game);
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.state == SDL_RELEASED)
