@@ -20,8 +20,9 @@ void draw_current_menu(t_game *game)
     {
     case 0:
         send_rays(game);
-		SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
-		SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+        SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
+        SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+        display_hud(game);
         break;
     case 1:
         draw_main_menu(game);
