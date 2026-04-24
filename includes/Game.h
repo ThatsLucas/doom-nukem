@@ -63,7 +63,7 @@
 #endif
 
 #ifndef RAYCAST_THREADS
-#define RAYCAST_THREADS 8
+#define RAYCAST_THREADS sysconf(_SC_NPROCESSORS_ONLN) // pareil que nproc
 #endif
 
 typedef struct s_ply t_ply;

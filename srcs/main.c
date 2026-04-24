@@ -43,7 +43,7 @@ int main(void)
 	create_notif(&game->window->menus.notif.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
-		// Uint64 start = SDL_GetPerformanceCounter();
+		Uint64 start = SDL_GetPerformanceCounter();
 		SDL_RenderClear(game->window->renderPTR);
 		events_handler(game);
 		draw_current_menu(game);
@@ -58,7 +58,7 @@ int main(void)
 		// display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
-		// display_fps_periodic(start);
+		display_fps_periodic(start);
 	}
 
 	exit_game(game, NULL);

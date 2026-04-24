@@ -25,10 +25,8 @@ static void *send_threads_ray(void *arg)
 	sW = game->screenSize[0];
 	sH = game->screenSize[1];
 
-	float camera_scale = tanf(game->settings.FOV * 0.5f);
-
-	ray.plane = get_cam_plane(camera_scale, game->ply->dir);
-	ray.focal = sW / (2.0f * camera_scale);
+	ray.plane = get_cam_plane(infos->camera_scale, game->ply->dir);
+	ray.focal = sW / (2.0f * infos->camera_scale);
 	ray.inv_focal = 1.0f / ray.focal;
 
 	for (int x = infos->x_start; x < infos->x_end; x++)
@@ -54,13 +52,16 @@ void send_rays(t_game *game)
 	pthread_t threads[RAYCAST_THREADS];
 	int parts, start;
 
+	float camera_scale = tanf(game->settings.FOV * 0.5f);
 	parts = game->screenSize[0] / RAYCAST_THREADS;
 	start = 0;
+
 	for (int i = 0; i < RAYCAST_THREADS; i++)
 	{
 		infos[i].game = game;
 		infos[i].x_start = start;
 		infos[i].x_end = start + parts;
+		infos[i].camera_scale = camera_scale;
 		if (i == RAYCAST_THREADS - 1)
 			infos[i].x_end = game->screenSize[0];
 		start += parts;
