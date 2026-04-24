@@ -14,9 +14,9 @@
 #include "GUI/GUI.h"
 
 /*Recuperer la timestamp actuelle en ms*/
-static long	get_timestamp(void)
+static long get_timestamp(void)
 {
-	struct timeval	time;
+	struct timeval time;
 
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
@@ -24,17 +24,17 @@ static long	get_timestamp(void)
 }
 
 /*Afficher les FPS en haut a droite de l'ecran toutes les secondes*/
-void	display_fps(t_game *game)
+void display_fps(t_game *game)
 {
-	static int	fps = 0;
-	static long	last_time = 0;
-	long		time;
+	static int fps = 0;
+	static long last_time = 0;
+	long time;
 
 	time = get_timestamp();
 	if (!last_time)
 	{
 		last_time = time;
-		return ;
+		return;
 	}
 	if (last_time + 1000 <= time)
 	{
@@ -50,5 +50,19 @@ void	display_fps(t_game *game)
 		fps++;
 	// if (game->fps)
 	// 	printGAmeFPS;		TODO
-	return ;
+	return;
+}
+
+/*
+Meme fonction que display_fps mais calcule a la frame pres pas a la seconde
+Resultat plus precis mais plus fluctant
+*/
+void display_fps_periodic(Uint64 start)
+{
+	Uint64 now = SDL_GetPerformanceCounter();
+	double period = (double)(now - start) / SDL_GetPerformanceFrequency();
+
+	double fps = 1.0 / period;
+	printf("fps : %lf\n", fps);
+	return;
 }
