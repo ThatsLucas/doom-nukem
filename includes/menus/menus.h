@@ -76,6 +76,7 @@ typedef struct s_settings_menu
     int scrollH;
     SDL_Rect ViewPortCoords;
     SDL_Rect MouseSensiCoords;
+    SDL_Rect languagesCoords[4];
     int is_selecting_control;
     SDL_Rect keysCoords[4];
     SDL_Rect resolutionBtnsCoords[6];
