@@ -19,7 +19,7 @@
 
 int main(void)
 {
-	t_game	*game;
+	t_game *game;
 
 	game = init_game();
 	if (!game)
@@ -31,7 +31,8 @@ int main(void)
 	game->ply->dir.y = 1.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 12;	game->mapSize[1] = 8;
+	game->mapSize[0] = 12;
+	game->mapSize[1] = 8;
 
 	create_notif(&game->window->menus.notif.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
 
@@ -42,12 +43,13 @@ int main(void)
 	create_notif(&game->window->menus.notif.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
+		// Uint64 start = SDL_GetPerformanceCounter();
 		SDL_RenderClear(game->window->renderPTR);
 		events_handler(game);
-		display_notif(game->window, &game->window->menus.notif.notif_buf);
 		draw_current_menu(game);
+		display_notif(game->window, &game->window->menus.notif.notif_buf);
 
-		// display_buttons(game->window->buttonList, game->window->renderPTR);		
+		// display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
 		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
@@ -56,6 +58,7 @@ int main(void)
 		// display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
+		// display_fps_periodic(start);
 	}
 
 	exit_game(game, NULL);
