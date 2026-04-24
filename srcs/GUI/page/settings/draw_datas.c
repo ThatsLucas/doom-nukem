@@ -151,16 +151,20 @@ int draw_languages(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
     draw_texture(selectedX, yPos + 12 - *scrollH, selectedW, selectedH, win,
                  menu->languages[4].texture);
 
-    draw_texture(languageXOffset, yPos + 25 - *scrollH, menu->languages[0].w / 9, menu->languages[0].h / 9, win, menu->languages[0].texture);
+    menu->languagesCoords[0] = (SDL_Rect){languageXOffset, yPos + 25 - *scrollH, menu->languages[0].w / 9, menu->languages[0].h / 9};
+    draw_texture(menu->languagesCoords[0].x, menu->languagesCoords[0].y, menu->languagesCoords[0].w, menu->languagesCoords[0].h, win, menu->languages[0].texture);
     languageXOffset += menu->languages[0].w / 9 + 20;
 
-    draw_texture(languageXOffset, yPos + 25 - *scrollH, menu->languages[1].w / 9, menu->languages[1].h / 9, win, menu->languages[1].texture);
+    menu->languagesCoords[1] = (SDL_Rect){languageXOffset, yPos + 25 - *scrollH, menu->languages[1].w / 9, menu->languages[1].h / 9};
+    draw_texture(menu->languagesCoords[1].x, menu->languagesCoords[1].y, menu->languagesCoords[1].w, menu->languagesCoords[1].h, win, menu->languages[1].texture);
     languageXOffset += menu->languages[1].w / 9 + 20;
 
-    draw_texture(languageXOffset, yPos + 25 - *scrollH, menu->languages[2].w / 9, menu->languages[2].h / 9, win, menu->languages[2].texture);
+    menu->languagesCoords[2] = (SDL_Rect){languageXOffset, yPos + 25 - *scrollH, menu->languages[2].w / 9, menu->languages[2].h / 9};
+    draw_texture(menu->languagesCoords[2].x, menu->languagesCoords[2].y, menu->languagesCoords[2].w, menu->languagesCoords[2].h, win, menu->languages[2].texture);
     languageXOffset += menu->languages[2].w / 9 + 20;
 
-    draw_texture(languageXOffset, yPos + 25 - *scrollH, menu->languages[3].w / 9, menu->languages[3].h / 9, win, menu->languages[3].texture);
+    menu->languagesCoords[3] = (SDL_Rect){languageXOffset, yPos + 25 - *scrollH, menu->languages[3].w / 9, menu->languages[3].h / 9};
+    draw_texture(menu->languagesCoords[3].x, menu->languagesCoords[3].y, menu->languagesCoords[3].w, menu->languagesCoords[3].h, win, menu->languages[3].texture);
     languageXOffset += menu->languages[3].w / 9 + 20;
 
     return (yPos);

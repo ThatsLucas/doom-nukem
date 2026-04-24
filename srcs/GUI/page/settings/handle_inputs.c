@@ -27,10 +27,6 @@ static int handle_language_selection(t_game *game, t_settings_menu *menu,
                                      SDL_MouseMotionEvent *MouseDatas, int click)
 {
     SDL_Rect mouseCoords;
-    int keyH;
-    int yPos;
-    int separatorH;
-    int languageXOffset;
 
     if (!click)
         return (0);
@@ -41,20 +37,9 @@ static int handle_language_selection(t_game *game, t_settings_menu *menu,
     if (mouseCoords.x < 0 || mouseCoords.x > menu->ViewPortCoords.w || mouseCoords.y < 0 || mouseCoords.y > menu->ViewPortCoords.h)
         return (0);
 
-    keyH = menu->keys.h / 8;
-    yPos = (keyH + 20) * 3;
-    separatorH = menu->separator.h / 1.8;
-    yPos += 150 + separatorH + 20 + menu->texts[3].h + 20 + 60;
-    yPos += 150 + separatorH + 20 + menu->texts[4].h + 20;
-    languageXOffset = (1044 - (20 * 3 + (menu->languages[0].w / 9 * 4))) / 2;
     for (int i = 0; i < 4; i++)
     {
-        SDL_Rect languageCoords = {
-            languageXOffset,
-            yPos + 25 - menu->scrollH,
-            menu->languages[i].w / 9,
-            menu->languages[i].h / 9};
-        to_responsive(game->window, &languageCoords);
+        SDL_Rect languageCoords = menu->languagesCoords[i];
         if (is_mouse_pos_inside_button(mouseCoords, languageCoords))
         {
             if (game->selected_language == i)
@@ -66,7 +51,6 @@ static int handle_language_selection(t_game *game, t_settings_menu *menu,
             refresh_settings_texts(game, menu);
             return (1);
         }
-        languageXOffset += menu->languages[i].w / 9 + 20;
     }
     return (0);
 }
