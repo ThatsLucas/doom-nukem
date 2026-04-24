@@ -132,6 +132,41 @@ static int handle_click_control(t_game *game, t_settings_menu *menu, SDL_MouseMo
     return (0);
 }
 
+static int grab_mouse_sensibility(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
+{
+    if (!menu->isGrabbingSliderMouseSensi && !click)
+        return (0);
+    SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};
+    SDL_Rect sliderCoords = menu->MouseSensiCoords;
+    to_responsive(game->window, &sliderCoords);
+    if (!menu->isGrabbingSliderMouseSensi)
+    {
+        if (!is_mouse_pos_inside_button(mouseCoords, sliderCoords))
+            return (0);
+        menu->isGrabbingSliderMouseSensi = 1;
+    }
+
+    int32_t newX = menu->MouseSensiCoords.x;
+
+    if (MouseDatas->xrel > 1000 || MouseDatas->xrel < -1000) // big value frist click
+        MouseDatas->xrel = 0;
+    newX += MouseDatas->xrel;
+
+    game->settings.MouseSensibility += ((float)MouseDatas->xrel) * ((MAX_MOUSE_SENSIBILITY - MIN_MOUSE_SENSIBILITY) / 480);
+    if (newX < 200)
+    {
+        newX = 200;
+        game->settings.MouseSensibility = MIN_MOUSE_SENSIBILITY;
+    }
+    else if (newX > 680)
+    {
+        newX = 680;
+        game->settings.MouseSensibility = MAX_MOUSE_SENSIBILITY;
+    }
+    menu->MouseSensiCoords.x = newX;
+    return (1);
+}
+
 static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (!menu->isGrabbingSlider && !click)
@@ -145,7 +180,6 @@ static int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *M
             return (0);
         menu->isGrabbingSlider = 1;
     }
-
     if (MouseDatas->xrel > 1000 || MouseDatas->xrel < -1000) // big value frist click
         MouseDatas->xrel = 0;
     menu->slider_grab.x += MouseDatas->xrel;
@@ -179,7 +213,7 @@ void handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL
         menu->scroll_grab.y = minScrollY;
     else if (menu->scroll_grab.y > maxScrollY)
         menu->scroll_grab.y = maxScrollY;
-    game->window->menus.settings.scrollH = (int)(((float)(menu->scroll_grab.y - minScrollY) / (float)(maxScrollY - minScrollY)) * 1600.0f);
+    game->window->menus.settings.scrollH = (int)(((float)(menu->scroll_grab.y - minScrollY) / (float)(maxScrollY - minScrollY)) * 2000.0f);
 }
 
 static int grab_scroll(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
@@ -206,7 +240,7 @@ static int grab_scroll(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent
         menu->scroll_grab.y = minScrollY;
     else if (menu->scroll_grab.y > maxScrollY)
         menu->scroll_grab.y = maxScrollY;
-    game->window->menus.settings.scrollH = (int)(((float)(menu->scroll_grab.y - minScrollY) / (float)(maxScrollY - minScrollY)) * 1600.0f);
+    game->window->menus.settings.scrollH = (int)(((float)(menu->scroll_grab.y - minScrollY) / (float)(maxScrollY - minScrollY)) * 2000.0f);
     return (1);
 }
 
@@ -221,7 +255,6 @@ static int handle_resolution_click(t_game *game, t_settings_menu *menu, SDL_Mous
         to_responsive(game->window, &ButtonsCoords);
         if (is_mouse_pos_inside_button(mouseCoords, ButtonsCoords))
         {
-            ft_printf("Clicked resolution %d\n", i);
             switch (i)
             {
             case 0:
@@ -296,6 +329,8 @@ void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionE
         return;
     if (grab_scroll(game, menu, MouseDatas, click))
         return;
+    if (grab_mouse_sensibility(game, menu, MouseDatas, click))
+        return;
     if (handle_language_selection(game, menu, MouseDatas, click))
         return;
     if (click && handle_click_control(game, menu, MouseDatas))
@@ -311,6 +346,12 @@ void handle_settings_released(t_settings_menu *menu)
     if (menu->isGrabbingSlider)
     {
         menu->isGrabbingSlider = 0;
+        return;
+    }
+
+    if (menu->isGrabbingSliderMouseSensi)
+    {
+        menu->isGrabbingSliderMouseSensi = 0;
         return;
     }
 

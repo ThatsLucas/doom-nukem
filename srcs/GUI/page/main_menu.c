@@ -18,7 +18,7 @@
 static void draw_game_menu(t_game *game)
 {
     game->window->menus.current = 0;
-    SDL_ShowCursor(SDL_DISABLE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)

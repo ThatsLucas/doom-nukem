@@ -14,4 +14,5 @@ display_mode=MODE D'AFFICHAGE
 borderless=sans bordure
 fullscreen=plein ecran
 windowed=fenetre
+mouse_sensi=Sensibilite souris
 main_menu=MENU PRINCIPAL
