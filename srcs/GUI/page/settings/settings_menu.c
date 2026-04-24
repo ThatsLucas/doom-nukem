@@ -116,6 +116,10 @@ static void *init_texts(void *gameStruct)
     menu->texts[21].size = 70;
     create_text(&menu->texts[21], renderer, lang->windowed, DNFONT);
 
+    menu->texts[22].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[22].size = 70;
+    create_text(&menu->texts[22], renderer, lang->mouse_sensi, DNFONT);
+
     t_RGB color = {255, 255, 255, 0};
     SDL_Rect coords = {20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[6], &menu->texts[5], 2);
@@ -190,6 +194,8 @@ int init_settings_menu(t_game *game, SDL_Renderer *renderer,
         finalRet = 0;
     SettingsMenu->slider_grab.x = (1044 - SettingsMenu->slider_grab.w / 6) / 2;
     SettingsMenu->scroll_grab.y = 40;
+
+    SettingsMenu->MouseSensiCoords = (SDL_Rect){(1044 - SettingsMenu->slider_grab.w / 6) / 2, 40, SettingsMenu->slider_grab.w / 6, SettingsMenu->slider_grab.h / 6};
     return finalRet;
 }
 
@@ -217,6 +223,7 @@ void draw_settings_menu(t_game *game)
     int yPos = 0;
     yPos = draw_controls(&menu->scrollH, win, menu);
     yPos = draw_FOV(yPos, &menu->scrollH, game, menu);
+    yPos = draw_mouse_sensibility(yPos, &menu->scrollH, game, menu);
     yPos = draw_languages(yPos, &menu->scrollH, game, menu);
     yPos = draw_resolution(yPos, &menu->scrollH, game, menu);
     yPos = draw_display_mode(yPos, &menu->scrollH, game, menu);

@@ -66,14 +66,16 @@ typedef struct s_settings_menu
     t_png separator;
     t_png scroll;
     t_png scroll_grab;
-    t_font texts[22];
+    t_font texts[23];
     t_png slider_bar;
     t_png slider_grab;
     t_png languages[5];
     int isGrabbingSlider;
+    int isGrabbingSliderMouseSensi;
     int isGrabbingScrollBar;
     int scrollH;
     SDL_Rect ViewPortCoords;
+    SDL_Rect MouseSensiCoords;
     int is_selecting_control;
     SDL_Rect keysCoords[4];
     SDL_Rect resolutionBtnsCoords[6];
@@ -117,6 +119,7 @@ void handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL
 int draw_languages(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 int draw_resolution(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
 #endif

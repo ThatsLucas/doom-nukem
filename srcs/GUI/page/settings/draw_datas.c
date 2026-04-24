@@ -57,6 +57,40 @@ int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *men
     return (yPos);
 }
 
+int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
+{
+    t_WIN *win = game->window;
+    int separatorW = menu->separator.w / 1.8;
+    int separatorH = menu->separator.h / 1.8;
+
+    yPos += 150;
+    draw_texture((1044 - menu->separator.w / 1.8) / 2, yPos - *scrollH, separatorW, separatorH, win, menu->separator.texture);
+    yPos += separatorH + 20;
+    draw_texture((1044 - menu->texts[22].w) / 2, yPos + 25 - *scrollH, menu->texts[22].w, menu->texts[22].h, win, menu->texts[22].texture);
+    yPos += menu->texts[22].h + 20;
+
+    t_font mouse_sensi;
+    mouse_sensi.color = (SDL_Color){255, 255, 255, 255};
+    mouse_sensi.size = 60;
+    char *MouseSensiSTR = ft_itoa(game->settings.MouseSensibility * 100000);
+    if (MouseSensiSTR)
+    {
+        create_text(&mouse_sensi, win->renderPTR, MouseSensiSTR, DNFONT);
+        free(MouseSensiSTR);
+        draw_texture((1044 - mouse_sensi.w) / 2, yPos - *scrollH, mouse_sensi.w, mouse_sensi.h, win, mouse_sensi.texture);
+        SDL_DestroyTexture(mouse_sensi.texture);
+    }
+
+    yPos += 60;
+    draw_texture((1044 - menu->slider_bar.w / 2) / 2, yPos - *scrollH, menu->slider_bar.w / 2, menu->slider_bar.h / 2, win, menu->slider_bar.texture);
+
+    SDL_Rect OldCoords = menu->MouseSensiCoords;
+    menu->MouseSensiCoords = (SDL_Rect){OldCoords.x, yPos - *scrollH + ((menu->slider_bar.h / 2 - menu->slider_grab.h / 6) / 2), OldCoords.w, OldCoords.h};
+    draw_texture(menu->MouseSensiCoords.x, menu->MouseSensiCoords.y, menu->MouseSensiCoords.w, menu->MouseSensiCoords.h, win, menu->slider_grab.texture);
+
+    return (yPos);
+}
+
 int draw_resolution(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     t_WIN *win = game->window;

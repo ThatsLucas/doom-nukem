@@ -52,6 +52,7 @@ void refresh_settings_texts(t_game *game, t_settings_menu *menu)
     destroy_text_texture(&menu->texts[19]);
     destroy_text_texture(&menu->texts[20]);
     destroy_text_texture(&menu->texts[21]);
+    destroy_text_texture(&menu->texts[22]);
     create_text(&menu->texts[0], renderer, game->languages->settings, DNFONT);
     create_text(&menu->texts[1], renderer, game->languages->move_forward, DNFONT);
     create_text(&menu->texts[2], renderer, game->languages->move_backward, DNFONT);
@@ -67,4 +68,5 @@ void refresh_settings_texts(t_game *game, t_settings_menu *menu)
     create_text(&menu->texts[19], renderer, game->languages->fullscreen, DNFONT);
     create_text(&menu->texts[20], renderer, game->languages->borderless, DNFONT);
     create_text(&menu->texts[21], renderer, game->languages->windowed, DNFONT);
+    create_text(&menu->texts[22], renderer, game->languages->mouse_sensi, DNFONT);
 }

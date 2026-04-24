@@ -33,6 +33,7 @@ void free_languages(t_game *game)
     free(game->languages->fullscreen);
     free(game->languages->borderless);
     free(game->languages->windowed);
+    free(game->languages->mouse_sensi);
     free(game->languages->main_menu);
 
     game->languages->loading = NULL;
@@ -51,6 +52,7 @@ void free_languages(t_game *game)
     game->languages->fullscreen = NULL;
     game->languages->borderless = NULL;
     game->languages->windowed = NULL;
+    game->languages->mouse_sensi = NULL;
     game->languages->main_menu = NULL;
     free(game->languages);
     game->languages = NULL;
@@ -58,7 +60,7 @@ void free_languages(t_game *game)
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[17] = {
+    char **tab[18] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -75,10 +77,11 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->fullscreen,
         &game->languages->borderless,
         &game->languages->windowed,
+        &game->languages->mouse_sensi,
         &game->languages->main_menu,
     };
 
-    if (index > 17)
+    if (index > 18)
     {
         ft_printf("Error in language file (miss configuration)\n");
         return;

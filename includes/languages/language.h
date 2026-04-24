@@ -35,6 +35,7 @@ typedef struct s_languages
     char *borderless;
     char *fullscreen;
     char *windowed;
+    char *mouse_sensi;
     char *main_menu;
 } t_languages;
 

@@ -14,4 +14,5 @@ display_mode=DISPLAY MODE
 borderless=borderless
 fullscreen=fullscreen
 windowed=windowed
+mouse_sensi=Mouse Sensibility
 main_menu=GLAVNI MENI

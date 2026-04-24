@@ -20,13 +20,13 @@ void get_screen_size(int *w, int *h)
 	{
 		*w = 840;
 		*h = 600;
-    	printf("SDL error: %s\n", SDL_GetError());
-    	return;
+		printf("SDL error: %s\n", SDL_GetError());
+		return;
 	}
 
 	// *w = DM.w;
 	// *h = DM.h;
 	*w = 1920;
 	*h = 1080;
-	return ;
+	return;
 }
