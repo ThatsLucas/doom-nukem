@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/22 14:28:21 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:07:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,12 @@ t_game	*init_game(void)
 								SDL_TEXTUREACCESS_STREAMING,
 								game->window->w,
 								game->window->h);
+
 	if (!game->ply || !game->frame_buffer || !game->rays || !game->frame)
-		exit_game(game, "player malloc");
+		exit_game(game, "game init malloc");
+
+	init_editor(game);
+
 	ft_bzero(game->ply, sizeof(t_ply));
 	init_map(game);
 	game->window->PopupPtr.notif_buf = NULL;

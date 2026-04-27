@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/22 14:26:18 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/26 20:57:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_game
 	Uint32		*frame_buffer;
 	t_ray		*rays;
 	char		*fps;
+	t_editor	*editor;
 }				t_game;
 
 /*init/exit game*/

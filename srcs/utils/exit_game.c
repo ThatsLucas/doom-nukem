@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/14 23:38:48 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/27 18:08:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	exit_game(t_game *game, char *type)
 	if (game->window && game->window->winPTR)
 		SDL_DestroyWindow(game->window->winPTR);
 	free(game->window);
+
+	exit_editor(game);
 
 	free(game);
 	TTF_Quit();
