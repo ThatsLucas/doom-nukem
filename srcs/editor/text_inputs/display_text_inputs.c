@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:38:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 19:09:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/27 21:11:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	display_text_input(t_game *game, t_list **lst)
 	while (current)
 	{
 		input = (t_text_input *)current->content;
+
 		draw_case(game, input);
 		if (input == game->editor->selected)
 		{

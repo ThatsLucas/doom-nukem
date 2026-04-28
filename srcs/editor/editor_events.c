@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 19:05:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/27 21:06:11 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ static void handle_input(t_editor *editor, char *text)
 
 static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 {
+	if (code == SDLK_ESCAPE)
+		exit_game(game, NULL);
+
 	if (!editor->selected)
 		return ;
 	if (code == SDLK_BACKSPACE && ft_strlen(editor->selected->text))
 		editor->selected->text[ft_strlen(editor->selected->text) - 1] = 0;
-	else if (code == SDLK_ESCAPE)
-		exit_game(game, NULL);
+
+	return ;
 }
 
 void	editor_events(t_game *game)
@@ -52,6 +55,10 @@ void	editor_events(t_game *game)
 			case SDL_KEYDOWN:
 				handle_key(game->editor, e.key.keysym.sym, game);
 				break ;
+
+			case SDL_MOUSEBUTTONDOWN:
+				get_selected_input(game->editor, &game->editor->text_inputs, e.motion.x, e.motion.y);
+				break;
 
 			default:
 				break;
