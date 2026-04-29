@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:30:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 18:37:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:36:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
-void	add_text_inputs(t_game *game, SDL_Rect coords)
+void	add_text_inputs(t_game *game, SDL_Rect coords, char *name)
 {
 	t_text_input	*text;
 
@@ -21,6 +21,7 @@ void	add_text_inputs(t_game *game, SDL_Rect coords)
 	if (!text)
 		exit_game(game, "add_text_input");
 	text->box = coords;
+	text->name = name;
 
 	ft_lstadd_back(&game->editor->text_inputs, ft_lstnew(text));
 

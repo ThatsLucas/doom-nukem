@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 21:13:55 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:37:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list	t_list;
 typedef struct s_text_input
 {
 	char		text[200];
+	char		*name;
 	SDL_Rect	box;
 	SDL_Rect	dst;
 }				t_text_input;
@@ -39,7 +40,7 @@ void	init_editor(t_game *game);
 void	exit_editor(t_game *game);
 
 /* Text Inputs */
-void	add_text_inputs(t_game *game, SDL_Rect coords);
+void	add_text_inputs(t_game *game, SDL_Rect coords, char *name);
 void	display_text_input(t_game *game, t_list **lst);
 void	get_selected_input(t_editor *editor, t_list **lst, int x, int y);
 

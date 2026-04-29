@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 21:20:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:42:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ void	init_editor(t_game *game)
 	SDL_Rect box;
 	box.w = 200;
 	box.h = 40;
-	box.x = game->window->w * 0.75 + (game->window->w * 0.25 - box.w - 10);
 	box.y = 20;
-	add_text_inputs(game, box);
-
 	box.x = game->window->w * 0.75 + 10;
-	add_text_inputs(game, box);
+	add_text_inputs(game, box, "mapX");
+	box.x = game->window->w * 0.75 + (game->window->w * 0.25 - box.w - 10);
+	add_text_inputs(game, box, "mapY");
 
 	return ;
 }
