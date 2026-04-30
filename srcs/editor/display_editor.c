@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 19:08:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/30 12:36:25 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	display_editor(t_game *game)
 
 	// printf("%p == %p\n", game->editor->selected, game->editor->text_inputs->content);
 	display_text_input(game, &game->editor->text_inputs);
-
+	display_buttons(game->editor->buttons, game, -1);
 	return ;
 }

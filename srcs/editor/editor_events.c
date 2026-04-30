@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 21:06:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/30 12:38:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	editor_events(t_game *game)
 
 			case SDL_MOUSEBUTTONDOWN:
 				get_selected_input(game->editor, &game->editor->text_inputs, e.motion.x, e.motion.y);
+				check_button_pressed(game, game->editor->buttons);
 				break;
 
 			default:

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/28 15:37:29 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/30 12:37:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include <SDL.h>
 # include <SDL_ttf.h>
 
-typedef struct s_game	t_game;
-typedef struct s_list	t_list;
+typedef struct s_game		t_game;
+typedef struct s_list		t_list;
+typedef struct s_buttons	t_buttons;
 
 typedef struct s_text_input
 {
@@ -33,6 +34,7 @@ typedef struct s_editor
 	TTF_Font		*font;
 	t_list			*text_inputs;
 	t_text_input	*selected;
+	t_buttons		*buttons;
 }				t_editor;
 
 /* Init / Exit */
