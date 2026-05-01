@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:19:29 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:04:00 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	*load_png_thread(void *arg)
 	if (!process_png(&job->result))
 	{
 		job->success = 0;
-		ft_printf("Error loading %s\n", job->path);
+		ft_dprintf(STDERR_FILENO, "Error loading %s\n", job->path);
 	}
 
 	return (NULL);

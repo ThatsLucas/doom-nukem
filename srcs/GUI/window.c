@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 15:13:13 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/01 16:03:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int init_all_imgs(t_game *game, t_WIN *win)
         return (0);
     if (!init_notif(&win->menus.notif.Popup, win->renderPTR))
     {
-        ft_printf("ERROR NOTIF INIT\n");
+        ft_dprintf(STDERR_FILENO, "ERROR NOTIF INIT\n");
        return (0);
     }
     if (!init_settings_menu(game, win->renderPTR, &win->menus.settings))
@@ -48,7 +48,7 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
     t_WIN* windowDatas = malloc(sizeof(t_WIN));
     if (!windowDatas)
     {
-        fprintf(stderr, "Couldn't allocation memory for create_window. Exiting...\n");
+        ft_dprintf(STDERR_FILENO, "Couldn't allocation memory for create_window. Exiting...\n");
         return NULL;
     }
     ft_bzero(windowDatas, sizeof(t_WIN));
@@ -57,7 +57,7 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
     windowDatas->winPTR = SDL_CreateWindow(title, x, y, w, h, flags);
     if (!windowDatas->winPTR)
     {
-        fprintf(stderr, "%s. Exiting...\n", SDL_GetError());
+        ft_dprintf(STDERR_FILENO, "%s. Exiting...\n", SDL_GetError());
         return NULL;
     }
 
@@ -70,7 +70,7 @@ t_WIN* create_window(const char *title, int x, int y, int w, int h, Uint32 flags
     {
         SDL_DestroyWindow(windowDatas->winPTR);
         SDL_Quit();
-        fprintf(stderr, "%s. Exiting...\n", SDL_GetError());
+        ft_dprintf(STDERR_FILENO, "%s. Exiting...\n", SDL_GetError());
         return NULL;
     }
     SDL_RenderClear(windowDatas->renderPTR);

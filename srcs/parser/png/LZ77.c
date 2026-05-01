@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   LZ77.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 18:39:24 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/10 23:11:27 by lucas            ###   ########.fr       */
+/*   Updated: 2026/05/01 16:06:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitR
     {
         if (*buf_len + i >= max_len || (__uint32_t)distance > *buf_len + i)
         {
-            ft_printf("lz77: bruhhhhhhhhhhh\n"); //si ca arrive c la merde
+            ft_dprintf(STDERR_FILENO, "lz77: bruhhhhhhhhhhh\n"); //si ca arrive c la merde
             return;
         }
 
