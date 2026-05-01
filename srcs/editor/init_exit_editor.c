@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/30 12:53:03 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:12:49 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,9 @@ void	init_editor(t_game *game)
 	box.w = 200;
 	box.x = game->window->w - box.w - 20;
 
-	t_RGB btn_color;
-	btn_color.r = 125, btn_color.g = 75; btn_color.b = 25; btn_color.alphaValue = 255;
-
-	t_font txt;
-
-	txt.size = 15;
-	create_text(&txt, game->window->renderPTR, "UPDATE", "assets/fonts/MontserratBlack.ttf");
-	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, btn_color, &txt, &txt, -1);
+	t_RGB btn_color = {125, 75, 25, 255};
+	t_RGB hov_color = {15, 175, 25, 255};
+	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, hov_color, NULL, NULL, -1);
 
 
 	return ;

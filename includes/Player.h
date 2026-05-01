@@ -3,72 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   Player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/16 23:35:55 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# define MAX_WEAPONS 3
-# define MAX_TOOLS 3
+# include "inventory/Inventory.h"
+# include "Raycasting/Types.h"
 
-typedef enum	e_weapon_type
-{
-	WEAP_PISTOL,
-	WEAP_SHOTGUN,
-	WEAP_ROCKET_LAUNCHER
-}			t_weapon_type;
+# define MAX_HP 100
+# define MAX_AMMO 800
+# define MAX_BATTERY 100
+# define MAX_FUEL 100
+# define INFINITE_AMMO -1
 
-typedef	struct	s_weapon
-{
-	t_weapon_type	type;
-	int				ammo;
-	
-}				t_weapon;
-
-typedef enum	e_consumable_type
-{
-	CONS_HEAL,
-	CONS_FUEL,
-	CONS_AMMO
-}				t_consumable_type;
-
-typedef struct	s_consumable
-{
-	t_consumable_type	type;
-	int					amount;
-}				t_consumable;
-
-typedef enum	e_tool_type
-{
-	TOOL_FLASHLIGHT,
-	TOOL_KEY,
-	TOOL_JETPACK
-}				t_tool_type;
-
-typedef struct	s_tool
-{
-	t_tool_type	type;
-	union	u_data
-	{
-		int	battery;
-		int	id;
-		int	fuel;
-	}		data;
-}				t_tool;
-
-typedef struct	s_inventory
-{
-	t_weapon	weapons[MAX_WEAPONS];
-	int			weap_count;
-
-	t_tool		tools[MAX_TOOLS];
-	int			tool_count;
-}				t_inventory;
+typedef struct s_game t_game;
+typedef struct	s_vect2 t_vect2;
 
 typedef struct	s_keys
 {
@@ -86,13 +41,22 @@ typedef struct s_ply
 	t_vect2		pos;
 	float		z;
 	t_vect2		dir;
+	float		pos_x;
+	float		pos_y;
+	float		dir_x;
+	float		dir_y;
+	float		dir_z;
 	t_keys		keys;
 	int			pitch;
 	int			sector;
 
 	/* attributs */
 	t_inventory	inventory;
+	t_weapon	*held_weap;
+	int			current_weap_index;
 	int			hp;
 }				t_ply;
+
+void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_y);
 
 # endif

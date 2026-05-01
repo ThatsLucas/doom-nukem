@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_offsets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/22 14:28:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/17 11:16:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_sector *sector)
 {
@@ -20,7 +20,7 @@ static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	float	u_world, vh, vh_step;
 	t_RGB	c;
 	t_wall	*w;
-	int		sW			= game->window->w, sH = game->window->h;
+	int		sW			= game->screenSize[0], sH = game->screenSize[1];
 	int		step_top	= SDL_clamp(ray->y_top, 0, sH - 1);
 	int		step_ny_top	= SDL_clamp(ny_top, 0, sH - 1);
 
@@ -50,7 +50,7 @@ static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	float	u_world, vh, vh_step;
 	t_RGB	c;
 	t_wall	*w;
-	int		sW			= game->window->w, sH = game->window->h;
+	int		sW			= game->screenSize[0], sH = game->screenSize[1];
 	int		step_ny_bot	= SDL_clamp(ny_bot, 0, sH - 1);
 	int		step_bot	= SDL_clamp(ray->y_bot, 0, sH - 1);
 

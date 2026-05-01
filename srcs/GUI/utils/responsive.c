@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   responsive.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 20:06:25 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/12 20:10:46 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/13 10:40:30 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "Window.h"
 
 void to_responsive(t_WIN *win, SDL_Rect *cur)

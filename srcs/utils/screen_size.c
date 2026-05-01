@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   screen_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:47:43 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 21:19:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:12:53 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI.h"
+#include "GUI/GUI.h"
 
 void get_screen_size(int *w, int *h)
 {
@@ -20,13 +20,13 @@ void get_screen_size(int *w, int *h)
 	{
 		*w = 840;
 		*h = 600;
-    	printf("SDL error: %s\n", SDL_GetError());
-    	return;
+		printf("SDL error: %s\n", SDL_GetError());
+		return;
 	}
 
 	// *w = DM.w;
 	// *h = DM.h;
 	*w = 1920;
 	*h = 1080;
-	return ;
+	return;
 }

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 11:30:11 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/22 14:28:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/15 13:00:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 	1073741906 = UP
 	1073741905 = DOWN
 */
-void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
+void ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
 {
-	int	newpitch;
-	int	step;
+	int newpitch;
+	int step;
 
 	step = 50;
 	newpitch = ply->pitch;
@@ -29,8 +29,7 @@ void	ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key)
 	if (key.keysym.sym == 1073741905)
 		newpitch = ply->pitch - step;
 
-	if (newpitch <= game->window->h && newpitch > -(game->window->h))
+	if (newpitch <= game->screenSize[1] && newpitch > -(game->screenSize[1]))
 		ply->pitch = newpitch;
-	return ;
+	return;
 }
-

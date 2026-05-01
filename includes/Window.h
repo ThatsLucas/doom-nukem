@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:41:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 23:06:35 by lucas            ###   ########.fr       */
+/*   Updated: 2026/04/22 15:01:48 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 # define WINDOW_H
 
 #include <SDL.h>
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include "menus/menus.h"
+
+#define DNFONT "assets/fonts/AmazDooMLeft.ttf"
+#define DNFONTOUTLINED "assets/fonts/AmazDooMLeftOutline.ttf"
+
 
 typedef struct s_WIN
 {
-    SDL_Window* winPTR;
-    SDL_Renderer* renderPTR;
-    t_buttons* buttonList;
-    int w;
-    int h;
-    t_main_menu MainMenu;
-    t_notif_ptr PopupPtr;
+    SDL_Window*     winPTR;
+    SDL_Renderer*   renderPTR;
+    t_buttons*      buttonList;
+    int             w;
+    int             h;
+    t_menus         menus;
     
 }	t_WIN;
 

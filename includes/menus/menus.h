@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   menus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/16 23:20:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:06:38 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MENUS_H
 #define MENUS_H
 
-#include "Window.h"
 #include <SDL.h>
+#include "GUI/GUI.h"
 #include "parser/PNG.h"
 
-typedef struct s_main_menu {
+typedef struct s_main_menu
+{
     t_png background;
     t_png logo;
     t_png button;
@@ -30,37 +31,72 @@ typedef struct s_main_menu {
     int has_init;
 } t_main_menu;
 
-#define NOTIF_NOT_SHOWED    0
-#define NOTIF_SPAWNING      1
-#define NOTIF_DELETING      2
+#define NOTIF_NOT_SHOWED 0
+#define NOTIF_SPAWNING 1
+#define NOTIF_DELETING 2
 
-typedef struct s_notif {
+typedef struct s_notif
+{
     char *text;
     uint32_t duration; // in ms
-    int time_left; // in ms
-    int state; // 0 not showed yet, 1 moving to pos, 2 going back to no show
+    int time_left;     // in ms
+    int state;         // 0 not showed yet, 1 moving to pos, 2 going back to no show
     int w;
     int h;
     t_font font;
     SDL_Rect coords;
-}               t_notif;
+} t_notif;
 
-typedef struct s_notif_buf {
-    t_notif                 *notif;
-    struct s_notif_buf      *next;
-}               t_notif_buf;
+typedef struct s_notif_buf
+{
+    t_notif *notif;
+    struct s_notif_buf *next;
+} t_notif_buf;
 
+typedef struct s_notif_ptr
+{
+    t_notif_buf *notif_buf;
+    t_png Popup;
+} t_notif_ptr;
 
-typedef struct s_notif_ptr {
-    t_notif_buf         *notif_buf;
-    t_png               Popup;
-}               t_notif_ptr;
+typedef struct s_settings_menu
+{
+    t_png background;
+    t_png keys;
+    t_png separator;
+    t_png scroll;
+    t_png scroll_grab;
+    t_font texts[23];
+    t_png slider_bar;
+    t_png slider_grab;
+    t_png languages[5];
+    int isGrabbingSlider;
+    int isGrabbingSliderMouseSensi;
+    int isGrabbingScrollBar;
+    int scrollH;
+    SDL_Rect ViewPortCoords;
+    SDL_Rect MouseSensiCoords;
+    SDL_Rect languagesCoords[4];
+    int is_selecting_control;
+    SDL_Rect keysCoords[4];
+    SDL_Rect resolutionBtnsCoords[6];
+} t_settings_menu;
 
+typedef struct s_menus
+{
+    int current;
+    t_notif_ptr notif;
+    t_main_menu main;
+    t_settings_menu settings;
+} t_menus;
+
+/*MENUS*/
+void draw_current_menu(t_game *game);
 
 /*MAIN MENU*/
 
-void draw_main_menu(t_main_menu *MainMenu, t_game *game);
-int init_home_menu(t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset);
+void draw_main_menu(t_game *game);
+int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset);
 void destroy_main_menu(t_main_menu *MainMenu);
 
 /*NOTIFS*/
@@ -69,4 +105,22 @@ void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms, int fontS
 void display_notif(t_WIN *win, t_notif_buf **notif_buf);
 void destroy_notif_node(t_notif_buf **notif_buf);
 
+/*SETTINGS*/
+void draw_settings_menu(t_game *game);
+int init_settings_menu(t_game *game, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
+void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
+void handle_settings_released(t_settings_menu *menu);
+void draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
+int draw_FOV(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+int draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu);
+void draw_pick_a_key(t_WIN *win);
+int handle_key_control_selected(t_game *game, int key);
+void draw_scroll_bar(t_game *game, t_settings_menu *menu);
+void handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL_MouseWheelEvent *wheel);
+int draw_languages(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+int draw_resolution(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
+void refresh_settings_texts(t_game *game, t_settings_menu *menu);
+void refresh_main_menu_texts(t_game *game);
 #endif
