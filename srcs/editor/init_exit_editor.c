@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/01 16:12:49 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:55:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ void	init_editor(t_game *game)
 	if (!game->editor->font)
 		exit_game(game, "display_editor font");
 
+	game->editor->plan = (t_size2){game->window->w * 0.75, game->window->h};
+	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
+
 	SDL_Rect box;
 	box.w = 100;
 	box.h = 40;
 	box.y = 20;
-	box.x = game->window->w * 0.75 + 10;
+	box.x = game->editor->plan.w + 10;
 	add_text_inputs(game, box, "mapX");
 	box.x = box.x + box.w + 20;
 	add_text_inputs(game, box, "mapY");

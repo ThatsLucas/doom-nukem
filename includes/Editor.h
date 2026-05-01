@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/01 15:53:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:54:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 typedef struct s_game		t_game;
 typedef struct s_list		t_list;
 typedef struct s_buttons	t_buttons;
+
+typedef struct s_size2
+{
+	int	w;
+	int	h;
+}		t_size2;
 
 typedef struct s_text_input
 {
@@ -35,6 +41,8 @@ typedef struct s_editor
 	t_list			*text_inputs;
 	t_text_input	*selected;
 	t_buttons		*buttons;
+	t_size2			plan;
+	t_size2			settings;
 }				t_editor;
 
 /* Init / Exit */

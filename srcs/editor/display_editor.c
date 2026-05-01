@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/30 12:36:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/01 16:56:24 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	left_part(t_game *game)
 	rect.x = 0;
 	rect.y = 0;
 	rect.h = game->window->h;
-	rect.w = game->window->w * 0.75;
+	rect.w = game->editor->plan.w;
 	SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderFillRect(game->window->renderPTR, &rect);
 
@@ -33,14 +33,14 @@ static void	right_part(t_game *game)
 {
 	SDL_Rect	rect;
 
-	rect.x = game->window->w * 0.75;
+	rect.x = game->editor->plan.w;
 	rect.y = 0;
 	rect.h = game->window->h;
-	rect.w = game->window->w * 0.25;
+	rect.w = game->editor->settings.w;
 
 	SDL_SetRenderDrawColor(game->window->renderPTR, 255, 255, 255, SDL_ALPHA_OPAQUE);
 	SDL_RenderFillRect(game->window->renderPTR, &rect);
-	rect.x = game->window->w * 0.75 -200;
+	rect.x = game->editor->plan.w - 200;
 	rect.y = 20;
 	rect.h = 30;
 	rect.w = 100;
