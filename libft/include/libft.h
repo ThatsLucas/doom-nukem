@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:53:30 by edurance          #+#    #+#             */
-/*   Updated: 2025/10/15 11:11:34 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:47:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # endif
 
 // libft
+int					ft_putchar(char c);
 long				ft_atoi(const char *nptr);
 void				ft_bzero(void *s, unsigned long n);
 void				*ft_calloc(unsigned long nmemb, unsigned long size);
@@ -38,6 +39,7 @@ void				*ft_memmove(void *dest, const void *src, unsigned long n);
 void				*ft_memset(void *s, int c, unsigned long n);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *s);
+unsigned long		ft_strcat(char *dst, const char *src);
 unsigned long		ft_strlcat(char *dst, const char *src, unsigned long size);
 unsigned long		ft_strlcpy(char *dst, const char *src, unsigned long size);
 unsigned long		ft_strlen(const char *s);
@@ -65,6 +67,7 @@ int					ft_strcmp(char *s1, char *s2);
 int					ft_isspace(char c);
 int					ft_intlen(int n);
 float				ft_maxf(int a, int b);
+int					ft_putstr(char *s);
 
 // Libft bonus (listes chainees)
 typedef struct s_list
@@ -91,6 +94,12 @@ int					ft_put_pointer(void *pointer);
 int					ft_hexa(long nbr, int maj);
 int					ft_putnbr_unsigned(unsigned int nbr);
 int					ft_printf(const char *str, ...);
+
+// ft_dprintf
+int					ft_put_pointer_fd(void *pointer, int fd);
+int					ft_hexa_fd(long nbr, int maj, int fd);
+int					ft_putunbr_fd(unsigned int nbr, int fd);
+int					ft_dprintf(int fd, const char *str, ...);
 
 // gnl
 char				*get_next_line(int fd);
