@@ -24,6 +24,8 @@ GL_LIB = -lGL
 LDFLAGS = $(SDL2_LIB) $(SDL2_TTF_LIB) $(GL_LIB) -ldl -lpthread -lm
 INCLUDE_FLAGS = -Iincludes -I$(SDL2_INC) -I$(SDL2_TTF_INC)
 
+INCLUDES = $(shell find includes -name "*.h")
+
 FILES = $(shell find srcs -name "*.c")
 OBJ = $(patsubst %.c, $(OBJDIR)/%.o, $(FILES))
 
@@ -74,7 +76,7 @@ $(NAME): $(OBJ)
 
 # -------- OBJ --------
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
@@ -86,9 +88,12 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -rf $(DEPS_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+
+dclean:
+	@rm -rf $(DEPS_DIR)
+	@echo "🦧 deps cleaned"
 
 re: fclean all
 
-.PHONY: all clean fclean re deps libft
+.PHONY: all clean fclean dclean re deps libft

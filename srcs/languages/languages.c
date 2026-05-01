@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   languages.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 17:34:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/01 16:05:05 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void fill_language_texts(t_game *game, int index, char *str)
 
     if (index > 18)
     {
-        ft_printf("Error in language file (miss configuration)\n");
+        ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
     }
     *tab[index] = ft_strdup(str + 1);

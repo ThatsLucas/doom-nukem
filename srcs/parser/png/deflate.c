@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deflate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 10:50:03 by root-             #+#    #+#             */
-/*   Updated: 2026/04/20 16:22:17 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/01 16:05:16 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ int huffman_uncompressed(__uint8_t *buf, __uint32_t *buf_len, t_bitreader *bitRe
     bitReader->byte_index += 4;
     if ((LEN ^ NLEN) != 0xFFFF)
     {
-        ft_printf("Bloc corrompu\n");
+        ft_dprintf(STDERR_FILENO, "Bloc corrompu\n");
         return (0);
     }
     ft_memcpy(buf + *buf_len, bitReader->buffer + bitReader->byte_index, LEN);
@@ -305,7 +305,7 @@ int parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len)
         }
         else
         {
-            ft_printf("BTYPE 3 invalide\n");
+            ft_dprintf(STDERR_FILENO, "BTYPE 3 invalide\n");
             free(out_buf);
             return (0);
         }

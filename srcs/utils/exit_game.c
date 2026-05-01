@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 14:48:52 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/01 16:01:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@ void	exit_game(t_game *game, char *type)
 
 	if (type && error && error[0])
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd(" => ", STDERR_FILENO);
-		ft_putstr_fd((char *)error, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s => %s\n", type, error);
 	}
 	else if (type)
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s\n", type);
 	}
 
 	if (!game)
