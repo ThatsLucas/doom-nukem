@@ -65,7 +65,7 @@ $(SDL2_TTF_LIB):
 # -------- LIBFT --------
 
 libft:
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
 
 # -------- LINK --------
 
@@ -84,11 +84,11 @@ $(OBJDIR)/%.o: %.c $(INCLUDES)
 
 clean:
 	@rm -rf $(OBJDIR)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
 dclean:
 	@rm -rf $(DEPS_DIR)
