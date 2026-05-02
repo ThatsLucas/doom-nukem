@@ -6,12 +6,11 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/01 16:28:27 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:25:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Window.h"
-#include "GUI.h"
 #include "menus/menus.h"
 #include "Game.h"
 #include "Events.h"

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/01 16:55:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:50:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,16 @@ void	init_editor(t_game *game)
 	box.w = 200;
 	box.x = game->window->w - box.w - 20;
 
+	SDL_Color	red = {221, 21, 0, 255};
+	t_font *text_hover = calloc(1, sizeof(t_font));
+	text_hover->color = red;
+	text_hover->size = 30;
+
+	create_text(text_hover, game->window->renderPTR, "update", "assets/fonts/MontserratBlack.ttf");
+
 	t_RGB btn_color = {125, 75, 25, 255};
 	t_RGB hov_color = {15, 175, 25, 255};
-	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, hov_color, NULL, NULL, -1);
-
+	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, hov_color, text_hover, text_hover, -1);
 
 	return ;
 }
@@ -68,6 +74,7 @@ void	exit_editor(t_game *game)
 {
 	TTF_CloseFont(game->editor->font); 
 	ft_lstclear(&game->editor->text_inputs, free);
+	free_buttons(game->editor->buttons);
 	free(game->editor);
 
 	return ;
