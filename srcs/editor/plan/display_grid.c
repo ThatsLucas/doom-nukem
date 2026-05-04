@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 14:23:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/01 17:08:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/04 15:27:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,29 @@
 
 void	display_grid(t_game *game)
 {
-	float	offset_x, offset_y;
+	t_editor	*editor = game->editor;
+	int			start_x, start_y, end_x, end_y;
+	int			offset_x, offset_y;
 
-	offset_x = (float)game->editor->plan.w / game->mapSize[0];
-	offset_y = (float)game->editor->plan.h / game->mapSize[1];
+	offset_x = (editor->plan.size.w / 2.0f) - editor->plan.center.x * editor->plan.case_size;
+	offset_y = (editor->plan.size.h / 2.0f) - editor->plan.center.y * editor->plan.case_size;
+
+	start_x = offset_x;
+	start_y = offset_y;
+
+	end_x	= start_x + editor->plan.case_size * game->mapSize[0];
+	end_y	= start_y + editor->plan.case_size * game->mapSize[1];
+
+	SDL_Rect	r = (SDL_Rect){ .x = start_x, .y = start_y, .w = end_x - start_x, .h = end_y - start_y};
+	SDL_SetRenderDrawColor(game->window->renderPTR, 190, 190, 190, SDL_ALPHA_OPAQUE);
+	SDL_RenderFillRect(game->window->renderPTR, &r);
 	SDL_SetRenderDrawColor(game->window->renderPTR, 189, 17, 17, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(game->window->renderPTR, &r);
+	for (int i = 0; i <= game->mapSize[0]; ++i)
+		SDL_RenderDrawLine(game->window->renderPTR, i * editor->plan.case_size + start_x, start_y, i * editor->plan.case_size + start_x, end_y);
 
-	for (float i = offset_x; i < game->editor->plan.w; i += offset_x)
-		SDL_RenderDrawLine(game->window->renderPTR, i, 0, i, game->window->h);
-
-	for (float i = offset_y; i < game->editor->plan.h - 1; i += offset_y)
-		SDL_RenderDrawLine(game->window->renderPTR, 0, i, game->editor->plan.w, i);
+	for (int i = 0; i <= game->mapSize[1]; ++i)
+		SDL_RenderDrawLine(game->window->renderPTR, start_x, i * editor->plan.case_size + start_y, end_x, i * editor->plan.case_size + start_y);
 
 	return ;
 }
