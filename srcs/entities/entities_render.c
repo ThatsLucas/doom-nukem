@@ -6,13 +6,12 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/21 12:54:05 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:43:13 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entities/Entities.h"
 #include "Game.h"
-
 #include <math.h>
 #include <stdlib.h>
 
@@ -24,6 +23,34 @@
 
 	A savoir qu'on skip les entities qui sont trop loin ou derriere le joueur
 */
+
+int	get_directional_frame(t_entity *e, float px, float py)
+{
+	int	n = e->num_frames;
+
+	float	to_px = px - e->x;
+	float	to_py = py - e->y;
+
+	float	e_angle = atan2f(e->dir_y, e->dir_x);
+	float	view_angle = atan2f(to_py, to_px);
+
+	float	rel = e_angle - view_angle;
+
+	// normaliser l'angle pour qu'il soit etre PI et -PI
+	while (rel > M_PI)
+		rel -= 2.0f * M_PI;
+	while (rel < -M_PI)
+		rel += 2.0f * M_PI;
+
+	// normaliser l'angle pour que ca donne un indexe de frame
+	float	normalized = (rel + M_PI) / (2.0f * M_PI);
+	int		frame = (int)(normalized * n) % n;
+
+	if (frame < 0)
+		frame += n;
+	return (frame);
+}
+
 void render_entities(t_game *game)
 {
 	int		sw = game->screenSize[0];
@@ -44,6 +71,14 @@ void render_entities(t_game *game)
 	for (int i = 0; i < game->entities.count; i++)
 	{
 		t_entity	*e = &game->entities.list[i];
+		SDL_Texture	*tex = NULL;
+		if (e->textures && e->num_frames > 0)
+		{
+			int frame = get_directional_frame(e, ply_x, ply_y);
+			tex = e->textures[frame];
+		}
+		else
+			tex = e->texture;
 
 		float	dx = e->x - ply_x;
 		float	dy = e->y - ply_y;
@@ -91,6 +126,6 @@ void render_entities(t_game *game)
 			.h = sprite_h
 		};
 		if (e->texture)
-			SDL_RenderCopy(game->window->renderPTR, e->texture, NULL, &dest);
+			SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dest);
 	}
 }
