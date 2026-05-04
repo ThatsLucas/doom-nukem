@@ -6,32 +6,12 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/02 13:50:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/04 09:55:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
-
-static void	update_grid_size(t_game *game)
-{
-	t_list			*current = game->editor->text_inputs;
-	t_text_input	*input;
-
-	while (current)
-	{
-		input = (t_text_input *)current->content;
-
-		if (!ft_strcmp("mapX", input->name) && ft_atoi(input->text) > 0)
-			game->mapSize[0] = ft_atoi(input->text);
-		else if (!ft_strcmp("mapY", input->name) && ft_atoi(input->text) > 0)
-			game->mapSize[1] = ft_atoi(input->text);
-
-		current = current->next;
-	}
-
-	return ;
-}
 
 void	init_editor(t_game *game)
 {
@@ -42,14 +22,17 @@ void	init_editor(t_game *game)
 	if (!game->editor->font)
 		exit_game(game, "display_editor font");
 
-	game->editor->plan = (t_size2){game->window->w * 0.75, game->window->h};
+	game->mapSize[0] = 12;	game->mapSize[1] = 8;
+	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
+	update_grid_size(game);
 	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
+
 
 	SDL_Rect box;
 	box.w = 100;
 	box.h = 40;
 	box.y = 20;
-	box.x = game->editor->plan.w + 10;
+	box.x = game->editor->plan.size.w + 10;
 	add_text_inputs(game, box, "mapX");
 	box.x = box.x + box.w + 20;
 	add_text_inputs(game, box, "mapY");
