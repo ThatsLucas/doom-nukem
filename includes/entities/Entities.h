@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/04 10:56:23 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/04 15:48:53 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ typedef struct	s_entity
 	double			z;
 	int				sector;
 	t_entity_type	type;
-	void*			texture;
+	void			**textures;
+	void			*texture;
+	int				num_frames;
+	float			dir_x;
+	float			dir_y;
 
 	int	hp;
 	int	max_hp;
