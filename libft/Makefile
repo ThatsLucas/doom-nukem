@@ -22,6 +22,7 @@ RESET = \033[0m
 GRAY = \033[1;90m
 
 all: $(NAME)
+	@:
 
 $(NAME): $(OBJ)
 	@echo "🔗 Linking libft..."
