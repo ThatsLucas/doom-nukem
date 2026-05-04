@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 12:54:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/04 10:50:23 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(void)
 	game->ply->sector = 0;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 12;	game->mapSize[1] = 8;
+	game->mapSize[0] = 50;	game->mapSize[1] = 50;
 
 	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
 
@@ -53,14 +53,16 @@ int main(void)
 	pnj.x = game->ply->pos.x + game->ply->dir.x * 2;
 	pnj.y = game->ply->pos.y + game->ply->dir.y * 2;
 	pnj.z = get_plane_z(game->map->sectors[game->ply->sector].floor_plane, pnj.x, pnj.y);
+	pnj.sector = game->ply->sector;
 	printf("e->z = %f | ply_z = %f | ply_floor = %f\n", pnj.z, game->ply->z, game->ply->z - EYES_HEIGTH);
 	pnj.type = ENTITY_PNJ;
 	t_png pnj_png;
-	pnj_png.w = 700;
-	pnj_png.h = 800;
-	pnj_png.path = ft_strdup("assets/png/entities/monstre.png");
-	process_png(&pnj_png);
-	if (!pnj_png.buf)
+	pnj_png.w = 857;
+	pnj_png.h = 1583;
+	pnj_png.path = ft_strdup("assets/png/entities/shooter.png");
+	printf("%s\n", pnj_png.path);
+
+	if (!process_png(&pnj_png) && !pnj_png.buf)
 	{
 		printf("ERROR: Failed to load monstre.png\n");
 		return (1);
@@ -69,43 +71,45 @@ int main(void)
 	pnj.hp = -1;
 	pnj.max_hp = -1;
 	pnj.is_alive = 1;
+	pnj.hitbox = 1;
 	pnj.can_shoot = 0;
 	pnj.last_shot_time = 0;
+	pnj.hitbox = 1;
 
 	add_entity(game, &game->entities, pnj);
 
-	// t_ground_item item;
+	t_ground_item item;
 
-	// // Position
-	// item.pos_x        = game->ply->pos.x + game->ply->dir.x;
-	// item.pos_y        = game->ply->pos.y + game->ply->dir.y;
-	// item.pos_z        = 0.0f;
-	// item.pickup_range = 0.8f;
-	// item.picked_up    = 0;
+	// Position
+	item.pos_x = game->ply->pos.x + 5;
+	item.pos_y = game->ply->pos.y + 5;
+	item.pos_z = 0.0f;
+	item.pickup_range = 0.8f;
+	item.picked_up = 0;
 
-	// // Type et données
-	// item.type         = ITEM_WEAPON;
-	// item.data.weap.type = WEAP_SHOTGUN;
-	// item.data.weap.ammo = 25;
+	// Type et données
+	item.type = ITEM_WEAPON;
+	item.data.weap.type = WEAP_SHOTGUN;
+	item.data.weap.ammo = 25;
 
-	// // Texture
-	// item.texture_path = ft_strdup("assets/png/entities/shotgun.png");
-	// t_png texture;
-	// texture.path = item.texture_path;
-	// process_png(&texture);
-	// if (!texture.buf)
-	// {
-	// 	printf("ERROR: Failed to load shotgun.png\n");
-	// 	return (1);
-	// }
-	// item.texture      = create_image(&texture, game->window->renderPTR);
-	// item.w            = 500;
-	// item.h            = 150;
-	// item.world_height = 0.6;
-	// item.aspect_ratio = 500.0f / 150.0f;
+	// Texture
+	item.texture_path = ft_strdup("assets/png/entities/shotgun.png");
+	t_png texture;
+	texture.path = item.texture_path;
+	process_png(&texture);
+	if (!texture.buf)
+	{
+	printf("ERROR: Failed to load shotgun.png\n");
+	return (1);
+	}
+	item.texture = create_image(&texture, game->window->renderPTR);
+	item.w = 500;
+	item.h = 150;
+	item.world_height = 0.6;
+	item.aspect_ratio = 500.0f / 150.0f;
 
-	// // Ajout dans le tableau
-	// add_item(game, item);
+	 // Ajout dans le tableau
+	 add_item(game, item);
 
 	for (int i = 0; i < game->entities.count; i++)
 	{
