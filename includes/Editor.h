@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/01 16:54:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:38:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include <SDL.h>
 # include <SDL_ttf.h>
+# include "Raycasting/Types.h"
 
 typedef struct s_game		t_game;
 typedef struct s_list		t_list;
@@ -35,14 +36,23 @@ typedef struct s_text_input
 	SDL_Rect	dst;
 }				t_text_input;
 
+typedef struct s_plan
+{
+	t_vect2	center;
+	float	scale_min;
+	float	scale_max;
+	float	case_size;
+	t_size2	size;
+}			t_plan;
+
 typedef struct s_editor
 {
 	TTF_Font		*font;
 	t_list			*text_inputs;
 	t_text_input	*selected;
 	t_buttons		*buttons;
-	t_size2			plan;
 	t_size2			settings;
+	t_plan			plan;
 }				t_editor;
 
 /* Init / Exit */
@@ -58,7 +68,14 @@ void	get_selected_input(t_editor *editor, t_list **lst, int x, int y);
 void	display_editor(t_game *game);
 void	display_grid(t_game *game);
 
-/* Event Handler */
+/* Events */
 void	editor_events(t_game *game);
+void	plan_click(t_game *game, SDL_MouseMotionEvent *motion);
+void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
+
+/* Utils */
+void	update_grid_size(t_game *game);
+t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
+t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 
 #endif
