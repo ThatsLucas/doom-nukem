@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:38:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:57:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	get_selected_input(t_editor *editor, t_list **lst, int x, int y);
 /* Display */
 void	display_editor(t_game *game);
 void	display_grid(t_game *game);
+void	init_settings_global_buttons(t_game *game);
+void	init_settings_global_inputs(t_game *game);
+void	display_separators(t_game *game);
 
 /* Events */
 void	editor_events(t_game *game);

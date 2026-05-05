@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 11:59:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:57:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,9 @@ static void	right_part(t_game *game)
 	rect.w = game->editor->settings.w;
 
 	SDL_SetRenderDrawColor(game->window->renderPTR, 255, 255, 255, SDL_ALPHA_OPAQUE);
-	SDL_RenderFillRect(game->window->renderPTR, &rect);
-	rect.x = game->editor->plan.size.w - 200;
-	rect.y = 20;
-	rect.h = 30;
-	rect.w = 100;
-	SDL_SetTextInputRect(&rect);
+	SDL_RenderFillRect(game->window->renderPTR, &rect);		// settings background
+
+	display_separators(game);
 
 	return ;
 }
