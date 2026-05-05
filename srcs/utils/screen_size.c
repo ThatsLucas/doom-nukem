@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:47:43 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/10 10:38:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:43:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ void get_screen_size(int *w, int *h)
 
 	if (SDL_GetCurrentDisplayMode(0, &DM))
 	{
-    	printf("SDL error: %s\n", SDL_GetError());
-    	return;
+		*w = 840;
+		*h = 600;
+		ft_dprintf(STDERR_FILENO, "SDL error: %s\n", SDL_GetError());
+		return;
 	}
 
-	*w = DM.w;
-	*h = DM.h;
+	// *w = DM.w;
+	// *h = DM.h;
+	*w = 1920;
+	*h = 1080;
+	return;
 }

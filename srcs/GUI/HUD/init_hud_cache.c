@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 11:51:03 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:59:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect 
 	w->fire_rate = fire_rate;
 	w->frame_count = frame_count;
 	w->current_frame = 0;
+	w->is_firing = 0;
+	w->last_anim_time = 0;
 	w->frames = malloc(sizeof(t_weapon_3D_frame) * frame_count);
 	if (!w->frames)
 		exit_game(game, "malloc weapon frames");
@@ -243,7 +245,7 @@ static void	init_3D_weapons(t_game *game)
 */
 void	init_hud_cache(t_game *game)
 {
-	ft_printf("loading hud assets\n");
+	//ft_printf("loading hud assets\n");
 
 	init_3D_weapons(game);
 	init_all_assets(game);
@@ -258,8 +260,10 @@ void	init_hud_cache(t_game *game)
 
 	game->hud_cache.text_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
+	game->hud_cache.ply_last_time = get_time_ms();
+	game->hud_cache.ply_frame = 0;
 	if (!game->hud_cache.text_font || !game->hud_cache.number_font)
 		exit_game(game, (char *)TTF_GetError());
 
-	ft_printf("finished loading hud assets\n");
+	//ft_printf("finished loading hud assets\n");
 }

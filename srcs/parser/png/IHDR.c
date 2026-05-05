@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IHDR.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 11:06:48 by root-             #+#    #+#             */
-/*   Updated: 2026/04/14 23:00:14 by lucas            ###   ########.fr       */
+/*   Updated: 2026/05/01 16:06:50 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int read_IHDR_header(int fd, t_IHDR *headerIHDR)
     headerIHDR->chunklen = big_endian_to_little_endian(headerIHDR->chunklen);
     if (ft_memcmp(&headerIHDR->chunktype, "IHDR", 4))
     {
-        ft_printf("Invalid chunktype %d\n", headerIHDR->chunktype);
+        ft_dprintf(STDERR_FILENO, "Invalid chunktype %d\n", headerIHDR->chunktype);
         return (-1);
     }
     return (0);
@@ -86,19 +86,19 @@ int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile)
 {
     if (read_IHDR_header(pngFile->fd, headerIHDR) < 0)
     {
-        ft_printf("Invalid IHDR Header!\n");
+        ft_dprintf(STDERR_FILENO, "Invalid IHDR Header!\n");
         return (0);
     }
 
     if (read_all_IHDR_datas(pngFile) < 0)
     {
-        ft_printf("Invalid IHDR Datas!\n");
+        ft_dprintf(STDERR_FILENO,"Invalid IHDR Datas!\n");
         return (0);
     }
 
     if (read_crc_info(headerIHDR, pngFile->fd) == -1)
     {
-        ft_printf("Invalid IHDR CRC!\n");
+        ft_dprintf(STDERR_FILENO, "Invalid IHDR CRC!\n");
         return (0);
     }
     convert_all_value_to_little_endian(pngFile);

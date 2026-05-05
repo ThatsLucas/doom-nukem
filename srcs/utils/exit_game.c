@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 11:53:56 by edurance         ###   ########.fr       */
+/*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
+/*   Updated: 2026/05/05 12:43:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,41 @@
 void	exit_game(t_game *game, char *type)
 {
 	const char	*error = SDL_GetError();
+	t_WIN		*win;
 
 	if (type && error && error[0])
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd(" => ", STDERR_FILENO);
-		ft_putstr_fd((char *)error, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s => %s\n", type, error);
 	}
 	else if (type)
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s\n", type);
 	}
+
+	if (!game)
+		exit(1);
 
 	cleanup_items(game);
 	free_hud_cache(game);
 
-	while (game->window->PopupPtr.notif_buf)
-		destroy_notif_node(&game->window->PopupPtr.notif_buf);
-	if (game->window->buttonList)
-		free_buttons(game->window->buttonList);
-	if (game->window && game->window->renderPTR)
-		SDL_DestroyRenderer(game->window->renderPTR);
-	if (game->window && game->window->winPTR)
-		SDL_DestroyWindow(game->window->winPTR);
-	free(game->window);
 	free(game->ply);
+	free_map(game->map);
+	free(game->rays);
+	free(game->fps);
+	free_languages(game);
+	win = game->window;
+	if (win)
+	{
+		while (win->menus.notif.notif_buf)
+			destroy_notif_node(&win->menus.notif.notif_buf);
+		if (win->buttonList)
+			free_buttons(win->buttonList);
+		if (win->renderPTR)
+			SDL_DestroyRenderer(win->renderPTR);
+		if (win->winPTR)
+			SDL_DestroyWindow(win->winPTR);
+		free(win);
+	}
 	free(game);
 	TTF_Quit();
 	SDL_Quit();

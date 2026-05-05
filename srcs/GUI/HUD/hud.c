@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:08:31 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:35:35 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:15:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	display_hud(t_game *game)
 	int h = game->window->h;
 
 	update_hud_anim(game);
-	update_projectiles(game);
+	// update_projectiles(game);
 
 	display_crosshair(game, w / 2, h / 2, 15, 4, crosshair_color);
 	display_held_weapon(game);

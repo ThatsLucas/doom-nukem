@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 11:11:26 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:54:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PLAYER_H
 
 # include "inventory/Inventory.h"
+# include "Raycasting/Types.h"
 
 # define MAX_HP 100
 # define MAX_AMMO 800
@@ -29,17 +30,24 @@ typedef struct	s_keys
 	int		a;
 	int		s;
 	int		d;
+	int		left;
+	int		right;
 }			t_keys;
 
 typedef struct s_ply
 {
 	/* events */
+	t_vect2		pos;
+	float		z;
+	t_vect2		dir;
 	float		pos_x;
 	float		pos_y;
 	float		dir_x;
 	float		dir_y;
 	float		dir_z;
 	t_keys		keys;
+	int			pitch;
+	int			sector;
 
 	/* attributs */
 	t_inventory	inventory;
