@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PNG.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root- <root-@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/13 14:54:04 by root-            ###   ########.fr       */
+/*   Updated: 2026/04/20 18:30:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_png
     SDL_Texture *texture;
     __uint32_t w;
     __uint32_t h;
+    int32_t x;
+    int32_t y;
     __uint8_t bit_depth; 
     __uint8_t color_type; 
     __uint8_t compression_method; 

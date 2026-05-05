@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/14 10:46:49 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:14:18 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include "../libft/include/libft.h"
 #include "Colors.h"
 #include "parser/PNG.h"
 #include "GUI/HUD.h"
+#include "Raycasting/Raycasting.h"
 
-typedef struct s_ply t_ply;
-typedef struct s_WIN t_WIN;
-typedef struct s_game t_game;
+typedef struct s_ply	t_ply;
+typedef struct s_WIN	t_WIN;
+typedef struct s_game	t_game;
+typedef struct s_vect2	t_vect2;
+typedef struct s_png	t_png;
 
 typedef struct s_font
 {
@@ -40,7 +44,7 @@ typedef struct s_buttons
     SDL_Rect buttonCoords;
     t_RGB color;
     t_RGB hoverColor;
-    void (*callback_func)(t_WIN *);
+    void (*callback_func)(t_game *);
     struct s_buttons *next;
     t_font *text;
     t_font *textHover;
@@ -49,7 +53,7 @@ typedef struct s_buttons
 
 /*utils*/
 void	get_screen_size(int *w, int *h);
-void	draw_player(SDL_Renderer *renderer, t_ply *ply, int size, t_RGB color);
+void	display_fps(t_game *game);
 
 /*circles*/
 int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
@@ -59,10 +63,20 @@ int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RG
 void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
-void    create_button(t_buttons **button_list, void (*callback)(t_WIN *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
-int     check_button_pressed(t_WIN *win, t_buttons *button_list);
-void    display_buttons(t_buttons *button_list, t_WIN *win, int pageID);
+void    create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
+int     check_button_pressed(t_game *win, t_buttons *button_list);
+void	display_buttons(t_buttons *button_list, t_game *game, int pageID);
 void    free_buttons(t_buttons *buttonlist);
+
+/*minimap*/
+void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
+
+///* gameplay */
+Uint32	write_color(int r, int g, int b, int sect_light);
+void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector);
+void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);
+void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector);
+void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sector *sector);
 
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
@@ -70,6 +84,7 @@ SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
 void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
+void destroy_text_texture(t_font *text);
 
 /*RESPONSIVENESS*/
 void to_responsive(t_WIN *win, SDL_Rect *cur);

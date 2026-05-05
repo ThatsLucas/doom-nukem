@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 11:55:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:48:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->dir_y = dir_y;
 	ply->dir_z = 0.0f;
 
-	ply->hp = 20;
+	ply->hp = 70;
 
 	config_starter(ply);
 	game->ply = ply;
