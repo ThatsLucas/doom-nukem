@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 16:34:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:19:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void	init_editor(t_game *game)
 
 	init_buttons_inputs(game);
 
+
+	////// TEMPORAIRE
+	create_texture_selector(game, NULL);
+
 	return ;
 }
 
@@ -49,8 +53,6 @@ void	exit_editor(t_game *game)
 	if (game->editor->textures)
 	{
 		free(game->editor->textures->png);
-		for (int i = 0; i < game->editor->textures->num_textures; i++)
-			SDL_DestroyTexture(game->editor->textures->textures[i]);
 	}
 	free(game->editor->textures);
 	free(game->editor);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:08:53 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 16:32:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:11:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,22 @@ static void	create_png_list(t_game *game, t_editor *editor, int fd)
 	return ;
 }
 
+static void	init_buttons(t_game *game)
+{
+	t_png	png[3];
+	char	*name[3] = {"button_up.png", "button_down.png", "red_cross.png"};
+
+
+	for (int i = 0; i < 3; i++)
+	{
+		png[i].path = ft_strjoin("assets/png/editor/", name[i]);
+		if (process_png(&png[i]))
+			game->editor->texture_selector.buttons[i] = create_image(&png[i], game->window->renderPTR);
+	}
+
+	return ;
+}
+
 void	init_editor_cache(t_game *game)
 {
 	t_editor	*editor = game->editor;
@@ -80,7 +96,12 @@ void	init_editor_cache(t_game *game)
 	for (int i = 0; i < editor->textures->num_textures; i++)
 		editor->textures->textures[i] = create_image(&editor->textures->png[i], game->window->renderPTR);
 
-	ft_printf("Editor: %d textures initialized\n", game->editor->textures->num_textures);
+	init_buttons(game);
+
+	ft_printf("Editor: %d textures initialized\n", editor->textures->num_textures);
+	editor->texture_selector.num_page = editor->textures->num_textures / 15;
+	if (editor->textures->num_textures % 15)
+		editor->texture_selector.num_page++;
 
 	return ;
 }

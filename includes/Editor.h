@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 16:21:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 20:08:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ typedef struct	s_editor_textures
 	int			cap_textures;
 }				t_editor_textures;
 
+typedef struct s_texture_selector
+{
+	int			display;
+	int			page;
+	int			num_page;
+	void		**variable_to_set;
+	SDL_Texture	*buttons[3];
+}				t_texture_selector;
+
+
 typedef struct	s_editor
 {
 	TTF_Font			*font;
@@ -63,6 +73,7 @@ typedef struct	s_editor
 	t_size2				settings;
 	t_plan				plan;
 	t_editor_textures	*textures;
+	t_texture_selector	texture_selector;
 }						t_editor;
 
 /* Init / Exit */
@@ -81,6 +92,12 @@ void	display_grid(t_game *game);
 void	init_settings_global_buttons(t_game *game);
 void	init_settings_global_inputs(t_game *game);
 void	display_separators(t_game *game);
+
+/* Texture Selector */
+void	draw_texture_selector(t_game *game);
+int		get_clicked_editor_button(t_game *game, int x, int y);
+void	create_texture_selector(t_game *game, void **addr);
+void	get_clicked_texture(t_game *game, int x, int y);
 
 /* Events */
 void	editor_events(t_game *game);

@@ -6,12 +6,27 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 11:52:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:41:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
+
+/* Check if the texture_selector is displayed and the cursor was on it */
+static int	check_selector_clicked(t_game *game, int x, int y)
+{
+	SDL_Rect	box = {.x = 680, .y = 525, .w = 750, .h = 400};
+
+	if (!game->editor->texture_selector.display)
+		return (0);
+
+	to_responsive(game->window, &box);
+
+	if (x <= box.x + box.w && x > box.x && y <= box.y + box.h && y > box.y)
+		return (1);
+	return (0);
+}
 
 /* Manage when plan is clicked */
 void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
@@ -20,6 +35,9 @@ void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
 	static int	last_x = 0, last_y = 0;
 
 	if (motion->x > game->editor->plan.size.w)
+		return ;
+
+	if (check_selector_clicked(game, motion->x, motion->y))
 		return ;
 
 	if (plan_clicked && motion->type == SDL_MOUSEBUTTONUP)

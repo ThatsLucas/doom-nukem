@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 16:34:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:18:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	display_editor(t_game *game)
 
 	display_text_input(game, &game->editor->text_inputs);
 	display_buttons(game->editor->buttons, game, -1);
-	draw_texture(200, 200, 200, 200, game->window, game->editor->textures->textures[3]);
 
-	draw_texture(450, 200, 50, 80, game->window, game->editor->textures->textures[3]);
+	draw_texture_selector(game);
+
 	return ;
 }
