@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:18:34 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:40:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_hud_cache
 	t_weapon_3D		weapons_3D[MAX_WEAPONS];
 	SDL_Texture		*tools_textures[MAX_TOOLS];
 	SDL_Texture		*ply_textures[10];
+	SDL_Texture		*bg_texture;
 	TTF_Font		*text_font;
 	TTF_Font		*number_font;
 
@@ -69,7 +70,8 @@ typedef enum	e_asset_type
 {
 	ASSET_WEAPON2D,
 	ASSET_TOOL,
-	ASSET_PLAYER
+	ASSET_PLAYER,
+	ASSET_BG
 }				t_asset_type;
 
 typedef struct	s_load_job
@@ -89,6 +91,7 @@ void	display_module_tools(t_game *game, int x, int y, int w, int h);
 void	display_module_ammo(t_game *game, int x, int y, int w, int h);
 void	display_module_weapons(t_game *game, int x, int y, int w, int h);
 void	display_player_module(t_game *game, int x, int y, int w, int h);
+void	display_held_weapon(t_game *game);
 
 /* General functions */
 void	display_hud(t_game *game);
