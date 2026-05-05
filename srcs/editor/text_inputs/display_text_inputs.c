@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:38:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 11:57:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:30:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 static void	draw_case(t_game *game, t_text_input *input)
 {
+	SDL_Rect	box = input->box;
+
+	to_responsive(game->window, &box);
 	SDL_SetRenderDrawColor(game->window->renderPTR, 255, 255, 255, 255);
-	SDL_RenderFillRect(game->window->renderPTR, &input->box);
+	SDL_RenderFillRect(game->window->renderPTR, &box);
 	SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 0, 255);
-	SDL_RenderDrawRect(game->window->renderPTR, &input->box);
+	SDL_RenderDrawRect(game->window->renderPTR, &box);
 
 	return ;
 }
