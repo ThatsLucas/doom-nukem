@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:36:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:59:07 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	right_part(t_game *game)
 	return ;
 }
 
+/* Display all the editor frame */
 void	display_editor(t_game *game)
 {
 	left_part(game);

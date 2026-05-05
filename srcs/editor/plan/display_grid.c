@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 14:23:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 15:27:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:53:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/* Display the plan grid (with zoom) */
 void	display_grid(t_game *game)
 {
 	t_editor	*editor = game->editor;

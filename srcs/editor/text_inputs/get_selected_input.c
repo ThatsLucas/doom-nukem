@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 20:55:41 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/29 20:47:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:57:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* select an input if x and y are in it */
 void	get_selected_input(t_editor *editor, t_list **lst, int x, int y)
 {
 	t_list			*current = *lst;

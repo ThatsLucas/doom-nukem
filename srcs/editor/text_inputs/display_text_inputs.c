@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:38:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/27 21:11:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:57:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	draw_text(t_game *game, t_text_input *input, char *text)
 	return ;
 }
 
+/* Draw the text of all inputs in them */
 void	display_text_input(t_game *game, t_list **lst)
 {
 	t_list			*current = *lst;

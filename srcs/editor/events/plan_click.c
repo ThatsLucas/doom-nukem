@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:37:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:52:42 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* Manage when plan is clicked */
 void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
 {
 	static int	plan_clicked = 0;

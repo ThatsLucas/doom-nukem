@@ -6,28 +6,15 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 09:55:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:49:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
-void	init_editor(t_game *game)
+static void	init_buttons_inputs(t_game *game)
 {
-	game->editor = calloc(1, sizeof(t_editor));
-	if (!game->editor)
-		exit_game(game, "init editor");
-	game->editor->font = TTF_OpenFont("assets/fonts/MontserratBlack.ttf", 25);
-	if (!game->editor->font)
-		exit_game(game, "display_editor font");
-
-	game->mapSize[0] = 12;	game->mapSize[1] = 8;
-	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
-	update_grid_size(game);
-	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
-
-
 	SDL_Rect box;
 	box.w = 100;
 	box.h = 40;
@@ -49,6 +36,25 @@ void	init_editor(t_game *game)
 	t_RGB btn_color = {125, 75, 25, 255};
 	t_RGB hov_color = {15, 175, 25, 255};
 	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, hov_color, text_hover, text_hover, -1);
+
+	return ;
+}
+
+void	init_editor(t_game *game)
+{
+	game->editor = calloc(1, sizeof(t_editor));
+	if (!game->editor)
+		exit_game(game, "init editor");
+	game->editor->font = TTF_OpenFont("assets/fonts/MontserratBlack.ttf", 25);
+	if (!game->editor->font)
+		exit_game(game, "display_editor font");
+
+	game->mapSize[0] = 12;	game->mapSize[1] = 8;	// default size
+	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
+	update_grid_size(game);
+	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
+
+	init_buttons_inputs(game);
 
 	return ;
 }

@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 09:56:40 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 15:19:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:58:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/* real pos to plan_pixels */
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y)
 {
 	t_vect2		res;

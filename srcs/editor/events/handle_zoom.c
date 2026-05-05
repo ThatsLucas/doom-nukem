@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:38:14 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:38:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:52:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* Zoom or unZoom the plan with mouse wheel */
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel)
 {
 	if (wheel->mouseX >= editor->plan.size.w)

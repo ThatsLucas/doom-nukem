@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:39:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:51:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/* Add text to the selected input if there is any */
 static void handle_input(t_editor *editor, char *text)
 {
 	if (!editor->selected)
@@ -36,6 +37,7 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 	return ;
 }
 
+/* Handle editor events (mouse, keys, etc.) */
 void	editor_events(t_game *game)
 {
 	SDL_Event e;

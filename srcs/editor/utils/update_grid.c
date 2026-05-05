@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 09:54:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/04 16:04:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:58:54 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/* when update button is clicked, update grid size */
 void	update_grid_size(t_game *game)
 {
 	t_list			*current = game->editor->text_inputs;
