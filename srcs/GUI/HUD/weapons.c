@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 11:19:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 11:40:24 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 }
 
 /* Adds the current weapon on the render in 3D */
-static void	display_held_weapon(t_game *game)
+void	display_held_weapon(t_game *game)
 {
 	int				idx = game->ply->current_weap_index;
 	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
@@ -66,7 +66,6 @@ static void	display_held_weapon(t_game *game)
 /* Display "WEAPON" and the current weapons asset */
 void	display_module_weapons(t_game *game, int x, int y, int w, int h)
 {
-	display_held_weapon(game);
 	display_weapons(game, x, y, w, h);
 	display_weapon(game, x + 55, y + 70);
 }

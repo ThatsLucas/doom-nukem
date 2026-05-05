@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/15 11:00:59 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:27:23 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_game	*init_game(void)
 {
 	t_game	*game;
-	int		w = 1920, h = 1080;
+	int		w = 1600, h = 800;
 
 	game = malloc(sizeof(t_game));
 	if (!game)
@@ -29,7 +29,7 @@ t_game	*init_game(void)
 		exit_game(game, "SDL_INIT");
 	// get_screen_size(&w, &h);
 	game->screenSize[0] = w; game->screenSize[1] = h;
-	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL );
+	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, SDL_WINDOW_OPENGL);
 	if (!game->window)
 		exit_game(game, "create_window");
 
