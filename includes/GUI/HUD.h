@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 11:40:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:35:57 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	display_module_ammo(t_game *game, int x, int y, int w, int h);
 void	display_module_weapons(t_game *game, int x, int y, int w, int h);
 void	display_player_module(t_game *game, int x, int y, int w, int h);
 void	display_held_weapon(t_game *game);
+void	display_crosshair(t_game *game, int x, int y, int size, int gap, t_RGB rgb);
+void	display_hud_bg(t_game *game);
 
 /* General functions */
 void	display_hud(t_game *game);
