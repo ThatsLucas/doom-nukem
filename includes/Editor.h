@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 20:08:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 20:44:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_texture_selector
 	int			display;
 	int			page;
 	int			num_page;
-	void		**variable_to_set;
+	SDL_Texture	**variable_to_set;
 	SDL_Texture	*buttons[3];
 }				t_texture_selector;
 
@@ -96,7 +96,7 @@ void	display_separators(t_game *game);
 /* Texture Selector */
 void	draw_texture_selector(t_game *game);
 int		get_clicked_editor_button(t_game *game, int x, int y);
-void	create_texture_selector(t_game *game, void **addr);
+void	create_texture_selector(t_game *game, SDL_Texture **addr);
 void	get_clicked_texture(t_game *game, int x, int y);
 
 /* Events */

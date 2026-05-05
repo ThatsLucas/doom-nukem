@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 19:18:09 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 19:18:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 20:42:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
-void	create_texture_selector(t_game *game, void **addr)
+void	create_texture_selector(t_game *game, SDL_Texture **addr)
 {
 	game->editor->texture_selector.display = 1;
 	game->editor->texture_selector.variable_to_set = addr;
