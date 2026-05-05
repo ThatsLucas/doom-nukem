@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/17 16:59:23 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:47:48 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,17 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	if (!ply)
 		exit_game(game, "player allocation");
 
-	ply->pos_x = pos_x;
-	ply->pos_y = pos_y;
+	ply->pos.x = pos_x;
+	ply->pos.y = pos_y;
 	ply->dir_z = 0.0f;
 
 	ply->dir.x = dir_x;
 	ply->dir.y = dir_y;
 
-	// 🔥 IMPORTANT
 	ply->plane.x = -ply->dir.y * FOV;
 	ply->plane.y = ply->dir.x * FOV;
 
-	ply->hp = 15;
+	ply->hp = 100;
 
 	config_starter(ply);
 	game->ply = ply;

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/04 15:48:53 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:33:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,38 @@ typedef enum	e_entity_type
 	ENTITY_ENEMY,
 }				t_entity_type;
 
+typedef enum	e_entity_status
+{
+	E_STATUS_IDLE,
+	E_STATUS_CHASE,
+	E_STATUS_ATTACK,
+	E_STATUS_DEAD
+}				t_entity_status;
+
 typedef struct	s_entity
 {
 	double			x;
 	double			y;
 	double			z;
+	float			dir_x;
+	float			dir_y;
+
 	int				sector;
 	t_entity_type	type;
 	void			**textures;
 	void			*texture;
+	void			*texture_shoot;
 	int				num_frames;
-	float			dir_x;
-	float			dir_y;
 
 	int	hp;
-	int	max_hp;
-	int	is_alive;
+	float	speed;
+	float	vision_range;
+	float	vision_angle;
+	int		attack_range;
+	int		fire_rate;
+	int		damage;
+
+	t_entity_status	status;
 
 	double	hitbox;
 
@@ -61,5 +77,6 @@ void	free_entities(t_entities *e);
 void	init_entities(t_entities *e);
 void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
+void	update_entities(t_game *game, t_entities *e);
 
 #endif
