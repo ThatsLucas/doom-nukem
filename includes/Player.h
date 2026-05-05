@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/17 11:16:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:54:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define INFINITE_AMMO -1
 
 typedef struct s_game t_game;
-typedef struct	s_vect2 t_vect2;
 
 typedef struct	s_keys
 {

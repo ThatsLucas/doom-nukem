@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:03:49 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:17:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:41:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 long long get_time_ms(void)
 {
-    struct timeval tv;
+	struct timeval tv;
 
-    gettimeofday(&tv, NULL);
-    return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
 }
-
-
 
 /* Updates the current frame to make a sprite animation of the player and the weapons */
 void update_hud_anim(t_game *game)
