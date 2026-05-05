@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 17:56:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:07:20 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void render_entities(t_game *game)
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
 
-		if (is_shooting && e->texture_shoot)
+		if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
 			tex = e->texture_shoot;
 		else if (e->textures && e->num_frames > 0)
 		{
