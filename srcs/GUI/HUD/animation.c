@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:03:49 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/17 16:58:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 10:43:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,7 @@ long long get_time_ms(void)
 /* Updates the current frame to make a sprite animation of the player and the weapons */
 void update_hud_anim(t_game *game)
 {
-	if (!game->ply)
-		return;
-
 	int idx = game->ply->current_weap_index;
-
-	if (idx < 0 || idx >= MAX_WEAPONS)
-		return;
-
 	t_weapon_type type = game->ply->inventory.weapons[idx].type;
 	t_weapon_3D *w = &game->hud_cache.weapons_3D[type];
 
