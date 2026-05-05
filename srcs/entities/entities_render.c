@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/04 16:43:13 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:56:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@
 
 	A savoir qu'on skip les entities qui sont trop loin ou derriere le joueur
 */
-
 int	get_directional_frame(t_entity *e, float px, float py)
 {
 	int	n = e->num_frames;
 
-	float	to_px = px - e->x;
-	float	to_py = py - e->y;
+	float	to_px = e->x - px;
+	float	to_py = e->y - py;
 
 	float	e_angle = atan2f(e->dir_y, e->dir_x);
 	float	view_angle = atan2f(to_py, to_px);
@@ -68,11 +67,18 @@ void render_entities(t_game *game)
 	float	pitch = game->ply->pitch;
 	float	inv_det = 1.0f / (plane.x * dir_y - dir_x * plane.y);
 
+	update_entities(game, &game->entities);
 	for (int i = 0; i < game->entities.count; i++)
 	{
 		t_entity	*e = &game->entities.list[i];
 		SDL_Texture	*tex = NULL;
-		if (e->textures && e->num_frames > 0)
+
+		long long	current = get_time_ms();
+		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
+
+		if (is_shooting && e->texture_shoot)
+			tex = e->texture_shoot;
+		else if (e->textures && e->num_frames > 0)
 		{
 			int frame = get_directional_frame(e, ply_x, ply_y);
 			tex = e->textures[frame];

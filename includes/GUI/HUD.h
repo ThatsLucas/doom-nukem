@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:35:57 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 16:32:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	display_hud(t_game *game);
 void	init_hud_cache(t_game *game);
 void	free_hud_cache(t_game *game);
 void	update_hud_anim(t_game *game);
+long long get_time_ms(void);
 
 void	player_shoot(t_game *game);
 
