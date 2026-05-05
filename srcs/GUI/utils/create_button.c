@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 14:26:26 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/05 13:42:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void display_buttons(t_buttons *button_list, t_game *game, int pageID)
             }
         }
         if (color.alphaValue > 0)
-            create_rectangle(game->window->renderPTR, button_list->buttonCoords, color);
+            create_rectangle(game->window->renderPTR, buttonCoords, color);
         if (textFont && textFont->texture)
         {
             int x = button_list->buttonCoords.x + (button_list->buttonCoords.w / 2 - textFont->w / 2);

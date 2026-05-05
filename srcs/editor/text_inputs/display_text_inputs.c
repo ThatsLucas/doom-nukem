@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:38:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:30:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 13:24:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,34 @@ static void	draw_case(t_game *game, t_text_input *input)
 	return ;
 }
 
-static void	draw_text(t_game *game, t_text_input *input, char *text)
+static void draw_text(t_game *game, t_text_input *input, char *text)
 {
-	SDL_Color black = {0, 0, 0, 255};
+	SDL_Color   black = {0, 0, 0, 255};
 	SDL_Surface *surf = TTF_RenderUTF8_Blended(game->editor->font, text, black);
 	if (surf)
 	{
+		SDL_Rect box = input->box;
+		to_responsive(game->window, &box);
+
 		SDL_Texture *tex = SDL_CreateTextureFromSurface(game->window->renderPTR, surf);
 		SDL_Rect dst;
-		int padding = 5;
-		int max_w = input->box.w - 2 * padding;
+		int padding = (5 * game->window->w) / 1920;
+		int max_w = box.w - 2 * padding;
+
 		if (surf->w > max_w)
-			dst.x = input->box.x + padding - (surf->w - max_w);
+			dst.x = box.x + padding - (surf->w - max_w);
 		else
-			dst.x = input->box.x + padding;
-		dst.y = input->box.y + (input->box.h - surf->h) / 2;
+			dst.x = box.x + padding;
+		dst.y = box.y + (box.h - surf->h) / 2;
 		dst.w = surf->w;
 		dst.h = surf->h;
 
-		SDL_RenderSetClipRect(game->window->renderPTR, &input->box);
+		SDL_RenderSetClipRect(game->window->renderPTR, &box);
 		SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dst);
 		SDL_RenderSetClipRect(game->window->renderPTR, NULL);
-
 		SDL_DestroyTexture(tex);
 		SDL_FreeSurface(surf);
 	}
-
-	return ;
 }
 
 /* Draw the text of all inputs in them */

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:46:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 13:21:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_editor(t_game *game)
 	game->editor = calloc(1, sizeof(t_editor));
 	if (!game->editor)
 		exit_game(game, "init editor");
-	game->editor->font = TTF_OpenFont("assets/fonts/MontserratBlack.ttf", 25);
+	game->editor->font = TTF_OpenFont("assets/fonts/MontserratBlack.ttf", 24);
 	if (!game->editor->font)
 		exit_game(game, "display_editor font");
 

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:34:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:49:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 13:38:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_settings_global_buttons(t_game *game)
 
 	box.w = 250;
 	box.h = 50;
-	box.x = game->editor->plan.size.w + 115;
+	box.x = 1555;
 	box.y = 198;
 	create_button(&game->editor->buttons, &update_grid_size, box, btn_color, hov_color, text, text, -1);	// UPDATE button
 
@@ -34,10 +34,10 @@ void	init_settings_global_buttons(t_game *game)
 
 	box.w = 130;
 	box.h = 50;
-	box.x = game->editor->plan.size.w + 335;
+	box.x = 1775;
 	box.y = 23;
 
-	create_button(&game->editor->buttons, NULL, box, btn_color, hov_color, text, text, -1);	// SAVE button
+	create_button(&game->editor->buttons, NULL, box, btn_color, hov_color, text, text, -1);					// SAVE button
 
 	return ;
 }
