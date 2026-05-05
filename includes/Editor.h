@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:14:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 16:21:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_game		t_game;
 typedef struct s_list		t_list;
 typedef struct s_buttons	t_buttons;
+typedef struct s_png		t_png;
 
 typedef struct s_size2
 {
@@ -28,7 +29,7 @@ typedef struct s_size2
 	int	h;
 }		t_size2;
 
-typedef struct s_text_input
+typedef struct	s_text_input
 {
 	char		text[200];
 	char		*name;
@@ -36,7 +37,7 @@ typedef struct s_text_input
 	SDL_Rect	dst;
 }				t_text_input;
 
-typedef struct s_plan
+typedef struct	s_plan
 {
 	t_vect2	center;
 	float	scale_min;
@@ -45,18 +46,28 @@ typedef struct s_plan
 	t_size2	size;
 }			t_plan;
 
-typedef struct s_editor
+typedef struct	s_editor_textures
 {
-	TTF_Font		*font;
-	t_list			*text_inputs;
-	t_text_input	*selected;
-	t_buttons		*buttons;
-	t_size2			settings;
-	t_plan			plan;
-}				t_editor;
+	SDL_Texture	**textures;
+	t_png		*png;
+	int			num_textures;
+	int			cap_textures;
+}				t_editor_textures;
+
+typedef struct	s_editor
+{
+	TTF_Font			*font;
+	t_list				*text_inputs;
+	t_text_input		*selected;
+	t_buttons			*buttons;
+	t_size2				settings;
+	t_plan				plan;
+	t_editor_textures	*textures;
+}						t_editor;
 
 /* Init / Exit */
 void	init_editor(t_game *game);
+void	init_editor_cache(t_game *game);
 void	exit_editor(t_game *game);
 
 /* Text Inputs */

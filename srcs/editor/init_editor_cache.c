@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_editor_cache.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/05 15:08:53 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/05/05 16:32:48 by aabouyaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Editor.h"
+#include "parser/PNG.h"
+#include "Game.h"
+
+static void	realloc_png(t_game *game, t_editor_textures *textures)
+{
+	if (textures->cap_textures == 0)
+	{
+		textures->png = calloc(8, sizeof(t_png));
+		if (!textures->png)
+			exit_game(game, "realloc_png: failed to realloc 1");
+		textures->cap_textures = 8;
+		return ;
+	}
+	textures->png = realloc(textures->png, textures->cap_textures * 2 * sizeof(t_png));
+	if (!textures->png)
+			exit_game(game, "realloc_png: failed to realloc 2");
+	textures->cap_textures *= 2;
+
+	return ;
+}
+
+static void	create_png_list(t_game *game, t_editor *editor, int fd)
+{
+	char	*line = NULL;
+	int		i = 0;
+
+	while ((line = get_next_line(fd)))
+	{
+		if (editor->textures->num_textures == editor->textures->cap_textures)
+			realloc_png(game, editor->textures);
+
+		if (ft_strncmp(&line[ft_strlen(line) - 5], ".png", 4))
+			continue ;
+
+		line[ft_strlen(line) - 1] = 0;
+
+		editor->textures->png[i].path = ft_strjoin("assets/textures/", line);
+		free(line);
+		if (process_png(&editor->textures->png[i]))
+		{
+			editor->textures->num_textures += 1;
+			i++;
+		}
+	}
+
+	return ;
+}
+
+void	init_editor_cache(t_game *game)
+{
+	t_editor	*editor = game->editor;
+	int			fd;
+
+	fd = open("assets/textures/texture_list.txt", O_RDONLY);
+	if (fd < 0)
+		exit_game(game, "init_editor_cache: cant find assets/textures/texture_list.txt");
+	editor->textures = calloc(1, sizeof(t_editor_textures));
+	if (!editor->textures)
+		exit_game(game, "Editor Cache: calloc editor textures failed");
+
+	create_png_list(game, editor, fd);
+	close(fd);
+
+	editor->textures->textures = calloc(editor->textures->num_textures, sizeof(SDL_Texture *));
+	if (!editor->textures->textures)
+		exit_game(game, "Editor Cache: calloc editor textures failed 2");
+	for (int i = 0; i < editor->textures->num_textures; i++)
+		editor->textures->textures[i] = create_image(&editor->textures->png[i], game->window->renderPTR);
+
+	ft_printf("Editor: %d textures initialized\n", game->editor->textures->num_textures);
+
+	return ;
+}

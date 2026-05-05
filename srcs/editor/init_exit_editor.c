@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:21:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 16:34:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_editor(t_game *game)
 	game->editor->font = TTF_OpenFont("assets/fonts/MontserratBlack.ttf", 24);
 	if (!game->editor->font)
 		exit_game(game, "display_editor font");
+	init_editor_cache(game);
 
 	game->mapSize[0] = 12;	game->mapSize[1] = 8;	// default size
 	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
@@ -45,6 +46,13 @@ void	exit_editor(t_game *game)
 	TTF_CloseFont(game->editor->font); 
 	ft_lstclear(&game->editor->text_inputs, free);
 	free_buttons(game->editor->buttons);
+	if (game->editor->textures)
+	{
+		free(game->editor->textures->png);
+		for (int i = 0; i < game->editor->textures->num_textures; i++)
+			SDL_DestroyTexture(game->editor->textures->textures[i]);
+	}
+	free(game->editor->textures);
 	free(game->editor);
 
 	return ;

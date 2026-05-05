@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 19:52:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/13 10:39:09 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:05:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,22 @@ SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer)
     SDL_PixelFormatEnum format = decidePixelFormat(pngFile->IHDR.color_type);
     SDL_Texture *texture = SDL_CreateTexture(renderer, format,
         SDL_TEXTUREACCESS_STREAMING, pngFile->w, pngFile->h);
+	if (!texture)
+    {
+        ft_printf("create_image: SDL_CreateTexture failed: %s\n", SDL_GetError());
+        for (uint32_t i = 0; i < pngFile->h; i++)
+            free(pngFile->buf[i]);
+        free(pngFile->buf);
+        pngFile->buf = NULL;
+        return (NULL);
+    }
+
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
     for (uint32_t h = 0; h < pngFile->h; h++)
     {
+		if (!pngFile->buf[h])
+        	continue ;
         SDL_Rect line = {0, h, pngFile->w, 1};
         SDL_UpdateTexture(texture, &line, pngFile->buf[h],
             pngFile->w * pngFile->IHDR.bytes_per_pixel);
