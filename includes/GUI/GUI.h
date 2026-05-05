@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 18:14:51 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/05 12:45:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "Colors.h"
 #include "parser/PNG.h"
 #include "GUI/HUD.h"
-#include "Raycasting/Types.h"
+#include "Raycasting/Raycasting.h"
 
 typedef struct s_ply	t_ply;
 typedef struct s_WIN	t_WIN;
@@ -71,7 +71,7 @@ void    free_buttons(t_buttons *buttonlist);
 /*minimap*/
 void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
-/* gameplay */
+///* gameplay */
 Uint32	write_color(int r, int g, int b, int sect_light);
 void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);

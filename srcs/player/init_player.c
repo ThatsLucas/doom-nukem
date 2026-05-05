@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/17 12:12:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:48:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	config_starter(t_ply	*ply)
 
 	t_weapon	pistol = {
 		.type = WEAP_PISTOL,
-		.ammo = 5
+		.ammo = 50
 	};
 	ply->inventory.weapons[ply->inventory.weap_count++] = pistol;
 
@@ -40,11 +40,11 @@ static void	config_starter(t_ply	*ply)
 	};
 	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
 
-	t_tool	jetpack = {
-		.type = TOOL_JETPACK,
-		.data.fuel = 40
-	};
-	ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
+	//t_tool	jetpack = {
+	//	.type = TOOL_JETPACK,
+	//	.data.fuel = 40
+	//};
+	//ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
 
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }
@@ -68,7 +68,7 @@ void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->dir_y = dir_y;
 	ply->dir_z = 0.0f;
 
-	ply->hp = 15;
+	ply->hp = 70;
 
 	config_starter(ply);
 	game->ply = ply;
