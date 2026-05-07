@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/07 12:18:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 12:20:28 by edurance         ###   ########.fr       */
+/*   Created: 2026/05/07 15:53:22 by edurance          #+#    #+#             */
+/*   Updated: 2026/05/07 15:55:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI/HUD.h"
 #include "Game.h"
+#include "Raycasting/Raycasting.h"
 
 void	draw_player_minimap(SDL_Renderer *render, t_game *game, int size, t_RGB color)
 {

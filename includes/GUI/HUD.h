@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 12:38:47 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:58:39 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct	s_hud_cache
 	SDL_Texture		*bg_texture;
 	TTF_Font		*text_font;
 	TTF_Font		*number_font;
+	SDL_Texture		*battery[2];
+	SDL_Texture		*fuel[2];
 
 	long long ply_last_time;
 	long long weap_last_time;

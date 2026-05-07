@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/14 15:47:45 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:06:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum	e_tool_type
 typedef struct	s_tool
 {
 	t_tool_type	type;
+	int			using;
 	union	u_data
 	{
 		int	battery;

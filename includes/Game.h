@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 12:51:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:05:14 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <pthread.h>
 #include <SDL.h>
 #include <sys/time.h>
-#include <pthread.h>
 #include "Window.h"
 #include "Player.h"
 #include "GUI/GUI.h"

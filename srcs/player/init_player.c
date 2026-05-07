@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:48:43 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 18:02:48 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ static void	config_starter(t_ply	*ply)
 	};
 	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
 
-	//t_tool	jetpack = {
-	//	.type = TOOL_JETPACK,
-	//	.data.fuel = 40
-	//};
-	//ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
+	t_tool	flashlight = {
+		.type = TOOL_FLASHLIGHT,
+		.data.battery = 11,
+		.using = 0
+	};
+	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
 
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }

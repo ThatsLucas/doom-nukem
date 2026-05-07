@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 12:41:42 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 13:17:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:59:07 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	display_fps(t_game *game)
 	SDL_Color color = {255, 255, 255, 255};
 	
 	{
-		SDL_Rect dest = {1700, 35, 70, 25};
+		SDL_Rect dest = {1735, 35, 70, 25};
 		to_responsive(game->window, &dest);
 		char *buf = ft_strdup("FPS ");
 
@@ -70,7 +70,7 @@ void	display_fps(t_game *game)
 		if (!game->fps)
 			game->fps = ft_itoa(100);
 	
-		SDL_Rect dest = {1780, 35, 65, 25};
+		SDL_Rect dest = {1805, 35, 65, 25};
 		to_responsive(game->window, &dest);
 		char *buf = ft_strdup(game->fps);
 
