@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:08:53 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 19:11:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 12:35:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,31 @@ static void	create_png_list(t_game *game, t_editor *editor, int fd)
 
 static void	init_buttons(t_game *game)
 {
-	t_png	png[3];
-	char	*name[3] = {"button_up.png", "button_down.png", "red_cross.png"};
-
+	t_png	s_png[3];
+	char	*s_name[3] = {"button_up.png", "button_down.png", "red_cross.png"};
+	t_png	png[6];
+	char	*name[6] = {"cursor.png", "wall.png", "slope.png", "cursor_sel.png", "wall_sel.png", "slope_sel.png"};
 
 	for (int i = 0; i < 3; i++)
 	{
+		s_png[i].path = ft_strjoin("assets/png/editor/", s_name[i]);
+		if (process_png(&s_png[i]))
+			game->editor->texture_selector.buttons[i] = create_image(&s_png[i], game->window->renderPTR);
+		else
+			exit_game(game, "editor: Can't init buttons");
+		if (!game->editor->texture_selector.buttons[i])
+			exit_game(game, "editor: Can't init buttons");
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
 		png[i].path = ft_strjoin("assets/png/editor/", name[i]);
 		if (process_png(&png[i]))
-			game->editor->texture_selector.buttons[i] = create_image(&png[i], game->window->renderPTR);
+			game->editor->buttons_textures[i] = create_image(&png[i], game->window->renderPTR);
+		else
+			exit_game(game, "editor: Can't init buttons");
+		if (!game->editor->buttons_textures[i])
+			exit_game(game, "editor: Can't init buttons");
 	}
 
 	return ;

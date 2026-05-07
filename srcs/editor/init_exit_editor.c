@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 11:15:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 12:30:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	init_editor(t_game *game)
 	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
 	update_grid_size(game);
 	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
+	game->editor->selected_tool = 0;
 
 	init_buttons_inputs(game);
+	init_action_buttons(game);
 
 	game->editor->error_text = calloc(1, sizeof(t_font));
 	if (!game->editor->error_text)

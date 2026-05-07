@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 11:13:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 12:54:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct	s_editor
 	t_editor_textures	*textures;
 	t_texture_selector	texture_selector;
 	t_font				*error_text;
+	SDL_Texture			*buttons_textures[6];
+	int					selected_tool;
 }						t_editor;
 
 /* Init / Exit */
@@ -94,6 +96,7 @@ void	display_grid(t_game *game);
 void	init_settings_global_buttons(t_game *game);
 void	init_settings_global_inputs(t_game *game);
 void	display_separators(t_game *game);
+void	init_action_buttons(t_game *game);
 
 /* Texture Selector */
 void	draw_texture_selector(t_game *game);
