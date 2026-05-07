@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 20:45:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:15:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	init_editor(t_game *game)
 
 	init_buttons_inputs(game);
 
+	game->editor->error_text = calloc(1, sizeof(t_font));
+	if (!game->editor->error_text)
+		exit_game(game, "editor: cant calloc error_text");
 
 	////// TEMPORAIRE
 	create_texture_selector(game, NULL);
@@ -54,6 +57,7 @@ void	exit_editor(t_game *game)
 	{
 		free(game->editor->textures->png);
 	}
+	free(game->editor->error_text);
 	free(game->editor->textures);
 	free(game->editor);
 

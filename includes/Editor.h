@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 20:44:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 11:13:48 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_game		t_game;
 typedef struct s_list		t_list;
 typedef struct s_buttons	t_buttons;
 typedef struct s_png		t_png;
+typedef struct s_font		t_font;
 
 typedef struct s_size2
 {
@@ -74,6 +75,7 @@ typedef struct	s_editor
 	t_plan				plan;
 	t_editor_textures	*textures;
 	t_texture_selector	texture_selector;
+	t_font				*error_text;
 }						t_editor;
 
 /* Init / Exit */
@@ -108,5 +110,9 @@ void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 void	update_grid_size(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
+
+/* errors */
+void	editor_error(t_game *game, char *txt);
+void	display_editor_error(t_game *game);
 
 #endif
