@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:53:58 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:52:31 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct	s_RGB t_RGB;
 #define STATE_INJURED 3
 #define STATE_BLEEDING 6
 #define STATE_DEAD 9
+
+#define MINI_W 187
+#define MINI_H 180
+#define MINI_X 60
+#define MINI_Y 895
+#define MINI_CELLS 15
 
 typedef enum	e_player_state
 {
@@ -93,6 +99,7 @@ void	display_player_module(t_game *game, int x, int y, int w, int h);
 void	display_held_weapon(t_game *game);
 void	display_crosshair(t_game *game, int x, int y, int size, int gap, t_RGB rgb);
 void	display_hud_bg(t_game *game);
+void	draw_minimap(SDL_Renderer *render, t_game *game);
 
 /* General functions */
 void		display_hud(t_game *game);
@@ -101,6 +108,8 @@ void		free_hud_cache(t_game *game);
 void		update_hud_anim(t_game *game);
 long long	get_time_ms(void);
 
-void	player_shoot(t_game *game);
+/* Minimap */
+void	draw_minimap_walls(t_game *game, SDL_Renderer *render);
+void	draw_player_minimap(SDL_Renderer *render, t_game *game, int size, t_RGB color);
 
 #endif

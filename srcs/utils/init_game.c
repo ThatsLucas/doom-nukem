@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:59:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:54:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_game *init_game(void)
 	init_map(game);
 	game->window->menus.notif.notif_buf = NULL;
 	game->window->menus.current = 1;
+
+	game->minimap_tex = SDL_CreateTexture(game->window->renderPTR, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 200, 200);
 
 	return (game);
 }

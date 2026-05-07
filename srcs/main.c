@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/05 12:47:08 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:54:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "Game.h"
 #include "Events.h"
 #include "parser/PNG.h"
+#include "Colors.h"
 
 int main(void)
 {
@@ -52,10 +53,10 @@ int main(void)
 		// display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
-		// draw_player(game->window->renderPTR, game->ply, 20, rgb);
+		//draw_player(game->window->renderPTR, game, 20, rgb);
 
 		// display_hud(game);
-		// display_fps(game);
+		display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		// display_fps_periodic(start);
