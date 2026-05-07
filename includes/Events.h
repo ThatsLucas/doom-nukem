@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:36 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:39:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 12:24:18 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel);
 void ply_pitch(t_game *game, t_ply *ply, SDL_KeyboardEvent key);
 void ply_pitch_mouse(t_game *game, t_ply *ply, int yChange);
 void mouse_moves(int x, int y, t_game *game);
+void	player_shoot(t_game *game);
 
 #endif
