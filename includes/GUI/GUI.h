@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/07 12:39:25 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:53:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector);
 void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sector *sector);
 
-
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 
@@ -88,7 +87,6 @@ SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);
 void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW);
 void destroy_text_texture(t_font *text);
-
 
 /*RESPONSIVENESS*/
 void to_responsive(t_WIN *win, SDL_Rect *cur);
