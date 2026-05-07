@@ -5,34 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/06 12:03:18 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:42:30 by edurance         ###   ########.fr       */
+/*   Created: 2026/05/07 12:18:38 by edurance          #+#    #+#             */
+/*   Updated: 2026/05/07 12:20:28 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "GUI/GUI.h"
+#include "GUI/HUD.h"
 #include "Game.h"
-#include "Raycasting/Raycasting.h"
 
-static SDL_Color	RGBtoSDLColor(t_RGB color)
-{
-	SDL_Color	res;
-
-	res.a = color.alphaValue;
-	res.r = color.r;
-	res.g = color.g;
-	res.b = color.b;
-
-	return (res);
-}
-
-void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color)
+void	draw_player_minimap(SDL_Renderer *render, t_game *game, int size, t_RGB color)
 {
 	SDL_Vertex	points[3];
 	float		local_x, local_y;
 	t_ply		*ply = game->ply;
-	float		posx = to_pixelX(ply->pos.x, game);
-	float		posy = to_pixelY(ply->pos.y, game);
+	float		posx = MINI_W / 2.0f;
+	float		posy = MINI_H / 2.0f;
 
 	// Sommet (haut)
 	local_x = 0;
@@ -55,5 +42,5 @@ void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color)
 	points[2].position.y = local_x * ply->dir.x + local_y * ply->dir.y + posy;
 	points[2].color = RGBtoSDLColor(color);
 
-	SDL_RenderGeometry(renderer, NULL, points, 3, NULL, 0);
+	SDL_RenderGeometry(render, NULL, points, 3, NULL, 0);
 }
