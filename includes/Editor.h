@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 12:54:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:07:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list		t_list;
 typedef struct s_buttons	t_buttons;
 typedef struct s_png		t_png;
 typedef struct s_font		t_font;
+typedef struct s_WIN		t_WIN;
 
 typedef struct s_size2
 {
@@ -36,6 +37,7 @@ typedef struct	s_text_input
 	char		*name;
 	SDL_Rect	box;
 	SDL_Rect	dst;
+	int			page;
 }				t_text_input;
 
 typedef struct	s_plan
@@ -64,6 +66,19 @@ typedef struct s_texture_selector
 	SDL_Texture	*buttons[3];
 }				t_texture_selector;
 
+typedef struct s_text_select_button
+{
+	int			page;
+	SDL_Texture	*texture;
+	SDL_Rect	box;
+}		t_text_select_button;
+
+typedef struct	s_editor_properties
+{
+	int			selected_property;		// 0: cursor vide / 1: walls
+	TTF_Font	*font;
+	SDL_Texture	*walls[3];
+}		t_editor_properties;
 
 typedef struct	s_editor
 {
@@ -78,6 +93,9 @@ typedef struct	s_editor
 	t_font				*error_text;
 	SDL_Texture			*buttons_textures[6];
 	int					selected_tool;
+	t_map				*map;
+	t_editor_properties	properties;
+	t_list				*texture_selector_buttons;
 }						t_editor;
 
 /* Init / Exit */
@@ -86,7 +104,7 @@ void	init_editor_cache(t_game *game);
 void	exit_editor(t_game *game);
 
 /* Text Inputs */
-void	add_text_inputs(t_game *game, SDL_Rect coords, char *name);
+void	add_text_inputs(t_game *game, SDL_Rect coords, char *name, int page);
 void	display_text_input(t_game *game, t_list **lst);
 void	get_selected_input(t_game *game, t_list **lst, int x, int y);
 
@@ -103,6 +121,10 @@ void	draw_texture_selector(t_game *game);
 int		get_clicked_editor_button(t_game *game, int x, int y);
 void	create_texture_selector(t_game *game, SDL_Texture **addr);
 void	get_clicked_texture(t_game *game, int x, int y);
+void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
+void	add_texture_selector_button(t_game *game, SDL_Texture *text, int page, SDL_Rect box);
+void	display_texture_selector_button(t_game *game);
+void	get_clicked_texture_button(t_game *game, int x, int y);
 
 /* Events */
 void	editor_events(t_game *game);
@@ -113,9 +135,17 @@ void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 void	update_grid_size(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
+void	precompute_mirrors(t_map *map);
 
 /* errors */
 void	editor_error(t_game *game, char *txt);
 void	display_editor_error(t_game *game);
+
+/* Properties */
+void	draw_prop_text(t_game *game, char *txt, int x, int y);
+void	init_properties(t_game *game);
+void	display_properties(t_game *game);
+void	init_walls_properties(t_game *game);
+void	display_walls_property(t_game *game);
 
 #endif

@@ -6,18 +6,24 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:14:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 19:18:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:23:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
-void draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture)
+void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture)
 {
 	SDL_Rect dest = {x, y, w, h};
+
 	to_responsive(win, &dest);
 	SDL_RenderCopy(win->renderPTR, texture, NULL, &dest);
+	SDL_RenderDrawRect(win->renderPTR, &dest);
+	dest.h -= 2;
+	dest.y++;
+	dest.x++;
+	dest.w -= 2;
 	SDL_RenderDrawRect(win->renderPTR, &dest);
 
 	return ;
