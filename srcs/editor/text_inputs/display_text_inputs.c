@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:38:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:24:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 17:16:09 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ void	display_text_input(t_game *game, t_list **lst)
 	while (current)
 	{
 		input = (t_text_input *)current->content;
+
+		if (input->page > 0 && input->page != game->editor->properties.selected_property)
+		{
+			current = current->next;
+			continue ;
+		}
 
 		draw_case(game, input);
 		if (input == game->editor->selected)

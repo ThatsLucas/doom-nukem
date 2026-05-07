@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:34:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:09:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:11:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	init_settings_global_inputs(t_game *game)
 	box.h = 50;
 	box.y = 133;
 	box.x = 1505;
-	add_text_inputs(game, box, "mapX");		// mapX
+	add_text_inputs(game, box, "mapX", -1);		// mapX
 	box.x = 1705;
-	add_text_inputs(game, box, "mapY");		// mapY
+	add_text_inputs(game, box, "mapY", -1);		// mapY
 
 	box.w = 300;
 	box.h = 50;
 	box.y = 23;
 	box.x = 1455;
-	add_text_inputs(game, box, "mapName");	// map Name
+	add_text_inputs(game, box, "mapName", -1);	// map Name
 
 	return ;
 }
