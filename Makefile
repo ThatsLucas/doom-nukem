@@ -78,7 +78,7 @@ $(NAME): $(OBJ)
 
 $(OBJDIR)/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
 # -------- CLEAN --------
 

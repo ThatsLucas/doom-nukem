@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/05 12:45:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:53:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ typedef struct s_buttons
 }   t_buttons;
 
 /*utils*/
-void	get_screen_size(int *w, int *h);
-void	display_fps(t_game *game);
+void		get_screen_size(int *w, int *h);
+void		display_fps(t_game *game);
+SDL_Color	RGBtoSDLColor(t_RGB color);
+void		draw_line_thick(SDL_Renderer *ren, float x1, float y1, float x2, float y2, int thickness);
+
 
 /*circles*/
 int		SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb);
@@ -62,14 +65,12 @@ int		SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RG
 /*rectangles*/
 void    create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
+
 /*buttons*/
 void    create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
 int     check_button_pressed(t_game *win, t_buttons *button_list);
 void	display_buttons(t_buttons *button_list, t_game *game, int pageID);
 void    free_buttons(t_buttons *buttonlist);
-
-/*minimap*/
-void	draw_player(SDL_Renderer *renderer, t_game *game, int size, t_RGB color);
 
 ///* gameplay */
 Uint32	write_color(int r, int g, int b, int sect_light);
@@ -80,6 +81,7 @@ void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sec
 
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
+
 
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath);

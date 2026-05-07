@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:08:31 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:52:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:53:00 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	display_hud(t_game *game)
 	display_module_ammo(game, 1095, 908, 200, 70);
 	display_player_module(game, 900, 908, 120, 140);
 	display_module_weapons(game, 1400, 908, 240, 70);
+	draw_minimap(game->window->renderPTR, game);
 	//render_projectiles(game);
 }

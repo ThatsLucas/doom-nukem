@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:40:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:54:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct s_game
 	t_hud_cache hud_cache;
 	int screenSize[2];
 	int status; // 0 = mainPage, -1 = editor, >0 = gameLevel
-	int mapSize[2];
+	int mapSize[2]; // w, h
+	SDL_Texture *minimap_tex;
 	t_map *map;
 	SDL_Texture *frame;
 	Uint32 *frame_buffer;
@@ -98,6 +99,7 @@ typedef struct s_game
 	t_settings settings;
 	int selected_language;
 	t_languages *languages;
+	double	delta_time;
 } t_game;
 
 /*init/exit game*/
