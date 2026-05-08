@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:42:21 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:49:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ static void	display_tools_png(t_game *game, int x, int y)
 	};
 
 	for (int i = 0; i < MAX_TOOLS; i++)
-	{
-		SDL_Rect	dest = {x + layout[i][0], y + layout[i][1], .w = layout[i][2], .h = layout[i][3]};
-		to_responsive(game->window, &dest);
-		SDL_RenderCopy(game->window->renderPTR, game->hud_cache.tools_textures[i], NULL, &dest);
-	}
+		draw_texture(x + layout[i][0], y + layout[i][1], layout[i][2], layout[i][3], game->window, game->hud_cache.tools_textures[i]);
 }
 
 /* Adds "TOOLS" on the renderer */

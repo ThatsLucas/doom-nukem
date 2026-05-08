@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 12:46:29 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:19:41 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_right) ? 0 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
+	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
+		activate_flashlight(game);
+	if (key.keysym.sym == SDLK_SPACE)
+		activate_jetpack(game, event);
 }
 
 void events_handler(t_game *game)

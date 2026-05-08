@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 15:52:31 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:54:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct	s_hud_cache
 	SDL_Texture		*bg_texture;
 	TTF_Font		*text_font;
 	TTF_Font		*number_font;
+	SDL_Texture		*battery[2];
+	SDL_Texture		*fuel[2];
 
 	long long ply_last_time;
 	long long weap_last_time;
@@ -100,6 +102,7 @@ void	display_held_weapon(t_game *game);
 void	display_crosshair(t_game *game, int x, int y, int size, int gap, t_RGB rgb);
 void	display_hud_bg(t_game *game);
 void	draw_minimap(SDL_Renderer *render, t_game *game);
+void	display_gauge(t_game *game, int type);
 
 /* General functions */
 void		display_hud(t_game *game);
