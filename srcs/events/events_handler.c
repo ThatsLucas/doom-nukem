@@ -6,25 +6,13 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 18:07:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:19:41 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
 #include "GUI/GUI.h"
 #include "Game.h"
-
-void	activate_flashlight(t_game *game)
-{
-	for (int i = 0; i < MAX_TOOLS; i++)
-	{
-		if (game->ply->inventory.tools[i].type == TOOL_FLASHLIGHT)
-		{
-			(game->ply->inventory.tools[i].using) = (game->ply->inventory.tools[i].using) ? 0 : 1;
-			printf("activated ? %d\n", game->ply->inventory.tools[i].using);
-		}
-	}
-}
 
 /*
 	27 = Escape
@@ -60,8 +48,10 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_right) ? 0 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
-	if (key.keysym.sym == 8 && event->type == SDL_KEYDOWN)
+	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
+	if (key.keysym.sym == SDLK_SPACE)
+		activate_jetpack(game, event);
 }
 
 void events_handler(t_game *game)
