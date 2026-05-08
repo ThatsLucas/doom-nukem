@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:26:09 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:30:51 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_editor(t_game *game)
 	game->editor->error_text = calloc(1, sizeof(t_font));
 	if (!game->editor->error_text)
 		exit_game(game, "editor: cant calloc error_text");
+	init_editor_map(game);
 
 	return ;
 }
@@ -59,6 +60,13 @@ void	exit_editor(t_game *game)
 	TTF_CloseFont(game->editor->properties.font);
 	free(game->editor->error_text);
 	free(game->editor->textures);
+
+	free(game->editor->map->sectors);
+	free(game->editor->map->textures);
+	free(game->editor->map->vertices);
+	free(game->editor->map->walls);
+	free(game->editor->map);
+
 	free(game->editor);
 
 	return ;

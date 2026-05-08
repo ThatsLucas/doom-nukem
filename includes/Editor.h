@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:07:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:00:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ typedef struct s_buttons	t_buttons;
 typedef struct s_png		t_png;
 typedef struct s_font		t_font;
 typedef struct s_WIN		t_WIN;
+
+# ifndef CLICK_OFFSET
+#  define CLICK_OFFSET 0.1
+# endif
 
 typedef struct s_size2
 {
@@ -78,6 +82,8 @@ typedef struct	s_editor_properties
 	int			selected_property;		// 0: cursor vide / 1: walls
 	TTF_Font	*font;
 	SDL_Texture	*walls[3];
+	int			draw_wall_active;
+	int			last_vertex;
 }		t_editor_properties;
 
 typedef struct	s_editor
@@ -109,12 +115,13 @@ void	display_text_input(t_game *game, t_list **lst);
 void	get_selected_input(t_game *game, t_list **lst, int x, int y);
 
 /* Display */
-void	display_editor(t_game *game);
-void	display_grid(t_game *game);
 void	init_settings_global_buttons(t_game *game);
 void	init_settings_global_inputs(t_game *game);
-void	display_separators(t_game *game);
 void	init_action_buttons(t_game *game);
+void	display_editor(t_game *game);
+void	display_grid(t_game *game);
+void	display_separators(t_game *game);
+void	display_editor_map(t_game *game);
 
 /* Texture Selector */
 void	draw_texture_selector(t_game *game);
@@ -147,5 +154,14 @@ void	init_properties(t_game *game);
 void	display_properties(t_game *game);
 void	init_walls_properties(t_game *game);
 void	display_walls_property(t_game *game);
+void	editor_place_wall(t_game *game, int pixx, int pixy);
+
+/* Map Editor */
+void	init_editor_map(t_game *game);
+void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone);
+void	editor_add_vertice(t_game *game, float x, float y);
+void	editor_add_wall(t_game *game, int v1, int v2);
+t_vect2	*get_clicked_vertice(t_game *game, float x, float y);
+void	clear_editor_plan(t_game *game);
 
 #endif

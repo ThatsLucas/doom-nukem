@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:17:24 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 11:09:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	display_editor(t_game *game)
 
 	display_properties(game);
 	display_texture_selector_button(game);
+	display_editor_map(game);
 
 	return ;
 }

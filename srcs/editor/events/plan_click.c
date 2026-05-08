@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 19:41:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 11:14:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
 
 	if (check_selector_clicked(game, motion->x, motion->y))
 		return ;
+
+	if (motion->type == SDL_MOUSEBUTTONDOWN && game->editor->selected_tool > 0)
+	{
+		editor_place_wall(game, motion->x, motion->y);
+		return ;
+	}
 
 	if (plan_clicked && motion->type == SDL_MOUSEBUTTONUP)
 	{

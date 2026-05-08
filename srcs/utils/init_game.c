@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 15:51:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:04:32 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_game *init_game(void)
 {
 	t_game *game;
 
-	game = malloc(sizeof(t_game));
+	game = calloc(1, sizeof(t_game));
 	if (!game)
 		return (NULL);
 	load_settings(game);

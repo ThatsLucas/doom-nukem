@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:04:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 12:01:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 {
 	if (code == SDLK_ESCAPE)
 		exit_game(game, NULL);
+
+	if (code == SDLK_DELETE)
+		clear_editor_plan(game);
 
 	if (!editor->selected)
 		return ;
