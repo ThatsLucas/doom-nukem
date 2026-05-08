@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 18:02:48 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 09:52:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ static void	config_starter(t_ply	*ply)
 		.using = 0
 	};
 	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
+
+	t_tool	jetpack = {
+		.type = TOOL_JETPACK,
+		.data.fuel = 11,
+		.using = 0
+	};
+	ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
 
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }

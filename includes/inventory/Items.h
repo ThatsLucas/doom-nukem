@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 17:06:26 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:17:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ void	cleanup_items(t_game *game);
 void	spawn_rocket(t_game *game, float tx, float ty);
 void	update_projectiles(t_game *game);
 void	render_projectiles(t_game *game);
+void	activate_flashlight(t_game *game);
+void	activate_jetpack(t_game *game, SDL_Event *event);
 
 #endif
