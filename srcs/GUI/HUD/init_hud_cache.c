@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:59:43 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 09:36:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,32 @@ void	init_hud_cache(t_game *game)
 	game->hud_cache.bg_texture = create_image(&hud_bg, game->window->renderPTR);
 	if (!game->hud_cache.bg_texture)
 		exit_game(game, "Error loading hud bg: create image failed");
+
+	t_png	battery_gauge;
+	t_png	battery_unit;
+	battery_gauge.path = ft_strdup("assets/png/hud/tools/battery_gauge.png");
+	battery_unit.path = ft_strdup("assets/png/hud/tools/battery_unit.png");
+
+	if (!process_png(&battery_gauge) || !process_png(&battery_unit))
+		exit_game(game, "Error loading hud battery: process failed");
+
+	game->hud_cache.battery[0] = create_image(&battery_gauge, game->window->renderPTR);
+	game->hud_cache.battery[1] = create_image(&battery_unit, game->window->renderPTR);
+	if (!game->hud_cache.battery[0] || !game->hud_cache.battery[1])
+		exit_game(game, "Error loading hud battery: create image failed");
+
+	t_png	fuel_gauge;
+	t_png	fuel_unit;
+	fuel_gauge.path = ft_strdup("assets/png/hud/tools/fuel_gauge.png");
+	fuel_unit.path = ft_strdup("assets/png/hud/tools/fuel_unit.png");
+
+	if (!process_png(&fuel_gauge) || !process_png(&fuel_unit))
+		exit_game(game, "Error loading hud fuel: process failed");
+
+	game->hud_cache.fuel[0] = create_image(&fuel_gauge, game->window->renderPTR);
+	game->hud_cache.fuel[1] = create_image(&fuel_unit, game->window->renderPTR);
+	if (!game->hud_cache.fuel[0] || !game->hud_cache.fuel[1])
+		exit_game(game, "Error loading hud fuel: create image failed");
 
 	game->hud_cache.text_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);

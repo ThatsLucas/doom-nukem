@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 16:07:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:42:27 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:52:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ static void	display_weapon(t_game *game, int x, int y)
 
 	int				idx = game->ply->current_weap_index;
 	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
-	SDL_Rect		dest = {x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3]};
-	to_responsive(game->window, &dest);
-
-	SDL_RenderCopy(game->window->renderPTR, game->hud_cache.weapon_textures_2D[type], NULL, &dest);
+	draw_texture(x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3], game->window, game->hud_cache.weapon_textures_2D[type]);
 }
 
 /* Adds "WEAPON" on the renderer */
@@ -59,8 +56,7 @@ void	display_held_weapon(t_game *game)
 	t_weapon_3D		*w = &game->hud_cache.weapons_3D[type];
 	SDL_Rect		dest = w->frames[w->current_frame].dest;
 
-	to_responsive(game->window, &dest);
-	SDL_RenderCopy(game->window->renderPTR, w->frames[w->current_frame].texture, NULL, &dest);
+	draw_texture(dest.x, dest.y, dest.w, dest.h, game->window, w->frames[w->current_frame].texture);
 }
 
 /* Display "WEAPON" and the current weapons asset */

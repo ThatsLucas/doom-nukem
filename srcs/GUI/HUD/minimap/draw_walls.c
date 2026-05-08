@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 12:15:35 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 12:32:28 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:41:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ void	draw_minimap_walls(t_game *game, SDL_Renderer *render)
 		float	y2 = offset_y + v2.y * cells_h;
 
 		SDL_SetRenderDrawBlendMode(render, SDL_BLENDMODE_BLEND);
-		if (wall->next_sector == -1)
-			SDL_SetRenderDrawColor(render, 138, 20, 0, 255);
-		else
-			SDL_SetRenderDrawColor(render, 168, 124, 71, 50);
-
-		draw_line_thick(render, x1, y1, x2, y2, 3);
+		if (wall->next_sector == -1 || wall->alpha < 1.0f)
+		{
+			SDL_SetRenderDrawColor(render, 255, 0, 0, 255);
+			draw_line_thick(render, x1, y1, x2, y2, 3);
+		}
 	}
 }
