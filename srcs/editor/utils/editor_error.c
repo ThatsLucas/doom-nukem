@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:02:42 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 11:28:17 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/08 09:58:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	editor_error(t_game *game, char *txt)
 		return ;
 	}
 
-	create_text(game->editor->error_text, game->window->renderPTR, txt, "assets/fonts/MontserratBlack.ttf");
+	create_text(game->editor->error_text, game->window->renderPTR, txt, "assets/fonts/Inter_28pt-Regular.ttf");
 
 	return ;
 }
