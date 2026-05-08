@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:15:21 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/08 10:16:03 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/08 10:47:51 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	update_flashlight_battery(t_ply *p)
 		if (flashlight->data.battery <= 0)
 			flashlight->data.battery = 0;
 		total_time = 0;
-		printf("new battery %d\n", p->inventory.tools[i].data.battery);
 	}
 	return (i);
 }
@@ -92,7 +91,6 @@ static int	update_jetpack_fuel(t_ply *p)
 		if (jetpack->data.fuel <= 0)
 			jetpack->data.fuel = 0;
 		total_time = 0;
-		printf("new battery %d\n", p->inventory.tools[i].data.fuel);
 	}
 	return (i);
 }
@@ -108,9 +106,7 @@ void	display_gauge(t_game *game, int type)
 		draw_texture(1602, 724, 300, 74, game->window, game->hud_cache.battery[0]);
 
 		for (int i = 0; i < p->inventory.tools[index].data.battery; i++)
-		{
-			draw_texture(1681 + i * (4 + 15), 751, 15, 24, game->window, game->hud_cache.battery[1]);
-		}
+			draw_texture(1681 + i * (4 + 15), 749, 15, 24, game->window, game->hud_cache.battery[1]);
 	}
 	else if (type == TOOL_JETPACK)
 	{
@@ -119,8 +115,6 @@ void	display_gauge(t_game *game, int type)
 		draw_texture(1576, 800, 326, 56, game->window, game->hud_cache.fuel[0]);
 
 		for (int i = 0; i < p->inventory.tools[index].data.fuel; i++)
-		{
-			draw_texture(1675 + i * (4 + 15), 815, 15, 24, game->window, game->hud_cache.fuel[1]);
-		}
+			draw_texture(1675 + i * (4 + 15), 816, 15, 24, game->window, game->hud_cache.fuel[1]);
 	}
 }
