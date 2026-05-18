@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:51:02 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 17:33:26 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 16:17:54 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ typedef struct s_languages
     char *windowed;
     char *mouse_sensi;
     char *main_menu;
+    char *lobby_solo;
+    char *level_one;
+    char *level_two;
+    char *level_three;
+    char *multiplayer;
 } t_languages;
 
 void parse_languages(t_game *game, int language);

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/23 12:06:38 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 16:46:17 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,21 @@ typedef struct s_settings_menu
     SDL_Rect resolutionBtnsCoords[6];
 } t_settings_menu;
 
+typedef struct s_lobby
+{
+    t_png background;
+    t_png button;
+    t_png playerImgs[3];
+    t_font texts[11];
+} t_lobby;
+
 typedef struct s_menus
 {
     int current;
     t_notif_ptr notif;
     t_main_menu main;
     t_settings_menu settings;
+    t_lobby lobby;
 } t_menus;
 
 /*MENUS*/
@@ -123,4 +132,9 @@ int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *men
 int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
+void refresh_lobby_texts(t_game *game);
+
+/* LOBBY */
+void draw_lobby_menu(t_game *game);
+int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
 #endif
