@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/07 15:54:44 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:12:45 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ int main(void)
 	game->mapSize[0] = 12;
 	game->mapSize[1] = 8;
 
-	create_notif(&game->window->menus.notif.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
-
-	create_notif(&game->window->menus.notif.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
-
-	create_notif(&game->window->menus.notif.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
-
-	create_notif(&game->window->menus.notif.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
 		// Uint64 start = SDL_GetPerformanceCounter();
@@ -53,7 +46,7 @@ int main(void)
 		// display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
-		//draw_player(game->window->renderPTR, game, 20, rgb);
+		// draw_player(game->window->renderPTR, game, 20, rgb);
 
 		// display_hud(game);
 		display_fps(game);

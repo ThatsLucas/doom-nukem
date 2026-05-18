@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   languages.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/01 16:05:05 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/18 16:18:38 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void free_languages(t_game *game)
     free(game->languages->windowed);
     free(game->languages->mouse_sensi);
     free(game->languages->main_menu);
+    free(game->languages->lobby_solo);
+    free(game->languages->level_one);
+    free(game->languages->level_two);
+    free(game->languages->level_three);
+    free(game->languages->multiplayer);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -54,13 +59,18 @@ void free_languages(t_game *game)
     game->languages->windowed = NULL;
     game->languages->mouse_sensi = NULL;
     game->languages->main_menu = NULL;
+    game->languages->lobby_solo = NULL;
+    game->languages->level_one = NULL;
+    game->languages->level_two = NULL;
+    game->languages->level_three = NULL;
+    game->languages->multiplayer = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[18] = {
+    char **tab[23] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -79,9 +89,14 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->windowed,
         &game->languages->mouse_sensi,
         &game->languages->main_menu,
+        &game->languages->lobby_solo,
+        &game->languages->level_one,
+        &game->languages->level_two,
+        &game->languages->level_three,
+        &game->languages->multiplayer,
     };
 
-    if (index > 18)
+    if (index > 23)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
