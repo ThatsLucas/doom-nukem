@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/18 16:46:17 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 17:29:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ typedef struct s_settings_menu
 typedef struct s_lobby
 {
     t_png background;
+    t_png multi_background;
     t_png button;
     t_png playerImgs[3];
-    t_font texts[11];
+    t_font texts[14];
 } t_lobby;
 
 typedef struct s_menus
@@ -137,4 +138,6 @@ void refresh_lobby_texts(t_game *game);
 /* LOBBY */
 void draw_lobby_menu(t_game *game);
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
+void draw_lobby_multiplayer_menu(t_game *game);
+
 #endif

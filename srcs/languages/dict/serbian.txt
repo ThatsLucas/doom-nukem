@@ -21,3 +21,5 @@ level_one=Level 1
 level_two=Level 2
 level_three=Level 3
 multiplayer=Multiplayer
+lobby_multi=Lobby Multiplayer
+solo=Solo
