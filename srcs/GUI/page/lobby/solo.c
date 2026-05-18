@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 16:48:32 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 17:38:56 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ static void start_level_3(t_game *game)
 static void change_menu_to_main_menu(t_game *game)
 {
     game->window->menus.current = 1;
+}
+
+static void change_menu_to_multi_lobby(t_game *game)
+{
+    game->window->menus.current = 4;
+}
+
+static void change_menu_to_solo_lobby(t_game *game)
+{
+    game->window->menus.current = 3;
 }
 
 static void *init_texts(void *gameStruct)
@@ -103,6 +113,21 @@ static void *init_texts(void *gameStruct)
     menu->texts[10].textHOffset = -10;
     create_text(&menu->texts[10], renderer, lang->multiplayer, DNFONTOUTLINED);
 
+    menu->texts[11].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[11].size = 200;
+    menu->texts[11].textHOffset = -10;
+    create_text(&menu->texts[11], renderer, lang->lobby_multi, DNFONT);
+
+    menu->texts[12].color = (SDL_Color){221, 21, 0, 255};
+    menu->texts[12].size = 60;
+    menu->texts[12].textHOffset = -10;
+    create_text(&menu->texts[12], renderer, lang->solo, DNFONT);
+
+    menu->texts[13].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[13].size = 60;
+    menu->texts[13].textHOffset = -10;
+    create_text(&menu->texts[13], renderer, lang->solo, DNFONTOUTLINED);
+
     t_RGB color = {255, 255, 255, 0};
     SDL_Rect coords = {20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[2], &menu->texts[1], 3);
@@ -117,42 +142,60 @@ static void *init_texts(void *gameStruct)
     create_button(&win->buttonList, &start_level_3, coords, color, color, &menu->texts[8], &menu->texts[7], 3);
 
     coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
-    create_button(&win->buttonList, &start_level_3, coords, color, color, &menu->texts[10], &menu->texts[9], 3);
+    create_button(&win->buttonList, &change_menu_to_multi_lobby, coords, color, color, &menu->texts[10], &menu->texts[9], 3);
+
+    /*MULTI PART*/
+    coords = (SDL_Rect){20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[2], &menu->texts[1], 4);
+
+    coords = (SDL_Rect){400, 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &start_level_1, coords, color, color, &menu->texts[4], &menu->texts[3], 4);
+
+    coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &start_level_2, coords, color, color, &menu->texts[6], &menu->texts[5], 4);
+
+    coords = (SDL_Rect){1520 - win->menus.main.button.w / 5, 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &start_level_3, coords, color, color, &menu->texts[8], &menu->texts[7], 4);
+
+    coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &change_menu_to_solo_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
     return ((void *)1);
 }
 
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
                     t_lobby *lobby)
 {
-    pthread_t threads[6];
+    pthread_t threads[7];
     void *ret = NULL;
     int finalRet = 1;
 
     ft_bzero(lobby, sizeof(t_lobby));
-    t_png *images[5] = {
+    t_png *images[6] = {
         &lobby->background,
+        &lobby->multi_background,
         &lobby->button,
         &lobby->playerImgs[0],
         &lobby->playerImgs[1],
         &lobby->playerImgs[2],
     };
-    const char *paths[5] = {
+    const char *paths[6] = {
         "assets/png/lobby/solo/background.png",
+        "assets/png/lobby/multiplayer/multiplayer_bg.png",
         "assets/png/main_menu/button.png",
         "assets/png/player/player_idle_edge.png",
         "assets/png/player/ply_front_walk.png",
         "assets/png/player/player_idle_edge_2.png",
     };
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
         images[i]->path = ft_strdup(paths[i]);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
         pthread_create(&threads[i], NULL, process_png, images[i]);
 
-    pthread_create(&threads[5], NULL, init_texts, game);
+    pthread_create(&threads[6], NULL, init_texts, game);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         pthread_join(threads[i], &ret);
 
@@ -162,7 +205,7 @@ int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
             images[i]->texture =
                 create_image(images[i], renderer);
     }
-    pthread_join(threads[5], &ret);
+    pthread_join(threads[6], &ret);
 
     if (!ret)
         finalRet = 0;

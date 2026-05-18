@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 16:18:38 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 17:27:28 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void free_languages(t_game *game)
     free(game->languages->level_two);
     free(game->languages->level_three);
     free(game->languages->multiplayer);
+    free(game->languages->lobby_multi);
+    free(game->languages->solo);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -64,13 +66,15 @@ void free_languages(t_game *game)
     game->languages->level_two = NULL;
     game->languages->level_three = NULL;
     game->languages->multiplayer = NULL;
+    game->languages->lobby_multi = NULL;
+    game->languages->solo = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[23] = {
+    char **tab[25] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -94,9 +98,11 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->level_two,
         &game->languages->level_three,
         &game->languages->multiplayer,
+        &game->languages->lobby_multi,
+        &game->languages->solo,
     };
 
-    if (index > 23)
+    if (index > 25)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;

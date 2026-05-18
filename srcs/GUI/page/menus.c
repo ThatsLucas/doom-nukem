@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/18 14:18:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 17:12:51 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void draw_current_menu(t_game *game)
         break;
     case 3:
         draw_lobby_menu(game);
+        break;
+    case 4:
+        draw_lobby_multiplayer_menu(game);
         break;
     default:
         break;
