@@ -6,12 +6,38 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 14:22:58 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 12:04:47 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "multiplayer/server.h"
 #include "multiplayer/shared.h"
+
+static char *ft_inet_ntoa(struct in_addr in)
+{
+    unsigned char *bytes = (unsigned char *)&in;
+
+    char *str = malloc(sizeof(char) * (12 + 3 + 1)); // 3 numbers * 4 + 3 dots + \0
+    if (!str)
+        return (NULL);
+
+    int j = -1;
+    for (int i = 0; i < 4; i++)
+    {
+        char *nbrs = ft_itoa(bytes[i]);
+        int len = ft_strlen(nbrs);
+        for (int k = 0; k < len; k++)
+        {
+            str[++j] = nbrs[k];
+        }
+        if (i != 3)
+            str[++j] = '.';
+        free(nbrs);
+    }
+    str[++j] = '\0';
+
+    return (str);
+}
 
 void create_server(void)
 {
@@ -29,11 +55,23 @@ void create_server(void)
     bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
     char buffer[100];
+    ft_printf("Created server on port : %d\n", PORT);
     while (1)
     {
+        len = sizeof(cliaddr);
+        bzero(&cliaddr, sizeof(cliaddr));
         int n = recvfrom(listenfd, buffer, sizeof(buffer),
                          0, (struct sockaddr *)&cliaddr, &len);
         buffer[n] = '\0';
-        ft_printf("Received : %s\n", buffer);
+
+        char *IPV4 = ft_inet_ntoa(cliaddr.sin_addr);
+        if (IPV4)
+            ft_printf("Received : %s from %s\n", buffer, IPV4);
+        free(IPV4);
     }
+}
+
+int main(void)
+{
+    create_server();
 }
