@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/18 16:04:42 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 17:09:09 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_settings
 	int move_backward;
 	int move_left;
 	int move_right;
+	int multiplayer_enabled;
 } t_settings;
 
 typedef struct s_game

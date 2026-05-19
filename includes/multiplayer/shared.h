@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/19 15:43:27 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 17:28:35 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ typedef struct s_udp_datas
     // t_ply players[10];
 
 } t_udp_datas;
+
+void send_join_request(char *serveraddr, t_udp_datas *datas);
 
 #endif

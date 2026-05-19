@@ -6,19 +6,26 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/18 17:12:51 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 17:50:35 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Window.h"
 #include "Game.h"
 #include "menus/menus.h"
+#include "multiplayer/shared.h"
 
 void draw_current_menu(t_game *game)
 {
     switch (game->window->menus.current)
     {
     case 0:
+        t_udp_datas datas; // TODO: just for testing remove this shit and make it good
+        datas.state = 1;
+        datas.x = game->ply->pos.x;
+        datas.y = game->ply->pos.y;
+        printf("player pos x = %f y = %f\n", datas.x, datas.y);
+        send_join_request("127.0.0.1", &datas);
         send_rays(game);
         SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
         SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);

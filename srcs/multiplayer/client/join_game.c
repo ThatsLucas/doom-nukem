@@ -6,14 +6,14 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/19 11:29:03 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 17:28:30 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "multiplayer/client.h"
 #include "multiplayer/shared.h"
 
-void send_join_request(char *serveraddr)
+void send_join_request(char *serveraddr, t_udp_datas *datas)
 {
     int sockfd;
     struct sockaddr_in servaddr;
@@ -25,10 +25,5 @@ void send_join_request(char *serveraddr)
     servaddr.sin_family = AF_INET;
 
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    sendto(sockfd, "join_request", 5, MSG_CONFIRM, (struct sockaddr *)&servaddr, sizeof(servaddr));
-}
-
-int main(void)
-{
-    send_join_request("127.0.0.1");
+    sendto(sockfd, datas, sizeof(t_udp_datas), MSG_CONFIRM, (struct sockaddr *)&servaddr, sizeof(servaddr));
 }

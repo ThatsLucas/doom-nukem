@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/19 12:04:47 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/19 17:44:04 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,20 @@ void create_server(void)
 
     bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
-    char buffer[100];
     ft_printf("Created server on port : %d\n", PORT);
+    t_udp_datas datas;
     while (1)
     {
         len = sizeof(cliaddr);
         bzero(&cliaddr, sizeof(cliaddr));
-        int n = recvfrom(listenfd, buffer, sizeof(buffer),
+        int n = recvfrom(listenfd, &datas, sizeof(t_udp_datas),
                          0, (struct sockaddr *)&cliaddr, &len);
-        buffer[n] = '\0';
-
+        if (n == -1)
+            continue;
         char *IPV4 = ft_inet_ntoa(cliaddr.sin_addr);
         if (IPV4)
-            ft_printf("Received : %s from %s\n", buffer, IPV4);
+            printf("Player pos x -> %f y -> %f from %s\n", datas.x, datas.y, IPV4);
         free(IPV4);
+        ft_bzero(&datas, sizeof(t_udp_datas));
     }
-}
-
-int main(void)
-{
-    create_server();
 }
