@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/20 13:35:17 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/20 15:13:19 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,21 @@ typedef struct s_lobby
     t_font texts[14];
 } t_lobby;
 
+#define CINEMATIC_ONE_DURATION 20000
+
 typedef struct s_cinematic
 {
     Uint64 cinematatic_duration;
     Uint64 cinematatic_begin_time;
+    Uint64 last_time;
     // cinematique une
     t_png bg_one;
-    t_png scientifics[2];
+    t_png scientifics[5];
+    float scientificsXPos[5];
     t_png smoke;
+    float smokeYPos;
 
-    t_font texts[2];
+    t_font texts[4];
 } t_cinematic;
 
 typedef struct s_menus
@@ -147,6 +152,7 @@ int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu
 void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
 void refresh_lobby_texts(t_game *game);
+void refresh_cinematics_texts(t_game *game);
 
 /* LOBBY */
 void draw_lobby_menu(t_game *game);
