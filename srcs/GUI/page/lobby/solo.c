@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 17:38:56 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/20 13:54:42 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 static void start_level_1(t_game *game)
 {
     game->current_level = 1;
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-    game->window->menus.current = 0;
+    // SDL_SetRelativeMouseMode(SDL_TRUE);
+    game->window->menus.current = 5;
+    game->window->menus.cinematic.cinematatic_duration = 20000;
 }
 
 static void start_level_2(t_game *game)
