@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:48:52 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 17:29:07 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/20 15:08:22 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,19 @@ void refresh_lobby_texts(t_game *game)
     create_text(&menu->texts[11], renderer, game->languages->lobby_multi, DNFONT);
     create_text(&menu->texts[12], renderer, game->languages->solo, DNFONT);
     create_text(&menu->texts[13], renderer, game->languages->solo, DNFONTOUTLINED);
+}
+
+void refresh_cinematics_texts(t_game *game)
+{
+    t_cinematic *menu = &game->window->menus.cinematic;
+    SDL_Renderer *renderer = game->window->renderPTR;
+
+    destroy_text_texture(&menu->texts[0]);
+    destroy_text_texture(&menu->texts[1]);
+    destroy_text_texture(&menu->texts[2]);
+    destroy_text_texture(&menu->texts[3]);
+    create_text(&menu->texts[0], renderer, game->languages->cinematic_text_one, DNFONT);
+    create_text(&menu->texts[1], renderer, game->languages->cinematic_text_two, DNFONT);
+    create_text(&menu->texts[2], renderer, game->languages->cinematic_text_three, DNFONT);
+    create_text(&menu->texts[3], renderer, game->languages->cinematic_text_four, DNFONT);
 }

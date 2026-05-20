@@ -50,6 +50,7 @@ static int handle_language_selection(t_game *game, t_settings_menu *menu,
             refresh_main_menu_texts(game);
             refresh_settings_texts(game, menu);
             refresh_lobby_texts(game);
+            refresh_cinematics_texts(game);
 
             return (1);
         }

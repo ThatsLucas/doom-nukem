@@ -23,3 +23,7 @@ level_three=Level 3
 multiplayer=Multiplayer
 lobby_multi=Lobby Multiplayer
 solo=Solo
+cinematic_text_one=In the depths of Black Mesa Research Facility, an experiment went catastrophically wrong.
+cinematic_text_two=A pathogen of unknown origin escaped containment, rewriting human biology within hours.
+cinematic_text_three=What followed was not an invasion. It was a transformation... and no one was spared.
+cinematic_text_four=You are the last operative dispatch to uncover the truth... and humanity's only hope of survival !

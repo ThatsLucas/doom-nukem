@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 17:27:28 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/20 15:20:03 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void free_languages(t_game *game)
     free(game->languages->multiplayer);
     free(game->languages->lobby_multi);
     free(game->languages->solo);
+    free(game->languages->cinematic_text_one);
+    free(game->languages->cinematic_text_two);
+    free(game->languages->cinematic_text_three);
+    free(game->languages->cinematic_text_four);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -68,13 +72,17 @@ void free_languages(t_game *game)
     game->languages->multiplayer = NULL;
     game->languages->lobby_multi = NULL;
     game->languages->solo = NULL;
+    game->languages->cinematic_text_one = NULL;
+    game->languages->cinematic_text_two = NULL;
+    game->languages->cinematic_text_three = NULL;
+    game->languages->cinematic_text_four = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[25] = {
+    char **tab[29] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -100,9 +108,13 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->multiplayer,
         &game->languages->lobby_multi,
         &game->languages->solo,
+        &game->languages->cinematic_text_one,
+        &game->languages->cinematic_text_two,
+        &game->languages->cinematic_text_three,
+        &game->languages->cinematic_text_four,
     };
 
-    if (index > 25)
+    if (index > 29)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
