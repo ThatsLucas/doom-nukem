@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/20 15:20:03 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/21 13:21:22 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void free_languages(t_game *game)
     free(game->languages->cinematic_text_two);
     free(game->languages->cinematic_text_three);
     free(game->languages->cinematic_text_four);
+    free(game->languages->cinematic_text_five);
+    free(game->languages->cinematic_text_six);
+    free(game->languages->cinematic_text_seven);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -76,13 +79,16 @@ void free_languages(t_game *game)
     game->languages->cinematic_text_two = NULL;
     game->languages->cinematic_text_three = NULL;
     game->languages->cinematic_text_four = NULL;
+    game->languages->cinematic_text_five = NULL;
+    game->languages->cinematic_text_six = NULL;
+    game->languages->cinematic_text_seven = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[29] = {
+    char **tab[32] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -112,9 +118,12 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->cinematic_text_two,
         &game->languages->cinematic_text_three,
         &game->languages->cinematic_text_four,
+        &game->languages->cinematic_text_five,
+        &game->languages->cinematic_text_six,
+        &game->languages->cinematic_text_seven,
     };
 
-    if (index > 29)
+    if (index > 32)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;

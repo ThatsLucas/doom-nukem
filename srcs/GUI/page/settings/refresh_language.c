@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:48:52 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/20 15:08:22 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/21 13:46:40 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,14 @@ void refresh_cinematics_texts(t_game *game)
     destroy_text_texture(&menu->texts[1]);
     destroy_text_texture(&menu->texts[2]);
     destroy_text_texture(&menu->texts[3]);
+    destroy_text_texture(&menu->texts[4]);
+    destroy_text_texture(&menu->texts[5]);
+    destroy_text_texture(&menu->texts[6]);
     create_text(&menu->texts[0], renderer, game->languages->cinematic_text_one, DNFONT);
     create_text(&menu->texts[1], renderer, game->languages->cinematic_text_two, DNFONT);
     create_text(&menu->texts[2], renderer, game->languages->cinematic_text_three, DNFONT);
     create_text(&menu->texts[3], renderer, game->languages->cinematic_text_four, DNFONT);
+    create_text(&menu->texts[4], renderer, game->languages->cinematic_text_five, DNFONT);
+    create_text(&menu->texts[5], renderer, game->languages->cinematic_text_six, DNFONT);
+    create_text(&menu->texts[6], renderer, game->languages->cinematic_text_seven, DNFONT);
 }

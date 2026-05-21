@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/20 15:13:19 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/21 13:21:38 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,13 @@ typedef struct s_cinematic
     t_png smoke;
     float smokeYPos;
 
-    t_font texts[4];
+    // cinematique deux
+    t_png bg_two;
+    t_png blue_light;
+    float blue_light_ratio;
+    int grow_order;
+
+    t_font texts[7];
 } t_cinematic;
 
 typedef struct s_menus
@@ -162,4 +168,5 @@ void draw_lobby_multiplayer_menu(t_game *game);
 /* CINEMATICS */
 void draw_cinematic_one(t_game *game);
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer, t_cinematic *cinematic);
+void draw_cinematic_two(t_game *game);
 #endif
