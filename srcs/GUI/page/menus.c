@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/20 12:00:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/21 11:59:04 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void draw_current_menu(t_game *game)
         break;
     case 5:
         draw_cinematic_one(game);
+        break;
+    case 6:
+        draw_cinematic_two(game);
         break;
     default:
         break;

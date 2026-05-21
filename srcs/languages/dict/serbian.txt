@@ -27,3 +27,6 @@ cinematic_text_one=In the depths of Black Mesa Research Facility, an experiment 
 cinematic_text_two=A pathogen of unknown origin escaped containment, rewriting human biology within hours.
 cinematic_text_three=What followed was not an invasion. It was a transformation... and no one was spared.
 cinematic_text_four=You are the last operative dispatch to uncover the truth... and humanity's only hope of survival.
+cinematic_text_five=The decoded signal reveals something the facility never reported... a blue light, appearing moments before the outbreak.
+cinematic_text_six=No equipment malfunction. No human error. The pathogen was delivered.
+cinematic_text_seven=Something came through. Something not from here. And it is still down there, waiting.

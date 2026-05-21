@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 10:28:48 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/20 15:33:25 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/21 13:30:46 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,32 @@ static void *init_texts(void *gameStruct)
     menu->texts[2].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[3].size = 60;
     menu->texts[3].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[4].size = 60;
+    menu->texts[4].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[5].size = 60;
+    menu->texts[5].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[6].size = 60;
+    menu->texts[6].color = (SDL_Color){255, 255, 255, 255};
 
     create_text(&menu->texts[0], renderer, lang->cinematic_text_one, DNFONT);
     create_text(&menu->texts[1], renderer, lang->cinematic_text_two, DNFONT);
     create_text(&menu->texts[2], renderer, lang->cinematic_text_three, DNFONT);
     create_text(&menu->texts[3], renderer, lang->cinematic_text_four, DNFONT);
-
+    create_text(&menu->texts[4], renderer, lang->cinematic_text_five, DNFONT);
+    create_text(&menu->texts[5], renderer, lang->cinematic_text_six, DNFONT);
+    create_text(&menu->texts[6], renderer, lang->cinematic_text_seven, DNFONT);
     return ((void *)1);
 }
 
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer,
                           t_cinematic *cinematic)
 {
-    pthread_t threads[8];
+    pthread_t threads[10];
     void *ret = NULL;
     int finalRet = 1;
 
     ft_bzero(cinematic, sizeof(t_cinematic));
-    t_png *images[7] = {
+    t_png *images[9] = {
         &cinematic->bg_one,
         &cinematic->scientifics[0],
         &cinematic->scientifics[1],
@@ -56,6 +64,8 @@ int init_cinematics_menus(t_game *game, SDL_Renderer *renderer,
         &cinematic->scientifics[3],
         &cinematic->scientifics[4],
         &cinematic->smoke,
+        &cinematic->bg_two,
+        &cinematic->blue_light,
     };
 
     cinematic->scientificsXPos[0] = 1700.0f;
@@ -70,26 +80,30 @@ int init_cinematics_menus(t_game *game, SDL_Renderer *renderer,
     cinematic->scientifics[4].y = 500;
     cinematic->smoke.x = 0;
     cinematic->smokeYPos = 600.0f;
+    cinematic->blue_light_ratio = 5.0f;
+    cinematic->grow_order = -1;
 
-    const char *paths[7] = {
-        "assets/png/cinematics/bg_one.png",
-        "assets/png/cinematics/scientific_one.png",
-        "assets/png/cinematics/scientific_two.png",
-        "assets/png/cinematics/scientific_three.png",
-        "assets/png/cinematics/scientific_four.png",
-        "assets/png/cinematics/scientific_five.png",
-        "assets/png/cinematics/smoke.png",
+    const char *paths[9] = {
+        "assets/png/cinematics/one/bg_one.png",
+        "assets/png/cinematics/one/scientific_one.png",
+        "assets/png/cinematics/one/scientific_two.png",
+        "assets/png/cinematics/one/scientific_three.png",
+        "assets/png/cinematics/one/scientific_four.png",
+        "assets/png/cinematics/one/scientific_five.png",
+        "assets/png/cinematics/one/smoke.png",
+        "assets/png/cinematics/two/underground_bg.png",
+        "assets/png/cinematics/two/blue_glow.png",
     };
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 9; i++)
         images[i]->path = ft_strdup(paths[i]);
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 9; i++)
         pthread_create(&threads[i], NULL, process_png, images[i]);
 
-    pthread_create(&threads[7], NULL, init_texts, game);
+    pthread_create(&threads[9], NULL, init_texts, game);
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 9; i++)
     {
         pthread_join(threads[i], &ret);
 
@@ -99,7 +113,7 @@ int init_cinematics_menus(t_game *game, SDL_Renderer *renderer,
             images[i]->texture =
                 create_image(images[i], renderer);
     }
-    pthread_join(threads[7], &ret);
+    pthread_join(threads[9], &ret);
 
     if (!ret)
         finalRet = 0;

@@ -27,3 +27,6 @@ cinematic_text_one=Dans les profondeurs du Centre de Recherche Black Mesa, une e
 cinematic_text_two=Un agent pathogene inconnu s'est echappe du confinement, modifiant la biologie humaine.
 cinematic_text_three=Ce qui a suivi n'etait pas une invasion. C'etait une transformation... et personne n'a ete epargne.
 cinematic_text_four=Vous etes le dernier operatif envoye pour decouvrir la verite... et le dernier espoir de l'humanite.
+cinematic_text_five=Le signal decode parle d'une lumiere bleue, apparue quelques instants avant le debut de l'epidemie.
+cinematic_text_six=Aucun dysfonctionnement. Aucune erreur humaine. Le pathogene a ete delivre intentionnellement.
+cinematic_text_seven=Quelque chose qui ne vient pas d'ici. Cette chose attend toujours dans les profondeurs.
