@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/20 10:42:04 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 15:49:22 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "Events.h"
 #include "parser/PNG.h"
 #include "Colors.h"
+#include "multiplayer/server.h"
 
 int main(void)
 {
@@ -34,6 +35,8 @@ int main(void)
 
 	game->mapSize[0] = 12;
 	game->mapSize[1] = 8;
+
+	pthread_create(&game->serverThread, NULL, create_server, game);
 
 	while (1)
 	{
