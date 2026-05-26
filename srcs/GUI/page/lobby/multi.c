@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 16:42:03 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 17:42:17 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 15:37:11 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void draw_lobby_multiplayer_menu(t_game *game)
     draw_texture(400, 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
     draw_texture((1920 / 2 - (win->menus.main.button.w / 5 / 2)), 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
     draw_texture(1520 - win->menus.main.button.w / 5, 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
+
+    draw_texture(400, (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
     draw_texture((1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
+    draw_texture(1520 - win->menus.main.button.w / 5, (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
 
     int breathFrame = (SDL_GetTicks() / 1600) % 3;
     draw_texture(1920 / 2 - (1024 / 8 / 2), 500, 1024 / 8, 1536 / 8, win, menu->playerImgs[breathFrame].texture);

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:15:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 14:23:19 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 15:38:14 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define MULTI_CLIENT_H
 
 #include "../../libft/include/libft.h"
+#include "multiplayer/shared.h"
 
 #include <stdio.h>
 #include <strings.h>
@@ -21,5 +22,17 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <fcntl.h>
+
+typedef struct s_udp_connections
+{
+    struct sockaddr_in servaddr;
+    int con_socket;
+} t_udp_connections;
+
+void send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection);
+int get_server_response(t_udp_connections *connection, t_server_udp_datas *datas);
+
+int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp_datas *datas);
 
 #endif

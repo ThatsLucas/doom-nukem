@@ -6,13 +6,14 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/21 11:58:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 16:05:45 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Window.h"
 #include "Game.h"
 #include "menus/menus.h"
+#include "multiplayer/client.h"
 // #include "../../../includes/GUI.h"
 
 static void start_level_1(t_game *game)
@@ -50,6 +51,16 @@ static void change_menu_to_multi_lobby(t_game *game)
 static void change_menu_to_solo_lobby(t_game *game)
 {
     game->window->menus.current = 3;
+}
+
+static void connect_to_lobby(t_game *game)
+{
+    if (game->clientConnection.con_socket != 0)
+        return;
+    t_client_udp_datas datas;
+    ft_bzero(&datas, sizeof(t_client_udp_datas));
+    datas.state = 1;
+    connect_player(&game->clientConnection, "127.0.0.1", &datas);
 }
 
 static void *init_texts(void *gameStruct)
@@ -158,8 +169,15 @@ static void *init_texts(void *gameStruct)
     coords = (SDL_Rect){1520 - win->menus.main.button.w / 5, 850, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &start_level_3, coords, color, color, &menu->texts[8], &menu->texts[7], 4);
 
-    coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    coords = (SDL_Rect){400, (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &change_menu_to_solo_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
+
+    coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &connect_to_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
+
+    coords = (SDL_Rect){1520 - win->menus.main.button.w / 5, (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
+    create_button(&win->buttonList, &change_menu_to_solo_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
+
     return ((void *)1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/19 17:28:35 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 14:49:21 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,20 @@
 
 #define PORT 2026
 
-typedef struct s_udp_datas
+typedef struct s_client_udp_datas
 {
-    int state; // joining will be equal to the host addr, 1 is connected, 2 is leaving
+    int state; // joining will be 1, 2 is connected, 3 is leaving
     float x;
     float y;
     // t_ply players[10];
 
-} t_udp_datas;
+} t_client_udp_datas;
 
-void send_join_request(char *serveraddr, t_udp_datas *datas);
+typedef struct s_server_udp_datas
+{
+    int state; // 1 lobby, 2 ingame, 3 game stop
+    double players[10][2];
+
+} t_server_udp_datas;
 
 #endif

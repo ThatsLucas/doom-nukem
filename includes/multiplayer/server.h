@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 14:21:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/26 16:18:45 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+
+void *create_server(void *gameStruct);
 
 #endif
