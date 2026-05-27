@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_server.c                                    :+:      :+:    :+:   */
+/*   server_handling.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/26 16:19:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/27 16:33:53 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "multiplayer/server.h"
-#include "multiplayer/shared.h"
 #include "Game.h"
+
 static char *ft_inet_ntoa(struct in_addr in)
 {
     unsigned char *bytes = (unsigned char *)&in;
@@ -39,12 +39,47 @@ static char *ft_inet_ntoa(struct in_addr in)
     return (str);
 }
 
+void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket)
+{
+    sendto(socket, datas, sizeof(t_server_udp_datas), MSG_CONFIRM, addr, sizeof(struct sockaddr));
+}
+
+/*Loop infini pour recevoir les msg*/
+void receive_connections(int listenfd, t_game *game)
+{
+    unsigned int len;
+    t_client_udp_datas datas;
+    struct sockaddr_in cliaddr;
+
+    while (1)
+    {
+        len = sizeof(cliaddr);
+        bzero(&cliaddr, sizeof(struct sockaddr_in));
+        int n = recvfrom(listenfd, &datas, sizeof(t_client_udp_datas),
+                         0, (struct sockaddr *)&cliaddr, &len);
+        if (n == -1)
+            continue;
+        int playerIndex = is_player_connected(game, (struct sockaddr *)&cliaddr);
+        if (playerIndex == -1)
+        {
+            playerIndex = add_new_player(game, (struct sockaddr *)&cliaddr);
+            if (playerIndex < 0)
+                continue;
+            broadcast_notifications(game, playerIndex, "A new player has joined the game", 5, 50);
+            char *IPV4 = ft_inet_ntoa(cliaddr.sin_addr);
+            if (IPV4)
+                ft_printf("A new player has joined the game with ip : %s\n", IPV4);
+            free(IPV4);
+        }
+        ft_bzero(&datas, sizeof(t_client_udp_datas));
+    }
+}
+
 void *create_server(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
     int listenfd;
-    unsigned int len;
-    struct sockaddr_in servaddr, cliaddr;
+    struct sockaddr_in servaddr;
 
     if (!game)
         return (NULL);
@@ -56,24 +91,13 @@ void *create_server(void *gameStruct)
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
     servaddr.sin_family = AF_INET;
+    game->serverStatus.serverSocket = listenfd;
 
     bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr));
 
     ft_printf("Created server on port : %d\n", PORT);
-    t_client_udp_datas datas;
-    while (1)
-    {
-        len = sizeof(cliaddr);
-        bzero(&cliaddr, sizeof(cliaddr));
-        int n = recvfrom(listenfd, &datas, sizeof(t_client_udp_datas),
-                         0, (struct sockaddr *)&cliaddr, &len);
-        if (n == -1)
-            continue;
-        create_notif(&game->window->menus.notif.notif_buf, "A new player joined the game!", 5, 80);
-        char *IPV4 = ft_inet_ntoa(cliaddr.sin_addr);
-        if (IPV4)
-            ft_printf("A new player has joined the game with ip : %s\n", IPV4);
-        free(IPV4);
-        ft_bzero(&datas, sizeof(t_client_udp_datas));
-    }
+
+    receive_connections(listenfd, game);
+
+    return (NULL);
 }

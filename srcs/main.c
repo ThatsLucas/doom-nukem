@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/26 15:49:22 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/27 15:49:25 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "parser/PNG.h"
 #include "Colors.h"
 #include "multiplayer/server.h"
+#include "multiplayer/client.h"
 
 int main(void)
 {
@@ -56,6 +57,7 @@ int main(void)
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		// display_fps_periodic(start);
+		handle_server_response(game, &game->clientConnection);
 	}
 
 	exit_game(game, NULL);

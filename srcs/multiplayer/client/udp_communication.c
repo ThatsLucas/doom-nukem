@@ -6,11 +6,12 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/26 16:03:01 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/27 16:20:32 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "multiplayer/client.h"
+#include "Game.h"
 
 void send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection)
 {
@@ -43,12 +44,17 @@ int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp
 int send_player_pos(t_udp_connections *connection, t_client_udp_datas *datas)
 {
     send_UDP_request(datas, connection);
+    return (1);
+}
 
+void handle_server_response(t_game *game, t_udp_connections *connection)
+{
     t_server_udp_datas serverDatas;
     ft_bzero(&serverDatas, sizeof(t_server_udp_datas));
     if (get_server_response(connection, &serverDatas))
     {
+        ft_printf("Received msg from server\n");
+        handle_server_notifications_request(&serverDatas, game);
         ft_printf("Server response = %d\n", serverDatas.state);
     }
-    return (1);
 }

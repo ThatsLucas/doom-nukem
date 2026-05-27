@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/26 15:57:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/27 15:37:14 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include "Raycasting/Types.h"
 #include "languages/language.h"
 #include "multiplayer/client.h"
+#include "multiplayer/server.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265359f
@@ -104,6 +105,7 @@ typedef struct s_game
 	double delta_time;
 	pthread_t serverThread;
 	t_udp_connections clientConnection;
+	t_udp_server_status serverStatus;
 } t_game;
 
 /*init/exit game*/
