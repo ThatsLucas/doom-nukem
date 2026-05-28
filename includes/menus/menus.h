@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/21 13:21:38 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 14:22:33 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,4 +169,10 @@ void draw_lobby_multiplayer_menu(t_game *game);
 void draw_cinematic_one(t_game *game);
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer, t_cinematic *cinematic);
 void draw_cinematic_two(t_game *game);
+
+/*LEVELS*/
+void start_level_1(t_game *game);
+void start_level_2(t_game *game);
+void start_level_3(t_game *game);
+
 #endif

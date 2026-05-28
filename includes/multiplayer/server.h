@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/27 16:08:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 14:57:28 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ typedef struct s_udp_server_status
 } t_udp_server_status;
 
 void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket);
+void send_default_info_response(t_game *game);
+void broadcast_message(t_game *game, int except, t_server_udp_datas *datas);
 void send_notifications(t_game *game, struct sockaddr *addr, char *str, int duration, int fontsize);
 void broadcast_notifications(t_game *game, int except, char *str, int duration, int fontsize);
 int is_player_connected(t_game *game, struct sockaddr *client);
 int add_new_player(t_game *game, struct sockaddr *newClient);
+void remove_player(t_game *game, struct sockaddr *disconnectedPlayer);
+void handle_player_timeout(t_game *game);
 
 #endif
