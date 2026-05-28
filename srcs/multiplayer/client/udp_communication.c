@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/27 16:20:32 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 15:30:22 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp
         ft_printf("\n Error: could not connect to the host! \n");
         return (0);
     }
+    connection->is_connected = 1;
 
     send_UDP_request(datas, connection);
 
     return (1);
 }
 
-int send_player_pos(t_udp_connections *connection, t_client_udp_datas *datas)
-{
-    send_UDP_request(datas, connection);
-    return (1);
-}
+// TODO disconnect_player
 
 void handle_server_response(t_game *game, t_udp_connections *connection)
 {
@@ -53,8 +50,7 @@ void handle_server_response(t_game *game, t_udp_connections *connection)
     ft_bzero(&serverDatas, sizeof(t_server_udp_datas));
     if (get_server_response(connection, &serverDatas))
     {
-        ft_printf("Received msg from server\n");
         handle_server_notifications_request(&serverDatas, game);
-        ft_printf("Server response = %d\n", serverDatas.state);
+        handle_game_state(&serverDatas, game);
     }
 }

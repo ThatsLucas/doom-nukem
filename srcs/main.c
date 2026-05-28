@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/27 15:49:25 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 15:15:53 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int main(void)
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		// display_fps_periodic(start);
+		send_corresponding_datas_to_server(game);
 		handle_server_response(game, &game->clientConnection);
 	}
 

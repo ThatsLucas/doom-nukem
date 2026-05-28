@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/27 16:33:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 15:34:40 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,43 @@ void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket
     sendto(socket, datas, sizeof(t_server_udp_datas), MSG_CONFIRM, addr, sizeof(struct sockaddr));
 }
 
+/*fonction pour traiter les demandes d'un joueur deja connecte*/
+void handle_connected_player_request(t_game *game, t_client_udp_datas datas, struct sockaddr_in *player, int playerIndex)
+{
+    ft_printf("player request state %d\n", datas.state);
+
+    if (datas.state == 3)
+    {
+        if (game->serverStatus.currentState == 2) // en jeu sinon on est en lobby
+        {
+            game->serverStatus.players[playerIndex][0] = datas.x;
+            game->serverStatus.players[playerIndex][1] = datas.y;
+            ft_printf("Player pos updated\n");
+        }
+        else
+        {
+            char *IPV4 = ft_inet_ntoa(player->sin_addr);
+            if (ft_strcmp(IPV4, "127.0.0.1") == 0)
+            {
+                game->serverStatus.currentState = 2;
+                game->serverStatus.currentState = datas.level;
+                if (datas.level < 1 || datas.level > 3)
+                    game->serverStatus.currentState = 1;
+                ft_printf("Host asked to start the game, starting...\n");
+            }
+            free(IPV4);
+        }
+    }
+    if (datas.state == 4)
+    {
+        remove_player(game, (struct sockaddr *)player);
+        broadcast_notifications(game, playerIndex, "A player has left the game", 5, 50);
+        return;
+    }
+
+    game->serverStatus.last_update[playerIndex] = SDL_GetTicks64();
+}
+
 /*Loop infini pour recevoir les msg*/
 void receive_connections(int listenfd, t_game *game)
 {
@@ -71,7 +108,11 @@ void receive_connections(int listenfd, t_game *game)
                 ft_printf("A new player has joined the game with ip : %s\n", IPV4);
             free(IPV4);
         }
+        else
+            handle_connected_player_request(game, datas, &cliaddr, playerIndex);
         ft_bzero(&datas, sizeof(t_client_udp_datas));
+        send_default_info_response(game);
+        handle_player_timeout(game);
     }
 }
 

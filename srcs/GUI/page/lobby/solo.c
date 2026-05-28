@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/26 16:05:45 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 15:45:01 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,29 @@
 #include "multiplayer/client.h"
 // #include "../../../includes/GUI.h"
 
-static void start_level_1(t_game *game)
+void start_level_1(t_game *game)
 {
     game->current_level = 1;
     // SDL_SetRelativeMouseMode(SDL_TRUE);
+    game->clientConnection.state = 3;
     game->window->menus.current = 5;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
 }
 
-static void start_level_2(t_game *game)
+void start_level_2(t_game *game)
 {
     game->current_level = 2;
+    game->clientConnection.state = 3;
     game->window->menus.current = 6;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
 }
 
-static void start_level_3(t_game *game)
+void start_level_3(t_game *game)
 {
     game->current_level = 3;
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-    game->window->menus.current = 0;
+    game->clientConnection.state = 3;
+    game->window->menus.current = 7;
+    game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
 }
 
 static void change_menu_to_main_menu(t_game *game)
@@ -59,7 +62,7 @@ static void connect_to_lobby(t_game *game)
         return;
     t_client_udp_datas datas;
     ft_bzero(&datas, sizeof(t_client_udp_datas));
-    datas.state = 1;
+    game->clientConnection.state = 1;
     connect_player(&game->clientConnection, "127.0.0.1", &datas);
 }
 

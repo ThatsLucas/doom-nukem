@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/27 16:00:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 15:29:42 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 // #include "Player.h"
 
 #define PORT 2026
+#define TIMEOUT_DURATION 2000 // time before we considere player disconnected or crash or whatever happened
 
 typedef struct s_client_udp_datas
 {
-    int state; // joining will be 1, 2 is connected, 3 is leaving
+    int state; // joining will be 1, 2 is in lobby, 3 is in game, 4 is leaving
+    int level; // if state 2 else 0
     float x;
     float y;
 
@@ -30,6 +32,7 @@ typedef struct s_client_udp_datas
 typedef struct s_server_udp_datas
 {
     int state; // 1 lobby, 2 ingame, 3 game stop, 4 game full
+    int level; // if state 2 else 0
     int playerCount;
     double players[4][2];
 
