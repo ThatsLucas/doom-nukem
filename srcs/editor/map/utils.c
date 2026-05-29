@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:59:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 10:29:23 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:02:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/*	Initialisation de la map de l'Editor	*/
 void	init_editor_map(t_game *game)
 {
 	t_map	*map = NULL;
@@ -38,6 +39,7 @@ void	init_editor_map(t_game *game)
 	return ;
 }
 
+/*	Réallouer le tableau dynamique de la map	*/
 void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
 {
 	int		new_cap;

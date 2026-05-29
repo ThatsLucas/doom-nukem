@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:57:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 18:33:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:22:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/*	Placer un wall dans l'editor en cliquant	*/
 void	editor_place_wall(t_game *game, int pixx, int pixy)
 {
 	t_vect2	click_pos;

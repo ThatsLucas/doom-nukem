@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:33:47 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 16:42:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:25:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/*	Affichage du texte des propriétés	*/
 void	draw_prop_text(t_game *game, char *txt, int x, int y)
 {
 	static SDL_Color	color = (SDL_Color){0, 0, 0, 255};

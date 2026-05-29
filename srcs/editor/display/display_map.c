@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 18:07:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:56:02 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/*	Affiche la map dans l'editor	*/
 void	display_editor_map(t_game *game)
 {
 	t_map	*map = game->editor->map;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:59:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 16:06:38 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:57:03 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	select_slope(t_game *game)
 	game->editor->selected_tool = 2;
 }
 
+/*	initaliser les boutons des propriétés	*/
 void	init_action_buttons(t_game *game)
 {
 	SDL_Rect	dest;

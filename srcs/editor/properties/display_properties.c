@@ -6,12 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:13:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:20:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:24:25 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
+
+/*	affichage et initialisation des propriétés	*/
 
 void	display_properties(t_game *game)
 {

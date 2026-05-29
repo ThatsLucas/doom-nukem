@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:34:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 16:11:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:58:34 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/*	Initalisation des inputs dans les propriétés	*/
 void	init_settings_global_inputs(t_game *game)
 {
 	SDL_Rect	box;

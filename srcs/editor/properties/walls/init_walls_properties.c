@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:24:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:29:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:23:45 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/*	Initialisation de la partie murs dans les propriétés	*/
 void	init_walls_properties(t_game *game)
 {
 	SDL_Rect	box;

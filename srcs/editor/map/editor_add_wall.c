@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 18:35:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 23:02:33 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ static int	split_wall(t_game *game, int wall_a, int wall_b, int vmid)
 	return (b2_index);
 }
 
+/*	Si un mur croise un autre on le split	*/
 static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int walls_num)
 {
 	t_vect2	a, b, c, d;
@@ -140,6 +141,7 @@ static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int wa
 	return (0);
 }
 
+/*	Ajouter un mur à la map	*/
 void	editor_add_wall(t_game *game, int v1, int v2)
 {
 	t_map	*map = game->editor->map;

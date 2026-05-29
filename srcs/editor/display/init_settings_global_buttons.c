@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:34:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 11:31:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:57:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/*	Boutons global des propriété (initialisation)	*/
 void	init_settings_global_buttons(t_game *game)
 {
 	SDL_Rect	box;

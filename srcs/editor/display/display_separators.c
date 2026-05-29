@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:52:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:12:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 22:56:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/*	Affiche les séparateurs dans les propriétés	*/
 void	display_separators(t_game *game)
 {
 	SDL_Rect	line;
