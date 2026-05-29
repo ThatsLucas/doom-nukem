@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 13:41:00 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 17:23:21 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,33 @@ void close_connection(t_game *game)
 }
 // TODO disconnect_player
 
+static int get_latest_server_response(t_udp_connections *connection, t_server_udp_datas *datas)
+{
+    t_server_udp_datas latest;
+    t_server_udp_datas last_notif;
+    int has_data = 0;
+    int has_notif = 0;
+
+    while (get_server_response(connection, &latest))
+    {
+        *datas = latest;
+        has_data = 1;
+        if (latest.is_notif)
+        {
+            last_notif = latest;
+            has_notif = 1;
+        }
+    }
+    if (has_notif)
+    {
+        datas->is_notif = last_notif.is_notif;
+        datas->notif_duration = last_notif.notif_duration;
+        datas->notif_font_size = last_notif.notif_font_size;
+        ft_strlcpy(datas->notif_str, last_notif.notif_str, sizeof(datas->notif_str));
+    }
+    return (has_data);
+}
+
 void handle_server_response(t_game *game, t_udp_connections *connection)
 {
     t_server_udp_datas serverDatas;
@@ -56,11 +83,12 @@ void handle_server_response(t_game *game, t_udp_connections *connection)
     if (!game->clientConnection.is_connected)
         return;
     ft_bzero(&serverDatas, sizeof(t_server_udp_datas));
-    if (get_server_response(connection, &serverDatas))
+    if (get_latest_server_response(connection, &serverDatas))
     {
         handle_server_notifications_request(&serverDatas, game);
         handle_game_state(&serverDatas, game);
         game->clientConnection.last_update = SDL_GetTicks64();
+        game->clientConnection.selfIndex = serverDatas.playerIndex;
     }
     else
     {

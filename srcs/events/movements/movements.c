@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 12:46:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:02:59 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 #include "Raycasting/Raycasting.h"
 
 /*Gere les mouvements mediaux*/
-static void	medial_moves(t_ply *ply, t_game *game)
+static void medial_moves(t_ply *ply, t_game *game)
 {
-	float	steps;
-	float	next_x;
-	float	next_y;
-	int		direction;
+	float steps;
+	float next_x;
+	float next_y;
+	int direction;
 
 	if (ply->keys.w && ply->keys.s)
-		return ;
+		return;
 	steps = 0.01f;
 	if (ply->keys.w)
 		direction = 1;
@@ -31,8 +31,7 @@ static void	medial_moves(t_ply *ply, t_game *game)
 		direction = -1;
 	next_x = ply->pos.x + ply->dir.x * steps * direction;
 	next_y = ply->pos.y + ply->dir.y * steps * direction;
-	if (next_x >= 0.0f && next_x <= game->mapSize[0]
-		&& next_y >= 0.0f && next_y <= game->mapSize[1])
+	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1])
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -40,16 +39,16 @@ static void	medial_moves(t_ply *ply, t_game *game)
 }
 
 /*Gere les mouvements lateraux*/
-static void	lateral_moves(t_ply *ply, t_game *game)
+static void lateral_moves(t_ply *ply, t_game *game)
 {
-	float	steps;
-	float	next_x;
-	float	next_y;
-	float	ax;
-	float	ay;
+	float steps;
+	float next_x;
+	float next_y;
+	float ax;
+	float ay;
 
 	if (ply->keys.a && ply->keys.d)
-		return ;
+		return;
 	steps = 0.01f;
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
@@ -63,8 +62,7 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 		next_x = ply->pos.x - ax * steps;
 		next_y = ply->pos.y - ay * steps;
 	}
-	if (next_x >= 0.0f && next_x <= game->mapSize[0]
-		&& next_y >= 0.0f && next_y <= game->mapSize[1])
+	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1])
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -75,9 +73,9 @@ static void	lateral_moves(t_ply *ply, t_game *game)
 	Gere les mouvements du joueur
 	Met a jour sa position z et son secteur
 */
-void	ply_movements(t_ply *ply, t_game *game)
+void ply_movements(t_ply *ply, t_game *game)
 {
-	t_vect2	oldpos;
+	t_vect2 oldpos;
 	oldpos = ply->pos;
 
 	if (ply->keys.w || ply->keys.s)
@@ -86,5 +84,6 @@ void	ply_movements(t_ply *ply, t_game *game)
 		lateral_moves(ply, game);
 	update_player_sector(game, oldpos);
 	ply->z = get_plane_z(game->map->sectors[ply->sector].floor_plane,
-						 ply->pos.x, ply->pos.y) + EYES_HEIGTH;
+						 ply->pos.x, ply->pos.y) +
+			 EYES_HEIGTH;
 }

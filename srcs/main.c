@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/28 15:15:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 15:34:30 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int main(void)
 	if (!game)
 		return (1);
 
-	game->ply->pos.x = 3.0f;
-	game->ply->pos.y = 2.0f;
+	game->ply->pos.x = 4.0f;
+	game->ply->pos.y = 4.0f;
 	game->ply->dir.x = 0.0f;
 	game->ply->dir.y = 1.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 12;
-	game->mapSize[1] = 8;
+	game->mapSize[0] = 24;
+	game->mapSize[1] = 24;
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 

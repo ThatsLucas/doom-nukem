@@ -36,6 +36,7 @@ void handle_game_state(t_server_udp_datas *datas, t_game *game)
     game->clientConnection.state = datas->state;
     game->clientConnection.player_count = datas->playerCount;
     ft_memcpy(game->clientConnection.players, datas->players, sizeof(datas->players));
+    ft_memcpy(game->clientConnection.player_angles, datas->player_angles, sizeof(datas->player_angles));
 
     if (datas->state == 1)
         game->window->menus.current = 4;
