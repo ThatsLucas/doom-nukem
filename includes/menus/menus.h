@@ -87,7 +87,7 @@ typedef struct s_lobby
     t_png background;
     t_png multi_background;
     t_png button;
-    t_png playerImgs[3];
+    t_png playerImgs[5];
     t_font texts[14];
 } t_lobby;
 

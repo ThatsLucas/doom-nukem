@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 15:45:01 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 17:37:50 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,37 +187,40 @@ static void *init_texts(void *gameStruct)
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
                     t_lobby *lobby)
 {
-    pthread_t threads[7];
+    pthread_t threads[9];
     void *ret = NULL;
     int finalRet = 1;
 
     ft_bzero(lobby, sizeof(t_lobby));
-    t_png *images[6] = {
+    t_png *images[8] = {
         &lobby->background,
         &lobby->multi_background,
         &lobby->button,
         &lobby->playerImgs[0],
         &lobby->playerImgs[1],
         &lobby->playerImgs[2],
+        &lobby->playerImgs[3],
+        &lobby->playerImgs[4],
     };
-    const char *paths[6] = {
+    const char *paths[8] = {
         "assets/png/lobby/solo/background.png",
         "assets/png/lobby/multiplayer/multiplayer_bg.png",
         "assets/png/main_menu/button.png",
-        "assets/png/player/player_idle_edge.png",
+        "assets/png/player/ply_front_idle.png",
         "assets/png/player/ply_front_walk.png",
         "assets/png/player/player_idle_edge_2.png",
-    };
+        "assets/png/player/player_back.png",
+        "assets/png/player/player_back_walk.png"};
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
         images[i]->path = ft_strdup(paths[i]);
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
         pthread_create(&threads[i], NULL, process_png, images[i]);
 
-    pthread_create(&threads[6], NULL, init_texts, game);
+    pthread_create(&threads[8], NULL, init_texts, game);
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
     {
         pthread_join(threads[i], &ret);
 
@@ -227,7 +230,7 @@ int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
             images[i]->texture =
                 create_image(images[i], renderer);
     }
-    pthread_join(threads[6], &ret);
+    pthread_join(threads[8], &ret);
 
     if (!ret)
         finalRet = 0;

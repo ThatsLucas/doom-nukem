@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/26 15:32:45 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 15:57:29 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void draw_current_menu(t_game *game)
         send_rays(game);
         SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
         SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+        if (game->clientConnection.is_connected)
+            render_multiplayer_players(game);
         display_hud(game);
         break;
     case 1:

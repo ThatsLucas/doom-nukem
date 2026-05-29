@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 13:30:33 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 15:40:11 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ static char *ft_inet_ntoa(struct in_addr in)
     return (str);
 }
 
-void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket)
+void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket, int playerIndex)
 {
+    datas->playerIndex = playerIndex;
     sendto(socket, datas, sizeof(t_server_udp_datas), MSG_CONFIRM, addr, sizeof(struct sockaddr));
 }
 
@@ -53,6 +54,7 @@ void handle_connected_player_request(t_game *game, t_client_udp_datas datas, str
         {
             game->serverStatus.players[playerIndex][0] = datas.x;
             game->serverStatus.players[playerIndex][1] = datas.y;
+            game->serverStatus.player_angles[playerIndex] = datas.ang;
         }
         else
         {

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:38:29 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 13:27:42 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 15:41:47 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int add_new_player(t_game *game, struct sockaddr *newClient)
     if (game->serverStatus.playerCount >= 4)
     {
         datas.state = 4; // game full
-        send_to_client(&datas, newClient, game->serverStatus.serverSocket);
+        send_to_client(&datas, newClient, game->serverStatus.serverSocket, -1);
         return (-2);
     }
     game->serverStatus.playerCount += 1;
@@ -44,9 +44,10 @@ int add_new_player(t_game *game, struct sockaddr *newClient)
     game->serverStatus.last_update[idx] = SDL_GetTicks64();
     game->serverStatus.players[idx][0] = 0;
     game->serverStatus.players[idx][1] = 0;
+    game->serverStatus.player_angles[idx] = 0.0;
     datas.state = 1;
     datas.playerCount = game->serverStatus.playerCount;
-    send_to_client(&datas, newClient, game->serverStatus.serverSocket);
+    send_to_client(&datas, newClient, game->serverStatus.serverSocket, idx);
     return (idx);
 }
 
@@ -70,12 +71,16 @@ void remove_player(t_game *game, struct sockaddr *disconnectedPlayer)
                 ft_memmove(&game->serverStatus.players[i],
                            &game->serverStatus.players[i + 1],
                            (count - i - 1) * sizeof(game->serverStatus.players[0]));
+                ft_memmove(&game->serverStatus.player_angles[i],
+                           &game->serverStatus.player_angles[i + 1],
+                           (count - i - 1) * sizeof(game->serverStatus.player_angles[0]));
             }
             game->serverStatus.playerCount -= 1;
             ft_bzero(&game->serverStatus.address[game->serverStatus.playerCount], sizeof(struct sockaddr));
             game->serverStatus.last_update[game->serverStatus.playerCount] = 0;
             game->serverStatus.players[game->serverStatus.playerCount][0] = 0;
             game->serverStatus.players[game->serverStatus.playerCount][1] = 0;
+            game->serverStatus.player_angles[game->serverStatus.playerCount] = 0.0;
             return;
         }
     }
@@ -88,7 +93,7 @@ void broadcast_message(t_game *game, int except, t_server_udp_datas *datas)
     {
         if (i == except)
             continue;
-        send_to_client(datas, &game->serverStatus.address[i], game->serverStatus.serverSocket);
+        send_to_client(datas, &game->serverStatus.address[i], game->serverStatus.serverSocket, i);
     }
 }
 
@@ -102,6 +107,7 @@ void broadcast_notifications(t_game *game, int except, char *str, int duration, 
     response.state = game->serverStatus.currentState;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
+    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
     response.is_notif = 1;
     response.notif_duration = duration;
     response.notif_font_size = fontsize;
@@ -109,7 +115,7 @@ void broadcast_notifications(t_game *game, int except, char *str, int duration, 
     broadcast_message(game, except, &response);
 }
 
-void send_notifications(t_game *game, struct sockaddr *addr, char *str, int duration, int fontsize)
+void send_notifications(t_game *game, struct sockaddr *addr, char *str, int duration, int fontsize, int playerIndex)
 {
     t_server_udp_datas response;
 
@@ -119,11 +125,12 @@ void send_notifications(t_game *game, struct sockaddr *addr, char *str, int dura
     response.state = game->serverStatus.currentState;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
+    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
     response.is_notif = 1;
     response.notif_duration = duration;
     response.notif_font_size = fontsize;
     ft_strlcpy(response.notif_str, str, sizeof(response.notif_str));
-    send_to_client(&response, addr, game->serverStatus.serverSocket);
+    send_to_client(&response, addr, game->serverStatus.serverSocket, playerIndex);
 }
 
 void send_default_info_response(t_game *game)
@@ -135,6 +142,7 @@ void send_default_info_response(t_game *game)
     response.level = game->serverStatus.currentLevel;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
+    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
     response.is_notif = 0;
 
     broadcast_message(game, -1, &response);
