@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 18:36:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 20:44:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:36:03 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void	get_clicked_texture(t_game *game, int x, int y)
 		return ;
 
 	selected = (y / 120) * 5 + (x / 120) + game->editor->texture_selector.page * 15;
-	if (selected >= game->editor->textures->num_textures)
+	if (selected > game->editor->textures->num_textures)
 		return ;
-	*game->editor->texture_selector.variable_to_set = game->editor->textures->textures[selected];
+	if (selected == game->editor->textures->num_textures)
+		*game->editor->texture_selector.variable_to_set = NULL;
+	else
+		*game->editor->texture_selector.variable_to_set = game->editor->textures->textures[selected];
 	game->editor->texture_selector.display = 0;
 	game->editor->texture_selector.variable_to_set = NULL;
 

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:57:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 11:52:02 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:33:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	editor_place_wall(t_game *game, int pixx, int pixy)
 		{
 			editor_add_wall(game, game->editor->properties.last_vertex, existing - map->vertices);
 			game->editor->properties.draw_wall_active = 0;
+			compute_sectors(map);
 		}
 		return ;
 	}
@@ -47,10 +48,16 @@ void	editor_place_wall(t_game *game, int pixx, int pixy)
 	editor_add_vertice(game, click_pos.x, click_pos.y);
 	if (game->editor->properties.draw_wall_active)
 	{
-		editor_add_wall(game, game->editor->properties.last_vertex, map->num_vertices - 1);
+		int new_vertex = map->num_vertices - 1;
+
+		editor_add_wall(game, game->editor->properties.last_vertex, new_vertex);
+		game->editor->properties.last_vertex = new_vertex;
 	}
-	game->editor->properties.draw_wall_active = 1;
-	game->editor->properties.last_vertex = map->num_vertices - 1;
+	else
+	{
+		game->editor->properties.draw_wall_active = 1;
+		game->editor->properties.last_vertex = map->num_vertices - 1;
+	}
 
 	return ;
 }

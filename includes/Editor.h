@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 12:00:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:39:11 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_png		t_png;
 typedef struct s_font		t_font;
 typedef struct s_WIN		t_WIN;
 
-# ifndef CLICK_OFFSET
-#  define CLICK_OFFSET 0.1
+# ifndef EPSILON
+#  define EPSILON 0.1
 # endif
 
 typedef struct s_size2
@@ -163,5 +163,6 @@ void	editor_add_vertice(t_game *game, float x, float y);
 void	editor_add_wall(t_game *game, int v1, int v2);
 t_vect2	*get_clicked_vertice(t_game *game, float x, float y);
 void	clear_editor_plan(t_game *game);
+void	compute_sectors(t_map *map);
 
 #endif

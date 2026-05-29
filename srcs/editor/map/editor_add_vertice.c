@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:41:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 11:57:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/25 14:05:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vect2	*get_clicked_vertice(t_game *game, float x, float y)
 
 	for (int i = 0; i < map->num_vertices; ++i)
 	{
-		if (dist_vect(pos, map->vertices[i]) < CLICK_OFFSET)
+		if (dist_vect(pos, map->vertices[i]) < EPSILON)
 			return (&map->vertices[i]);
 	}
 

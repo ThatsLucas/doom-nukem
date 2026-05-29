@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 15:56:21 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:49:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include "Raycasting/Types.h"
 #include "languages/language.h"
 #include "Editor.h"
+#include <math.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265359f

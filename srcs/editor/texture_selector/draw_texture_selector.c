@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:14:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:23:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:35:42 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *t
 	to_responsive(win, &dest);
 	SDL_RenderCopy(win->renderPTR, texture, NULL, &dest);
 	SDL_RenderDrawRect(win->renderPTR, &dest);
+	dest.h -= 2;
+	dest.y++;
+	dest.x++;
+	dest.w -= 2;
+	SDL_RenderDrawRect(win->renderPTR, &dest);
+
+	return ;
+}
+
+static void	draw_empty(int x, int y, int w, int h, t_WIN *win)
+{
+	SDL_Rect dest = {x, y, w, h};
+
+	to_responsive(win, &dest);
 	dest.h -= 2;
 	dest.y++;
 	dest.x++;
@@ -60,6 +74,8 @@ static void draw_texture_grid(t_game *game)
 			if (i * 5 + y + game->editor->texture_selector.page * 15 < game->editor->textures->num_textures)
 				draw_texture_rounded(pos_x, pos_y, 100, 100,
 					game->window, game->editor->textures->textures[i * 5 + y + game->editor->texture_selector.page * 15]);
+			if (i * 5 + y + game->editor->texture_selector.page * 15 == game->editor->textures->num_textures)
+				draw_empty(pos_x, pos_y, 100, 100, game->window);
 		}
 	}
 
