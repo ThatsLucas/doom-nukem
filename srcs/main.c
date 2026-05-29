@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/07 15:54:44 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/29 15:34:30 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "Events.h"
 #include "parser/PNG.h"
 #include "Colors.h"
+#include "multiplayer/server.h"
+#include "multiplayer/client.h"
 
 int main(void)
 {
@@ -26,22 +28,17 @@ int main(void)
 	if (!game)
 		return (1);
 
-	game->ply->pos.x = 3.0f;
-	game->ply->pos.y = 2.0f;
+	game->ply->pos.x = 4.0f;
+	game->ply->pos.y = 4.0f;
 	game->ply->dir.x = 0.0f;
 	game->ply->dir.y = 1.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	game->mapSize[0] = 12;
-	game->mapSize[1] = 8;
+	game->mapSize[0] = 24;
+	game->mapSize[1] = 24;
 
-	create_notif(&game->window->menus.notif.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
+	pthread_create(&game->serverThread, NULL, create_server, game);
 
-	create_notif(&game->window->menus.notif.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
-
-	create_notif(&game->window->menus.notif.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
-
-	create_notif(&game->window->menus.notif.notif_buf, "BANGER CE JEU", 5, 90);
 	while (1)
 	{
 		// Uint64 start = SDL_GetPerformanceCounter();
@@ -53,13 +50,15 @@ int main(void)
 		// display_buttons(game->window->buttonList, game->window->renderPTR);
 		// Creation du renderer (de la frame)
 		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
-		//draw_player(game->window->renderPTR, game, 20, rgb);
+		// draw_player(game->window->renderPTR, game, 20, rgb);
 
 		// display_hud(game);
 		display_fps(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		// display_fps_periodic(start);
+		send_corresponding_datas_to_server(game);
+		handle_server_response(game, &game->clientConnection);
 	}
 
 	exit_game(game, NULL);

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 15:06:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/18 14:18:37 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 static void draw_game_menu(t_game *game)
 {
-    game->window->menus.current = 0;
-    SDL_SetRelativeMouseMode(SDL_TRUE);
+    game->window->menus.current = 3;
+    // SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)

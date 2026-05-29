@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 10:54:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/27 15:37:14 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
 #include "languages/language.h"
+#include "multiplayer/client.h"
+#include "multiplayer/server.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265359f
@@ -75,19 +77,21 @@ typedef struct s_settings
 	int move_backward;
 	int move_left;
 	int move_right;
+	int multiplayer_enabled;
 } t_settings;
 
 typedef struct s_game
 {
 	t_ply *ply;
 	t_WIN *window;
+	int current_level;
 	t_ground_item items[10];
 	t_projectile *projectiles;
 	int items_count;
 	float flash_alpha;
 	t_hud_cache hud_cache;
 	int screenSize[2];
-	int status; // 0 = mainPage, -1 = editor, >0 = gameLevel
+	int status;		// 0 = mainPage, -1 = editor, >0 = gameLevel
 	int mapSize[2]; // w, h
 	SDL_Texture *minimap_tex;
 	t_map *map;
@@ -98,7 +102,10 @@ typedef struct s_game
 	t_settings settings;
 	int selected_language;
 	t_languages *languages;
-	double	delta_time;
+	double delta_time;
+	pthread_t serverThread;
+	t_udp_connections clientConnection;
+	t_udp_server_status serverStatus;
 } t_game;
 
 /*init/exit game*/

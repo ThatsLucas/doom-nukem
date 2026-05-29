@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/23 12:06:38 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/28 14:22:33 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,46 @@ typedef struct s_settings_menu
     SDL_Rect resolutionBtnsCoords[6];
 } t_settings_menu;
 
+typedef struct s_lobby
+{
+    t_png background;
+    t_png multi_background;
+    t_png button;
+    t_png playerImgs[5];
+    t_font texts[14];
+} t_lobby;
+
+#define CINEMATIC_ONE_DURATION 20000
+
+typedef struct s_cinematic
+{
+    Uint64 cinematatic_duration;
+    Uint64 cinematatic_begin_time;
+    Uint64 last_time;
+    // cinematique une
+    t_png bg_one;
+    t_png scientifics[5];
+    float scientificsXPos[5];
+    t_png smoke;
+    float smokeYPos;
+
+    // cinematique deux
+    t_png bg_two;
+    t_png blue_light;
+    float blue_light_ratio;
+    int grow_order;
+
+    t_font texts[7];
+} t_cinematic;
+
 typedef struct s_menus
 {
     int current;
     t_notif_ptr notif;
     t_main_menu main;
     t_settings_menu settings;
+    t_lobby lobby;
+    t_cinematic cinematic;
 } t_menus;
 
 /*MENUS*/
@@ -123,4 +157,22 @@ int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *men
 int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
+void refresh_lobby_texts(t_game *game);
+void refresh_cinematics_texts(t_game *game);
+
+/* LOBBY */
+void draw_lobby_menu(t_game *game);
+int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
+void draw_lobby_multiplayer_menu(t_game *game);
+
+/* CINEMATICS */
+void draw_cinematic_one(t_game *game);
+int init_cinematics_menus(t_game *game, SDL_Renderer *renderer, t_cinematic *cinematic);
+void draw_cinematic_two(t_game *game);
+
+/*LEVELS*/
+void start_level_1(t_game *game);
+void start_level_2(t_game *game);
+void start_level_3(t_game *game);
+
 #endif

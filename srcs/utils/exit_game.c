@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/08 10:08:49 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/26 15:50:13 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "menus/menus.h"
 
-void	exit_game(t_game *game, char *type)
+void exit_game(t_game *game, char *type)
 {
-	const char	*error = SDL_GetError();
-	t_WIN		*win;
+	const char *error = SDL_GetError();
+	t_WIN *win;
 
 	if (type && error && error[0])
 	{
@@ -38,6 +38,9 @@ void	exit_game(t_game *game, char *type)
 	free(game->rays);
 	free(game->fps);
 	free_languages(game);
+	pthread_cancel(game->serverThread);
+	pthread_join(game->serverThread, NULL);
+
 	win = game->window;
 	if (win)
 	{
