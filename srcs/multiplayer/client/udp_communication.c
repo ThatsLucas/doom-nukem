@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 15:30:22 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 13:41:00 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,34 @@ int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp
     return (1);
 }
 
+void close_connection(t_game *game)
+{
+    close(game->clientConnection.con_socket);
+    ft_bzero(&game->clientConnection, sizeof(t_udp_connections));
+}
 // TODO disconnect_player
 
 void handle_server_response(t_game *game, t_udp_connections *connection)
 {
     t_server_udp_datas serverDatas;
+
+    if (!game->clientConnection.is_connected)
+        return;
     ft_bzero(&serverDatas, sizeof(t_server_udp_datas));
     if (get_server_response(connection, &serverDatas))
     {
         handle_server_notifications_request(&serverDatas, game);
         handle_game_state(&serverDatas, game);
+        game->clientConnection.last_update = SDL_GetTicks64();
+    }
+    else
+    {
+        Uint64 curTime = SDL_GetTicks64();
+        if (game->clientConnection.last_update + TIMEOUT_DURATION < curTime) // server do not responded in time
+        {
+            close_connection(game);
+            create_notif(&game->window->menus.notif.notif_buf, "Connection to host lost!", 5, 70);
+            game->window->menus.current = 4;
+        }
     }
 }

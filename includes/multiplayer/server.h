@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:16:04 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 14:57:28 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 13:26:36 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_game t_game;
 typedef struct s_udp_server_status
 {
     int currentState;
+    int currentLevel;
     int serverSocket;
     int playerCount;
     struct sockaddr address[4];

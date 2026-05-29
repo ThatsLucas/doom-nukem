@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:15:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 15:17:04 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 13:37:45 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <fcntl.h>
+#include <SDL.h>
 
 typedef struct s_game t_game;
 
@@ -33,6 +34,7 @@ typedef struct s_udp_connections
     int is_connected;
     int state;
     int player_count;
+    Uint64 last_update;
     double players[4][2];
 } t_udp_connections;
 

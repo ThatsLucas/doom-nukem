@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 15:34:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 13:30:33 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,12 @@ void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket
 /*fonction pour traiter les demandes d'un joueur deja connecte*/
 void handle_connected_player_request(t_game *game, t_client_udp_datas datas, struct sockaddr_in *player, int playerIndex)
 {
-    ft_printf("player request state %d\n", datas.state);
-
     if (datas.state == 3)
     {
         if (game->serverStatus.currentState == 2) // en jeu sinon on est en lobby
         {
             game->serverStatus.players[playerIndex][0] = datas.x;
             game->serverStatus.players[playerIndex][1] = datas.y;
-            ft_printf("Player pos updated\n");
         }
         else
         {
@@ -63,10 +60,10 @@ void handle_connected_player_request(t_game *game, t_client_udp_datas datas, str
             if (ft_strcmp(IPV4, "127.0.0.1") == 0)
             {
                 game->serverStatus.currentState = 2;
-                game->serverStatus.currentState = datas.level;
+                game->serverStatus.currentLevel = datas.level;
                 if (datas.level < 1 || datas.level > 3)
-                    game->serverStatus.currentState = 1;
-                ft_printf("Host asked to start the game, starting...\n");
+                    game->serverStatus.currentLevel = 1;
+                ft_printf("Host asked to start the game on level #%d, starting...\n", datas.level);
             }
             free(IPV4);
         }

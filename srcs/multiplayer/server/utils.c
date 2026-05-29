@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/27 13:38:29 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/28 15:57:36 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 13:27:42 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void send_default_info_response(t_game *game)
 
     ft_bzero(&response, sizeof(response));
     response.state = game->serverStatus.currentState;
-    response.level = game->current_level;
+    response.level = game->serverStatus.currentLevel;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
     response.is_notif = 0;
