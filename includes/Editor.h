@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 18:39:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 09:22:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,6 @@ void	update_grid_size(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_mirrors(t_map *map);
-
-/* errors */
-void	editor_error(t_game *game, char *txt);
-void	display_editor_error(t_game *game);
 
 /* Properties */
 void	draw_prop_text(t_game *game, char *txt, int x, int y);

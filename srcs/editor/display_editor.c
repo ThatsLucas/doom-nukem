@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 18:38:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 09:22:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,11 @@ static void	display_tools_textures(t_game *game)
 void	display_editor(t_game *game)
 {
 	left_part(game);
+	display_editor_map(game);
 	right_part(game);
 
 	display_text_input(game, &game->editor->text_inputs);
 	display_buttons(game->editor->buttons, game, -1);
-	display_editor_error(game);
-	display_editor_map(game);
 	display_tools_textures(game);
 	draw_texture_selector(game);
 

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 11:14:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 09:43:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_selector_clicked(t_game *game, int x, int y)
 	return (0);
 }
 
-/* Manage when plan is clicked */
+/* Manage when plan is clicked or mouse moved */
 void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
 {
 	static int	plan_clicked = 0;

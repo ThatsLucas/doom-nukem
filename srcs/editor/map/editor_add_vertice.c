@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:41:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 23:02:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 11:48:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ t_vect2	*get_clicked_vertice(t_game *game, float x, float y)
 {
 	t_map	*map = game->editor->map;
 	t_vect2	pos = {.x = x, .y = y};
+	float	dist;
 
 	for (int i = 0; i < map->num_vertices; ++i)
 	{
-		if (dist_vect(pos, map->vertices[i]) < EPSILON)
+		dist = dist_vect(pos, map->vertices[i]);
+		if (dist < EPSILON)
 			return (&map->vertices[i]);
 	}
 
