@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:13:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 23:24:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 12:29:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	display_properties(t_game *game)
 	case 1:
 		display_walls_property(game);
 		return ;
+
+	case 3:
+		display_sector_property(game);
+		return ;
 	}
 
 	return ;
@@ -38,6 +42,7 @@ void	init_properties(t_game *game)
 	if (!editor->properties.font)
 		exit_game(game, "init_properties editor");
 	init_walls_properties(game);
+	init_sector_properties(game);
 
 	return ;
 }

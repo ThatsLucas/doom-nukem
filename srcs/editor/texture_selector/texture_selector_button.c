@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:50:11 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 17:25:55 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 12:36:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	display_texture_selector_button(t_game *game)
 	SDL_Rect				rect;
 
 	SDL_SetRenderDrawColor(game->window->renderPTR, 0, 0, 0, 255);
+
 	while (current)
 	{
 		btn = (t_text_select_button *)current->content;

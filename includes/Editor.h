@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 09:22:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 12:21:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ typedef struct s_text_select_button
 
 typedef struct	s_editor_properties
 {
-	int			selected_property;		// 0: cursor vide / 1: walls
+	int			selected_property;		// 0: cursor vide / 1: walls / 2: slope / 3: sectors
 	TTF_Font	*font;
 	SDL_Texture	*walls[3];
+	SDL_Texture	*sectors[3];
 	int			draw_wall_active;
 	int			last_vertex;
 }		t_editor_properties;
@@ -151,6 +152,8 @@ void	display_properties(t_game *game);
 void	init_walls_properties(t_game *game);
 void	display_walls_property(t_game *game);
 void	editor_place_wall(t_game *game, int pixx, int pixy);
+void	display_sector_property(t_game *game);
+void	init_sector_properties(t_game *game);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);
