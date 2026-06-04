@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 14:23:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 11:53:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:04:53 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	display_grid(t_game *game)
 	SDL_Rect	r = (SDL_Rect){ .x = start_x, .y = start_y, .w = end_x - start_x, .h = end_y - start_y};
 	SDL_SetRenderDrawColor(game->window->renderPTR, 190, 190, 190, SDL_ALPHA_OPAQUE);
 	SDL_RenderFillRect(game->window->renderPTR, &r);
-	SDL_SetRenderDrawColor(game->window->renderPTR, 189, 17, 17, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(game->window->renderPTR, 189, 17, 17, 120);
 	SDL_RenderDrawRect(game->window->renderPTR, &r);
 	for (int i = 0; i <= game->mapSize[0]; ++i)
 		SDL_RenderDrawLine(game->window->renderPTR, i * editor->plan.case_size + start_x, start_y, i * editor->plan.case_size + start_x, end_y);

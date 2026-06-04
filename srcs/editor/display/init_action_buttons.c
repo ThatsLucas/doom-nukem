@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:59:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 12:26:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:31:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	select_cursor(t_game *game)
 {
 	game->editor->selected_tool = 0;
-	game->editor->properties.selected_property = 3;
+	game->editor->properties.selected_property = 0;
 }
 
 static void	select_wall(t_game *game)

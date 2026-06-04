@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 11:54:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:11:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	display_editor_map(t_game *game)
 
 		pos = pos_to_pixels(game->editor, map->vertices[wall->v1].x, map->vertices[wall->v1].y);
 		dest = pos_to_pixels(game->editor, map->vertices[wall->v2].x, map->vertices[wall->v2].y);
+		if (point_on_segment(mousePos, map->vertices[wall->v1], map->vertices[wall->v2], 0.1f))
+			SDL_SetRenderDrawColor(game->window->renderPTR, 207, 10, 59, 255);
+		else
+			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 10, 59, 255);
 		SDL_RenderDrawLineF(game->window->renderPTR, pos.x, pos.y, dest.x, dest.y);
 	}
 

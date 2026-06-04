@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 12:21:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:05:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	get_clicked_texture_button(t_game *game, int x, int y);
 
 /* Events */
 void	editor_events(t_game *game);
-void	plan_click(t_game *game, SDL_MouseMotionEvent *motion);
+void	plan_click(t_game *game, SDL_Event *e);
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 
 /* Utils */
@@ -144,6 +144,8 @@ void	update_grid_size(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_mirrors(t_map *map);
+int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);
+int		find_sector(t_map *map, t_vect2 p);
 
 /* Properties */
 void	draw_prop_text(t_game *game, char *txt, int x, int y);
@@ -151,14 +153,14 @@ void	init_properties(t_game *game);
 void	display_properties(t_game *game);
 void	init_walls_properties(t_game *game);
 void	display_walls_property(t_game *game);
-void	editor_place_wall(t_game *game, int pixx, int pixy);
+void	editor_place_wall(t_game *game, int pixx, int pixy, int button);
 void	display_sector_property(t_game *game);
 void	init_sector_properties(t_game *game);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);
 void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone);
-void	editor_add_vertice(t_game *game, float x, float y);
+int		editor_add_vertice(t_game *game, float x, float y);
 void	editor_add_wall(t_game *game, int v1, int v2);
 t_vect2	*get_clicked_vertice(t_game *game, float x, float y);
 void	clear_editor_plan(t_game *game);
