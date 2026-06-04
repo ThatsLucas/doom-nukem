@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:57:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 23:22:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 10:36:34 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 #include "Editor.h"
 
 /*	Placer un wall dans l'editor en cliquant	*/
-void	editor_place_wall(t_game *game, int pixx, int pixy)
+void	editor_place_wall(t_game *game, int pixx, int pixy, int button)
 {
 	t_vect2	click_pos;
 	t_vect2	*existing;
 	t_map	*map = game->editor->map;
 
-	if (pixx > game->editor->plan.size.w)
+	if (button == SDL_BUTTON_RIGHT)
+	{
+		game->editor->properties.draw_wall_active = 0;
+		return ;
+	}
+
+	if (button == SDL_BUTTON_MIDDLE || pixx > game->editor->plan.size.w)
 		return ;
 
 	click_pos = pixels_to_pos(game->editor, (float)pixx, (float)pixy);

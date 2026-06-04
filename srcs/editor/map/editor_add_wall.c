@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 09:35:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:32:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static float	inter_segments(t_vect2 P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 
 	t = vect2_product(qp, s) / rs;
 	u = vect2_product(qp, r) / rs;
 
-	if (t <= 0.01f || t >= 1.0f - 0.01f || u <= 0.01f || u >= 1.0f - 0.01f)
+	if (t <= 0.001f || t >= 1.0f - 0.001f || u <= 0.001f || u >= 1.0f - 0.001f)
 		return (-1);
 	res->x = P.x + t * r.x;
 	res->y = P.y + t * r.y;
@@ -117,7 +117,7 @@ static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int wa
 	t_vect2	a, b, c, d;
 	t_vect2	r, s, inter;
 	t_wall	*wall = &map->walls[new_wall_id];
-	int		half_wall_idx;
+	int		half_wall_idx, vmid;
 
 	a = map->vertices[wall->v1];
 	b = map->vertices[wall->v2];
@@ -130,8 +130,8 @@ static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int wa
 		s = edge(c, d);
 		if (inter_segments(a, r, c, s, &inter) >= 0.0f)
 		{
-			editor_add_vertice(game, inter.x, inter.y);
-			half_wall_idx = split_wall(game, i, new_wall_id, map->num_vertices - 1);
+			vmid = editor_add_vertice(game, inter.x, inter.y);
+			half_wall_idx = split_wall(game, i, new_wall_id, vmid);
 			check_intersections(game, map, half_wall_idx, map->num_walls);
 			check_intersections(game, map, new_wall_id, map->num_walls);
 
