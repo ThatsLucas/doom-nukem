@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/21 12:38:30 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:11:12 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 #include <SDL.h>
 
-#define MAX_ITEM_DIST_RENDER_SQ 400.0f
+# define MAX_ITEM_DIST_RENDER_SQ 400.0f
+# define FISTS_DAMAGE 25
+# define PISTOL_DAMAGE 50
+# define SHOTGUN_DAMAGE 100
+# define ROCKET_DAMAGE 500
 
 typedef struct s_ply t_ply;
 typedef struct s_game t_game;

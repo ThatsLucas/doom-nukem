@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 12:38:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:28:45 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ float	to_PosY(float y, t_game *game);
 void	precompute_mirrors(t_map *map);
 
 void render_entities(t_game *game);
+int	find_sector(t_map *map, t_vect2 p);
 
 #endif

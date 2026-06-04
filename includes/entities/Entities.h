@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 19:10:40 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:32:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 #define MAX_ENTITY_DIST_RENDER_SQ 625.0f
 
 typedef struct	s_game t_game;
+typedef struct	s_vect2 t_vect2;
 
 typedef enum	e_entity_type
 {
 	ENTITY_PNJ,
 	ENTITY_ENEMY,
+	ENTITY_NONE
 }				t_entity_type;
 
 typedef enum	e_entity_status
@@ -78,5 +80,7 @@ void	init_entities(t_entities *e);
 void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
 void	update_entities(t_game *game, t_entities *e);
+
+int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
 
 #endif

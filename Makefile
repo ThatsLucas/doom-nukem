@@ -71,14 +71,14 @@ libft:
 
 $(NAME): $(OBJ)
 	@echo "🔗 Linking..."
-	@$(CC) $(OBJ) -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $@
+	$(CC) $(OBJ) -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $@
 	@echo "✅ $(NAME) built"
 
 # -------- OBJ --------
 
 $(OBJDIR)/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
 # -------- CLEAN --------
 

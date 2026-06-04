@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/05 19:09:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:24:35 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,134 +34,16 @@ int main(void)
 
 	game->mapSize[0] = 50;	game->mapSize[1] = 50;
 
-	create_notif(&game->window->PopupPtr.notif_buf, "Le lutin est aux arrivants, envoie le lassot mokhtar, je peux pas je suis au mitar ! QUOOOOOI T fou d'etre au mitard en big 2026!!!!", 5, 35);
-
-	create_notif(&game->window->PopupPtr.notif_buf, "CECI EST UNE GROSSE NOTIF !", 2, 80);
-
-	create_notif(&game->window->PopupPtr.notif_buf, "UN BOSS EST APPARU DANS LA SALLE DES BOSS", 5, 55);
-
-	create_notif(&game->window->PopupPtr.notif_buf, "BANGER CE JEU", 5, 90);
-
 	if (!game->map || !game->map->sectors || game->map->num_sectors == 0)
 	{
 		printf("ERROR: Map or sectors not initialized!\n");
 		return (1);
 	}
 
-	//t_entity    pnj;
-	char		path_buf[64];
-	t_png		pnj_pngs[10];
-
-	//pnj.type = ENTITY_ENEMY;
-	//pnj.status = E_STATUS_IDLE;
-	//pnj.attack_range = 3.0f;
-
-	//pnj.vision_angle = 120.0f;
-	//pnj.vision_range = 15.0f;
-	//pnj.speed = 2.0f;
-	//pnj.dir_x = 1.0f;
-	//pnj.dir_y = 1.0f;
-	//pnj.num_frames = 8;
-	//pnj.textures = malloc(sizeof(SDL_Texture *) * 8);
-	//if (!pnj.textures)
-	//	return (1);
-
-	//for (int i = 0; i < 8; i++)
-	//{
-	//	snprintf(path_buf, sizeof(path_buf),
-	//		"assets/png/entities/pnj/flamethrow/flamethrow%d.png", i + 1);
-	//	pnj_pngs[i].w = 400;
-	//	pnj_pngs[i].h = 456;
-	//	pnj_pngs[i].path = ft_strdup(path_buf);
-	//	printf("Loading: %s\n", pnj_pngs[i].path);
-	//	if (!process_png(&pnj_pngs[i]) && !pnj_pngs[i].buf)
-	//	{
-	//		printf("ERROR: Failed to load %s\n", pnj_pngs[i].path);
-	//		return (1);
-	//	}
-	//	pnj.textures[i] = create_image(&pnj_pngs[i], game->window->renderPTR);
-	//	free(pnj_pngs[i].path);
-	//}
-
-	//pnj.x = game->ply->pos.x + game->ply->dir.x * 2;
-	//pnj.y = game->ply->pos.y + game->ply->dir.y * 2;
-	//pnj.z = get_plane_z(game->map->sectors[game->ply->sector].floor_plane, pnj.x, pnj.y);
-	//pnj.sector = game->ply->sector;
-	//printf("e->z = %f | ply_z = %f | ply_floor = %f\n", pnj.z, game->ply->z, game->ply->z - EYES_HEIGTH);
-	//t_png png;
-	//png.w = 300;
-	//png.h = 700;
-	//png.path = ft_strdup("assets/png/entities/shooter.png");
-	//printf("%s\n", png.path);
-
-	//if (!process_png(&png) && !png.buf)
-	//{
-	//	printf("ERROR: Failed to load monstre.png\n");
-	//	return (1);
-	//}
-
-	//t_png shoot;
-	//shoot.w = 300;
-	//shoot.h = 700;
-	//shoot.path = ft_strdup("assets/png/entities/shooter_attack.png");
-	//if (!process_png(&shoot) && !shoot.buf)
-	//{
-	//	printf("ERROR: Failed to load shoot.png\n");
-	//	return (1);
-	//}
-
-	//pnj.texture = create_image(&png, game->window->renderPTR);
-	//pnj.texture_shoot = create_image(&shoot, game->window->renderPTR);
-
-	//// Fallback texture unique (frame 0)
-	//pnj.textures = NULL;
-	//pnj.num_frames = 0;
-
-	//pnj.x = game->ply->pos.x + game->ply->dir.x * 2;
-	//pnj.y = game->ply->pos.y + game->ply->dir.y * 2;
-	//pnj.z = get_plane_z(game->map->sectors[game->ply->sector].floor_plane, pnj.x, pnj.y);
-	//pnj.sector = game->ply->sector;
-	//pnj.hp = 50;
-	//pnj.hitbox = 1;
-	//pnj.can_shoot = 0;
-	//pnj.last_shot_time = 0;
-	//pnj.damage = 10;
-	//pnj.fire_rate = 200;
-	//add_entity(game, &game->entities, pnj);
-
-	t_entity    pnj2;
-
-	pnj2.type = ENTITY_PNJ;
-	pnj2.num_frames = 8;
-	pnj2.textures = malloc(sizeof(SDL_Texture *) * 8);
-	if (!pnj2.textures)
-		return (1);
-
-	for (int i = 0; i < 8; i++)
-	{
-		snprintf(path_buf, sizeof(path_buf),
-			"assets/png/entities/pnj/flamethrow/flamethrow%d.png", i + 1);
-		pnj_pngs[i].w = 400;
-		pnj_pngs[i].h = 456;
-		pnj_pngs[i].path = ft_strdup(path_buf);
-		printf("Loading: %s\n", pnj_pngs[i].path);
-		if (!process_png(&pnj_pngs[i]) && !pnj_pngs[i].buf)
-		{
-			printf("ERROR: Failed to load %s\n", pnj_pngs[i].path);
-			return (1);
-		}
-		pnj2.textures[i] = create_image(&pnj_pngs[i], game->window->renderPTR);
-		free(pnj_pngs[i].path);
-	}
-
-	pnj2.texture = pnj2.textures[0];
-	pnj2.x = game->ply->pos.x + game->ply->dir.x * 2;
-	pnj2.y = game->ply->pos.y + game->ply->dir.y * 2;
-	pnj2.z = get_plane_z(game->map->sectors[game->ply->sector].floor_plane, pnj2.x, pnj2.y);
-	pnj2.sector = game->ply->sector;
-	pnj2.hp = 100;
-	pnj2.hitbox = 1;
-	add_entity(game, &game->entities, pnj2);
+	t_vect2 pos;
+	pos.x = game->ply->pos.x + 2;
+	pos.y = game->ply->pos.y + 1;
+	default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 300, 700);
 
 	t_ground_item item;
 
@@ -184,8 +66,8 @@ int main(void)
 	process_png(&texture);
 	if (!texture.buf)
 	{
-		printf("ERROR: Failed to load shotgun.png\n");
-		return (1);
+	printf("ERROR: Failed to load shotgun.png\n");
+	return (1);
 	}
 	item.texture = create_image(&texture, game->window->renderPTR);
 	item.w = 500;
@@ -194,7 +76,7 @@ int main(void)
 	item.aspect_ratio = 500.0f / 150.0f;
 
 	 // Ajout dans le tableau
-	add_item(game, item);
+	 add_item(game, item);
 
 	for (int i = 0; i < game->entities.count; i++)
 	{
