@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 09:43:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:07:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,33 @@ static int	check_selector_clicked(t_game *game, int x, int y)
 	return (0);
 }
 
-/* Manage when plan is clicked or mouse moved */
-void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
+static int	tool_click(t_game *game, SDL_Event *e)
 {
-	static int	plan_clicked = 0;
-	static int	last_x = 0, last_y = 0;
+	t_vect2	mousePos;
+
+	if (game->editor->selected_tool == 1)
+	{
+		editor_place_wall(game, e->motion.x, e->motion.y, e->button.button);
+		return (1);
+	}
+
+	if (game->editor->selected_tool == 0)
+	{
+		mousePos = pixels_to_pos(game->editor, e->motion.x, e->motion.y);
+		printf("==> %d\n", find_sector(game->editor->map, mousePos));
+		return (1);
+	}
+
+
+	return (0);
+}
+
+/* Manage when plan is clicked or mouse moved */
+void	plan_click(t_game *game, SDL_Event *e)
+{
+	static int				plan_clicked = 0;
+	static int				last_x = 0, last_y = 0;
+	SDL_MouseMotionEvent	*motion = &e->motion;
 
 	if (motion->x > game->editor->plan.size.w)
 		return ;
@@ -40,11 +62,8 @@ void	plan_click(t_game *game, SDL_MouseMotionEvent *motion)
 	if (check_selector_clicked(game, motion->x, motion->y))
 		return ;
 
-	if (motion->type == SDL_MOUSEBUTTONDOWN && game->editor->selected_tool > 0)
-	{
-		editor_place_wall(game, motion->x, motion->y);
+	if (motion->type == SDL_MOUSEBUTTONDOWN && tool_click(game, e))
 		return ;
-	}
 
 	if (plan_clicked && motion->type == SDL_MOUSEBUTTONUP)
 	{

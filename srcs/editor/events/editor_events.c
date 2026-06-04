@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 15:44:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/04 10:30:09 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ void	editor_events(t_game *game)
 				get_selected_input(game, &game->editor->text_inputs, e.motion.x, e.motion.y);
 				check_button_pressed(game, game->editor->buttons);
 				if (!get_clicked_editor_button(game, e.motion.x, e.motion.y))
-					plan_click(game, &e.motion);
+					plan_click(game, &e);
 				get_clicked_texture(game, e.motion.x, e.motion.y);
 				get_clicked_texture_button(game, e.motion.x, e.motion.y);
 				break ;
 
 			case SDL_MOUSEBUTTONUP:
-				plan_click(game, &e.motion);
+				plan_click(game, &e);
 				break ;
 
 			case SDL_MOUSEMOTION:
-				plan_click(game, &e.motion);
+				plan_click(game, &e);
 				break ;
 
 			case SDL_MOUSEWHEEL:
