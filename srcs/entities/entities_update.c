@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:17:15 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 18:09:12 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:43:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	update_enemy(t_entity *e, t_game *game, float dt)
 			break ;
 
 		case E_STATUS_DEAD:
+			e->hitbox = 0;
 			break ;
 	}
 

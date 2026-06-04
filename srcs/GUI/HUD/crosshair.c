@@ -6,18 +6,25 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 11:28:42 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/19 11:29:07 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:06:40 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "Game.h"
 
 /* Function to display the crossair as a cross with a gap in the middle */
-void	display_crosshair(t_game *game, int x, int y, int size, int gap, t_RGB rgb)
+void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 {
 	int				status = 0;
 	SDL_Renderer	*render = game->window->renderPTR;
+	t_RGB			rgb;
+
+	if (!game->ply->crosshair_target)
+		rgb = (t_RGB){255, 255, 255, 255};
+	else if (game->ply->crosshair_target->type == ENTITY_ENEMY)
+		rgb = (t_RGB){255, 0, 0, 255};
+	else if (game->ply->crosshair_target->type == ENTITY_PNJ)
+		rgb = (t_RGB){0, 255, 0, 255};
 
 	SDL_SetRenderDrawColor(render, rgb.r, rgb.g, rgb.b, rgb.alphaValue);
 

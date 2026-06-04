@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 19:07:20 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:29:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,17 @@ void render_entities(t_game *game)
 	float	ply_z = game->ply->z;
 	float	pitch = game->ply->pitch;
 	float	inv_det = 1.0f / (plane.x * dir_y - dir_x * plane.y);
+	float	closest = FLT_MAX;
 
 	update_entities(game, &game->entities);
+	game->ply->crosshair_target = NULL;
 	for (int i = 0; i < game->entities.count; i++)
 	{
 		t_entity	*e = &game->entities.list[i];
 		SDL_Texture	*tex = NULL;
+
+		if (e->status == E_STATUS_DEAD)
+			return ;
 
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
@@ -131,6 +136,17 @@ void render_entities(t_game *game)
 			.w = sprite_w,
 			.h = sprite_h
 		};
+
+		int	cx = (int)half_sw;
+		int	cy = (int)half_sh;
+
+		if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h && transform_y < closest)
+		{
+			closest = transform_y;
+			game->ply->crosshair_target = e;
+			//printf("entity -> %d & pnj -> %d\n", game->ply->crosshair_target->type, ENTITY_PNJ);
+		}
+
 		if (e->texture)
 			SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dest);
 	}

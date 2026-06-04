@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:48:03 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/04 10:59:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:42:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	entities_collision(t_game *game, float next_x, float next_y)
 	{
 		if (game->entities.list[i].hitbox > 0)
 		{
+			if (game->entities.list[i].status == E_STATUS_DEAD)
+				continue ;
 			dx = next_x - game->entities.list[i].x;
 			dy = next_y - game->entities.list[i].y;
 			hitbox = game->entities.list[i].hitbox;

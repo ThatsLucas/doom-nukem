@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/05 15:53:08 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 15:51:22 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "inventory/Inventory.h"
 # include "Raycasting/Types.h"
+# include "entities/Entities.h"
 
 # define MAX_HP 100
 # define MAX_AMMO 800
@@ -22,7 +23,7 @@
 # define MAX_FUEL 100
 # define INFINITE_AMMO -1
 
-typedef struct s_game t_game;
+typedef struct	s_game t_game;
 typedef struct	s_vect2 t_vect2;
 
 typedef struct	s_keys
@@ -48,6 +49,8 @@ typedef struct s_ply
 	int			pitch;
 	int			sector;
 	t_vect2		plane;
+
+	t_entity	*crosshair_target;
 
 	/* attributs */
 	t_inventory	inventory;
