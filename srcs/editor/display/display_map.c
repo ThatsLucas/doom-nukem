@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:11:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:33:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	display_editor_map(t_game *game)
 	t_RGB		color = {0, 10, 59, 255};
 	t_RGB		selected_color = {207, 10, 59, 255};
 	t_vect2		pos, dest, mousePos, *selected_vertice;
-	int			mouseX, mouseY;
+	int			mouseX, mouseY, index_wall_hover;
 
 	SDL_GetMouseState(&mouseX, &mouseY);
 	mousePos = pixels_to_pos(game->editor, mouseX, mouseY);
 	selected_vertice = get_clicked_vertice(game, mousePos.x, mousePos.y);
+	index_wall_hover = get_wall_index(map, mousePos.x, mousePos.y);
 
 	for (int i = 0; i < map->num_vertices; i++)
 	{
@@ -33,6 +34,9 @@ void	display_editor_map(t_game *game)
 			SDL_RenderFillCircle(game->window->renderPTR, pos.x, pos.y, 5, selected_color);
 		else
 			SDL_RenderFillCircle(game->window->renderPTR, pos.x, pos.y, 5, color);
+
+		if (game->editor->properties.last_vertex == i && game->editor->properties.draw_wall_active)
+			SDL_RenderDrawLineF(game->window->renderPTR, pos.x, pos.y, mouseX, mouseY);
 	}
 
 	SDL_SetRenderDrawColor(game->window->renderPTR, 0, 10, 59, 255);
@@ -45,7 +49,7 @@ void	display_editor_map(t_game *game)
 
 		pos = pos_to_pixels(game->editor, map->vertices[wall->v1].x, map->vertices[wall->v1].y);
 		dest = pos_to_pixels(game->editor, map->vertices[wall->v2].x, map->vertices[wall->v2].y);
-		if (point_on_segment(mousePos, map->vertices[wall->v1], map->vertices[wall->v2], 0.1f))
+		if (i == index_wall_hover)
 			SDL_SetRenderDrawColor(game->window->renderPTR, 207, 10, 59, 255);
 		else
 			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 10, 59, 255);

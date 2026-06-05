@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:05:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:33:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_mirrors(t_map *map);
 int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);
 int		find_sector(t_map *map, t_vect2 p);
+int		get_wall_index(t_map *map, float x, float y);
 
 /* Properties */
 void	draw_prop_text(t_game *game, char *txt, int x, int y);
@@ -165,5 +166,7 @@ void	editor_add_wall(t_game *game, int v1, int v2);
 t_vect2	*get_clicked_vertice(t_game *game, float x, float y);
 void	clear_editor_plan(t_game *game);
 void	compute_sectors(t_map *map);
+void	suppress_vertice(t_game *game, float x, float y);
+void	suppress_wall(t_game *game, int wall_indx);
 
 #endif

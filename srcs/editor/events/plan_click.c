@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:07:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:40:06 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,27 @@ static int	tool_click(t_game *game, SDL_Event *e)
 {
 	t_vect2	mousePos;
 
-	if (game->editor->selected_tool == 1)
+	if (game->editor->selected_tool == 1 && e->button.button == SDL_BUTTON_LEFT)
 	{
 		editor_place_wall(game, e->motion.x, e->motion.y, e->button.button);
 		return (1);
 	}
 
-	if (game->editor->selected_tool == 0)
+	if (game->editor->selected_tool == 0 && e->button.button == SDL_BUTTON_LEFT)
 	{
 		mousePos = pixels_to_pos(game->editor, e->motion.x, e->motion.y);
 		printf("==> %d\n", find_sector(game->editor->map, mousePos));
+		return (1);
+	}
+
+	if (e->button.button == SDL_BUTTON_RIGHT)
+	{
+		game->editor->properties.draw_wall_active = 0;
+		mousePos = pixels_to_pos(game->editor, e->motion.x, e->motion.y);
+		suppress_vertice(game, mousePos.x, mousePos.y);
+		suppress_wall(game, get_wall_index(game->editor->map, mousePos.x, mousePos.y));
+		compute_sectors(game->editor->map);
+		printf("walls==> %d\nverti==>%d\n", game->editor->map->num_walls, game->editor->map->num_vertices);
 		return (1);
 	}
 

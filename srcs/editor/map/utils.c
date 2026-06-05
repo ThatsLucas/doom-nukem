@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:59:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 23:02:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/05 12:33:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,22 @@ void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
 	*cap = new_cap;
 
 	return ;
+}
+
+int	get_wall_index(t_map *map, float x, float y)
+{
+	t_wall	*wall;
+	t_vect2	pos;
+
+	pos.x = x;
+	pos.y = y;
+
+	for (int i = 0; i < map->num_walls; ++i)
+	{
+		wall = &map->walls[i];
+		if (point_on_segment(pos, map->vertices[wall->v1], map->vertices[wall->v2], 0.1f))
+			return (i) ;
+	}
+
+	return (-1);
 }
