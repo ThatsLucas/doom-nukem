@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:57:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:50:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ static void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		exit_game(game, NULL);
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
+	if (key.keysym.sym == SDLK_e)
+		interactions(game);
+
 	ply = game->ply;
 	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == 119) ? 1 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == 97) ? 1 : ply->keys.a;

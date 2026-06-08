@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 11:18:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:52:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, in
 	return (1);
 }
 
-void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y)
+void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif)
 {
 	t_entity	e;
 	t_png		png;
@@ -71,6 +71,7 @@ void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int 
 	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
 	e.x = pos.x; e.y = pos.y;
 	e.hp = 1000;
+	e.notif = notif;
 
 	e.num_frames = size;
 	e.textures = malloc(sizeof(SDL_Texture *) * size);

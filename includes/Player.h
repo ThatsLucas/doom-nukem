@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 11:23:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:39:04 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_keys
 	int		a;
 	int		s;
 	int		d;
+	int		e;
 	int		left;
 	int		right;
 }			t_keys;
