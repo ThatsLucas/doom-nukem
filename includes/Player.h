@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/04 15:51:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:23:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ typedef struct s_ply
 	t_vect2		pos;
 	float		z;
 	t_vect2		dir;
-	float		dir_x;
-	float		dir_y;
 	float		dir_z;
 	t_keys		keys;
 	int			pitch;
