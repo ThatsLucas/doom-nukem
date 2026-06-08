@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/28 11:56:12 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/08 12:22:00 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "inventory/Inventory.h"
 #include "Raycasting/Types.h"
+# include "entities/Entities.h"
 
 #define MAX_HP 100
 #define MAX_AMMO 800
@@ -22,32 +23,34 @@
 #define MAX_FUEL 100
 #define INFINITE_AMMO -1
 
-typedef struct s_game t_game;
+typedef struct	s_game t_game;
+typedef struct	s_vect2 t_vect2;
+typedef struct	s_inventory t_inventory;
 
 typedef struct s_keys
 {
-	int w;
-	int a;
-	int s;
-	int d;
-	int left;
-	int right;
-} t_keys;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		e;
+	int		left;
+	int		right;
+}			t_keys;
 
 typedef struct s_ply
 {
 	/* events */
-	t_vect2 pos;
-	float z;
-	t_vect2 dir;
-	float pos_x;
-	float pos_y;
-	float dir_x;
-	float dir_y;
-	float dir_z;
-	t_keys keys;
-	int pitch;
-	int sector;
+	t_vect2		pos;
+	float		z;
+	t_vect2		dir;
+	float		dir_z;
+	t_keys		keys;
+	int			pitch;
+	int			sector;
+	t_vect2		plane;
+
+	t_entity	*crosshair_target;
 
 	/* attributs */
 	t_inventory inventory;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pickup_items.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 12:48:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/28 11:55:34 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/08 12:16:57 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ void pickup_item(t_game *game, t_ground_item *item)
 		pickup_tool(game, item);
 
 	game->flash_alpha = 0.5f;
-	item->pos_x = -1000;
+	item->picked_up = 1;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/09 17:39:45 by root-             #+#    #+#             */
-/*   Updated: 2026/05/29 15:34:30 by lle-duc          ###   ########.fr       */
+/*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
+/*   Updated: 2026/06/08 12:45:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,15 @@ int main(void)
 	game->ply->pos.y = 4.0f;
 	game->ply->dir.x = 0.0f;
 	game->ply->dir.y = 1.0f;
+	game->ply->sector = 0;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	game->mapSize[0] = 24;
 	game->mapSize[1] = 24;
+
+	t_vect2 pos;
+	pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
+	default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 
@@ -54,6 +59,8 @@ int main(void)
 
 		// display_hud(game);
 		display_fps(game);
+
+		pickup_flash(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		// display_fps_periodic(start);

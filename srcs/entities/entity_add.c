@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_items.c                                     :+:      :+:    :+:   */
+/*   entity_add.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/08 17:12:27 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/09 12:09:55 by edurance         ###   ########.fr       */
+/*   Created: 2026/04/17 14:34:27 by edurance          #+#    #+#             */
+/*   Updated: 2026/04/17 14:36:39 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inventory/Items.h"
+#include "entities/Entities.h"
 #include "Game.h"
 
-/* Checks all the items in the game loop */
-void	update_item(t_game *game)
+void	add_entity(t_game *game, t_entities *e, t_entity entity)
 {
-	for (int i = 0; i < game->items_count; i++)
+	if (e->count >= e->capacity)
 	{
-		t_ground_item *item = &game->items[i];
-		if (item->pos_x < 0)
-			continue;
-
-		pickup_item(game, item);
+		e->capacity *= 2;
+		e->list = realloc(e->list, sizeof(t_entity) * e->capacity);
+		if (!e->list)
+			exit_game(game, "realloc entity failed");
 	}
+
+	e->list[e->count++] = entity;
 }
