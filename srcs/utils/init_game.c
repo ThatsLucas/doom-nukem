@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 15:54:59 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:18:50 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,13 @@ t_game *init_game(void)
 	game->window->menus.current = 1;
 
 	game->minimap_tex = SDL_CreateTexture(game->window->renderPTR, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 200, 200);
+
+	init_entities(&game->entities);
+	game->items = malloc(sizeof(t_ground_item) * 16);
+	if (!game->items)
+		exit_game(game, "failed malloc items");
+	game->items_count = 0;
+	game->items_capacity = 16;
 
 	return (game);
 }

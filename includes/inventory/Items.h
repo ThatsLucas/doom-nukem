@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/08 10:17:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:11:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define ITEMS_H
 
 #include <SDL.h>
+
+# define MAX_ITEM_DIST_RENDER_SQ 400.0f
+# define FISTS_DAMAGE 25
+# define PISTOL_DAMAGE 50
+# define SHOTGUN_DAMAGE 100
+# define ROCKET_DAMAGE 500
 
 typedef struct s_ply t_ply;
 typedef struct s_game t_game;
@@ -126,7 +132,12 @@ typedef struct	s_ground_item
 
 	float			pos_x;
 	float			pos_y;
+	float			pos_z;
 	float			pickup_range;
+	int				picked_up;
+
+	float			world_height;
+	float			aspect_ratio;
 
 	char			*texture_path;
 	SDL_Texture		*texture;
@@ -145,5 +156,6 @@ void	update_projectiles(t_game *game);
 void	render_projectiles(t_game *game);
 void	activate_flashlight(t_game *game);
 void	activate_jetpack(t_game *game, SDL_Event *event);
+void	add_item(t_game *game, t_ground_item new_item);
 
 #endif

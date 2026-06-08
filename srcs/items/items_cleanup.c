@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_items.c                                     :+:      :+:    :+:   */
+/*   items_cleanup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/08 17:40:12 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 10:21:36 by edurance         ###   ########.fr       */
+/*   Created: 2026/06/08 12:30:00 by edurance          #+#    #+#             */
+/*   Updated: 2026/06/08 12:34:47 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
+#include "inventory/Items.h"
 
-/* Adds items on the renderer (2D) */
-void	render_items(t_game *game)
+void cleanup_items(t_game *game)
 {
+	if (!game || !game->items)
+		return;
+
 	for (int i = 0; i < game->items_count; i++)
 	{
-		t_ground_item	*item = &game->items[i];
-		if (item->pos_x < 0)
-			continue ;
-
-		if (!game->items->texture)
-			continue;
-		
-		SDL_Rect dest = {
-			(int)item->pos_x,
-			(int)item->pos_y,
-			item->w,
-			item->h
-		};
-		SDL_RenderCopy(game->window->renderPTR, item->texture, NULL, &dest);
+		t_ground_item *item = &game->items[i];
+		if (item->texture)
+		{
+			SDL_DestroyTexture(item->texture);
+			item->texture = NULL;
+		}
+		if (item->texture_path)
+		{
+			free(item->texture_path);
+			item->texture_path = NULL;
+		}
 	}
+	free(game->items);
+	game->items = NULL;
+	game->items_count = 0;
+	game->items_capacity = 0;
 }

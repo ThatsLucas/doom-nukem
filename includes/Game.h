@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/27 15:37:14 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/08 12:24:50 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include "languages/language.h"
 #include "multiplayer/client.h"
 #include "multiplayer/server.h"
+#include "entities/Entities.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265359f
@@ -85,9 +86,7 @@ typedef struct s_game
 	t_ply *ply;
 	t_WIN *window;
 	int current_level;
-	t_ground_item items[10];
 	t_projectile *projectiles;
-	int items_count;
 	float flash_alpha;
 	t_hud_cache hud_cache;
 	int screenSize[2];
@@ -106,7 +105,12 @@ typedef struct s_game
 	pthread_t serverThread;
 	t_udp_connections clientConnection;
 	t_udp_server_status serverStatus;
-} t_game;
+
+	t_ground_item	*items;
+	int				items_count;
+	int				items_capacity;
+	t_entities		entities;
+}				t_game;
 
 /*init/exit game*/
 void exit_game(t_game *game, char *type);
@@ -122,5 +126,8 @@ float to_PosY(float y, t_game *game);
 void precompute_mirrors(t_map *map);
 int init_all_imgs(t_game *game, t_WIN *win);
 void display_fps_periodic(Uint64 start);
+
+void render_entities(t_game *game);
+int	find_sector(t_map *map, t_vect2 p);
 
 #endif

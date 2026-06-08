@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/08 09:52:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:27:04 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Game.h"
 
 /* Add starter pack to begin a mission */
-static void	config_starter(t_ply	*ply)
+static void	config_starter(t_ply *ply)
 {
 	t_weapon	fists = {
 		.type = WEAP_FISTS,
@@ -65,18 +65,23 @@ static void	config_starter(t_ply	*ply)
 void	init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_y)
 {
 	t_ply	*ply;
+	float	FOV = game->settings.FOV;
 
 	ply = calloc(1, sizeof(t_ply));
 	if (!ply)
 		exit_game(game, "player allocation");
 
-	ply->pos_x = pos_x;
-	ply->pos_y = pos_y;
-	ply->dir_x = dir_x;
-	ply->dir_y = dir_y;
+	ply->pos.x = pos_x;
+	ply->pos.y = pos_y;
 	ply->dir_z = 0.0f;
 
-	ply->hp = 70;
+	ply->dir.x = dir_x;
+	ply->dir.y = dir_y;
+
+	ply->plane.x = -ply->dir.y * FOV;
+	ply->plane.y = ply->dir.x * FOV;
+
+	ply->hp = 100;
 
 	config_starter(ply);
 	game->ply = ply;
