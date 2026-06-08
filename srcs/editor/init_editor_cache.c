@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:08:53 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 12:35:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:31:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	init_editor_cache(t_game *game)
 		exit_game(game, "init_editor_cache: cant find assets/textures/texture_list.txt");
 	editor->textures = calloc(1, sizeof(t_editor_textures));
 	if (!editor->textures)
+	{
+		close(fd);
 		exit_game(game, "Editor Cache: calloc editor textures failed");
+	}
 
 	create_png_list(game, editor, fd);
 	close(fd);

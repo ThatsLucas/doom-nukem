@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/05 12:40:06 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:04:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	tool_click(t_game *game, SDL_Event *e)
 	if (game->editor->selected_tool == 0 && e->button.button == SDL_BUTTON_LEFT)
 	{
 		mousePos = pixels_to_pos(game->editor, e->motion.x, e->motion.y);
-		printf("==> %d\n", find_sector(game->editor->map, mousePos));
+		if (get_wall_index(game->editor->map, mousePos.x, mousePos.y) == -1)	// savoir si on clique sur un sector ou un wall
+			printf("==> %d\n", find_sector(game->editor->map, mousePos));
 		return (1);
 	}
 
@@ -52,7 +53,6 @@ static int	tool_click(t_game *game, SDL_Event *e)
 		suppress_vertice(game, mousePos.x, mousePos.y);
 		suppress_wall(game, get_wall_index(game->editor->map, mousePos.x, mousePos.y));
 		compute_sectors(game->editor->map);
-		printf("walls==> %d\nverti==>%d\n", game->editor->map->num_walls, game->editor->map->num_vertices);
 		return (1);
 	}
 
