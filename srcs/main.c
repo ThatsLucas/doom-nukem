@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/04 17:24:35 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:28:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,20 @@ int main(void)
 		return (1);
 	}
 
-	t_vect2 pos;
-	pos.x = game->ply->pos.x + 2;
-	pos.y = game->ply->pos.y + 1;
-	default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 300, 700);
+	char		**path_buf;
+	char		buf[64];
+	path_buf = malloc(sizeof(char *) * 10);
+
+	for (int i = 0; i < 8; i++)
+	{
+		snprintf(buf, sizeof(buf), "assets/png/entities/pnj/flamethrow/flamethrow%d.png", i + 1);
+		path_buf[i] = ft_strdup(buf);
+	}
+	t_vect2	pos;
+	pos.x = game->ply->pos.x + 5;
+	pos.y = game->ply->pos.y + 5;
+	default_pnj(game, pos, path_buf, 8, 400, 450, game->ply->dir.x, game->ply->dir.y);
+
 
 	t_ground_item item;
 

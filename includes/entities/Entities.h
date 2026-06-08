@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/04 17:32:54 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:34:24 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_entity
 
 	int			can_shoot;
 	long long	last_shot_time;
+	char		*notif;
 
 }				t_entity;
 
@@ -81,6 +82,7 @@ void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
 void	update_entities(t_game *game, t_entities *e);
 
-int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
+int		default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
+void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/04 17:31:11 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:18:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,43 @@ int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, in
 
 	add_entity(game, &game->entities, e);
 	return (1);
+}
+
+void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y)
+{
+	t_entity	e;
+	t_png		png;
+
+	e.type = ENTITY_PNJ;
+	e.status = E_STATUS_IDLE;
+	
+	e.sector = find_sector(game->map, pos);
+	e.dir_x = dir_x;
+	e.dir_y = dir_y;
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+	e.x = pos.x; e.y = pos.y;
+	e.hp = 1000;
+
+	e.num_frames = size;
+	e.textures = malloc(sizeof(SDL_Texture *) * size);
+	if (!e.textures)
+		exit_game(game, "Failed to malloc default pnj");
+
+	for (int i = 0; i < size; i++)
+	{
+		png.w = w;
+		png.h = h;
+		png.path = ft_strdup(paths[i]);
+		if (!png.path)
+			exit_game(game, "Failed to strdup default pnj");
+		if (!process_png(&png))
+			exit_game(game, "Failed to process default pnj");
+		e.textures[i] = create_image(&png, game->window->renderPTR);
+		if (!e.textures[i])
+			exit_game(game, "Failed to create image default pnj");
+	}
+
+	e.texture = e.textures[0];
+	e.hitbox = 1;
+	add_entity(game, &game->entities, e);
 }
