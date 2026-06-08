@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/08 11:28:54 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 11:55:30 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(void)
 	t_vect2	pos;
 	pos.x = game->ply->pos.x + 5;
 	pos.y = game->ply->pos.y + 5;
-	default_pnj(game, pos, path_buf, 8, 400, 450, game->ply->dir.x, game->ply->dir.y);
+	default_pnj(game, pos, path_buf, 8, 400, 450, game->ply->dir.x, game->ply->dir.y, "salut a toi je suis heureux de te voir mon gars");
 
 
 	t_ground_item item;
@@ -114,7 +114,7 @@ int main(void)
 		render_entities(game);
 		render_items(game);
 		
-		// display_notif(game->window, &game->window->PopupPtr.notif_buf);
+		display_notif(game->window, &game->window->PopupPtr.notif_buf);
 		
 		// display_buttons(game->window->buttonList, game->window->renderPTR);		
 		// Creation du renderer (de la frame)
