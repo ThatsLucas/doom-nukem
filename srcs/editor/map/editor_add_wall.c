@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 16:32:10 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:07:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static int	get_alpha(t_game *game)
 	{
 		input = (t_text_input *)current->content;
 		if (!ft_strcmp(input->name, "walls_alpha"))
+		{
+			if (!input->text[0])
+				return (255);
 			return (SDL_clamp(ft_atoi(input->text), 0, 255));
+		}
 
 		current = current->next;
 	}
@@ -141,6 +145,17 @@ static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int wa
 	return (0);
 }
 
+static int	get_wall_text_index(SDL_Texture *tex, t_editor *editor)
+{
+	for (int i = 0; i < editor->textures->num_textures; ++i)
+	{
+		if (tex == editor->textures->textures[i])
+			return (i);
+	}
+
+	return (-1);
+}
+
 /*	Ajouter un mur à la map	*/
 void	editor_add_wall(t_game *game, int v1, int v2)
 {
@@ -158,6 +173,9 @@ void	editor_add_wall(t_game *game, int v1, int v2)
 	wall->v2 = v2;
 	wall->next_sector = -1;
 	wall->alpha = get_alpha(game);
+	wall->tex_upper = get_wall_text_index(game->editor->properties.walls[0], game->editor);
+	wall->tex_mid = get_wall_text_index(game->editor->properties.walls[1], game->editor);
+	wall->tex_lower = get_wall_text_index(game->editor->properties.walls[2], game->editor);
 
 	// base pour linstant il faudra ajouter le reste: textures et tout
 

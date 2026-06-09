@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/05 12:33:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:04:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_texture_selector
 typedef struct s_text_select_button
 {
 	int			page;
-	SDL_Texture	*texture;
+	SDL_Texture	**texture;
 	SDL_Rect	box;
 }		t_text_select_button;
 
@@ -130,7 +130,7 @@ int		get_clicked_editor_button(t_game *game, int x, int y);
 void	create_texture_selector(t_game *game, SDL_Texture **addr);
 void	get_clicked_texture(t_game *game, int x, int y);
 void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
-void	add_texture_selector_button(t_game *game, SDL_Texture *text, int page, SDL_Rect box);
+void	add_texture_selector_button(t_game *game, SDL_Texture **text, int page, SDL_Rect box);
 void	display_texture_selector_button(t_game *game);
 void	get_clicked_texture_button(t_game *game, int x, int y);
 

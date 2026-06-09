@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:50:11 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 12:36:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:04:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
-void	add_texture_selector_button(t_game *game, SDL_Texture *text, int page, SDL_Rect box)
+void	add_texture_selector_button(t_game *game, SDL_Texture **text, int page, SDL_Rect box)
 {
 	t_text_select_button	*new;
 
@@ -49,8 +49,8 @@ void	display_texture_selector_button(t_game *game)
 
 		rect = btn->box;
 		to_responsive(game->window, &rect);
-		if (btn->texture)
-			draw_texture_rounded(rect.x, rect.y, rect.w, rect.h, game->window, btn->texture);
+		if (btn->texture && *btn->texture)
+			draw_texture_rounded(rect.x, rect.y, rect.w, rect.h, game->window, *btn->texture);
 		else
 			SDL_RenderDrawRect(game->window->renderPTR, &rect);
 
@@ -81,7 +81,7 @@ void	get_clicked_texture_button(t_game *game, int x, int y)
 
 		if (x <= rect.x + rect.w && x > rect.x && y <= rect.y + rect.h && y > rect.y)
 		{
-			create_texture_selector(game, &btn->texture);
+			create_texture_selector(game, btn->texture);
 			return ;
 		}
 

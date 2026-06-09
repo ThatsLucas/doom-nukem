@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:30:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:19:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_tex
 	t_RGB	*colors;
 }		t_tex;
 
+/*Bien sur voici ta structure de map optimise qui bug pas*/
 typedef struct s_map
 {
 	/* --- Géométrie --- */

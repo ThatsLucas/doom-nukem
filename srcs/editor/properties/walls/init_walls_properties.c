@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:24:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 23:23:45 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:04:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	init_walls_properties(t_game *game)
 
 	box.x = 1690;
 	box.y = 489;
-	add_texture_selector_button(game, game->editor->properties.walls[0], 1, box);
+	add_texture_selector_button(game, &game->editor->properties.walls[0], 1, box);
 	box.y = 604;
-	add_texture_selector_button(game, game->editor->properties.walls[1], 1, box);
+	add_texture_selector_button(game, &game->editor->properties.walls[1], 1, box);
 	box.y = 719;
-	add_texture_selector_button(game, game->editor->properties.walls[2], 1, box);
+	add_texture_selector_button(game, &game->editor->properties.walls[2], 1, box);
 
 	box.w = 150;
 	box.h = 50;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:59:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 11:58:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/08 14:36:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_RGB	*create_texture_color(t_game *game, SDL_Surface *s, int w, int h)
 static void	init_map_textures(t_game *game)
 {
 	t_map			*map = game->editor->map;
-	int				width, height;
+	int				width, height, i;
 	SDL_Texture		*texture, *target;
 	SDL_Surface		*surface;
 	SDL_Renderer	*renderer = game->window->renderPTR;
@@ -48,7 +48,7 @@ static void	init_map_textures(t_game *game)
 	while (map->cap_textures < game->editor->textures->num_textures)
 		map_realloc(game, (void **)&map->textures, &map->cap_textures, sizeof(t_tex));
 
-	for (int i = 0; i < game->editor->textures->num_textures; ++i)
+	for (i = 0; i < game->editor->textures->num_textures; ++i)
 	{
 		texture = game->editor->textures->textures[i];
 		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -67,7 +67,8 @@ static void	init_map_textures(t_game *game)
 		SDL_FreeSurface(surface);
 	}
 
-	ft_printf("Editor: Map texture initialized\n");
+	ft_printf("Editor: Map texture initialized (%d)\n", i);
+	map->num_textures = i;
 
 	return ;
 }
