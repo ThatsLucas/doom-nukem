@@ -1,0 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jump.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/10 15:10:27 by lle-duc           #+#    #+#             */
+/*   Updated: 2026/06/10 16:34:35 by lle-duc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Game.h"
+#include "Player.h"
+
+void player_jump(t_game *game)
+{
+    t_ply *ply = game->ply;
+    if (!ply->physic.is_on_ground)
+    {
+        use_jetpack(ply);
+        return;
+    }
+
+    float acceleration = 5.0f;
+    ply->physic.velocity += acceleration;
+    ply->physic.is_on_ground = 0;
+}
