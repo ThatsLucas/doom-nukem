@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/06/10 13:56:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 16:07:36 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void draw_current_menu(t_game *game)
         // datas.y = game->ply->pos.y;
         // printf("player pos x = %f y = %f\n", datas.x, datas.y);
         // send_join_request("127.0.0.1", &datas);
+        apply_constant_forces_to_player(game->ply);
         send_rays(game);
         SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
         SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
