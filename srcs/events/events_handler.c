@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/10 15:55:25 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 17:01:57 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,17 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
 	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
-	if (key.keysym.sym == SDLK_SPACE)
+	if (key.keysym.sym == SDLK_SPACE && event->type == SDL_KEYDOWN)
 	{
 		player_jump(game);
 		activate_jetpack(game, event);
 	}
+
+	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYDOWN)
+		ply->physic.is_running = 1;
+
+	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYUP)
+		ply->physic.is_running = 0;
 }
 
 void events_handler(t_game *game)
