@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 18:51:02 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 11:46:00 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 14:16:20 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ typedef struct s_languages
     char *cinematic_text_five;
     char *cinematic_text_six;
     char *cinematic_text_seven;
+    char *cinematic_text_eight;
+    char *cinematic_text_nine;
+    char *cinematic_text_ten;
+    char *cinematic_text_eleven;
+    char *cinematic_text_twelve;
+    char *cinematic_text_thirteen;
+    char *cinematic_text_fourteen;
+    char *cinematic_text_fifteen;
+    char *cinematic_text_sixteen;
     char *type_ip_addr;
     char *press_enter_to_confirm;
     char *host;

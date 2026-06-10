@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/06/08 12:45:28 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/10 13:56:49 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void draw_current_menu(t_game *game)
         SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
         if (game->clientConnection.is_connected)
             render_multiplayer_players(game);
-		render_entities(game);
+        render_entities(game);
         display_hud(game);
         break;
     case 1:
@@ -51,6 +51,9 @@ void draw_current_menu(t_game *game)
         break;
     case 6:
         draw_cinematic_two(game);
+        break;
+    case 7:
+        draw_cinematic_three(game);
         break;
     default:
         break;
