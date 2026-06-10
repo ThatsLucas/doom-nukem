@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 15:49:31 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 16:52:18 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.w && ply->keys.s)
 		return;
-	steps = 0.01f;
+	steps = 0.03f + ((ply->physic.is_running) ? 0.03f : 0.0f);
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
@@ -49,7 +49,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.a && ply->keys.d)
 		return;
-	steps = 0.01f;
+	steps = 0.03f;
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)

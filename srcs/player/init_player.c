@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 16:39:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 16:55:24 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->physic.velocity = 0;
 	ply->physic.is_on_ground = 1;
 	ply->physic.last_time = 0;
+	ply->physic.is_running = 0;
 
 	config_starter(ply);
 	game->ply = ply;

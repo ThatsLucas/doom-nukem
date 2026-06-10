@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 16:27:06 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 16:46:07 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_ply_physics
 	float velocity;
 	float gravity;
 	int is_on_ground;
+	int is_running;
 } t_ply_physics;
 
 typedef struct s_ply
