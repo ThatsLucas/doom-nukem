@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 11:47:03 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 14:17:56 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ void free_languages(t_game *game)
     free(game->languages->press_enter_to_confirm);
     free(game->languages->host);
     free(game->languages->join);
+    free(game->languages->cinematic_text_eight);
+    free(game->languages->cinematic_text_nine);
+    free(game->languages->cinematic_text_ten);
+    free(game->languages->cinematic_text_eleven);
+    free(game->languages->cinematic_text_twelve);
+    free(game->languages->cinematic_text_thirteen);
+    free(game->languages->cinematic_text_fourteen);
+    free(game->languages->cinematic_text_fifteen);
+    free(game->languages->cinematic_text_sixteen);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -90,13 +99,23 @@ void free_languages(t_game *game)
     game->languages->press_enter_to_confirm = NULL;
     game->languages->host = NULL;
     game->languages->join = NULL;
+    game->languages->cinematic_text_eight = NULL;
+    game->languages->cinematic_text_nine = NULL;
+    game->languages->cinematic_text_ten = NULL;
+    game->languages->cinematic_text_eleven = NULL;
+    game->languages->cinematic_text_twelve = NULL;
+    game->languages->cinematic_text_thirteen = NULL;
+    game->languages->cinematic_text_fourteen = NULL;
+    game->languages->cinematic_text_fifteen = NULL;
+    game->languages->cinematic_text_sixteen = NULL;
+
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[36] = {
+    char **tab[45] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -133,9 +152,18 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->press_enter_to_confirm,
         &game->languages->host,
         &game->languages->join,
+        &game->languages->cinematic_text_eight,
+        &game->languages->cinematic_text_nine,
+        &game->languages->cinematic_text_ten,
+        &game->languages->cinematic_text_eleven,
+        &game->languages->cinematic_text_twelve,
+        &game->languages->cinematic_text_thirteen,
+        &game->languages->cinematic_text_fourteen,
+        &game->languages->cinematic_text_fifteen,
+        &game->languages->cinematic_text_sixteen,
     };
 
-    if (index > 36)
+    if (index > 45)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
