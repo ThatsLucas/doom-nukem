@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 12:21:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:55:25 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
 	if (key.keysym.sym == SDLK_SPACE)
+	{
+		player_jump(game);
 		activate_jetpack(game, event);
+	}
 }
 
 void events_handler(t_game *game)

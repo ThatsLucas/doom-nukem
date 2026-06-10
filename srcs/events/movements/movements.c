@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 12:12:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/10 15:49:31 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void ply_movements(t_ply *ply, t_game *game)
 	if (ply->keys.a || ply->keys.d)
 		lateral_moves(ply, game);
 	update_player_sector(game, oldpos);
-	ply->z = get_plane_z(game->map->sectors[ply->sector].floor_plane,
-						 ply->pos.x, ply->pos.y) +
-			 EYES_HEIGTH;
+	ply->floor_height = get_plane_z(game->map->sectors[ply->sector].floor_plane,
+									ply->pos.x, ply->pos.y);
+	ply->ceiling_height = get_plane_z(game->map->sectors[ply->sector].ceil_plane,
+									  ply->pos.x, ply->pos.y);
 }
