@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:48:52 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/21 13:46:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 11:49:23 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ void refresh_lobby_texts(t_game *game)
     destroy_text_texture(&menu->texts[11]);
     destroy_text_texture(&menu->texts[12]);
     destroy_text_texture(&menu->texts[13]);
+    destroy_text_texture(&menu->texts[14]);
+    destroy_text_texture(&menu->texts[15]);
+    destroy_text_texture(&menu->texts[16]);
+    destroy_text_texture(&menu->texts[17]);
+    destroy_text_texture(&menu->texts[18]);
+    destroy_text_texture(&menu->texts[19]);
 
     create_text(&menu->texts[0], renderer, game->languages->lobby_solo, DNFONT);
     create_text(&menu->texts[1], renderer, game->languages->main_menu, DNFONT);
@@ -105,6 +111,12 @@ void refresh_lobby_texts(t_game *game)
     create_text(&menu->texts[11], renderer, game->languages->lobby_multi, DNFONT);
     create_text(&menu->texts[12], renderer, game->languages->solo, DNFONT);
     create_text(&menu->texts[13], renderer, game->languages->solo, DNFONTOUTLINED);
+    create_text(&menu->texts[14], renderer, game->languages->type_ip_addr, DNFONTOUTLINED);
+    create_text(&menu->texts[15], renderer, game->languages->press_enter_to_confirm, DNFONTOUTLINED);
+    create_text(&menu->texts[16], renderer, game->languages->host, DNFONT);
+    create_text(&menu->texts[17], renderer, game->languages->host, DNFONTOUTLINED);
+    create_text(&menu->texts[18], renderer, game->languages->join, DNFONT);
+    create_text(&menu->texts[19], renderer, game->languages->join, DNFONTOUTLINED);
 }
 
 void refresh_cinematics_texts(t_game *game)
