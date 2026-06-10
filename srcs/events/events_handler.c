@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/10 17:01:57 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 18:04:57 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYUP)
 		ply->physic.is_running = 0;
+
+	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYDOWN)
+		player_crouch(ply);
+
+	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYUP)
+		player_crouch(ply);
 }
 
 void events_handler(t_game *game)
