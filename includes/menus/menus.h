@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/28 14:22:33 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 11:54:24 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_lobby
     t_png multi_background;
     t_png button;
     t_png playerImgs[5];
-    t_font texts[14];
+    t_font texts[20];
 } t_lobby;
 
 #define CINEMATIC_ONE_DURATION 20000
@@ -164,6 +164,8 @@ void refresh_cinematics_texts(t_game *game);
 void draw_lobby_menu(t_game *game);
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
 void draw_lobby_multiplayer_menu(t_game *game);
+void draw_enter_host_addr(t_game *game);
+void host_game(t_game *game);
 
 /* CINEMATICS */
 void draw_cinematic_one(t_game *game);

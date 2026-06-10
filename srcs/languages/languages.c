@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/21 13:21:22 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 11:47:03 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void free_languages(t_game *game)
     free(game->languages->cinematic_text_five);
     free(game->languages->cinematic_text_six);
     free(game->languages->cinematic_text_seven);
+    free(game->languages->type_ip_addr);
+    free(game->languages->press_enter_to_confirm);
+    free(game->languages->host);
+    free(game->languages->join);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -82,13 +86,17 @@ void free_languages(t_game *game)
     game->languages->cinematic_text_five = NULL;
     game->languages->cinematic_text_six = NULL;
     game->languages->cinematic_text_seven = NULL;
+    game->languages->type_ip_addr = NULL;
+    game->languages->press_enter_to_confirm = NULL;
+    game->languages->host = NULL;
+    game->languages->join = NULL;
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[32] = {
+    char **tab[36] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -121,9 +129,13 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->cinematic_text_five,
         &game->languages->cinematic_text_six,
         &game->languages->cinematic_text_seven,
+        &game->languages->type_ip_addr,
+        &game->languages->press_enter_to_confirm,
+        &game->languages->host,
+        &game->languages->join,
     };
 
-    if (index > 32)
+    if (index > 36)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;

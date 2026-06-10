@@ -30,3 +30,7 @@ cinematic_text_four=You are the last operative dispatch to uncover the truth... 
 cinematic_text_five=The decoded signal reveals something the facility never reported... a blue light, appearing moments before the outbreak.
 cinematic_text_six=No equipment malfunction. No human error. The pathogen was delivered.
 cinematic_text_seven=Something came through. Something not from here. And it is still down there, waiting.
+type_ip_addr=Type the IP / address of the host
+press_enter_to_confirm=Press enter to confirm
+host=host
+join=join
