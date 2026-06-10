@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 16:46:07 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 18:03:49 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_ply_physics
 	float gravity;
 	int is_on_ground;
 	int is_running;
+	int is_crouching;
+	float speed;
 } t_ply_physics;
 
 typedef struct s_ply
@@ -83,5 +85,6 @@ float get_delta_time(t_ply *ply);
 void player_jump(t_game *game);
 void apply_constant_forces_to_player(t_ply *ply);
 void use_jetpack(t_ply *ply);
+void player_crouch(t_ply *ply);
 
 #endif

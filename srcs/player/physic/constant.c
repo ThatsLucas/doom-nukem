@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 15:24:29 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 17:02:35 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/10 17:59:39 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void apply_constant_forces_to_player(t_ply *ply)
     if (ply->z < ply->floor_height + EYES_HEIGTH)
     {
         ply->z = ply->floor_height + EYES_HEIGTH;
+
+        if (ply->physic.is_crouching) // crouch
+            ply->z = (ply->floor_height + EYES_HEIGTH) / 2;
+
         ply->physic.velocity = 0.0f;
         ply->physic.is_on_ground = 1;
     }
