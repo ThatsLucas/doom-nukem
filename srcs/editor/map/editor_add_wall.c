@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:07:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/17 11:24:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static int	get_wall_text_index(SDL_Texture *tex, t_editor *editor)
 			return (i);
 	}
 
-	return (-1);
+	return (0);
 }
 
 /*	Ajouter un mur à la map	*/

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:59:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 17:31:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/17 11:33:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	select_wall(t_game *game)
 static void	select_slope(t_game *game)
 {
 	game->editor->selected_tool = 2;
+	game->editor->properties.selected_property = 2;
 }
 
 /*	initaliser les boutons des propriétés	*/

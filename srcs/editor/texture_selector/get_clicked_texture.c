@@ -64,11 +64,20 @@ void	get_clicked_texture(t_game *game, int x, int y)
 	if (selected > game->editor->textures->num_textures)
 		return ;
 	if (selected == game->editor->textures->num_textures)
+	{
 		*game->editor->texture_selector.variable_to_set = NULL;
+		if (game->editor->texture_selector.index_to_set)
+			*game->editor->texture_selector.index_to_set = -1;
+	}
 	else
+	{
 		*game->editor->texture_selector.variable_to_set = game->editor->textures->textures[selected];
+		if (game->editor->texture_selector.index_to_set)
+			*game->editor->texture_selector.index_to_set = selected;
+	}
 	game->editor->texture_selector.display = 0;
 	game->editor->texture_selector.variable_to_set = NULL;
+	game->editor->texture_selector.index_to_set = NULL;
 
 	return ;
 }

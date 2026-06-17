@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:04:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/17 12:29:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_texture_selector
 	int			page;
 	int			num_page;
 	SDL_Texture	**variable_to_set;
+	int			*index_to_set;
 	SDL_Texture	*buttons[3];
 }				t_texture_selector;
 
@@ -83,8 +84,13 @@ typedef struct	s_editor_properties
 	TTF_Font	*font;
 	SDL_Texture	*walls[3];
 	SDL_Texture	*sectors[3];
+	int			slope_fc;				// 0: floor / 1: ceil
+	int			slope_step;				// 0: attente base / 1: attente direction
+	t_vect2		slope_base;				// position du 1er clic (coords map)
 	int			draw_wall_active;
 	int			last_vertex;
+	int			selected_wall;
+	int			selected_sector;
 }		t_editor_properties;
 
 typedef struct	s_editor
@@ -127,7 +133,7 @@ void	display_editor_map(t_game *game);
 /* Texture Selector */
 void	draw_texture_selector(t_game *game);
 int		get_clicked_editor_button(t_game *game, int x, int y);
-void	create_texture_selector(t_game *game, SDL_Texture **addr);
+void	create_texture_selector(t_game *game, SDL_Texture **addr, int *tex_index);
 void	get_clicked_texture(t_game *game, int x, int y);
 void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
 void	add_texture_selector_button(t_game *game, SDL_Texture **text, int page, SDL_Rect box);
@@ -157,6 +163,9 @@ void	display_walls_property(t_game *game);
 void	editor_place_wall(t_game *game, int pixx, int pixy, int button);
 void	display_sector_property(t_game *game);
 void	init_sector_properties(t_game *game);
+void	display_slopes(t_game *game);
+void	init_slope_properties(t_game *game);
+void	editor_place_slope(t_game *game, int pixx, int pixy);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:13:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 12:29:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/17 11:45:40 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	display_properties(t_game *game)
 		display_walls_property(game);
 		return ;
 
+	case 2:
+		display_slopes(game);
+		return ;
+
 	case 3:
 		display_sector_property(game);
 		return ;
@@ -41,8 +45,11 @@ void	init_properties(t_game *game)
 	editor->properties.font = TTF_OpenFont("assets/fonts/Inter_28pt-Regular.ttf", 30);
 	if (!editor->properties.font)
 		exit_game(game, "init_properties editor");
+	editor->properties.selected_wall = -1;
+	editor->properties.selected_sector = -1;
 	init_walls_properties(game);
 	init_sector_properties(game);
+	init_slope_properties(game);
 
 	return ;
 }

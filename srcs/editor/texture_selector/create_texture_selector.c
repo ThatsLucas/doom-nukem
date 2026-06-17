@@ -13,10 +13,11 @@
 #include "Editor.h"
 #include "Game.h"
 
-void	create_texture_selector(t_game *game, SDL_Texture **addr)
+void	create_texture_selector(t_game *game, SDL_Texture **addr, int *tex_index)
 {
 	game->editor->texture_selector.display = 1;
 	game->editor->texture_selector.variable_to_set = addr;
+	game->editor->texture_selector.index_to_set = tex_index;
 
 	return ;
 }

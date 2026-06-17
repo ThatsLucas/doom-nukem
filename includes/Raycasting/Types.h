@@ -70,6 +70,14 @@ typedef struct s_sector
 
 	/* --- Éclairage --- */
 	int		light_level;		/* 0 (noir total) à 255 (plein jour) */
+
+	/* --- Slope arrows (editor display only) --- */
+	t_vect2	floor_arrow_base;
+	t_vect2	floor_arrow_tip;
+	t_vect2	ceil_arrow_base;
+	t_vect2	ceil_arrow_tip;
+	int		has_floor_arrow;
+	int		has_ceil_arrow;
 }			t_sector;
 
 typedef struct s_ray

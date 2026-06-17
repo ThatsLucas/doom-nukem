@@ -36,7 +36,9 @@ void	init_sector_properties(t_game *game)
 	box.y = 634;
 	add_text_inputs(game, box, "sectors_light", 3);
 	box.y = 699;
-	add_text_inputs(game, box, "sectors_z", 3);
+	add_text_inputs(game, box, "sectors_floor_z", 3);
+	box.y = 764;
+	add_text_inputs(game, box, "sectors_ceil_z", 3);
 
 	return ;
 }

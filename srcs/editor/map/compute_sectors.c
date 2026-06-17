@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 19:20:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/25 13:33:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/17 11:18:53 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,14 @@ static int add_sector(t_map *map, int *loop, int count)
 	memcpy(s->walls, loop, count * sizeof(int));
 	s->num_walls = count;
 
-	s->floor_plane	= (t_plane){0.0f, 0.0f, 1.0f, 0.0f};
-	s->ceil_plane	= (t_plane){0.0f, 0.0f, 1.0f, 4.0f};
-	s->floor_tex	= -1;
-	s->ceil_tex		= -1;
-	s->sky_tex		= -1;
-	s->light_level	= 200;
+	s->floor_plane		= (t_plane){0.0f, 0.0f, 1.0f, 0.0f};
+	s->ceil_plane		= (t_plane){0.0f, 0.0f, 1.0f, 4.0f};
+	s->floor_tex		= 0;
+	s->ceil_tex			= 0;
+	s->sky_tex			= -1;
+	s->light_level		= 255;
+	s->has_floor_arrow	= 0;
+	s->has_ceil_arrow	= 0;
 	return (map->num_sectors++);
 }
 

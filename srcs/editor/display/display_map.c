@@ -13,6 +13,56 @@
 #include "Game.h"
 #include "Editor.h"
 
+static void	draw_slope_arrow(t_game *game, t_vect2 base, t_vect2 tip, t_RGB color)
+{
+	t_vect2	pb;
+	t_vect2	pt;
+
+	pb = pos_to_pixels(game->editor, base.x, base.y);
+	pt = pos_to_pixels(game->editor, tip.x, tip.y);
+	SDL_RenderFillCircle(game->window->renderPTR, (int)pb.x, (int)pb.y, 6, color);
+	SDL_SetRenderDrawColor(game->window->renderPTR, color.r, color.g, color.b, color.alphaValue);
+	SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, pt.x, pt.y);
+}
+
+static void	draw_slope_arrows(t_game *game)
+{
+	t_map				*map;
+	t_editor_properties	*props;
+	t_RGB				floor_color;
+	t_RGB				ceil_color;
+	t_RGB				preview_color;
+	t_vect2				pb;
+	int					mouseX;
+	int					mouseY;
+	int					i;
+
+	map = game->editor->map;
+	props = &game->editor->properties;
+	floor_color = (t_RGB){0, 200, 80, 255};
+	ceil_color = (t_RGB){80, 120, 255, 255};
+	preview_color = (t_RGB){255, 200, 0, 255};
+
+	i = 0;
+	while (i < map->num_sectors)
+	{
+		if (map->sectors[i].has_floor_arrow)
+			draw_slope_arrow(game, map->sectors[i].floor_arrow_base, map->sectors[i].floor_arrow_tip, floor_color);
+		if (map->sectors[i].has_ceil_arrow)
+			draw_slope_arrow(game, map->sectors[i].ceil_arrow_base, map->sectors[i].ceil_arrow_tip, ceil_color);
+		i++;
+	}
+
+	if (game->editor->selected_tool == 2 && props->slope_step == 1)
+	{
+		SDL_GetMouseState(&mouseX, &mouseY);
+		pb = pos_to_pixels(game->editor, props->slope_base.x, props->slope_base.y);
+		SDL_RenderFillCircle(game->window->renderPTR, (int)pb.x, (int)pb.y, 6, preview_color);
+		SDL_SetRenderDrawColor(game->window->renderPTR, 255, 200, 0, 255);
+		SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, (float)mouseX, (float)mouseY);
+	}
+}
+
 /*	Affiche la map dans l'editor	*/
 void	display_editor_map(t_game *game)
 {
@@ -55,6 +105,8 @@ void	display_editor_map(t_game *game)
 			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 10, 59, 255);
 		SDL_RenderDrawLineF(game->window->renderPTR, pos.x, pos.y, dest.x, dest.y);
 	}
+
+	draw_slope_arrows(game);
 
 	return ;
 }

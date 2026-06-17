@@ -60,6 +60,26 @@ void	display_texture_selector_button(t_game *game)
 	return ;
 }
 
+static int	*get_tex_index_ptr(t_game *game, t_text_select_button *btn)
+{
+	t_editor_properties	*p = &game->editor->properties;
+	t_map				*map = game->editor->map;
+
+	if (btn->texture == &p->walls[0] && p->selected_wall >= 0 && p->selected_wall < map->num_walls)
+		return (&map->walls[p->selected_wall].tex_upper);
+	if (btn->texture == &p->walls[1] && p->selected_wall >= 0 && p->selected_wall < map->num_walls)
+		return (&map->walls[p->selected_wall].tex_mid);
+	if (btn->texture == &p->walls[2] && p->selected_wall >= 0 && p->selected_wall < map->num_walls)
+		return (&map->walls[p->selected_wall].tex_lower);
+	if (btn->texture == &p->sectors[0] && p->selected_sector >= 0 && p->selected_sector < map->num_sectors)
+		return (&map->sectors[p->selected_sector].floor_tex);
+	if (btn->texture == &p->sectors[1] && p->selected_sector >= 0 && p->selected_sector < map->num_sectors)
+		return (&map->sectors[p->selected_sector].ceil_tex);
+	if (btn->texture == &p->sectors[2] && p->selected_sector >= 0 && p->selected_sector < map->num_sectors)
+		return (&map->sectors[p->selected_sector].sky_tex);
+	return (NULL);
+}
+
 void	get_clicked_texture_button(t_game *game, int x, int y)
 {
 	t_list					*current = game->editor->texture_selector_buttons;
@@ -81,7 +101,7 @@ void	get_clicked_texture_button(t_game *game, int x, int y)
 
 		if (x <= rect.x + rect.w && x > rect.x && y <= rect.y + rect.h && y > rect.y)
 		{
-			create_texture_selector(game, btn->texture);
+			create_texture_selector(game, btn->texture, get_tex_index_ptr(game, btn));
 			return ;
 		}
 
