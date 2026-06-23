@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/05 13:29:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 15:10:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ int main(void)
 		{
 			editor_events(game);
 			display_editor(game);
+			SDL_RenderPresent(game->window->renderPTR);
+			continue;
+		}
+
+		if (game->window->menus.current == 0)
+		{
+			events_handler(game);
+			draw_current_menu(game);
 			SDL_RenderPresent(game->window->renderPTR);
 			continue;
 		}

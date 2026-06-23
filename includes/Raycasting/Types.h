@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 12:19:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 13:05:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ typedef struct s_map
 	t_tex		*textures;
 	int			num_textures;
 	int			cap_textures;
+
+	/* --- Spawns --- */
+	t_vect2		player_spawn;
+	float		player_z;
 }				t_map;
 
 typedef struct s_raythread

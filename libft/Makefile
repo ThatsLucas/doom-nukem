@@ -10,7 +10,7 @@ FILES = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c 
 		ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
 		ft_put_pointer.c ft_putnbr_unsigned.c ft_hexa.c ft_printf.c get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c ft_freeall.c ft_strcmp.c ft_arrlen.c ft_printable.c ft_lstget.c \
-		ft_intlen.c ft_maxf.c
+		ft_intlen.c ft_maxf.c ft_dprintf.c ft_strcat.c ft_putfloat.c
 
 CC = cc
 AR = ar rcs
@@ -22,9 +22,12 @@ RESET = \033[0m
 GRAY = \033[1;90m
 
 all: $(NAME)
+	@:
 
 $(NAME): $(OBJ)
+	@echo "🔗 Linking libft..."
 	@$(AR) $@ $^
+	@echo "📚 libft built"
 
 $(OBJDIR)/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@)

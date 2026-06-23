@@ -31,7 +31,15 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	t_ply *ply;
 
 	if (key.keysym.sym == 27)
+	{
+		if (game->editor)
+		{
+			game->map = NULL;
+			game->window->menus.current = -1;
+			return ;
+		}
 		exit_game(game, NULL);
+	}
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
 	ply = game->ply;

@@ -6,13 +6,13 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:27:55 by edurance          #+#    #+#             */
-/*   Updated: 2025/08/09 15:47:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:30:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_put_hexa(unsigned long long nb, int *entier)
+static void	ft_put_hexa(unsigned long long nb, int *entier, int fd)
 {
 	char	c;
 	char	*base;
@@ -20,7 +20,7 @@ static void	ft_put_hexa(unsigned long long nb, int *entier)
 	base = "0123456789abcdef";
 	c = base[nb % 16];
 	if (nb / 16 > 0)
-		ft_put_hexa(nb / 16, entier);
+		ft_put_hexa(nb / 16, entier, fd);
 	*entier += ft_putchar_fd(c, 1);
 }
 
@@ -35,6 +35,22 @@ int	ft_put_pointer(void *pointer)
 		return (ft_putstr_fd("(nil)", 1));
 	res += ft_putchar_fd('0', 1);
 	res += ft_putchar_fd('x', 1);
-	ft_put_hexa(ptr, &res);
+	ft_put_hexa(ptr, &res, 1);
 	return (res);
 }
+
+int	ft_put_pointer_fd(void *pointer, int fd)
+{
+	unsigned long long	ptr;
+	int					res;
+
+	res = 0;
+	ptr = (unsigned long long)pointer;
+	if (ptr == 0)
+		return (ft_putstr_fd("(nil)", fd));
+	res += ft_putchar_fd('0', fd);
+	res += ft_putchar_fd('x', fd);
+	ft_put_hexa(ptr, &res, fd);
+	return (res);
+}
+

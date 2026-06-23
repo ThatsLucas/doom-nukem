@@ -46,7 +46,11 @@ static int	check_selector_clicked(t_game *game, int x, int y)
 
 static int	tool_click(t_game *game, SDL_Event *e)
 {
-	t_vect2	mousePos;
+	t_vect2				mousePos;
+	t_vect2				click_pos;
+	t_editor_properties	*props;
+
+	props = &game->editor->properties;
 
 	if (game->editor->selected_tool == 1 && e->button.button == SDL_BUTTON_LEFT)
 	{
@@ -62,7 +66,28 @@ static int	tool_click(t_game *game, SDL_Event *e)
 
 	if (game->editor->selected_tool == 2 && e->button.button == SDL_BUTTON_RIGHT)
 	{
-		game->editor->properties.slope_step = 0;
+		if (props->slope_step == 1)
+		{
+			props->slope_step = 0;
+			return (1);
+		}
+		click_pos = pixels_to_pos(game->editor, (float)e->motion.x, (float)e->motion.y);
+		for (int i = 0; i < game->editor->map->num_sectors; i++)
+		{
+			t_sector *s = &game->editor->map->sectors[i];
+			if (s->has_floor_arrow && dist_vect(click_pos, s->floor_arrow_base) < 0.1f)
+			{
+				s->floor_plane = (t_plane){0.0f, 0.0f, 1.0f, s->floor_plane.d};
+				s->has_floor_arrow = 0;
+				return (1);
+			}
+			if (s->has_ceil_arrow && dist_vect(click_pos, s->ceil_arrow_base) < 0.1f)
+			{
+				s->ceil_plane = (t_plane){0.0f, 0.0f, 1.0f, s->ceil_plane.d};
+				s->has_ceil_arrow = 0;
+				return (1);
+			}
+		}
 		return (1);
 	}
 
@@ -72,12 +97,15 @@ static int	tool_click(t_game *game, SDL_Event *e)
 		int wall_idx = get_wall_index(game->editor->map, mousePos.x, mousePos.y);
 		if (wall_idx >= 0)
 		{
-			t_wall *w = &game->editor->map->walls[wall_idx];
+			t_wall	*w = &game->editor->map->walls[wall_idx];
+			char	buf[32];
 			game->editor->properties.selected_wall = wall_idx;
 			game->editor->properties.selected_property = 1;
 			game->editor->properties.walls[0] = wall_idx >= 0 && w->tex_upper >= 0 ? game->editor->textures->textures[w->tex_upper] : NULL;
 			game->editor->properties.walls[1] = wall_idx >= 0 && w->tex_mid >= 0 ? game->editor->textures->textures[w->tex_mid] : NULL;
 			game->editor->properties.walls[2] = wall_idx >= 0 && w->tex_lower >= 0 ? game->editor->textures->textures[w->tex_lower] : NULL;
+			snprintf(buf, sizeof(buf), "%d", (int)w->alpha);
+			set_input_text(game->editor->text_inputs, "walls_alpha", buf);
 		}
 		else
 		{

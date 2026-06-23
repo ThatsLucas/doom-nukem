@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:52:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 22:56:29 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 16:19:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	display_separators(t_game *game)
 	line.x = 1455;
 	line.w = 450;
 	line.h = 3;
-	line.y = 102;
+	line.y = 124;
 	to_responsive(game->window, &line);
 	SDL_RenderFillRect(game->window->renderPTR, &line);
 	line.y = (277 * game->window->h) / 1080;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 15:39:06 by edurance          #+#    #+#             */
-/*   Updated: 2025/07/13 18:40:03 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 15:19:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	goodtype(char c)
 	char	*types;
 	int		i;
 
-	types = "cspdiuxX%";
+	types = "cspfdiuxX%";
 	i = 0;
 	while (types[i])
 	{
@@ -41,6 +41,8 @@ static int	find_type(char type, va_list args)
 		len += ft_put_pointer(va_arg(args, void *));
 	else if (type == 'd' || type == 'i')
 		len += ft_putnbr_fd(va_arg(args, int), 1);
+	else if (type == 'f')
+		len += ft_putfloat(va_arg(args, double), 1);
 	else if (type == 'u')
 		len += ft_putnbr_unsigned(va_arg(args, unsigned int));
 	else if (type == 'x')

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 12:29:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 16:37:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,8 @@ void	update_grid_size(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_mirrors(t_map *map);
+void	precompute_lengths(t_map *map);
+void	precompute_next_sectors(t_map *map);
 int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);
 int		find_sector(t_map *map, t_vect2 p);
 int		get_wall_index(t_map *map, float x, float y);
@@ -177,5 +179,11 @@ void	clear_editor_plan(t_game *game);
 void	compute_sectors(t_map *map);
 void	suppress_vertice(t_game *game, float x, float y);
 void	suppress_wall(t_game *game, int wall_indx);
+
+/* Save + Load */
+int		save_map(char *name, t_map *map);
+void	save_editor_map(t_game *game);
+t_map	*load_map(char *name);
+void	load_editor_map(t_game *game);
 
 #endif

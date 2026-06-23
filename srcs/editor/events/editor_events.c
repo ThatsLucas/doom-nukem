@@ -116,6 +116,23 @@ static int	get_input_int_ev(t_list *inputs, char *name)
 	return (0);
 }
 
+static void	apply_wall_inputs(t_game *game)
+{
+	t_editor_properties	*props;
+	int					alpha;
+
+	props = &game->editor->properties;
+	if (props->selected_property != 1 || props->selected_wall < 0
+		|| props->selected_wall >= game->editor->map->num_walls)
+		return ;
+	alpha = get_input_int_ev(game->editor->text_inputs, "walls_alpha");
+	if (alpha < 0)
+		alpha = 0;
+	if (alpha > 255)
+		alpha = 255;
+	game->editor->map->walls[props->selected_wall].alpha = (float)alpha;
+}
+
 static void	apply_sector_inputs(t_game *game)
 {
 	t_editor_properties	*props;
@@ -149,7 +166,10 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 		print_map(game->editor->map);
 
 	if (code == SDLK_RETURN || code == SDLK_KP_ENTER)
+	{
 		apply_sector_inputs(game);
+		apply_wall_inputs(game);
+	}
 
 	if (!editor->selected)
 		return ;

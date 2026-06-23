@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 11:24:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/21 13:31:25 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,6 @@ void	editor_add_wall(t_game *game, int v1, int v2)
 	wall->tex_upper = get_wall_text_index(game->editor->properties.walls[0], game->editor);
 	wall->tex_mid = get_wall_text_index(game->editor->properties.walls[1], game->editor);
 	wall->tex_lower = get_wall_text_index(game->editor->properties.walls[2], game->editor);
-
-	// base pour linstant il faudra ajouter le reste: textures et tout
 
 	map->num_walls++;
 

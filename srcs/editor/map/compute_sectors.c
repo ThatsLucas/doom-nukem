@@ -221,5 +221,6 @@ void compute_sectors(t_map *map)
 	free(visited);
 	free(loop);
 	free(wall_ids);
+	precompute_next_sectors(map);
 	return ;
 }
