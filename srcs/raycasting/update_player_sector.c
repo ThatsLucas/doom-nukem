@@ -21,8 +21,10 @@ void	update_player_sector(t_game *game, t_vect2 oldpos)
 	t_wall		*w;
 	t_vect2		a, b;
 	float		side_old, side_new;
+	int			cur, neigh;
 
-	sec = &game->map->sectors[game->ply->sector];
+	cur = game->ply->sector;
+	sec = &game->map->sectors[cur];
 	for (int i = 0; i < sec->num_walls; i++)
 	{
 		w = &game->map->walls[sec->walls[i]];
@@ -34,7 +36,9 @@ void	update_player_sector(t_game *game, t_vect2 oldpos)
 		side_new = (b.x - a.x) * (game->ply->pos.y - a.y) - (b.y - a.y) * (game->ply->pos.x - a.x);
 		if ((side_old > 0 && side_new <= 0) || (side_old <= 0 && side_new > 0))
 		{
-			game->ply->sector = w->next_sector;
+			neigh = wall_other_sector(game->map, sec->walls[i], cur);
+			if (neigh >= 0)
+				game->ply->sector = neigh;
 			return ;
 		}
 	}

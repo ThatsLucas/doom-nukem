@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 18:01:53 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/23 17:16:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 		direction = -1;
 	next_x = ply->pos.x + ply->dir.x * steps * direction;
 	next_y = ply->pos.y + ply->dir.y * steps * direction;
-	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1] && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -62,7 +62,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 		next_x = ply->pos.x - ax * steps;
 		next_y = ply->pos.y - ay * steps;
 	}
-	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1] && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -77,6 +77,9 @@ void ply_movements(t_ply *ply, t_game *game)
 {
 	t_vect2 oldpos;
 	oldpos = ply->pos;
+
+	if (!game->map)
+		return ;
 
 	if (ply->keys.w || ply->keys.s)
 		medial_moves(ply, game);

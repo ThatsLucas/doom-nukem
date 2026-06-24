@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_mirror_wall.c                                 :+:      :+:    :+:   */
+/*   precompute_lengths.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/14 13:06:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:53:52 by aabouyaz         ###   ########.fr       */
+/*   Created: 2026/06/23 00:00:00 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/06/23 00:00:00 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Raycasting/Raycasting.h"
 #include "Game.h"
+#include "Editor.h"
 
-/* trouve le mur qui est le portail de l'autre secteur */
-int	find_mirror_wall(t_map *map, int wall_idx, int next_sector_id)
+void	precompute_lengths(t_map *map)
 {
-	t_wall		*w;
-	t_wall		*portal	= &map->walls[wall_idx];
-	t_sector	*next	= &map->sectors[next_sector_id];
+	t_wall	*w;
 
-	for (int i = 0; i < next->num_walls; i++)
+	for (int i = 0; i < map->num_walls; i++)
 	{
-		w = &map->walls[next->walls[i]];
-		if (w->v1 == portal->v2 && w->v2 == portal->v1)
-			return (next->walls[i]);
+		w = &map->walls[i];
+		w->length = dist_vect(map->vertices[w->v1], map->vertices[w->v2]);
 	}
-	return (-1);
 }

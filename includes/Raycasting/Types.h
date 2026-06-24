@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:30:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:39:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ typedef struct s_wall
 	float	length;			/* longueur d'un mur precalculee au demarrage */
 	int		mirror;			/* mur mur mirroir dans le secteur à coté */
 
+	/* --- Secteurs adjacents (un mur de portail est partage par 2 secteurs) --- */
+	int		sector_front;	/* premier secteur referencant ce mur (-1 = aucun) */
+	int		sector_back;	/* second secteur (-1 = mur solide, pas de voisin) */
+
 	/* --- Textures (indices dans map->textures, -1 = aucune) --- */
 	int		tex_mid;		/* texture principale */
 	int		tex_upper;		/* texture step du haut (portail) */
@@ -70,6 +74,14 @@ typedef struct s_sector
 
 	/* --- Éclairage --- */
 	int		light_level;		/* 0 (noir total) à 255 (plein jour) */
+
+	/* --- Pentes (uniquement pour l'affichage dans l'editor) --- */
+	t_vect2	floor_arrow_base;
+	t_vect2	floor_arrow_tip;
+	t_vect2	ceil_arrow_base;
+	t_vect2	ceil_arrow_tip;
+	int		has_floor_arrow;
+	int		has_ceil_arrow;
 }			t_sector;
 
 typedef struct s_ray
@@ -100,6 +112,7 @@ typedef struct s_tex
 	t_RGB	*colors;
 }		t_tex;
 
+/*Bien sur voici ta structure de map optimise qui bug pas*/
 typedef struct s_map
 {
 	/* --- Géométrie --- */
@@ -115,10 +128,16 @@ typedef struct s_map
 	int			num_sectors;
 	int			cap_sectors;
 
+	t_vect2		mapSize;
+
 	/* --- Ressources --- */
 	t_tex		*textures;
 	int			num_textures;
 	int			cap_textures;
+
+	/* --- Spawns --- */
+	t_vect2		player_spawn;
+	float		player_z;
 }				t_map;
 
 typedef struct s_raythread
@@ -127,6 +146,5 @@ typedef struct s_raythread
 	int		x_start;		/* Colonne ou le thread commence et fini d'écrire */
 	int		x_end;
 }			t_raythread;
-
 
 #endif

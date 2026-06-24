@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_sector.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:55:48 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:28:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:11:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Editor.h"
 #include "Game.h"
 
 static int	shared_vertex(t_wall *a, t_wall *b)

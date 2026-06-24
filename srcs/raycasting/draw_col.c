@@ -44,8 +44,15 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 	float		nz_floor, nz_ceil;
 	int			ny_top, ny_bot;
 	int			sH = game->screenSize[1];
+	int			cur_id = (int)(sector - game->map->sectors);
+	t_sector	*next_sec;
 
-	t_sector *next_sec	= &game->map->sectors[game->map->walls[ray->wall_idx].next_sector];
+	*next_id			= wall_other_sector(game->map, ray->wall_idx, cur_id);
+	*mirror				= game->map->walls[ray->wall_idx].mirror;
+	if (*next_id < 0)
+		return ;
+
+	next_sec			= &game->map->sectors[*next_id];
 	nz_floor			= get_plane_z(next_sec->floor_plane, ray->hit.x, ray->hit.y);
 	nz_ceil				= get_plane_z(next_sec->ceil_plane,  ray->hit.x, ray->hit.y);
 	ny_bot				= sH / 2 - ((nz_floor - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
@@ -54,9 +61,6 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 	ny_top				= SDL_clamp(ny_top, ray->y_wall_top, ray->y_wall_bot);
 	ny_bot				= SDL_clamp(ny_bot, ray->y_wall_top, ray->y_wall_bot);
 	draw_offsets(ray, game, ny_top, ny_bot, x, sector);
-
-	*next_id			= game->map->walls[ray->wall_idx].next_sector;
-	*mirror				= game->map->walls[ray->wall_idx].mirror;
 
 	return ;
 }
@@ -96,6 +100,8 @@ void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 	if (ray->y_top > ray->y_bot)
 		return ;
 	get_next_sect(&next_id, &mirror, game, ray, x, sector);
+	if (next_id < 0)
+		return ;
 	draw_col(game, ray, x, next_id, mirror);
 
 	if (is_transparent)

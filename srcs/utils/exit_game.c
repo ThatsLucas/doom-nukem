@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 12:18:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/23 16:52:21 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void exit_game(t_game *game, char *type)
 			SDL_DestroyWindow(win->winPTR);
 		free(win);
 	}
+	exit_editor(game);
 	free(game);
 	TTF_Quit();
 	SDL_Quit();

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precompute_mirrors.c                               :+:      :+:    :+:   */
+/*   init_slope_properties.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/16 16:57:08 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 16:59:40 by aabouyaz         ###   ########.fr       */
+/*   Created: 2026/06/17 11:36:31 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/06/17 11:46:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Editor.h"
 #include "Game.h"
 
-void	precompute_mirrors(t_map *map)
+/*	Initialisation de la partie pente dans les propriétés	*/
+void	init_slope_properties(t_game *game)
 {
-	t_wall	*w;
+	SDL_Rect	box;
 
-	for (int i = 0; i < map->num_walls; i++)
-	{
-		w = &map->walls[i];
-		if (w->next_sector >= 0)
-			w->mirror = find_mirror_wall(map, i, w->next_sector);
-		else
-			w->mirror = -1;
-	}
+	box.w = 150;
+	box.h = 50;
+	box.x = 1714;
+	box.y = 570;
+	add_text_inputs(game, box, "ceil_intensity", 2);
+	box.y = 655;
+	add_text_inputs(game, box, "floor_intensity", 2);
+
+	return ;
 }
