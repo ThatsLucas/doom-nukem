@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/23 17:16:23 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:04:59 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,13 @@ void ply_movements(t_ply *ply, t_game *game)
 	oldpos = ply->pos;
 
 	if (!game->map)
-		return ;
+		return;
 
+	if (ply->keys.space)
+	{
+		player_jump(game);
+		activate_jetpack(game);
+	}
 	if (ply->keys.w || ply->keys.s)
 		medial_moves(ply, game);
 	if (ply->keys.a || ply->keys.d)

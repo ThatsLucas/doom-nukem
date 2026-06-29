@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/10 18:04:57 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/29 14:03:05 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_right) ? 1 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741904) ? 1 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741903) ? 1 : ply->keys.right;
+	ply->keys.space = (event->type == SDL_KEYDOWN && key.keysym.sym == SDLK_SPACE) ? 1 : ply->keys.space;
 
 	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_forward) ? 0 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_left) ? 0 : ply->keys.a;
@@ -51,13 +52,11 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_right) ? 0 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
+	ply->keys.space = (event->type == SDL_KEYUP && key.keysym.sym == SDLK_SPACE) ? 0 : ply->keys.space;
+
+	printf("Key space = %d\n", ply->keys.space);
 	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
-	if (key.keysym.sym == SDLK_SPACE && event->type == SDL_KEYDOWN)
-	{
-		player_jump(game);
-		activate_jetpack(game, event);
-	}
 
 	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYDOWN)
 		ply->physic.is_running = 1;

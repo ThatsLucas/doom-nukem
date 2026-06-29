@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:52:21 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/29 11:21:41 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void exit_game(t_game *game, char *type)
 	free_languages(game);
 	pthread_cancel(game->serverThread);
 	pthread_join(game->serverThread, NULL);
+	close(game->serverStatus.serverSocket);
 
 	win = game->window;
 	if (win)

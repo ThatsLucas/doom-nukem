@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 18:03:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/29 13:57:09 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_keys
 	int e;
 	int left;
 	int right;
+	int space;
 } t_keys;
 
 #define DEFAULT_GRAVITY 9.8 // gravite terrestre

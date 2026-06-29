@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 15:10:27 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 16:34:35 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/29 14:07:25 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void player_jump(t_game *game)
         return;
     }
 
-    float acceleration = 5.0f;
+    float acceleration = 2.0f;
     ply->physic.velocity += acceleration;
     ply->physic.is_on_ground = 0;
 }
