@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/06 13:39:52 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 15:28:39 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
 	ply->keys.space = (event->type == SDL_KEYUP && key.keysym.sym == SDLK_SPACE) ? 0 : ply->keys.space;
 
-	printf("Key space = %d\n", ply->keys.space);
 	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
 
@@ -76,6 +75,9 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYUP)
 		player_crouch(ply);
+		
+	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
+		game->window->menus.current = 0;
 }
 
 void events_handler(t_game *game)
