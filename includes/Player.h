@@ -87,5 +87,6 @@ void player_jump(t_game *game);
 void apply_constant_forces_to_player(t_ply *ply);
 void use_jetpack(t_ply *ply);
 void player_crouch(t_ply *ply);
+void player_run(t_ply *ply, int is_pressed);
 
 #endif

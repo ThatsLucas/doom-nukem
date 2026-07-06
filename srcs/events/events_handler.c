@@ -64,11 +64,8 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
 		activate_flashlight(game);
 
-	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYDOWN)
-		ply->physic.is_running = 1;
-
-	if (key.keysym.sym == SDLK_LSHIFT && event->type == SDL_KEYUP)
-		ply->physic.is_running = 0;
+	if (key.keysym.sym == SDLK_LSHIFT)
+		player_run(ply, event->type == SDL_KEYDOWN);
 
 	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYDOWN)
 		player_crouch(ply);
