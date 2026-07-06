@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/07/06 15:28:56 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:16:07 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_lobby
     t_font texts[20];
 } t_lobby;
 
-#define CINEMATIC_ONE_DURATION 20000
+#define CINEMATIC_ONE_DURATION 500
 
 typedef struct s_cinematic
 {
