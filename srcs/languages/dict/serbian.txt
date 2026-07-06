@@ -43,3 +43,6 @@ cinematic_text_thirteen=Nema rijeci. Samo grmljavina. Samo moc.
 cinematic_text_fourteen=Ovo je trenutak. Zato si prezivio.
 cinematic_text_fifteen=Izvuci oruzhe. Ovdje. Sada.
 cinematic_text_sixteen=Konacna bitka pocinje.
+pause=PAUSE
+resume=RESUME
+exit=EXIT

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/23 18:09:23 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:29:00 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void start_level_1(t_game *game)
     game->current_level = 1;
 	free_map(game->map);
 	game->map = load_map("level1");
-    // SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->clientConnection.state = 3;
     game->window->menus.current = 5;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
@@ -29,6 +29,7 @@ void start_level_1(t_game *game)
 
 void start_level_2(t_game *game)
 {
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->current_level = 2;
     game->clientConnection.state = 3;
     game->window->menus.current = 6;
@@ -37,6 +38,7 @@ void start_level_2(t_game *game)
 
 void start_level_3(t_game *game)
 {
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->current_level = 3;
     game->clientConnection.state = 3;
     game->window->menus.current = 7;

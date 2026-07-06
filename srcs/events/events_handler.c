@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/29 14:03:05 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:39:52 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
+		
+	if (key.keysym.sym == SDLK_p && event->type == SDL_KEYDOWN && game->window->menus.current == 0) //pause
+	{
+		game->is_paused ^= 1;
+		SDL_SetRelativeMouseMode(!game->is_paused);
+	}
+	
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
 	if (key.keysym.sym == SDLK_e)
@@ -104,8 +111,8 @@ void events_handler(t_game *game)
 			// printf("Key Released: %d\n", event.key.keysym.sym);
 			break;
 
-		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0)
+		case SDL_MOUSEBUTTONDOWN:				
+			if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0 && !game->is_paused)
 				player_shoot(game);
 			else
 			{

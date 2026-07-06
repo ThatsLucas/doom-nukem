@@ -43,3 +43,6 @@ cinematic_text_thirteen=No words. Only thunder. Only power.
 cinematic_text_fourteen=This is the moment. This is why you survived.
 cinematic_text_fifteen=Draw your weapon. Here. Now.
 cinematic_text_sixteen=The final battle begins.
+pause=PAUSE
+resume=RESUME
+exit=EXIT

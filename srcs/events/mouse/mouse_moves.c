@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_moves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 12:17:22 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/07 15:57:49 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:32:56 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void mouse_moves(int x, int y, t_game *game)
 	static int middle_x = 0;
 	static int middle_y = 0;
 
+	if (game->is_paused)
+		return;
 	if (!x && !y)
 		return;
 	if (game->window->menus.current != 0)

@@ -111,6 +111,7 @@ typedef struct s_game
 	int				items_capacity;
 	t_entities		entities;
 	t_editor		*editor;
+	int is_paused;
 }				t_game;
 
 /*init/exit game*/

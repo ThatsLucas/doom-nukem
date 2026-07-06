@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/06/10 18:08:03 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:16:07 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_lobby
     t_font texts[20];
 } t_lobby;
 
-#define CINEMATIC_ONE_DURATION 20000
+#define CINEMATIC_ONE_DURATION 500
 
 typedef struct s_cinematic
 {
@@ -120,6 +120,11 @@ typedef struct s_cinematic
     t_font texts[16];
 } t_cinematic;
 
+typedef struct s_pause
+{
+    t_font texts[5];
+} t_pause;
+
 typedef struct s_menus
 {
     int current;
@@ -128,6 +133,7 @@ typedef struct s_menus
     t_settings_menu settings;
     t_lobby lobby;
     t_cinematic cinematic;
+    t_pause pause;
 } t_menus;
 
 /*MENUS*/
@@ -165,6 +171,7 @@ void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
 void refresh_lobby_texts(t_game *game);
 void refresh_cinematics_texts(t_game *game);
+void refresh_pause_menu_texts(t_game *game);
 
 /* LOBBY */
 void draw_lobby_menu(t_game *game);
@@ -183,5 +190,9 @@ void draw_cinematic_three(t_game *game);
 void start_level_1(t_game *game);
 void start_level_2(t_game *game);
 void start_level_3(t_game *game);
+
+/*PAUSE*/
+void init_pause_texts(void *gameStruct);
+void draw_pause_menu(t_game *game);
 
 #endif

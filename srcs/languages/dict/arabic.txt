@@ -43,3 +43,6 @@ cinematic_text_thirteen=Bela kalimaat. Er-raud faqat. El-qouwa faqat.
 cinematic_text_fourteen=Hadha houa el-lahza. Hadha sabab baqa'ak.
 cinematic_text_fifteen=Estakhrij silahak. Huna. El-aan.
 cinematic_text_sixteen=El-muarka en-niha'iya tabda.
+pause=PAUSE
+resume=RESUME
+exit=EXIT

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:15:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 15:43:54 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:23:32 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp
 void handle_server_response(t_game *game, t_udp_connections *connection);
 void send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection);
 void send_corresponding_datas_to_server(t_game *game);
+void close_connection(t_game *game);
 
 #endif

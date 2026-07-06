@@ -43,3 +43,6 @@ cinematic_text_thirteen=Pas de paroles. Que le tonnerre. Que la puissance.
 cinematic_text_fourteen=C'est le moment. C'est pourquoi tu as survcu.
 cinematic_text_fifteen=Degaine ton arme. Ici. Maintenant.
 cinematic_text_sixteen=La bataille finale commence.
+pause=PAUSE
+resume=RESUME
+exit=Quitter

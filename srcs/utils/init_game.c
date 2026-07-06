@@ -74,6 +74,7 @@ t_game *init_game(void)
 		exit_game(game, "failed malloc items");
 	game->items_count = 0;
 	game->items_capacity = 16;
+	game->is_paused = 0;
 	init_editor(game);
 
 	return (game);

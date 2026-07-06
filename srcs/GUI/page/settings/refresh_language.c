@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:48:52 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 14:20:21 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 14:55:46 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,4 +156,22 @@ void refresh_cinematics_texts(t_game *game)
     create_text(&menu->texts[13], renderer, game->languages->cinematic_text_fourteen, DNFONT);
     create_text(&menu->texts[14], renderer, game->languages->cinematic_text_fifteen, DNFONT);
     create_text(&menu->texts[15], renderer, game->languages->cinematic_text_sixteen, DNFONT);
+}
+
+void refresh_pause_menu_texts(t_game *game)
+{
+    t_pause *pause = &game->window->menus.pause;
+    SDL_Renderer *renderer = game->window->renderPTR;
+
+    destroy_text_texture(&pause->texts[0]);
+    destroy_text_texture(&pause->texts[1]);
+    destroy_text_texture(&pause->texts[2]);
+    destroy_text_texture(&pause->texts[3]);
+    destroy_text_texture(&pause->texts[4]);
+    
+    create_text(&pause->texts[0], renderer, game->languages->pause, DNFONT);
+    create_text(&pause->texts[1], renderer, game->languages->resume, DNFONTOUTLINED);
+    create_text(&pause->texts[2], renderer, game->languages->resume, DNFONT);
+    create_text(&pause->texts[3], renderer, game->languages->exit, DNFONTOUTLINED);
+    create_text(&pause->texts[4], renderer, game->languages->exit, DNFONT);
 }
