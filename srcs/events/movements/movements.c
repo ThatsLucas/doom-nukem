@@ -31,7 +31,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 		direction = -1;
 	next_x = ply->pos.x + ply->dir.x * steps * direction;
 	next_y = ply->pos.y + ply->dir.y * steps * direction;
-	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y) && !wall_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -62,7 +62,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 		next_x = ply->pos.x - ax * steps;
 		next_y = ply->pos.y - ay * steps;
 	}
-	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y) && !wall_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;

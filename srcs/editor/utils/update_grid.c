@@ -6,12 +6,33 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 09:54:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 17:23:06 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/06 16:11:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
+
+/* Recentre la vue sur la grille et recalcule les bornes de zoom */
+void	fit_grid_view(t_game *game)
+{
+	t_plan	*plan = &game->editor->plan;
+	float	fit_x;
+	float	fit_y;
+
+	fit_x = plan->size.w / game->editor->map->mapSize.x;
+	fit_y = plan->size.h / game->editor->map->mapSize.y;
+	plan->case_size = (fit_x < fit_y) ? fit_x : fit_y;
+	if (plan->case_size < 1.0f)
+		plan->case_size = 1.0f;
+
+	plan->scale_max = (plan->size.h < plan->size.w) ? plan->size.h : plan->size.w;
+	plan->scale_min = plan->case_size;
+	plan->center.x = game->editor->map->mapSize.x / 2;
+	plan->center.y = game->editor->map->mapSize.y / 2;
+
+	return ;
+}
 
 /* when update button is clicked, update grid size */
 void	update_grid_size(t_game *game)
@@ -34,16 +55,7 @@ void	update_grid_size(t_game *game)
 		current = current->next;
 	}
 
-	int offset_x = game->editor->plan.size.w / game->editor->map->mapSize.x;
-	int offset_y = game->editor->plan.size.h / game->editor->map->mapSize.y;
-	game->editor->plan.case_size = offset_x;
-	if (offset_x > offset_y)
-		game->editor->plan.case_size = offset_y;
-
-	game->editor->plan.scale_max = (game->editor->plan.size.h < game->editor->plan.size.w) ? game->editor->plan.size.h : game->editor->plan.size.w;
-	game->editor->plan.scale_min = game->editor->plan.case_size;
-	game->editor->plan.center.x = (float)game->editor->map->mapSize.x / 2;
-	game->editor->plan.center.y = (float)game->editor->map->mapSize.y / 2;
+	fit_grid_view(game);
 
 	return ;
 }

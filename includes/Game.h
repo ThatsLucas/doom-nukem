@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 15:41:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/06 16:13:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@
 
 #ifndef EYES_HEIGTH
 #define EYES_HEIGTH 1.6
+#endif
+
+#ifndef STEP_HEIGHT
+#define STEP_HEIGHT 0.5
+#endif
+
+#ifndef HEAD_MARGIN // marge pour passer un portail
+#define HEAD_MARGIN 0.2
 #endif
 
 /*FOV*/

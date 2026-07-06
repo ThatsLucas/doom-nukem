@@ -147,6 +147,7 @@ void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 
 /* Utils */
 void	update_grid_size(t_game *game);
+void	fit_grid_view(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_lengths(t_map *map);

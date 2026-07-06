@@ -230,6 +230,7 @@ void	load_editor_map(t_game *game)
 	{
 		free_map(game->editor->map);
 		game->editor->map = map;
+		fit_grid_view(game);
 	}
 	else
 		ft_printf("Error with loading '%s'\n", s);
