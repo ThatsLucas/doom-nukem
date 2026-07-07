@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:04:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:49:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/07 01:56:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ int		wall_other_sector(t_map *map, int wall_idx, int cur_sector);
 void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall);
 
 void	update_player_sector(t_game *game, t_vect2 oldpos);
+
+/*Elevator*/
+void	check_elevator(t_map *map);
+void	toggle_elevator(t_sector *s);
 
 #endif

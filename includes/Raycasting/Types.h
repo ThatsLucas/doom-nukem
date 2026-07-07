@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:39:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/07 02:25:59 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef struct s_sector
 	t_vect2	ceil_arrow_tip;
 	int		has_floor_arrow;
 	int		has_ceil_arrow;
+
+	/* --- Ascenceur --- */
+	int		direction;			/* 1 up // 0 down */
+	int		levelSize;			/* distance du trajet */
+	int		isElevating;
+	float	levelRemaining;		/* distance restante */
+	long	lastMove;			/* timestamp du dernier deplacement */
 }			t_sector;
 
 typedef struct s_ray

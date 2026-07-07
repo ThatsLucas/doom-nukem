@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/07/06 13:06:29 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/07 01:58:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void draw_in_game(t_game *game)
     render_entities(game);
     display_hud(game);
     draw_pause_menu(game);
+	check_elevator(game->map);
+
 }
 
 void draw_current_menu(t_game *game)

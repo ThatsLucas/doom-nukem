@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/06 16:13:08 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/07 02:26:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@
 #define RAYCAST_THREADS 8
 #endif
 
+#ifndef ELEVATOR_SPEED
+# define ELEVATOR_SPEED 1.0f	/* unites par seconde */
+#endif
+
 typedef struct s_ply t_ply;
 
 typedef struct s_settings
@@ -128,6 +132,7 @@ t_game *init_game(void);
 void free_map(t_map *map);
 
 /*utils*/
+long get_timestamp(void);
 float to_pixelX(float x, t_game *game);
 float to_pixelY(float y, t_game *game);
 float to_PosX(float x, t_game *game);
