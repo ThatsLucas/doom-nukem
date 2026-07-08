@@ -104,7 +104,7 @@ typedef struct	s_editor
 	t_editor_textures	*textures;
 	t_texture_selector	texture_selector;
 	t_font				*error_text;
-	SDL_Texture			*buttons_textures[6];
+	SDL_Texture			*buttons_textures[8];
 	int					selected_tool;
 	t_map				*map;
 	t_editor_properties	properties;

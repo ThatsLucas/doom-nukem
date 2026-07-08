@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:22:45 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/03 09:22:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/07 12:41:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ static void	display_tools_textures(t_game *game)
 	SDL_Rect	dest;
 	int			offset;
 
-	offset = (145 * game->window->w) / 1920;
+	offset = (120 * game->window->w) / 1920;
 	dest.w = 100;
 	dest.h = 100;
-	dest.x = 1485;
+	dest.x = 1450;
 	dest.y = 298;
 
 	to_responsive(game->window, &dest);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (i)
 			dest.x += offset;
 
 		if (editor->selected_tool == i)
-			draw_texture(dest.x, dest.y, dest.w, dest.h, game->window, editor->buttons_textures[i + 3]);
+			draw_texture(dest.x, dest.y, dest.w, dest.h, game->window, editor->buttons_textures[i + 4]);
 		else
 			draw_texture(dest.x, dest.y, dest.w, dest.h, game->window, editor->buttons_textures[i]);
 	}

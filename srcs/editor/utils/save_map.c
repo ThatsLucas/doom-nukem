@@ -6,18 +6,13 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:36:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:52:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
-/*
-	Ecriture d'un mur champ par champ (pas en blob brut) : le format
-	reste stable si t_wall change de taille. Les champs derives
-	sector_front/back ne sont PAS ecrits, ils sont recalcules au load.
-*/
 static void	save_one_wall(t_wall *w, int fd)
 {
 	write(fd, &w->v1, sizeof(int));
@@ -101,6 +96,17 @@ static void	save_entity(t_map *map, int fd)
 	return ;
 }
 
+static void	save_elevators(t_map *map, int fd)
+{
+	for (int i = 0; i < map->num_sectors; ++i)
+	{
+		write(fd, &map->sectors[i].direction, sizeof(int));
+		write(fd, &map->sectors[i].levelSize, sizeof(int));
+	}
+
+	return ;
+}
+
 int	save_map(char *name, t_map *map)
 {
 	char	*file;
@@ -117,6 +123,7 @@ int	save_map(char *name, t_map *map)
 	save_sectors(map, fd);
 	save_textures(map, fd);
 	save_entity(map, fd);
+	save_elevators(map, fd);
 
 	ft_printf("Map Saved !\n");
 

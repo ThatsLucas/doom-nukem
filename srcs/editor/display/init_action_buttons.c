@@ -31,23 +31,29 @@ static void	select_slope(t_game *game)
 	game->editor->properties.selected_property = 2;
 }
 
+static void	select_entity(t_game *game)
+{
+	game->editor->selected_tool = 3;
+	game->editor->properties.selected_property = 4;
+}
+
 /*	initaliser les boutons des propriétés	*/
 void	init_action_buttons(t_game *game)
 {
 	SDL_Rect	dest;
 	t_RGB		color = (t_RGB){0, 0, 0, 0};
 	int			offset;
-	void		*function[3] = {&select_cursor, &select_wall, &select_slope};
+	void		*function[4] = {&select_cursor, &select_wall, &select_slope, &select_entity};
 
-	offset = (145 * game->window->w) / 1920;
+	offset = (120 * game->window->w) / 1920;
 	dest.w = 100;
 	dest.h = 100;
-	dest.x = 1485;
+	dest.x = 1450;
 	dest.y = 298;
 
 	to_responsive(game->window, &dest);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (i)
 			dest.x = dest.x + offset;

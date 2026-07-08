@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/06 15:28:39 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/08 14:41:24 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		
 	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
 		game->window->menus.current = 0;
+
+	if (key.keysym.sym == SDLK_h && event->type == SDL_KEYDOWN)
+		toggle_elevator(&game->map->sectors[game->ply->sector]);
 }
 
 void events_handler(t_game *game)

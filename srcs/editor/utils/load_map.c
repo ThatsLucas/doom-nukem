@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:49:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:52:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ static int	read_full(int fd, void *buf, size_t size)
 	return (0);
 }
 
-/*
-	Lecture d'un mur champ par champ (et NON en blob brut) pour que le
-	format reste stable quand t_wall change de taille. On lit les champs
-	persistants ; les champs derives (sector_front/back) sont recalcules
-	au load par precompute_next_sectors.
-*/
 static int	load_one_wall(t_wall *w, int fd)
 {
 	if (read_full(fd, &w->v1, sizeof(int))
@@ -167,6 +161,23 @@ static int	load_entity(t_map *map, int fd)
 	return (0);
 }
 
+static void	load_elevators(t_map *map, int fd)
+{
+	int	direction;
+	int	level_size;
+
+	for (int i = 0; i < map->num_sectors; ++i)
+	{
+		if (read_full(fd, &direction, sizeof(int))
+			|| read_full(fd, &level_size, sizeof(int)))
+			return ;
+		map->sectors[i].direction = direction;
+		map->sectors[i].levelSize = level_size;
+	}
+
+	return ;
+}
+
 t_map	*load_map(char *name)
 {
 	char	*file;
@@ -191,6 +202,7 @@ t_map	*load_map(char *name)
 		free_map(map);
 		return (NULL);
 	}
+	load_elevators(map, fd);
 	close(fd);
 	map->cap_textures = map->num_textures;
 	map->cap_sectors = map->num_sectors;

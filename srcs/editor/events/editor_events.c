@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:49:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:40:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static void	apply_sector_inputs(t_game *game)
 	sector->light_level = light;
 	sector->floor_plane.d = -get_input_float_ev(game->editor->text_inputs, "sectors_floor_z");
 	sector->ceil_plane.d = -get_input_float_ev(game->editor->text_inputs, "sectors_ceil_z");
+	sector->direction = get_input_int_ev(game->editor->text_inputs, "sectors_direction");
+	sector->levelSize = get_input_int_ev(game->editor->text_inputs, "sectors_levelSize");
 }
 
 static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
