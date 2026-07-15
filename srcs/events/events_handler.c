@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:41:24 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/14 12:12:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	if (key.keysym.sym == SDLK_LSHIFT)
 		player_run(ply, event->type == SDL_KEYDOWN);
 
-	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYDOWN)
-		player_crouch(ply);
-
-	if (key.keysym.sym == SDLK_LCTRL && event->type == SDL_KEYUP)
+	if (key.keysym.sym == SDLK_LCTRL)
 		player_crouch(ply);
 		
 	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
