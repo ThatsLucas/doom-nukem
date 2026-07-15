@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:40:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/15 17:59:01 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,12 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 		apply_wall_inputs(game);
 	}
 
+	if (editor->selected_tool == 3 && code == SDLK_LEFT)
+		handle_entities(game, -1);
+
+	if (editor->selected_tool == 3 && code == SDLK_RIGHT)
+		handle_entities(game, 1);
+
 	if (!editor->selected)
 		return ;
 	if (code == SDLK_BACKSPACE && ft_strlen(editor->selected->text))
@@ -151,6 +157,8 @@ void	editor_events(t_game *game)
 			case SDL_MOUSEBUTTONDOWN:
 				get_selected_input(game, &game->editor->text_inputs, e.motion.x, e.motion.y);
 				check_button_pressed(game, game->editor->buttons);
+				if (game->editor->selected_tool == 3)
+					check_button_pressed(game, game->editor->buttons_entities);
 				if (!get_clicked_editor_button(game, e.motion.x, e.motion.y))
 					plan_click(game, &e);
 				get_clicked_texture(game, e.motion.x, e.motion.y);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:49:17 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/15 17:41:40 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_editor
 	t_list				*text_inputs;
 	t_text_input		*selected;
 	t_buttons			*buttons;
+	t_buttons			*buttons_entities;
 	t_size2				settings;
 	t_plan				plan;
 	t_editor_textures	*textures;
@@ -109,6 +110,8 @@ typedef struct	s_editor
 	t_map				*map;
 	t_editor_properties	properties;
 	t_list				*texture_selector_buttons;
+	char				*entity_text;
+	int					selected_entity_type;
 }						t_editor;
 
 /* Init / Exit */
@@ -168,6 +171,9 @@ void	init_sector_properties(t_game *game);
 void	display_slopes(t_game *game);
 void	init_slope_properties(t_game *game);
 void	editor_place_slope(t_game *game, int pixx, int pixy);
+void	init_entity_prop(t_game *game);
+void	display_entities_prop(t_game *game);
+void	handle_entities(t_game *game, int x);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:13:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 11:45:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:01:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "Editor.h"
 
 /*	affichage et initialisation des propriétés	*/
-
 void	display_properties(t_game *game)
 {
 	switch (game->editor->properties.selected_property)
@@ -33,6 +32,10 @@ void	display_properties(t_game *game)
 	case 3:
 		display_sector_property(game);
 		return ;
+
+	case 4:
+		display_entities_prop(game);
+		return ;
 	}
 
 	return ;
@@ -50,6 +53,7 @@ void	init_properties(t_game *game)
 	init_walls_properties(game);
 	init_sector_properties(game);
 	init_slope_properties(game);
+	init_entity_prop(game);
 
 	return ;
 }
