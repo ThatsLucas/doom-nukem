@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_text.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:10:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/01 16:07:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:42:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fo
 {
     textData->font = TTF_OpenFont(fontPath, textData->size);
     if (!textData->font)
-	{
-        ft_printf("Error while opening font : %s\n", TTF_GetError());
-		return ;
-	}
+        ft_dprintf(STDERR_FILENO, "Error while opening font : %s\n", TTF_GetError());
     SDL_Surface* surfaceMessage = TTF_RenderUTF8_Solid(textData->font, text, textData->color); 
     if (!surfaceMessage)
         return;
@@ -35,7 +32,7 @@ void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char 
 {
     textData->font = TTF_OpenFont(fontPath, textData->size);
     if (!textData->font)
-        ft_printf("Error while opening font : %s\n", TTF_GetError());
+        ft_dprintf(STDERR_FILENO, "Error while opening font : %s\n", TTF_GetError());
     SDL_Surface* surfaceMessage = TTF_RenderUTF8_Solid_Wrapped(textData->font, text, textData->color, maxW);
     if (!surfaceMessage)
         return;

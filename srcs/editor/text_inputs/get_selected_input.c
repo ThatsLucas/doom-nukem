@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 20:55:41 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 13:14:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:46:06 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	get_selected_input(t_game *game, t_list **lst, int x, int y)
 	while (current)
 	{
 		input = (t_text_input *)current->content;
+
+		if (input->page > 0 && input->page != editor->properties.selected_property)
+		{
+			current = current->next;
+			continue ;
+		}
 		box = input->box;
 		to_responsive(game->window, &box);
 		if (x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h)

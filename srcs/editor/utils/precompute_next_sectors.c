@@ -6,42 +6,81 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:00:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 00:00:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/24 15:53:06 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* cherche un autre secteur qui référence aussi le mur w */
+static int	find_other_sector(t_map *map, int w, int owner_sector)
+{
+	int	si;
+	int	wi;
+
+	si = 0;
+	while (si < map->num_sectors)
+	{
+		if (si != owner_sector)
+		{
+			wi = 0;
+			while (wi < map->sectors[si].num_walls)
+			{
+				if (map->sectors[si].walls[wi] == w)
+					return (si);
+				wi++;
+			}
+		}
+		si++;
+	}
+	return (-1);
+}
+
 void	precompute_next_sectors(t_map *map)
 {
-	t_sector	*sa;
-	t_sector	*sb;
-	int			wa;
-	int			wb;
+	int	si;
+	int	wi;
+	int	w;
+	int	other;
 
-	for (int i = 0; i < map->num_walls; i++)
-		map->walls[i].next_sector = -1;
-	for (int si = 0; si < map->num_sectors; si++)
+	if (!map || map->num_walls == 0 || map->num_sectors == 0)
+		return ;
+	si = 0;
+	while (si < map->num_walls)
 	{
-		sa = &map->sectors[si];
-		for (int wi = 0; wi < sa->num_walls; wi++)
+		map->walls[si].next_sector = -1;
+		map->walls[si].mirror = -1;
+		map->walls[si].sector_front = -1;
+		map->walls[si].sector_back = -1;
+		si++;
+	}
+	si = 0;
+	while (si < map->num_sectors)
+	{
+		wi = 0;
+		while (wi < map->sectors[si].num_walls)
 		{
-			wa = sa->walls[wi];
-			for (int sj = si + 1; sj < map->num_sectors; sj++)
+			w = map->sectors[si].walls[wi];
+			if (w >= 0 && w < map->num_walls)
 			{
-				sb = &map->sectors[sj];
-				for (int wj = 0; wj < sb->num_walls; wj++)
+				if (map->walls[w].sector_front == -1)
+					map->walls[w].sector_front = si;
+				else if (map->walls[w].sector_back == -1
+					&& map->walls[w].sector_front != si)
+					map->walls[w].sector_back = si;
+				if (map->walls[w].next_sector == -1)
 				{
-					wb = sb->walls[wj];
-					if (map->walls[wa].v1 == map->walls[wb].v2
-						&& map->walls[wa].v2 == map->walls[wb].v1)
+					other = find_other_sector(map, w, si);
+					if (other >= 0)
 					{
-						map->walls[wa].next_sector = sj;
-						map->walls[wb].next_sector = si;
+						map->walls[w].next_sector = other;
+						map->walls[w].mirror = w;
 					}
 				}
 			}
+			wi++;
 		}
+		si++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_notif.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 20:46:10 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/22 15:02:07 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/01 16:04:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, 
 {
     if (!notif->font.texture)
     {
-        ft_printf("Invalid Texture inside Notif\n");
+        ft_dprintf(STDERR_FILENO, "Invalid Texture inside Notif\n");
         return;
     }
     int x = notifX + (notifW - notif->w) /2;
@@ -100,7 +100,7 @@ static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, 
     SDL_Rect notifText = {x, y, w, h};
     to_responsive(win, &notifText);
     if (SDL_RenderCopy(win->renderPTR, notif->font.texture, NULL, &notifText)  < 0)
-        ft_printf("ERROR: %s\n", SDL_GetError());
+        ft_dprintf(STDERR_FILENO, "ERROR: %s\n", SDL_GetError());
 }
 
 void display_notif(t_WIN *win, t_notif_buf **notif_buf)

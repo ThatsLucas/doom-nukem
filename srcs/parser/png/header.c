@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:13:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/15 11:01:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/05/05 12:42:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int find_png_header(t_png *pngFile)
     readDatas.buf[readDatas.nbytes] = '\0';
     
     if (check_header_validity(readDatas.buf) != 0)
-        ft_printf("This file has not valid png header!\n");
+        ft_dprintf(STDERR_FILENO, "This file has not valid png header!\n");
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:37:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/24 17:49:17 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct	s_editor
 	t_editor_textures	*textures;
 	t_texture_selector	texture_selector;
 	t_font				*error_text;
-	SDL_Texture			*buttons_textures[6];
+	SDL_Texture			*buttons_textures[8];
 	int					selected_tool;
 	t_map				*map;
 	t_editor_properties	properties;
@@ -147,9 +147,9 @@ void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 
 /* Utils */
 void	update_grid_size(t_game *game);
+void	fit_grid_view(t_game *game);
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y);
 t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
-void	precompute_mirrors(t_map *map);
 void	precompute_lengths(t_map *map);
 void	precompute_next_sectors(t_map *map);
 int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);

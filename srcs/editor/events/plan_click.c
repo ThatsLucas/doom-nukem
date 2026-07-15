@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 12:10:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:40:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,14 @@ static int	tool_click(t_game *game, SDL_Event *e)
 				game->editor->properties.sectors[2] = s->sky_tex >= 0 ? game->editor->textures->textures[s->sky_tex] : NULL;
 				snprintf(buf, sizeof(buf), "%d", s->light_level);
 				set_input_text(game->editor->text_inputs, "sectors_light", buf);
-				snprintf(buf, sizeof(buf), "%.2f", s->floor_plane.d);
+				snprintf(buf, sizeof(buf), "%.2f", -s->floor_plane.d);
 				set_input_text(game->editor->text_inputs, "sectors_floor_z", buf);
-				snprintf(buf, sizeof(buf), "%.2f", s->ceil_plane.d);
+				snprintf(buf, sizeof(buf), "%.2f", -s->ceil_plane.d);
 				set_input_text(game->editor->text_inputs, "sectors_ceil_z", buf);
+				snprintf(buf, sizeof(buf), "%d", s->direction);
+				set_input_text(game->editor->text_inputs, "sectors_direction", buf);
+				snprintf(buf, sizeof(buf), "%d", s->levelSize);
+				set_input_text(game->editor->text_inputs, "sectors_levelSize", buf);
 			}
 		}
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:57:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 10:36:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 17:15:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	editor_place_wall(t_game *game, int pixx, int pixy, int button)
 		return ;
 
 	click_pos = pixels_to_pos(game->editor, (float)pixx, (float)pixy);
-	if (click_pos.x < 0 || click_pos.y < 0 || click_pos.x > game->mapSize[0] || click_pos.y > game->mapSize[1])
+	if (click_pos.x < 0 || click_pos.y < 0 || click_pos.x > map->mapSize.x || click_pos.y > map->mapSize.x)
 		return ;
 
 	existing = get_clicked_vertice(game, click_pos.x, click_pos.y);

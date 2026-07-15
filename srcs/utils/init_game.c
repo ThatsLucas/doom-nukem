@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/08 10:04:32 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 16:55:02 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ static void load_settings(t_game *game)
 	game->settings.move_backward = 's';
 	game->settings.move_left = 'a';
 	game->settings.move_right = 'd';
-}
-
-void init_map(t_game *game)
-{
-	game->map = init_test_map();
-	if (!game->map)
-		exit_game(game, "Init map");
-
-	precompute_mirrors(game->map);
-
-	return;
 }
 
 t_game *init_game(void)
@@ -64,8 +53,6 @@ t_game *init_game(void)
 	if (TTF_Init() < 0)
 		exit_game(game, "TTF Init");
 
-	init_editor(game);
-
 	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
 	game->rays = calloc(game->screenSize[0], sizeof(t_ray));
 	game->fps = NULL;
@@ -76,9 +63,19 @@ t_game *init_game(void)
 									game->screenSize[1]);
 	if (!game->frame_buffer || !game->rays || !game->frame)
 		exit_game(game, "game malloc (frames)");
-	init_map(game);
 	game->window->menus.notif.notif_buf = NULL;
 	game->window->menus.current = 1;
+
+	game->minimap_tex = SDL_CreateTexture(game->window->renderPTR, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 200, 200);
+
+	init_entities(&game->entities);
+	game->items = malloc(sizeof(t_ground_item) * 16);
+	if (!game->items)
+		exit_game(game, "failed malloc items");
+	game->items_count = 0;
+	game->items_capacity = 16;
+	game->is_paused = 0;
+	init_editor(game);
 
 	return (game);
 }

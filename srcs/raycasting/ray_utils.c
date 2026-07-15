@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:08:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 15:38:56 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/24 17:17:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,21 @@ t_vect2	get_ray_dir(t_ray *ray, t_ply *ply)
 	dir.y = ply->dir.y + ray->camera_x * ray->plane.y;
 
 	return (dir);
+}
+
+/*
+	Un mur de portail est partage par deux secteurs (sector_front et
+	sector_back, precalcules au save). Retourne celui des deux qui n'est
+	PAS le secteur courant, -1 sinon.
+*/
+int	wall_other_sector(t_map *map, int wall_idx, int cur_sector)
+{
+	t_wall	*w;
+
+	w = &map->walls[wall_idx];
+	if (w->sector_front == cur_sector)
+		return (w->sector_back);
+	if (w->sector_back == cur_sector)
+		return (w->sector_front);
+	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:08:53 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 11:31:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/07 12:40:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static void	init_buttons(t_game *game)
 {
 	t_png	s_png[3];
 	char	*s_name[3] = {"button_up.png", "button_down.png", "red_cross.png"};
-	t_png	png[6];
-	char	*name[6] = {"cursor.png", "wall.png", "slope.png", "cursor_sel.png", "wall_sel.png", "slope_sel.png"};
+	t_png	png[8];
+	char	*name[8] = {"cursor.png", "wall.png", "slope.png", "entity.png", "cursor_sel.png", "wall_sel.png", "slope_sel.png", "entity_sel.png"};
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -77,7 +77,7 @@ static void	init_buttons(t_game *game)
 			exit_game(game, "editor: Can't init buttons");
 	}
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		png[i].path = ft_strjoin("assets/png/editor/", name[i]);
 		if (process_png(&png[i]))

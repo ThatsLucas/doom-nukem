@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:40:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:52:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,27 @@ static int	read_full(int fd, void *buf, size_t size)
 	return (0);
 }
 
+static int	load_one_wall(t_wall *w, int fd)
+{
+	if (read_full(fd, &w->v1, sizeof(int))
+		|| read_full(fd, &w->v2, sizeof(int))
+		|| read_full(fd, &w->next_sector, sizeof(int))
+		|| read_full(fd, &w->length, sizeof(float))
+		|| read_full(fd, &w->mirror, sizeof(int))
+		|| read_full(fd, &w->tex_mid, sizeof(int))
+		|| read_full(fd, &w->tex_upper, sizeof(int))
+		|| read_full(fd, &w->tex_lower, sizeof(int))
+		|| read_full(fd, &w->alpha, sizeof(float)))
+		return (-1);
+	w->sector_front = -1;
+	w->sector_back = -1;
+	return (0);
+}
+
 static int	load_vertices_walls(t_map *map, int fd)
 {
+	int	i;
+
 	if (read_full(fd, &map->num_vertices, sizeof(int)))
 		return (-1);
 	if (map->num_vertices < 0 || map->num_vertices > INT_MAX)
@@ -43,8 +62,13 @@ static int	load_vertices_walls(t_map *map, int fd)
 	map->walls = ft_calloc(map->num_walls, sizeof(t_wall));
 	if (!map->walls)
 		return (-1);
-	if (read_full(fd, map->walls, sizeof(t_wall) * map->num_walls))
-		return (-1);
+	i = 0;
+	while (i < map->num_walls)
+	{
+		if (load_one_wall(&map->walls[i], fd))
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
@@ -137,6 +161,23 @@ static int	load_entity(t_map *map, int fd)
 	return (0);
 }
 
+static void	load_elevators(t_map *map, int fd)
+{
+	int	direction;
+	int	level_size;
+
+	for (int i = 0; i < map->num_sectors; ++i)
+	{
+		if (read_full(fd, &direction, sizeof(int))
+			|| read_full(fd, &level_size, sizeof(int)))
+			return ;
+		map->sectors[i].direction = direction;
+		map->sectors[i].levelSize = level_size;
+	}
+
+	return ;
+}
+
 t_map	*load_map(char *name)
 {
 	char	*file;
@@ -153,6 +194,7 @@ t_map	*load_map(char *name)
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 		return (close(fd), NULL);
+	read_full(fd, &map->mapSize, sizeof(t_vect2));
 	if (load_vertices_walls(map, fd) || load_sectors(map, fd)
 		|| load_textures(map, fd) || load_entity(map, fd))
 	{
@@ -160,7 +202,15 @@ t_map	*load_map(char *name)
 		free_map(map);
 		return (NULL);
 	}
+	load_elevators(map, fd);
 	close(fd);
+	map->cap_textures = map->num_textures;
+	map->cap_sectors = map->num_sectors;
+	map->cap_walls = map->num_walls;
+	map->cap_vertices = map->num_vertices;
+	precompute_next_sectors(map);
+	precompute_lengths(map);
+
 	return (map);
 }
 
@@ -169,11 +219,12 @@ void	load_editor_map(t_game *game)
 	t_list			*current = game->editor->text_inputs;
 	t_text_input	*input;
 	char			*s;
+	t_map			*map;
 
+	s = NULL;
 	while (current)
 	{
 		input = (t_text_input *)current->content;
-
 		if (!ft_strcmp("mapName", input->name))
 		{
 			s = input->text;
@@ -181,15 +232,19 @@ void	load_editor_map(t_game *game)
 		}
 		current = current->next;
 	}
-
-	if (ft_strlen(s))
+	if (!s || !ft_strlen(s))
+	{
+		ft_printf("Can't load a map: name needed\n");
+		return ;
+	}
+	map = load_map(s);
+	if (map)
 	{
 		free_map(game->editor->map);
-		game->editor->map = load_map(s);
+		game->editor->map = map;
+		fit_grid_view(game);
 	}
 	else
-		ft_printf("Can't load a map: name needed\n");
-
-	return ;
+		ft_printf("Error with loading '%s'\n", s);
 }
 

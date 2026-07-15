@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:38:16 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:18:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:34:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,52 @@ void	player_shoot(t_game *game)
 	int				idx = game->ply->current_weap_index;
 	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
 	t_weapon_3D		*w = &game->hud_cache.weapons_3D[type];
+	t_entity		*e = game->ply->crosshair_target;
+	int				damage = 0;
 
 	if (w->is_firing)
 		return ;
+
+	if (game->ply->crosshair_target && game->ply->crosshair_target->type == ENTITY_PNJ)
+		return ;
+
 	if (game->ply->inventory.weapons[idx].ammo <= 0 && game->ply->inventory.weapons[idx].ammo != -1)
 		return ;
 
+	if (e)
+	{
+		switch (game->ply->inventory.weapons[idx].type)
+		{
+			case WEAP_PISTOL:
+				damage = PISTOL_DAMAGE;
+				break ;
+			case WEAP_SHOTGUN:
+				damage = SHOTGUN_DAMAGE;
+				break ;
+			case WEAP_ROCKET_LAUNCHER:
+				damage = ROCKET_DAMAGE;
+				break ;
+			case WEAP_FISTS:
+				float	dx = e->x - game->ply->pos.x;
+				float	dy = e->y - game->ply->pos.y;
+				float	dist = sqrt(dx * dx + dy * dy);
+				if (dist > 2.0f)
+					damage = 0;
+				else
+					damage = FISTS_DAMAGE;
+				break ;
+		}
+		e->hp -= damage;
+		printf("HP: %d\n", e->hp);
+		if (e->hp <= 0)
+		{
+			printf("entity is DEAD\n");
+			e->status = E_STATUS_DEAD;
+		}
+	}
 	if (game->ply->inventory.weapons[idx].type != WEAP_FISTS)
 		game->ply->inventory.weapons[idx].ammo -= 1;
 
-	if (game->ply->inventory.weapons[idx].type == WEAP_ROCKET_LAUNCHER)
-	{
-		//float	tx = game->screenSize[0] / 2;
-		//float	ty = game->screenSize[1] / 2;
-		// spawn_rocket(game, tx, ty);
-	}
 
 	w->current_frame = 0;
 	w->is_firing = 1;

@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 22:22:22 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/23 12:09:01 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 15:17:16 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 
 static void change_menu_to_main_menu(t_game *game)
 {
+    if (game->is_paused == 1)
+    {
+        game->window->menus.current = 0;
+        return;
+    }
     game->window->menus.current = 1;
 }
 
@@ -236,5 +241,11 @@ void draw_settings_menu(t_game *game)
         draw_pick_a_key(win);
     else
         display_buttons(game->window->buttonList, game, 2);
+    if (game->is_paused)
+    {
+        draw_texture(20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5, win, win->menus.main.button.texture);
+        draw_texture(10 + game->window->menus.pause.texts[0].w / 2, 30, game->window->menus.pause.texts[0].w/2, game->window->menus.pause.texts[0].h/2, win, game->window->menus.pause.texts[0].texture);
+    }
+
 }
 // SDL_RenderSetClipRect

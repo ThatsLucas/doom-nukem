@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 12:06:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:40:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,70 +22,6 @@ static void handle_input(t_editor *editor, char *text)
 		ft_strlcat(editor->selected->text, text, sizeof(editor->selected->text));
 
 	return ;
-}
-
-void    print_map(t_map *map)
-{
-    int i;
-    int j;
-
-    printf("==========\n==== VERTICES ====\n");
-    i = 0;
-    while (i < map->num_vertices)
-    {
-        printf("v%d:    %f; %f\n", i, map->vertices[i].x, map->vertices[i].y);
-        i++;
-    }
-    printf("==== WALLS ====\n");
-    i = 0;
-    while (i < map->num_walls)
-    {
-        printf("w%d:    v1=%d v2=%d | next_sector=%d mirror=%d length=%f alpha=%f\n",
-            i, map->walls[i].v1, map->walls[i].v2,
-            map->walls[i].next_sector, map->walls[i].mirror,
-            map->walls[i].length, map->walls[i].alpha);
-        printf("       tex_mid=%d tex_upper=%d tex_lower=%d\n",
-            map->walls[i].tex_mid, map->walls[i].tex_upper,
-            map->walls[i].tex_lower);
-        i++;
-    }
-    printf("==== SECTORS ====\n");
-    i = 0;
-    while (i < map->num_sectors)
-    {
-        printf("s%d:    num_walls=%d light=%d\n",
-            i, map->sectors[i].num_walls, map->sectors[i].light_level);
-        printf("       floor_tex=%d ceil_tex=%d sky_tex=%d\n",
-            map->sectors[i].floor_tex, map->sectors[i].ceil_tex,
-            map->sectors[i].sky_tex);
-        printf("       floor_plane: a=%f b=%f c=%f d=%f\n",
-            map->sectors[i].floor_plane.a, map->sectors[i].floor_plane.b,
-            map->sectors[i].floor_plane.c, map->sectors[i].floor_plane.d);
-        printf("       ceil_plane:  a=%f b=%f c=%f d=%f\n",
-            map->sectors[i].ceil_plane.a, map->sectors[i].ceil_plane.b,
-            map->sectors[i].ceil_plane.c, map->sectors[i].ceil_plane.d);
-        printf("       walls: [");
-        j = 0;
-        while (j < map->sectors[i].num_walls)
-        {
-            printf("%d", map->sectors[i].walls[j]);
-            if (j < map->sectors[i].num_walls - 1)
-                printf(", ");
-            j++;
-        }
-        printf("]\n");
-        i++;
-    }
-    printf("==== TEXTURES ====\n");
-    i = 0;
-    while (i < map->num_textures)
-    {
-        printf("t%d:    w=%d h=%d colors=%s\n",
-            i, map->textures[i].w, map->textures[i].h,
-            map->textures[i].colors ? "loaded" : "NULL");
-        i++;
-    }
-    printf("================\n");
 }
 
 static float	get_input_float_ev(t_list *inputs, char *name)
@@ -150,8 +86,10 @@ static void	apply_sector_inputs(t_game *game)
 	if (light > 255)
 		light = 255;
 	sector->light_level = light;
-	sector->floor_plane.d = get_input_float_ev(game->editor->text_inputs, "sectors_floor_z");
-	sector->ceil_plane.d = get_input_float_ev(game->editor->text_inputs, "sectors_ceil_z");
+	sector->floor_plane.d = -get_input_float_ev(game->editor->text_inputs, "sectors_floor_z");
+	sector->ceil_plane.d = -get_input_float_ev(game->editor->text_inputs, "sectors_ceil_z");
+	sector->direction = get_input_int_ev(game->editor->text_inputs, "sectors_direction");
+	sector->levelSize = get_input_int_ev(game->editor->text_inputs, "sectors_levelSize");
 }
 
 static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
@@ -159,11 +97,8 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 	if (code == SDLK_ESCAPE)
 		exit_game(game, NULL);
 
-	if (code == SDLK_DELETE)
-		clear_editor_plan(game);
-
-	if (code == SDLK_o)
-		print_map(game->editor->map);
+	if (code == SDLK_END)
+		game->window->menus.current = 1;
 
 	if (code == SDLK_RETURN || code == SDLK_KP_ENTER)
 	{

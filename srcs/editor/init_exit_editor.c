@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 18:06:03 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 11:38:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 17:21:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	init_editor(t_game *game)
 	if (!game->editor->font)
 		exit_game(game, "display_editor font");
 	init_editor_cache(game);
+	init_editor_map(game);
 
-	game->mapSize[0] = 12;	game->mapSize[1] = 8;	// default size
+	game->editor->map->mapSize.x = 12;	game->editor->map->mapSize.y = 8;	// default size
 	game->editor->plan.size = (t_size2){game->window->w * 0.75, game->window->h};
 	update_grid_size(game);
 	game->editor->settings = (t_size2){game->window->w * 0.25, game->window->h};
@@ -43,7 +44,6 @@ void	init_editor(t_game *game)
 	game->editor->error_text = calloc(1, sizeof(t_font));
 	if (!game->editor->error_text)
 		exit_game(game, "editor: cant calloc error_text");
-	init_editor_map(game);
 
 	return ;
 }

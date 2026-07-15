@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/22 17:57:37 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/14 12:12:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	t_ply *ply;
 
 	if (key.keysym.sym == 27)
-	{
-		if (game->editor)
-		{
-			game->map = NULL;
-			game->window->menus.current = -1;
-			return ;
-		}
 		exit_game(game, NULL);
+		
+	if (key.keysym.sym == SDLK_p && event->type == SDL_KEYDOWN && game->window->menus.current == 0) //pause
+	{
+		game->is_paused ^= 1;
+		SDL_SetRelativeMouseMode(!game->is_paused);
 	}
+	
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
+	if (key.keysym.sym == SDLK_e)
+		interactions(game);
+
 	ply = game->ply;
 	ply->keys.w = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_forward) ? 1 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_left) ? 1 : ply->keys.a;
@@ -49,6 +51,7 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYDOWN && key.keysym.sym == game->settings.move_right) ? 1 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741904) ? 1 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYDOWN && key.keysym.sym == 1073741903) ? 1 : ply->keys.right;
+	ply->keys.space = (event->type == SDL_KEYDOWN && key.keysym.sym == SDLK_SPACE) ? 1 : ply->keys.space;
 
 	ply->keys.w = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_forward) ? 0 : ply->keys.w;
 	ply->keys.a = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_left) ? 0 : ply->keys.a;
@@ -56,6 +59,22 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	ply->keys.d = (event->type == SDL_KEYUP && key.keysym.sym == game->settings.move_right) ? 0 : ply->keys.d;
 	ply->keys.left = (event->type == SDL_KEYUP && key.keysym.sym == 1073741904) ? 0 : ply->keys.left;
 	ply->keys.right = (event->type == SDL_KEYUP && key.keysym.sym == 1073741903) ? 0 : ply->keys.right;
+	ply->keys.space = (event->type == SDL_KEYUP && key.keysym.sym == SDLK_SPACE) ? 0 : ply->keys.space;
+
+	if (key.keysym.sym == SDLK_f && event->type == SDL_KEYDOWN)
+		activate_flashlight(game);
+
+	if (key.keysym.sym == SDLK_LSHIFT)
+		player_run(ply, event->type == SDL_KEYDOWN);
+
+	if (key.keysym.sym == SDLK_LCTRL)
+		player_crouch(ply);
+		
+	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
+		game->window->menus.current = 0;
+
+	if (key.keysym.sym == SDLK_h && event->type == SDL_KEYDOWN)
+		toggle_elevator(&game->map->sectors[game->ply->sector]);
 }
 
 void events_handler(t_game *game)
@@ -91,8 +110,8 @@ void events_handler(t_game *game)
 			// printf("Key Released: %d\n", event.key.keysym.sym);
 			break;
 
-		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0)
+		case SDL_MOUSEBUTTONDOWN:				
+			if (event.button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0 && !game->is_paused)
 				player_shoot(game);
 			else
 			{

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/21 13:31:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/24 16:19:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	editor_add_wall(t_game *game, int v1, int v2)
 	t_map	*map = game->editor->map;
 	t_wall	*wall;
 
-	if (wall_already_exist(game, v1, v2))
+	if (v1 == v2 || wall_already_exist(game, v1, v2))
 		return ;
 
 	if (map->num_walls == map->cap_walls)
@@ -172,6 +172,8 @@ void	editor_add_wall(t_game *game, int v1, int v2)
 	wall->v1 = v1;
 	wall->v2 = v2;
 	wall->next_sector = -1;
+	wall->sector_front = -1;
+	wall->sector_back = -1;
 	wall->alpha = get_alpha(game);
 	wall->tex_upper = get_wall_text_index(game->editor->properties.walls[0], game->editor);
 	wall->tex_mid = get_wall_text_index(game->editor->properties.walls[1], game->editor);

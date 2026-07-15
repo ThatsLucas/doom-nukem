@@ -6,20 +6,39 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:41:14 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/08 14:52:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+static void	save_one_wall(t_wall *w, int fd)
+{
+	write(fd, &w->v1, sizeof(int));
+	write(fd, &w->v2, sizeof(int));
+	write(fd, &w->next_sector, sizeof(int));
+	write(fd, &w->length, sizeof(float));
+	write(fd, &w->mirror, sizeof(int));
+	write(fd, &w->tex_mid, sizeof(int));
+	write(fd, &w->tex_upper, sizeof(int));
+	write(fd, &w->tex_lower, sizeof(int));
+	write(fd, &w->alpha, sizeof(float));
+}
+
 static void	save_vertices_walls(t_map *map, int fd)
 {
+	int	i;
+
 	write(fd, &map->num_vertices, sizeof(int));
 	write(fd, map->vertices, sizeof(t_vect2) * map->num_vertices);
 	write(fd, &map->num_walls, sizeof(int));
-	write(fd, map->walls, sizeof(t_wall) * map->num_walls);
-
+	i = 0;
+	while (i < map->num_walls)
+	{
+		save_one_wall(&map->walls[i], fd);
+		i++;
+	}
 	return ;
 }
 
@@ -77,6 +96,17 @@ static void	save_entity(t_map *map, int fd)
 	return ;
 }
 
+static void	save_elevators(t_map *map, int fd)
+{
+	for (int i = 0; i < map->num_sectors; ++i)
+	{
+		write(fd, &map->sectors[i].direction, sizeof(int));
+		write(fd, &map->sectors[i].levelSize, sizeof(int));
+	}
+
+	return ;
+}
+
 int	save_map(char *name, t_map *map)
 {
 	char	*file;
@@ -88,12 +118,14 @@ int	save_map(char *name, t_map *map)
 	if (fd < 0)
 		return (1);
 
+	write(fd, &map->mapSize, sizeof(t_vect2));
 	save_vertices_walls(map, fd);
 	save_sectors(map, fd);
 	save_textures(map, fd);
 	save_entity(map, fd);
+	save_elevators(map, fd);
 
-	ft_printf("Map Saved !");
+	ft_printf("Map Saved !\n");
 
 	close(fd);
 	return (0);
@@ -104,11 +136,12 @@ void	save_editor_map(t_game *game)
 	t_list			*current = game->editor->text_inputs;
 	t_text_input	*input;
 	char			*s;
+	t_map			*map;
 
+	s = NULL;
 	while (current)
 	{
 		input = (t_text_input *)current->content;
-
 		if (!ft_strcmp("mapName", input->name))
 		{
 			s = input->text;
@@ -116,14 +149,11 @@ void	save_editor_map(t_game *game)
 		}
 		current = current->next;
 	}
-
-	precompute_next_sectors(game->editor->map);
-	precompute_mirrors(game->editor->map);
-	precompute_lengths(game->editor->map);
-	if (ft_strlen(s))
-		save_map(s, game->editor->map);
-	else
+	if (!s || !ft_strlen(s))
+	{
 		ft_printf("Can't save the map: name needed\n");
-
-	return ;
+		return ;
+	}
+	map = game->editor->map;
+	save_map(s, map);
 }

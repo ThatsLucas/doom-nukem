@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 16:33:57 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/21 13:49:59 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/08 12:17:09 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void *process_png(void *pngStruct)
 	close(pngFile->fd);
     if (!IDATS)
     {
-        ft_printf("Issue parsing IDATS, can't read img\n");
+        ft_dprintf(STDERR_FILENO, "Issue parsing IDATS, can't read img\n");
         free(pngFile->path);
         pngFile->path = NULL;
         return ((void *)(long)0);
@@ -58,7 +58,7 @@ void *process_png(void *pngStruct)
     __uint8_t *mergedBuffer = merge_all_buffers(IDATS);
     if (!mergedBuffer)
     {
-        ft_printf("Issue concatening IDATS, can't read img\n");
+        ft_dprintf(STDERR_FILENO, "Issue concatening IDATS, can't read img\n");
         free_idat_list(IDATS);
         free(pngFile->path);
         pngFile->path = NULL;

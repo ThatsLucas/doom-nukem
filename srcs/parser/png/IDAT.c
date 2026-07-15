@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   IDAT.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 14:02:08 by root-             #+#    #+#             */
-/*   Updated: 2026/04/21 13:47:18 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/05 12:46:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
         ssize_t bytes_read = read(pngFile->fd, &len, sizeof(len));
         if (bytes_read != sizeof(len))
         {
-            ft_printf("returned in invalid len\n");
+            ft_dprintf(STDERR_FILENO, "returned in invalid len\n");
             free_idat_list(head);
             return head;
         }
@@ -126,7 +126,7 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
         bytes_read = read(pngFile->fd, &type, sizeof(type));
         if (bytes_read != sizeof(type))
         {
-            printf("invalid type size\n");
+            ft_dprintf(STDERR_FILENO, "invalid type size\n");
 
             free_idat_list(head);
             return head;
@@ -164,7 +164,7 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
             if (!(c[0] & 0x20))
             {
                 free_idat_list(head);
-                ft_printf("[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
+                ft_dprintf(STDERR_FILENO, "[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
                 return head;
             }
             lseek(pngFile->fd, len + 4, SEEK_CUR);

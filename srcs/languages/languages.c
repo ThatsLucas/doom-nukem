@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:40:35 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/04/22 17:34:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 12:49:55 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,36 @@ void free_languages(t_game *game)
     free(game->languages->windowed);
     free(game->languages->mouse_sensi);
     free(game->languages->main_menu);
+    free(game->languages->lobby_solo);
+    free(game->languages->level_one);
+    free(game->languages->level_two);
+    free(game->languages->level_three);
+    free(game->languages->multiplayer);
+    free(game->languages->lobby_multi);
+    free(game->languages->solo);
+    free(game->languages->cinematic_text_one);
+    free(game->languages->cinematic_text_two);
+    free(game->languages->cinematic_text_three);
+    free(game->languages->cinematic_text_four);
+    free(game->languages->cinematic_text_five);
+    free(game->languages->cinematic_text_six);
+    free(game->languages->cinematic_text_seven);
+    free(game->languages->type_ip_addr);
+    free(game->languages->press_enter_to_confirm);
+    free(game->languages->host);
+    free(game->languages->join);
+    free(game->languages->cinematic_text_eight);
+    free(game->languages->cinematic_text_nine);
+    free(game->languages->cinematic_text_ten);
+    free(game->languages->cinematic_text_eleven);
+    free(game->languages->cinematic_text_twelve);
+    free(game->languages->cinematic_text_thirteen);
+    free(game->languages->cinematic_text_fourteen);
+    free(game->languages->cinematic_text_fifteen);
+    free(game->languages->cinematic_text_sixteen);
+    free(game->languages->pause);
+    free(game->languages->resume);
+    free(game->languages->exit);
 
     game->languages->loading = NULL;
     game->languages->play = NULL;
@@ -54,13 +84,44 @@ void free_languages(t_game *game)
     game->languages->windowed = NULL;
     game->languages->mouse_sensi = NULL;
     game->languages->main_menu = NULL;
+    game->languages->lobby_solo = NULL;
+    game->languages->level_one = NULL;
+    game->languages->level_two = NULL;
+    game->languages->level_three = NULL;
+    game->languages->multiplayer = NULL;
+    game->languages->lobby_multi = NULL;
+    game->languages->solo = NULL;
+    game->languages->cinematic_text_one = NULL;
+    game->languages->cinematic_text_two = NULL;
+    game->languages->cinematic_text_three = NULL;
+    game->languages->cinematic_text_four = NULL;
+    game->languages->cinematic_text_five = NULL;
+    game->languages->cinematic_text_six = NULL;
+    game->languages->cinematic_text_seven = NULL;
+    game->languages->type_ip_addr = NULL;
+    game->languages->press_enter_to_confirm = NULL;
+    game->languages->host = NULL;
+    game->languages->join = NULL;
+    game->languages->cinematic_text_eight = NULL;
+    game->languages->cinematic_text_nine = NULL;
+    game->languages->cinematic_text_ten = NULL;
+    game->languages->cinematic_text_eleven = NULL;
+    game->languages->cinematic_text_twelve = NULL;
+    game->languages->cinematic_text_thirteen = NULL;
+    game->languages->cinematic_text_fourteen = NULL;
+    game->languages->cinematic_text_fifteen = NULL;
+    game->languages->cinematic_text_sixteen = NULL;
+    game->languages->pause = NULL;
+    game->languages->resume = NULL;
+    game->languages->exit = NULL;
+
     free(game->languages);
     game->languages = NULL;
 }
 
 static void fill_language_texts(t_game *game, int index, char *str)
 {
-    char **tab[18] = {
+    char **tab[48] = {
         &game->languages->loading,
         &game->languages->play,
         &game->languages->settings,
@@ -79,11 +140,41 @@ static void fill_language_texts(t_game *game, int index, char *str)
         &game->languages->windowed,
         &game->languages->mouse_sensi,
         &game->languages->main_menu,
+        &game->languages->lobby_solo,
+        &game->languages->level_one,
+        &game->languages->level_two,
+        &game->languages->level_three,
+        &game->languages->multiplayer,
+        &game->languages->lobby_multi,
+        &game->languages->solo,
+        &game->languages->cinematic_text_one,
+        &game->languages->cinematic_text_two,
+        &game->languages->cinematic_text_three,
+        &game->languages->cinematic_text_four,
+        &game->languages->cinematic_text_five,
+        &game->languages->cinematic_text_six,
+        &game->languages->cinematic_text_seven,
+        &game->languages->type_ip_addr,
+        &game->languages->press_enter_to_confirm,
+        &game->languages->host,
+        &game->languages->join,
+        &game->languages->cinematic_text_eight,
+        &game->languages->cinematic_text_nine,
+        &game->languages->cinematic_text_ten,
+        &game->languages->cinematic_text_eleven,
+        &game->languages->cinematic_text_twelve,
+        &game->languages->cinematic_text_thirteen,
+        &game->languages->cinematic_text_fourteen,
+        &game->languages->cinematic_text_fifteen,
+        &game->languages->cinematic_text_sixteen,
+        &game->languages->pause,
+        &game->languages->resume,
+        &game->languages->exit,
     };
 
-    if (index > 18)
+    if (index > 48)
     {
-        ft_printf("Error in language file (miss configuration)\n");
+        ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
     }
     *tab[index] = ft_strdup(str + 1);

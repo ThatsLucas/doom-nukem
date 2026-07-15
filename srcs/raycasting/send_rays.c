@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:13:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/21 15:39:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/05/29 15:34:30 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ static void *send_threads_ray(void *arg)
 
 	for (int x = infos->x_start; x < infos->x_end; x++)
 	{
+		ray.perp_dist = FLT_MAX;
+		ray.wall_idx = -1;
 		ray.y_top = 0;
 		ray.y_bot = sH - 1;
 		ray.camera_x = 2.0f * x / (float)sW - 1.0f;
+		ray.screen_x = x;
 		ray.dir = get_ray_dir(&ray, game->ply);
 		draw_col(game, &ray, x, game->ply->sector, -1);
+		game->rays[x] = ray;
 	}
 
 	pthread_exit(NULL);

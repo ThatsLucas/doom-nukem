@@ -3,32 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/21 13:50:07 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/01 16:01:55 by aabouyaz         ###   ########.fr       */
+/*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/06/29 11:21:41 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "menus/menus.h"
 
-void	exit_game(t_game *game, char *type)
+void exit_game(t_game *game, char *type)
 {
-	const char	*error = SDL_GetError();
-	t_WIN		*win;
+	const char *error = SDL_GetError();
+	t_WIN *win;
 
 	if (type && error && error[0])
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd(" => ", STDERR_FILENO);
-		ft_putstr_fd((char *)error, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s => %s\n", type, error);
 	}
 	else if (type)
 	{
-		ft_putstr_fd(type, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_dprintf(STDERR_FILENO, "%s\n", type);
 	}
 
 	if (!game)
@@ -42,6 +38,10 @@ void	exit_game(t_game *game, char *type)
 	free(game->rays);
 	free(game->fps);
 	free_languages(game);
+	pthread_cancel(game->serverThread);
+	pthread_join(game->serverThread, NULL);
+	close(game->serverStatus.serverSocket);
+
 	win = game->window;
 	if (win)
 	{
@@ -55,9 +55,7 @@ void	exit_game(t_game *game, char *type)
 			SDL_DestroyWindow(win->winPTR);
 		free(win);
 	}
-
 	exit_editor(game);
-
 	free(game);
 	TTF_Quit();
 	SDL_Quit();

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:18:34 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:20:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct	s_RGB t_RGB;
 #define STATE_INJURED 3
 #define STATE_BLEEDING 6
 #define STATE_DEAD 9
+
+#define MINI_W 187
+#define MINI_H 180
+#define MINI_X 60
+#define MINI_Y 895
+#define MINI_CELLS 15
 
 typedef enum	e_player_state
 {
@@ -57,8 +63,11 @@ typedef struct	s_hud_cache
 	t_weapon_3D		weapons_3D[MAX_WEAPONS];
 	SDL_Texture		*tools_textures[MAX_TOOLS];
 	SDL_Texture		*ply_textures[10];
+	SDL_Texture		*bg_texture;
 	TTF_Font		*text_font;
 	TTF_Font		*number_font;
+	SDL_Texture		*battery[2];
+	SDL_Texture		*fuel[2];
 
 	long long ply_last_time;
 	long long weap_last_time;
@@ -69,7 +78,8 @@ typedef enum	e_asset_type
 {
 	ASSET_WEAPON2D,
 	ASSET_TOOL,
-	ASSET_PLAYER
+	ASSET_PLAYER,
+	ASSET_BG
 }				t_asset_type;
 
 typedef struct	s_load_job
@@ -89,13 +99,21 @@ void	display_module_tools(t_game *game, int x, int y, int w, int h);
 void	display_module_ammo(t_game *game, int x, int y, int w, int h);
 void	display_module_weapons(t_game *game, int x, int y, int w, int h);
 void	display_player_module(t_game *game, int x, int y, int w, int h);
+void	display_held_weapon(t_game *game);
+void	display_crosshair(t_game *game, int x, int y, int size, int gap);
+void	display_hud_bg(t_game *game);
+void	draw_minimap(SDL_Renderer *render, t_game *game);
+void	display_gauge(t_game *game, int type);
 
 /* General functions */
-void	display_hud(t_game *game);
-void	init_hud_cache(t_game *game);
-void	free_hud_cache(t_game *game);
-void	update_hud_anim(t_game *game);
+void		display_hud(t_game *game);
+void		init_hud_cache(t_game *game);
+void		free_hud_cache(t_game *game);
+void		update_hud_anim(t_game *game);
+long long	get_time_ms(void);
 
-void	player_shoot(t_game *game);
+/* Minimap */
+void	draw_minimap_walls(t_game *game, SDL_Renderer *render);
+void	draw_player_minimap(SDL_Renderer *render, t_game *game, int size, t_RGB color);
 
 #endif

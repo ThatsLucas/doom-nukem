@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/15 13:19:29 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:16:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect 
 	w->fire_rate = fire_rate;
 	w->frame_count = frame_count;
 	w->current_frame = 0;
+	w->is_firing = 0;
+	w->last_anim_time = 0;
 	w->frames = malloc(sizeof(t_weapon_3D_frame) * frame_count);
 	if (!w->frames)
 		exit_game(game, "malloc weapon frames");
@@ -202,33 +204,33 @@ static void	init_3D_weapons(t_game *game)
 	};
 
 	static SDL_Rect	fists_rects[] = {
-		{600, 750, 800, 350},
-		{600, 750, 800, 350},
-		{600, 750, 800, 350},
-		{600, 750, 800, 350}
+		{600, 545, 800, 350},
+		{300, 545, 800, 350},
+		{300, 545, 800, 350},
+		{400, 545, 800, 350}
 	};
 
 	static SDL_Rect	pistol_rects[] = {
-		{820, 755, 225, 325},
-		{800, 755, 225, 325}
+		{832, 570, 225, 325},
+		{830, 570, 225, 325}
 	};
 
 	static SDL_Rect	shotgun_rects[] = {
-		{755, 830, 330, 250},
-		{755, 830, 330, 250},
-		{735, 830, 300, 250},
-		{735, 830, 300, 250},
-		{735, 830, 300, 250}
+		{755, 640, 330, 250},
+		{755, 640, 330, 250},
+		{735, 650, 300, 250},
+		{735, 650, 300, 250},
+		{735, 640, 300, 250}
 	};
 
 	static SDL_Rect	rocket_rects[] = {
-		{810, 830, 330, 250},
-		{810, 830, 330, 250},
-		{810, 830, 300, 250},
-		{810, 830, 300, 250},
-		{810, 830, 300, 250},
-		{810, 830, 300, 250},
-		{810, 830, 300, 250}
+		{810, 650, 330, 250},
+		{810, 650, 330, 250},
+		{810, 650, 300, 250},
+		{810, 650, 300, 250},
+		{810, 650, 300, 250},
+		{810, 650, 300, 250},
+		{810, 650, 300, 250}
 	};
 
 	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 90);
@@ -243,15 +245,51 @@ static void	init_3D_weapons(t_game *game)
 */
 void	init_hud_cache(t_game *game)
 {
-	ft_printf("loading hud assets\n");
+	//ft_printf("loading hud assets\n");
 
 	init_3D_weapons(game);
 	init_all_assets(game);
 
+	t_png	hud_bg;
+	hud_bg.path = ft_strdup("assets/png/hud/hudbg.png");
+	if (!process_png(&hud_bg))
+		exit_game(game, "Error loading hud bg: process failed");
+	game->hud_cache.bg_texture = create_image(&hud_bg, game->window->renderPTR);
+	if (!game->hud_cache.bg_texture)
+		exit_game(game, "Error loading hud bg: create image failed");
+
+	t_png	battery_gauge;
+	t_png	battery_unit;
+	battery_gauge.path = ft_strdup("assets/png/hud/tools/battery_gauge.png");
+	battery_unit.path = ft_strdup("assets/png/hud/tools/battery_unit.png");
+
+	if (!process_png(&battery_gauge) || !process_png(&battery_unit))
+		exit_game(game, "Error loading hud battery: process failed");
+
+	game->hud_cache.battery[0] = create_image(&battery_gauge, game->window->renderPTR);
+	game->hud_cache.battery[1] = create_image(&battery_unit, game->window->renderPTR);
+	if (!game->hud_cache.battery[0] || !game->hud_cache.battery[1])
+		exit_game(game, "Error loading hud battery: create image failed");
+
+	t_png	fuel_gauge;
+	t_png	fuel_unit;
+	fuel_gauge.path = ft_strdup("assets/png/hud/tools/fuel_gauge.png");
+	fuel_unit.path = ft_strdup("assets/png/hud/tools/fuel_unit.png");
+
+	if (!process_png(&fuel_gauge) || !process_png(&fuel_unit))
+		exit_game(game, "Error loading hud fuel: process failed");
+
+	game->hud_cache.fuel[0] = create_image(&fuel_gauge, game->window->renderPTR);
+	game->hud_cache.fuel[1] = create_image(&fuel_unit, game->window->renderPTR);
+	if (!game->hud_cache.fuel[0] || !game->hud_cache.fuel[1])
+		exit_game(game, "Error loading hud fuel: create image failed");
+
 	game->hud_cache.text_font = TTF_OpenFont("assets/fonts/Jersey25-Regular.ttf", 25);
 	game->hud_cache.number_font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
+	game->hud_cache.ply_last_time = get_time_ms();
+	game->hud_cache.ply_frame = 0;
 	if (!game->hud_cache.text_font || !game->hud_cache.number_font)
 		exit_game(game, (char *)TTF_GetError());
 
-	ft_printf("finished loading hud assets\n");
+	//ft_printf("finished loading hud assets\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:47:43 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/05 15:48:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/05/07 15:55:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void get_screen_size(int *w, int *h)
 
 	if (SDL_GetCurrentDisplayMode(0, &DM))
 	{
-		*w = 1920;
-		*h = 1080;
-		printf("SDL error: %s\n", SDL_GetError());
+		*w = 840;
+		*h = 600;
+		ft_dprintf(STDERR_FILENO, "SDL error: %s\n", SDL_GetError());
 		return;
 	}
 

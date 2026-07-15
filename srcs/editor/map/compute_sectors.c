@@ -163,7 +163,7 @@ static int add_sector(t_map *map, int *loop, int count)
 	s->num_walls = count;
 
 	s->floor_plane		= (t_plane){0.0f, 0.0f, 1.0f, 0.0f};
-	s->ceil_plane		= (t_plane){0.0f, 0.0f, 1.0f, 4.0f};
+	s->ceil_plane		= (t_plane){0.0f, 0.0f, 1.0f, -4.0f};
 	s->floor_tex		= 0;
 	s->ceil_tex			= 0;
 	s->sky_tex			= -1;
@@ -221,6 +221,5 @@ void compute_sectors(t_map *map)
 	free(visited);
 	free(loop);
 	free(wall_ids);
-	precompute_next_sectors(map);
 	return ;
 }

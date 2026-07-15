@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 14:23:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 16:04:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/06/23 17:24:15 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ void	display_grid(t_game *game)
 	start_x = offset_x;
 	start_y = offset_y;
 
-	end_x	= start_x + editor->plan.case_size * game->mapSize[0];
-	end_y	= start_y + editor->plan.case_size * game->mapSize[1];
+	end_x	= start_x + editor->plan.case_size * game->editor->map->mapSize.x;
+	end_y	= start_y + editor->plan.case_size * game->editor->map->mapSize.y;
 
 	SDL_Rect	r = (SDL_Rect){ .x = start_x, .y = start_y, .w = end_x - start_x, .h = end_y - start_y};
 	SDL_SetRenderDrawColor(game->window->renderPTR, 190, 190, 190, SDL_ALPHA_OPAQUE);
 	SDL_RenderFillRect(game->window->renderPTR, &r);
 	SDL_SetRenderDrawColor(game->window->renderPTR, 189, 17, 17, 120);
 	SDL_RenderDrawRect(game->window->renderPTR, &r);
-	for (int i = 0; i <= game->mapSize[0]; ++i)
+	for (int i = 0; i <= game->editor->map->mapSize.x; ++i)
 		SDL_RenderDrawLine(game->window->renderPTR, i * editor->plan.case_size + start_x, start_y, i * editor->plan.case_size + start_x, end_y);
 
-	for (int i = 0; i <= game->mapSize[1]; ++i)
+	for (int i = 0; i <= game->editor->map->mapSize.y; ++i)
 		SDL_RenderDrawLine(game->window->renderPTR, start_x, i * editor->plan.case_size + start_y, end_x, i * editor->plan.case_size + start_y);
 
 	return ;
