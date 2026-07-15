@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_using.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:17:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/29 13:59:49 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/15 18:11:21 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void activate_flashlight(t_game *game)
 	{
 		if (game->ply->inventory.tools[i].type == TOOL_FLASHLIGHT)
 		{
-			(game->ply->inventory.tools[i].using) = (game->ply->inventory.tools[i].using) ? 0 : 1;
+			if (game->ply->inventory.tools[i].data.battery <= 0)
+				game->ply->inventory.tools[i].using = 0;
+			else
+				(game->ply->inventory.tools[i].using) = (game->ply->inventory.tools[i].using) ? 0 : 1;
 		}
 	}
 }

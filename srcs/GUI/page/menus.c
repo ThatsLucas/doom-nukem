@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/07/07 01:58:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:11:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void draw_in_game(t_game *game)
     // send_join_request("127.0.0.1", &datas);
     apply_constant_forces_to_player(game->ply);
     send_rays(game);
+	flashlight_use(game);
     SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
     SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
     if (game->clientConnection.is_connected)

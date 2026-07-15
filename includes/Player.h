@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/29 13:57:09 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/15 18:09:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 #define MAX_HP 100
 #define MAX_AMMO 800
-#define MAX_BATTERY 100
-#define MAX_FUEL 100
+#define MAX_BATTERY 11
+#define MAX_FUEL 11
 #define INFINITE_AMMO -1
 
 typedef struct s_game t_game;
