@@ -132,28 +132,28 @@ static int init_sectors(t_map *map)
         return (-1);
 
     if (init_one_sector(&map->sectors[0], (int[]){0, 1, 2, 3}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 0, 1, 200) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 0, 1, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[1], (int[]){4, 5, 6, 7}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 0, 1, 180) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 0, 1, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[2], (int[]){8, 9, 10, 11}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 1, 0, 160) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 1, 0, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[3], (int[]){12, 13, 14, 15}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 1, 0, 140) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 1, 0, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[4], (int[]){16, 17, 18, 19}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 2, 3, 120) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 2, 3, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[5], (int[]){20, 21, 22, 23}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 2, 3, 110) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 2, 3, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[6], (int[]){24, 25, 26, 27}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 3, 2, 90) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 3, 2, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[7], (int[]){28, 29, 30, 31}, 4,
-                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 3, 2, 80) == -1)
+                        (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 3, 2, 70) == -1)
         return (-1);
     if (init_one_sector(&map->sectors[8], (int[]){32, 33, 34, 35}, 4,
                         (t_plane){0, 0, 1, 0}, (t_plane){0, 0, 1, -4}, 0, 1, 70) == -1)

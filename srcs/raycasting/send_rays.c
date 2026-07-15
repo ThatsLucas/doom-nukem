@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   send_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 10:13:27 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/05/29 15:34:30 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/15 17:16:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void send_rays(t_game *game)
 
 	for (int y = 0; y < RAYCAST_THREADS; y++)
 		pthread_join(threads[y], NULL);
+
 	return;
 }

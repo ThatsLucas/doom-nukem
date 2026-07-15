@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/08 12:45:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/15 15:29:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int main(void)
 	game->mapSize[0] = 24;
 	game->mapSize[1] = 24;
 
-	t_vect2 pos;
-	pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
-	default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
+	//t_vect2 pos;
+	//pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
+	//default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 

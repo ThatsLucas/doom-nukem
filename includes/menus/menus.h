@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/05/28 14:22:33 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/06/08 15:29:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_lobby
     t_font texts[14];
 } t_lobby;
 
-#define CINEMATIC_ONE_DURATION 20000
+#define CINEMATIC_ONE_DURATION 1000
 
 typedef struct s_cinematic
 {

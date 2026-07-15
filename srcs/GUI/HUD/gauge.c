@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:15:21 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/08 10:47:51 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/15 17:35:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	update_flashlight_battery(t_ply *p)
 
 	total_time += delta_time;
 	last_time = now;
-	if (total_time >= 10000)
+	if (total_time >= 3000)
 	{
 		flashlight->data.battery -= 1;
 		if (flashlight->data.battery <= 0)
