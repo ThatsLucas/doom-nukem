@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 15:34:18 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/20 12:05:55 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:06:53 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int init_all_imgs(t_game *game, t_WIN *win)
         return (0);
     if (!init_cinematics_menus(game, win->renderPTR, &win->menus.cinematic))
         return (0);
+    init_pause_texts(game);
     return (1);
 }
 

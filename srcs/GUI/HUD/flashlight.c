@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:41:20 by edurance          #+#    #+#             */
-/*   Updated: 2026/07/15 17:46:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:13:02 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ void	flashlight_use(t_game *game)
 		if (flash.type == TOOL_FLASHLIGHT && flash.using == 1)
 		{
 			if (flash.data.battery > 3)
-				intensity = 4.5f;
+				intensity = 4.0f;
+			else if (flash.data.battery <= 0)
+				game->ply->inventory.tools[i].using = 0;
 			else
 				intensity = 2.5f;
-			printf("used\n");
 			int	cx = game->screenSize[0] / 2;
 			int	cy = game->screenSize[1] / 2;
 			flash_pixels(game, cx, cy, intensity);

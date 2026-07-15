@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 12:24:50 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/07 02:26:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include "multiplayer/client.h"
 #include "multiplayer/server.h"
 #include "entities/Entities.h"
+#include "Editor.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265359f
@@ -34,6 +35,14 @@
 
 #ifndef EYES_HEIGTH
 #define EYES_HEIGTH 1.6
+#endif
+
+#ifndef STEP_HEIGHT
+#define STEP_HEIGHT 0.5
+#endif
+
+#ifndef HEAD_MARGIN // marge pour passer un portail
+#define HEAD_MARGIN 0.2
 #endif
 
 /*FOV*/
@@ -68,6 +77,10 @@
 #define RAYCAST_THREADS 8
 #endif
 
+#ifndef ELEVATOR_SPEED
+# define ELEVATOR_SPEED 1.0f	/* unites par seconde */
+#endif
+
 typedef struct s_ply t_ply;
 
 typedef struct s_settings
@@ -91,7 +104,6 @@ typedef struct s_game
 	t_hud_cache hud_cache;
 	int screenSize[2];
 	int status;		// 0 = mainPage, -1 = editor, >0 = gameLevel
-	int mapSize[2]; // w, h
 	SDL_Texture *minimap_tex;
 	t_map *map;
 	SDL_Texture *frame;
@@ -110,20 +122,21 @@ typedef struct s_game
 	int				items_count;
 	int				items_capacity;
 	t_entities		entities;
+	t_editor		*editor;
+	int is_paused;
 }				t_game;
 
 /*init/exit game*/
 void exit_game(t_game *game, char *type);
 t_game *init_game(void);
 void free_map(t_map *map);
-t_map *init_test_map(void);
 
 /*utils*/
+long get_timestamp(void);
 float to_pixelX(float x, t_game *game);
 float to_pixelY(float y, t_game *game);
 float to_PosX(float x, t_game *game);
 float to_PosY(float y, t_game *game);
-void precompute_mirrors(t_map *map);
 int init_all_imgs(t_game *game, t_WIN *win);
 void display_fps_periodic(Uint64 start);
 

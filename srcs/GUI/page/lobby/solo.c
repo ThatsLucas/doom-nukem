@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 17:37:50 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:29:00 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 void start_level_1(t_game *game)
 {
     game->current_level = 1;
-    // SDL_SetRelativeMouseMode(SDL_TRUE);
+	free_map(game->map);
+	game->map = load_map("level1");
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->clientConnection.state = 3;
     game->window->menus.current = 5;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
@@ -27,6 +29,7 @@ void start_level_1(t_game *game)
 
 void start_level_2(t_game *game)
 {
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->current_level = 2;
     game->clientConnection.state = 3;
     game->window->menus.current = 6;
@@ -35,6 +38,7 @@ void start_level_2(t_game *game)
 
 void start_level_3(t_game *game)
 {
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->current_level = 3;
     game->clientConnection.state = 3;
     game->window->menus.current = 7;
@@ -54,16 +58,6 @@ static void change_menu_to_multi_lobby(t_game *game)
 static void change_menu_to_solo_lobby(t_game *game)
 {
     game->window->menus.current = 3;
-}
-
-static void connect_to_lobby(t_game *game)
-{
-    if (game->clientConnection.con_socket != 0)
-        return;
-    t_client_udp_datas datas;
-    ft_bzero(&datas, sizeof(t_client_udp_datas));
-    game->clientConnection.state = 1;
-    connect_player(&game->clientConnection, "127.0.0.1", &datas);
 }
 
 static void *init_texts(void *gameStruct)
@@ -143,6 +137,38 @@ static void *init_texts(void *gameStruct)
     menu->texts[13].textHOffset = -10;
     create_text(&menu->texts[13], renderer, lang->solo, DNFONTOUTLINED);
 
+    menu->texts[14].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[14].size = 120;
+    create_text(&menu->texts[14], renderer, lang->type_ip_addr, DNFONT);
+
+    menu->texts[15].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[15].size = 120;
+    create_text(&menu->texts[15], renderer, lang->press_enter_to_confirm, DNFONT);
+
+    menu->texts[16].color = (SDL_Color){221, 21, 0, 255};
+    menu->texts[16].size = 60;
+    menu->texts[16].textHOffset = -10;
+
+    create_text(&menu->texts[16], renderer, lang->host, DNFONT);
+
+    menu->texts[17].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[17].size = 60;
+    menu->texts[17].textHOffset = -10;
+
+    create_text(&menu->texts[17], renderer, lang->host, DNFONTOUTLINED);
+
+    menu->texts[18].color = (SDL_Color){221, 21, 0, 255};
+    menu->texts[18].size = 60;
+    menu->texts[18].textHOffset = -10;
+
+    create_text(&menu->texts[18], renderer, lang->join, DNFONT);
+
+    menu->texts[19].color = (SDL_Color){255, 255, 255, 255};
+    menu->texts[19].size = 60;
+    menu->texts[19].textHOffset = -10;
+
+    create_text(&menu->texts[19], renderer, lang->join, DNFONTOUTLINED);
+
     t_RGB color = {255, 255, 255, 0};
     SDL_Rect coords = {20, 20, win->menus.main.button.w / 5, win->menus.main.button.h / 5};
     create_button(&win->buttonList, &change_menu_to_main_menu, coords, color, color, &menu->texts[2], &menu->texts[1], 3);
@@ -176,10 +202,10 @@ static void *init_texts(void *gameStruct)
     create_button(&win->buttonList, &change_menu_to_solo_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
 
     coords = (SDL_Rect){(1920 / 2 - (win->menus.main.button.w / 5 / 2)), (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
-    create_button(&win->buttonList, &connect_to_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
+    create_button(&win->buttonList, &host_game, coords, color, color, &menu->texts[17], &menu->texts[16], 4);
 
     coords = (SDL_Rect){1520 - win->menus.main.button.w / 5, (1000 - (win->menus.main.button.h / 5 / 2)), win->menus.main.button.w / 5, win->menus.main.button.h / 5};
-    create_button(&win->buttonList, &change_menu_to_solo_lobby, coords, color, color, &menu->texts[13], &menu->texts[12], 4);
+    create_button(&win->buttonList, &draw_enter_host_addr, coords, color, color, &menu->texts[19], &menu->texts[18], 4);
 
     return ((void *)1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 15:27:38 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/01 15:43:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/23 15:19:15 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	goodtype(char c)
 	char	*types;
 	int		i;
 
-	types = "cspdiuxX%";
+	types = "csfpdiuxX%";
 	i = 0;
 	while (types[i])
 	{
@@ -41,6 +41,8 @@ static int	find_type(char type, va_list args, int fd)
 		len += ft_put_pointer_fd(va_arg(args, void *), fd);
 	else if (type == 'd' || type == 'i')
 		len += ft_putnbr_fd(va_arg(args, int), fd);
+	else if (type == 'f')
+		len += ft_putfloat(va_arg(args, double), fd);
 	else if (type == 'u')
 		len += ft_putunbr_fd(va_arg(args, unsigned int), fd);
 	else if (type == 'x')

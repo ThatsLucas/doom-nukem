@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 12:12:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/29 14:04:59 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void medial_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.w && ply->keys.s)
 		return;
-	steps = 0.01f;
+	steps = ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f);
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
 		direction = -1;
 	next_x = ply->pos.x + ply->dir.x * steps * direction;
 	next_y = ply->pos.y + ply->dir.y * steps * direction;
-	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1] && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y) && !wall_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -49,7 +49,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.a && ply->keys.d)
 		return;
-	steps = 0.01f;
+	steps = ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f);
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)
@@ -62,7 +62,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 		next_x = ply->pos.x - ax * steps;
 		next_y = ply->pos.y - ay * steps;
 	}
-	if (next_x >= 0.0f && next_x <= game->mapSize[0] && next_y >= 0.0f && next_y <= game->mapSize[1] && !entities_collision(game, next_x, next_y))
+	if (next_x >= 0.0f && next_x <= game->map->mapSize.x && next_y >= 0.0f && next_y <= game->map->mapSize.y && !entities_collision(game, next_x, next_y) && !wall_collision(game, next_x, next_y))
 	{
 		ply->pos.x = next_x;
 		ply->pos.y = next_y;
@@ -78,12 +78,21 @@ void ply_movements(t_ply *ply, t_game *game)
 	t_vect2 oldpos;
 	oldpos = ply->pos;
 
+	if (!game->map)
+		return;
+
+	if (ply->keys.space)
+	{
+		player_jump(game);
+		activate_jetpack(game);
+	}
 	if (ply->keys.w || ply->keys.s)
 		medial_moves(ply, game);
 	if (ply->keys.a || ply->keys.d)
 		lateral_moves(ply, game);
 	update_player_sector(game, oldpos);
-	ply->z = get_plane_z(game->map->sectors[ply->sector].floor_plane,
-						 ply->pos.x, ply->pos.y) +
-			 EYES_HEIGTH;
+	ply->floor_height = get_plane_z(game->map->sectors[ply->sector].floor_plane,
+									ply->pos.x, ply->pos.y);
+	ply->ceiling_height = get_plane_z(game->map->sectors[ply->sector].ceil_plane,
+									  ply->pos.x, ply->pos.y);
 }

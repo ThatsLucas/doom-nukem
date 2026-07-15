@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:19:59 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/18 14:18:37 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 13:30:12 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@
 static void draw_game_menu(t_game *game)
 {
     game->window->menus.current = 3;
-    // SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_SetRelativeMouseMode(SDL_FALSE);
+}
+
+static void draw_editor(t_game *game)
+{
+    game->window->menus.current = -1;
+    SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
@@ -98,7 +104,7 @@ int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu
     coords.y += button_offset;
     create_button(&win->buttonList, &draw_settings_menu, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 1);
     coords.y += button_offset + 5;
-    create_button(&win->buttonList, NULL, coords, color, color, &MainMenu->btn_three_text, &MainMenu->btn_three_text_hover, 1);
+    create_button(&win->buttonList, &draw_editor, coords, color, color, &MainMenu->btn_three_text, &MainMenu->btn_three_text_hover, 1);
     return (1);
 }
 

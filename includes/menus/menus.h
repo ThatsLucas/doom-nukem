@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/06/08 15:29:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:09:32 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_lobby
     t_png multi_background;
     t_png button;
     t_png playerImgs[5];
-    t_font texts[14];
+    t_font texts[20];
 } t_lobby;
 
 #define CINEMATIC_ONE_DURATION 1000
@@ -111,8 +111,19 @@ typedef struct s_cinematic
     float blue_light_ratio;
     int grow_order;
 
-    t_font texts[7];
+    // cinematique trois
+    t_png bg_three;
+    t_png lightning;
+    t_png eyes;
+    t_png boss;
+
+    t_font texts[16];
 } t_cinematic;
+
+typedef struct s_pause
+{
+    t_font texts[5];
+} t_pause;
 
 typedef struct s_menus
 {
@@ -122,6 +133,7 @@ typedef struct s_menus
     t_settings_menu settings;
     t_lobby lobby;
     t_cinematic cinematic;
+    t_pause pause;
 } t_menus;
 
 /*MENUS*/
@@ -159,20 +171,28 @@ void refresh_settings_texts(t_game *game, t_settings_menu *menu);
 void refresh_main_menu_texts(t_game *game);
 void refresh_lobby_texts(t_game *game);
 void refresh_cinematics_texts(t_game *game);
+void refresh_pause_menu_texts(t_game *game);
 
 /* LOBBY */
 void draw_lobby_menu(t_game *game);
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
 void draw_lobby_multiplayer_menu(t_game *game);
+void draw_enter_host_addr(t_game *game);
+void host_game(t_game *game);
 
 /* CINEMATICS */
 void draw_cinematic_one(t_game *game);
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer, t_cinematic *cinematic);
 void draw_cinematic_two(t_game *game);
+void draw_cinematic_three(t_game *game);
 
 /*LEVELS*/
 void start_level_1(t_game *game);
 void start_level_2(t_game *game);
 void start_level_3(t_game *game);
+
+/*PAUSE*/
+void init_pause_texts(void *gameStruct);
+void draw_pause_menu(t_game *game);
 
 #endif

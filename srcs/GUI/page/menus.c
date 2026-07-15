@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/07/15 17:15:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/15 18:11:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,34 @@
 #include "menus/menus.h"
 #include "multiplayer/shared.h"
 
+static void draw_in_game(t_game *game)
+{
+    // t_udp_datas datas; // TODO: just for testing remove this shit and make it good
+    // datas.state = 1;
+    // datas.x = game->ply->pos.x;
+    // datas.y = game->ply->pos.y;
+    // printf("player pos x = %f y = %f\n", datas.x, datas.y);
+    // send_join_request("127.0.0.1", &datas);
+    apply_constant_forces_to_player(game->ply);
+    send_rays(game);
+	flashlight_use(game);
+    SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
+    SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
+    if (game->clientConnection.is_connected)
+        render_multiplayer_players(game);
+    render_entities(game);
+    display_hud(game);
+    draw_pause_menu(game);
+	check_elevator(game->map);
+
+}
+
 void draw_current_menu(t_game *game)
 {
     switch (game->window->menus.current)
     {
     case 0:
-        // t_udp_datas datas; // TODO: just for testing remove this shit and make it good
-        // datas.state = 1;
-        // datas.x = game->ply->pos.x;
-        // datas.y = game->ply->pos.y;
-        // printf("player pos x = %f y = %f\n", datas.x, datas.y);
-        // send_join_request("127.0.0.1", &datas);
-        send_rays(game);
-		flashlight_use(game);
-        SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
-        SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
-        if (game->clientConnection.is_connected)
-            render_multiplayer_players(game);
-		render_entities(game);
-        display_hud(game);
+        draw_in_game(game);
         break;
     case 1:
         draw_main_menu(game);
@@ -52,6 +61,9 @@ void draw_current_menu(t_game *game)
         break;
     case 6:
         draw_cinematic_two(game);
+        break;
+    case 7:
+        draw_cinematic_three(game);
         break;
     default:
         break;

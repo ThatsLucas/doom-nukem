@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 14:21:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:37:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void render_entities(t_game *game)
 	int		sh = game->screenSize[1];
 	float	half_sw = sw * 0.5f;
 	float	half_sh = sh * 0.5f;
-	float	focal = sw / (2.0f * FOV);
-	t_vect2	plane = get_cam_plane(FOV, game->ply->dir);
+	float	camera_scale = tanf(FOV * 0.5f);
+	float	focal = half_sw / camera_scale;
+	t_vect2	plane = get_cam_plane(camera_scale, game->ply->dir);
 
 	float	dir_x = game->ply->dir.x;
 	float	dir_y = game->ply->dir.y;

@@ -63,3 +63,5 @@ doom-nukem
 .vscode
 
 *.gz
+
+vgcore.*

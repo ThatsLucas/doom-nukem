@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fps.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 12:41:42 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/07 15:59:07 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/07 02:29:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Game.h"
 
 /*Recuperer la timestamp actuelle en ms*/
-static long get_timestamp(void)
+long	get_timestamp(void)
 {
 	struct timeval time;
 

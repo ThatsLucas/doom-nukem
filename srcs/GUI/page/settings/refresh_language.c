@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 15:48:52 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/21 13:46:40 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/06 14:55:46 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ void refresh_lobby_texts(t_game *game)
     destroy_text_texture(&menu->texts[11]);
     destroy_text_texture(&menu->texts[12]);
     destroy_text_texture(&menu->texts[13]);
+    destroy_text_texture(&menu->texts[14]);
+    destroy_text_texture(&menu->texts[15]);
+    destroy_text_texture(&menu->texts[16]);
+    destroy_text_texture(&menu->texts[17]);
+    destroy_text_texture(&menu->texts[18]);
+    destroy_text_texture(&menu->texts[19]);
 
     create_text(&menu->texts[0], renderer, game->languages->lobby_solo, DNFONT);
     create_text(&menu->texts[1], renderer, game->languages->main_menu, DNFONT);
@@ -105,13 +111,18 @@ void refresh_lobby_texts(t_game *game)
     create_text(&menu->texts[11], renderer, game->languages->lobby_multi, DNFONT);
     create_text(&menu->texts[12], renderer, game->languages->solo, DNFONT);
     create_text(&menu->texts[13], renderer, game->languages->solo, DNFONTOUTLINED);
+    create_text(&menu->texts[14], renderer, game->languages->type_ip_addr, DNFONTOUTLINED);
+    create_text(&menu->texts[15], renderer, game->languages->press_enter_to_confirm, DNFONTOUTLINED);
+    create_text(&menu->texts[16], renderer, game->languages->host, DNFONT);
+    create_text(&menu->texts[17], renderer, game->languages->host, DNFONTOUTLINED);
+    create_text(&menu->texts[18], renderer, game->languages->join, DNFONT);
+    create_text(&menu->texts[19], renderer, game->languages->join, DNFONTOUTLINED);
 }
 
 void refresh_cinematics_texts(t_game *game)
 {
     t_cinematic *menu = &game->window->menus.cinematic;
     SDL_Renderer *renderer = game->window->renderPTR;
-
     destroy_text_texture(&menu->texts[0]);
     destroy_text_texture(&menu->texts[1]);
     destroy_text_texture(&menu->texts[2]);
@@ -119,6 +130,16 @@ void refresh_cinematics_texts(t_game *game)
     destroy_text_texture(&menu->texts[4]);
     destroy_text_texture(&menu->texts[5]);
     destroy_text_texture(&menu->texts[6]);
+    destroy_text_texture(&menu->texts[7]);
+    destroy_text_texture(&menu->texts[8]);
+    destroy_text_texture(&menu->texts[9]);
+    destroy_text_texture(&menu->texts[10]);
+    destroy_text_texture(&menu->texts[11]);
+    destroy_text_texture(&menu->texts[12]);
+    destroy_text_texture(&menu->texts[13]);
+    destroy_text_texture(&menu->texts[14]);
+    destroy_text_texture(&menu->texts[15]);
+
     create_text(&menu->texts[0], renderer, game->languages->cinematic_text_one, DNFONT);
     create_text(&menu->texts[1], renderer, game->languages->cinematic_text_two, DNFONT);
     create_text(&menu->texts[2], renderer, game->languages->cinematic_text_three, DNFONT);
@@ -126,4 +147,31 @@ void refresh_cinematics_texts(t_game *game)
     create_text(&menu->texts[4], renderer, game->languages->cinematic_text_five, DNFONT);
     create_text(&menu->texts[5], renderer, game->languages->cinematic_text_six, DNFONT);
     create_text(&menu->texts[6], renderer, game->languages->cinematic_text_seven, DNFONT);
+    create_text(&menu->texts[7], renderer, game->languages->cinematic_text_eight, DNFONT);
+    create_text(&menu->texts[8], renderer, game->languages->cinematic_text_nine, DNFONT);
+    create_text(&menu->texts[9], renderer, game->languages->cinematic_text_ten, DNFONT);
+    create_text(&menu->texts[10], renderer, game->languages->cinematic_text_eleven, DNFONT);
+    create_text(&menu->texts[11], renderer, game->languages->cinematic_text_twelve, DNFONT);
+    create_text(&menu->texts[12], renderer, game->languages->cinematic_text_thirteen, DNFONT);
+    create_text(&menu->texts[13], renderer, game->languages->cinematic_text_fourteen, DNFONT);
+    create_text(&menu->texts[14], renderer, game->languages->cinematic_text_fifteen, DNFONT);
+    create_text(&menu->texts[15], renderer, game->languages->cinematic_text_sixteen, DNFONT);
+}
+
+void refresh_pause_menu_texts(t_game *game)
+{
+    t_pause *pause = &game->window->menus.pause;
+    SDL_Renderer *renderer = game->window->renderPTR;
+
+    destroy_text_texture(&pause->texts[0]);
+    destroy_text_texture(&pause->texts[1]);
+    destroy_text_texture(&pause->texts[2]);
+    destroy_text_texture(&pause->texts[3]);
+    destroy_text_texture(&pause->texts[4]);
+    
+    create_text(&pause->texts[0], renderer, game->languages->pause, DNFONT);
+    create_text(&pause->texts[1], renderer, game->languages->resume, DNFONTOUTLINED);
+    create_text(&pause->texts[2], renderer, game->languages->resume, DNFONT);
+    create_text(&pause->texts[3], renderer, game->languages->exit, DNFONTOUTLINED);
+    create_text(&pause->texts[4], renderer, game->languages->exit, DNFONT);
 }
