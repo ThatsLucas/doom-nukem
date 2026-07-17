@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:59:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 11:33:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:26:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	select_entity(t_game *game)
 {
 	game->editor->selected_tool = 3;
 	game->editor->properties.selected_property = 4;
+	game->editor->entity_step = 0;
 }
 
 /*	initaliser les boutons des propriétés	*/

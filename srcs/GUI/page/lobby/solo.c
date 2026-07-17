@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/07/06 13:29:00 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/07/17 15:46:16 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void start_level_1(t_game *game)
 {
     game->current_level = 1;
 	free_map(game->map);
-	game->map = load_map("level1");
+	game->map = load_map("level1", game);
     SDL_SetRelativeMouseMode(SDL_TRUE);
     game->clientConnection.state = 3;
     game->window->menus.current = 5;

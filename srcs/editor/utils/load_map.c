@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/16 16:44:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:47:10 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,9 @@ static int	load_textures(t_map *map, int fd)
 
 static int	load_entity(t_map *map, int fd)
 {
-	if (read_full(fd, &map->player_spawn, sizeof(t_vect3)))
+	if (read_full(fd, &map->player_spawn, sizeof(t_vect2)))
+		return (-1);
+	if (read_full(fd, &map->player_dir, sizeof(t_vect2)))
 		return (-1);
 	return (0);
 }
@@ -176,7 +178,7 @@ static void	load_elevators(t_map *map, int fd)
 	return ;
 }
 
-t_map	*load_map(char *name)
+t_map	*load_map(char *name, t_game *game)
 {
 	char	*file;
 	int		fd;
@@ -209,6 +211,11 @@ t_map	*load_map(char *name)
 	precompute_next_sectors(map);
 	precompute_lengths(map);
 
+	game->ply->pos = map->player_spawn;
+	game->ply->dir = map->player_dir;
+	game->ply->sector = find_sector(map, game->ply->pos);
+	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
+
 	return (map);
 }
 
@@ -235,7 +242,7 @@ void	load_editor_map(t_game *game)
 		ft_printf("Can't load a map: name needed\n");
 		return ;
 	}
-	map = load_map(s);
+	map = load_map(s, game);
 	if (map)
 	{
 		free_map(game->editor->map);

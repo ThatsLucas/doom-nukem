@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 11:57:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 13:07:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:37:48 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	entities_events(t_game *game, SDL_Event *e)
 	if (e->button.button != SDL_BUTTON_LEFT)
 		return ;
 	click_pos = pixels_to_pos(editor, (float)e->button.x, (float)e->button.y);
-	if (editor->entity_step == 1)
+	if (editor->entity_step == 1 && editor->selected_entity_type != 1)
 	{
 		if (!is_valid_entity_pos(map, editor->entity_base)
 			|| !is_valid_entity_pos(map, click_pos))
@@ -85,6 +85,16 @@ void	entities_events(t_game *game, SDL_Event *e)
 		normalize_direction(&dir);
 		m->ang = dir;
 		map->num_entities++;
+		editor->entity_step = 0;
+	}
+	else if (editor->entity_step == 1 && editor->selected_entity_type == 1)
+	{
+		dir.x = click_pos.x - editor->entity_base.x;
+		dir.y = click_pos.y - editor->entity_base.y;
+		normalize_direction(&dir);
+		map->player_spawn.x = editor->entity_base.x;
+		map->player_spawn.y = editor->entity_base.y;
+		map->player_dir = dir;
 		editor->entity_step = 0;
 	}
 	else

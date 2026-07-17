@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/16 16:45:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:38:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static void	save_textures(t_map *map, int fd)
 
 static void	save_entity(t_map *map, int fd)
 {
-	write(fd, &map->player_spawn, sizeof(t_vect3));
+	write(fd, &map->player_spawn, sizeof(t_vect2));
+	write(fd, &map->player_dir, sizeof(t_vect2));
 
 	return ;
 }

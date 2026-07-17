@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 15:07:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:34:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void	display_editor_map(t_game *game)
 		e = &map->entities[i];
 		draw_entity(game, e->pos, e->ang, e->type);
 	}
+
+	draw_entity(game, map->player_spawn, map->player_dir, 1);
 
 	return ;
 }

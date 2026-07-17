@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/24 16:34:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:40:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int main(void)
 	if (!game)
 		return (1);
 
-	game->ply->pos.x = 2.0f;
-	game->ply->pos.y = 2.0f;
-	game->ply->dir.x = 0.0f;
-	game->ply->dir.y = 1.0f;
-	game->ply->sector = 0;
-	game->ply->z = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
 	// t_vect2 pos;
