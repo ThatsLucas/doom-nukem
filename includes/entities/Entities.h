@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 11:52:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/17 16:26:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_entity
 	void			**textures;
 	void			*texture;
 	void			*texture_shoot;
+	void			*texture_dead;
 	int				num_frames;
 
 	int	hp;
@@ -63,7 +64,6 @@ typedef struct	s_entity
 
 	double	hitbox;
 
-	int			can_shoot;
 	long long	last_shot_time;
 	char		*notif;
 
@@ -84,5 +84,9 @@ void	update_entities(t_game *game, t_entities *e);
 
 int		default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
 void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif);
+void	create_enemy1(t_game *game, t_vect2 pos);
+void	create_enemy2(t_game *game, t_vect2 pos);
+void	create_enemy3(t_game *game, t_vect2 pos);
+void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir);
 
 #endif

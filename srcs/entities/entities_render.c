@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:46:35 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ void render_entities(t_game *game)
 		t_entity	*e = &game->entities.list[i];
 		SDL_Texture	*tex = NULL;
 
-		if (e->status == E_STATUS_DEAD)
-			continue ;
-
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
 
-		if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
+		if (e->status == E_STATUS_DEAD)
+			tex = e->texture_dead;
+		else if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
 			tex = e->texture_shoot;
 		else if (e->textures && e->num_frames > 0)
 		{
@@ -106,7 +105,14 @@ void render_entities(t_game *game)
 
 		float	entity_h;
 		float	aspect_ratio;
-		if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+		float	render_z = e->z;
+		if (e->status == E_STATUS_DEAD && (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ))
+		{
+			entity_h = 1.0f;
+			aspect_ratio = 0.95f;
+			render_z = e->z - 0.40f;
+		}
+		else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
 		{
 			entity_h = 1.8f;
 			aspect_ratio = 0.6f;
@@ -119,8 +125,8 @@ void render_entities(t_game *game)
 
 		float	inv_ty = 1.0f / transform_y;
 		int		sx = (int)(half_sw + focal * transform_x * inv_ty);
-		float	dz_bot = e->z - ply_z;
-		float	dz_top = e->z + entity_h - ply_z;
+		float	dz_bot = render_z - ply_z;
+		float	dz_top = render_z + entity_h - ply_z;
 		int		y_bot = (int)(half_sh - dz_bot * focal * inv_ty + pitch);
 		int		y_top = (int)(half_sh - dz_top * focal * inv_ty + pitch);
 		int		sprite_h = y_bot - y_top;

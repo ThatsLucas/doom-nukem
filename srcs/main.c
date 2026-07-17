@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/07/15 18:10:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/17 11:51:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ int main(void)
 	game->ply->sector = 0;
 	game->ply->z = 0.0f;
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
-
-	// t_vect2 pos;
-	// pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
-	// default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 

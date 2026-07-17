@@ -6,13 +6,19 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 14:41:20 by edurance          #+#    #+#             */
-/*   Updated: 2026/07/15 18:13:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/16 11:24:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GUI/GUI.h"
 #include "Game.h"
 
+/*
+	- On dessine un carre imaginaire avec un cercle dedans (xmin, xmax, ymin, ymax)
+	- Pour tous les pixels dans le carre, on check si le pixel est dans le cercle
+	- En fonction de la pos du pixel dans le cercle, on change l'intensite (effet fade)
+	- On modifie la couleur du pixel avec la methode de write_color.c
+*/
 static void	flash_pixels(t_game *game, int cx, int cy, float intensity)
 {
 	int	sw = game->screenSize[0];
@@ -53,6 +59,11 @@ static void	flash_pixels(t_game *game, int cx, int cy, float intensity)
 	}
 }
 
+/*
+	Si le joueur a une flashlight dans son inv et qu'elle est utilisee, alors on appelle flash_pixels
+		- Si la batterie est faible, l'intensite change
+		- Si il y a plus de batterie, on desactive l'utilisation
+*/
 void	flashlight_use(t_game *game)
 {
 	float	intensity = 0.0f;
