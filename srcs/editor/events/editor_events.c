@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/15 17:59:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 12:19:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	editor_events(t_game *game)
 				get_selected_input(game, &game->editor->text_inputs, e.motion.x, e.motion.y);
 				check_button_pressed(game, game->editor->buttons);
 				if (game->editor->selected_tool == 3)
-					check_button_pressed(game, game->editor->buttons_entities);
+					entities_events(game, &e);
 				if (!get_clicked_editor_button(game, e.motion.x, e.motion.y))
 					plan_click(game, &e);
 				get_clicked_texture(game, e.motion.x, e.motion.y);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/05 12:33:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:07:53 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,39 @@ static void	draw_slope_arrow(t_game *game, t_vect2 base, t_vect2 tip, t_RGB colo
 
 	pb = pos_to_pixels(game->editor, base.x, base.y);
 	pt = pos_to_pixels(game->editor, tip.x, tip.y);
+	SDL_RenderFillCircle(game->window->renderPTR, (int)pb.x, (int)pb.y, 6, color);
+	SDL_SetRenderDrawColor(game->window->renderPTR, color.r, color.g, color.b, color.alphaValue);
+	SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, pt.x, pt.y);
+}
+
+static void	draw_entity(t_game *game, t_vect2 base, t_vect2 dir, int type)
+{
+	t_vect2	pb;
+	t_vect2	pt;
+	t_RGB	color;
+	float	length;
+
+	if (type == 1)
+		color = (t_RGB){0, 200, 0, 255};
+	else if (type == 2)
+		color = (t_RGB){255, 50, 255, 255};
+	else if (type == 3)
+		color = (t_RGB){153, 76, 0, 255};
+	else if (type == 4)
+		color = (t_RGB){0, 105, 205, 255};
+	pb = pos_to_pixels(game->editor, base.x, base.y);
+	length = sqrtf(dir.x * dir.x + dir.y * dir.y);
+	if (length > 0.0f)
+	{
+		pt.x = base.x + 0.5f * dir.x / length;
+		pt.y = base.y + 0.5f * dir.y / length;
+	}
+	else
+	{
+		pt.x = base.x;
+		pt.y = base.y;
+	}
+	pt = pos_to_pixels(game->editor, pt.x, pt.y);
 	SDL_RenderFillCircle(game->window->renderPTR, (int)pb.x, (int)pb.y, 6, color);
 	SDL_SetRenderDrawColor(game->window->renderPTR, color.r, color.g, color.b, color.alphaValue);
 	SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, pt.x, pt.y);
@@ -71,6 +104,7 @@ void	display_editor_map(t_game *game)
 	t_RGB		selected_color = {207, 10, 59, 255};
 	t_vect2		pos, dest, mousePos, *selected_vertice;
 	int			mouseX, mouseY, index_wall_hover;
+	t_map_ent	*e;
 
 	SDL_GetMouseState(&mouseX, &mouseY);
 	mousePos = pixels_to_pos(game->editor, mouseX, mouseY);
@@ -107,6 +141,12 @@ void	display_editor_map(t_game *game)
 	}
 
 	draw_slope_arrows(game);
+
+	for (int i = 0; i < map->num_entities; i++)
+	{
+		e = &map->entities[i];
+		draw_entity(game, e->pos, e->ang, e->type);
+	}
 
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 17:19:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/15 18:00:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 12:00:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	handle_entities(t_game *game, int x)
 		idx = SDL_clamp(idx, 0, 1);
 		editor->entity_text = props[idx];
 	}
+	editor->selected_entity = idx;
 
 	return ;
 }

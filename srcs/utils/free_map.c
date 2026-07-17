@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:52:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:53:05 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 15:00:54 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void free_map(t_map *map)
 	free(map->walls);
 	free(map->vertices);
 	free(map->textures);
+	free(map->entities);
 	free(map);
 
 	return ;

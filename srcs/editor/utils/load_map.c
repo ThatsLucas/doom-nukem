@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:52:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/16 16:44:53 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,7 @@ static int	load_textures(t_map *map, int fd)
 
 static int	load_entity(t_map *map, int fd)
 {
-	if (read_full(fd, &map->player_spawn, sizeof(t_vect2)))
-		return (-1);
-	if (read_full(fd, &map->player_z, sizeof(float)))
+	if (read_full(fd, &map->player_spawn, sizeof(t_vect3)))
 		return (-1);
 	return (0);
 }

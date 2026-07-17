@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/07 02:25:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 12:29:31 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ typedef struct	s_vect2
 	float	x;
 	float	y;
 }			t_vect2;
+
+typedef struct	s_vect3
+{
+	float	x;
+	float	y;
+	float	z;
+}			t_vect3;
 
 typedef struct s_plane
 {
@@ -119,6 +126,15 @@ typedef struct s_tex
 	t_RGB	*colors;
 }		t_tex;
 
+typedef struct s_map_entity
+{
+	t_vect2	pos;
+	t_vect2	ang;
+	int		sector_id;
+	int		id;
+	int		type;
+}			t_map_ent;
+
 /*Bien sur voici ta structure de map optimise qui bug pas*/
 typedef struct s_map
 {
@@ -143,8 +159,12 @@ typedef struct s_map
 	int			cap_textures;
 
 	/* --- Spawns --- */
-	t_vect2		player_spawn;
-	float		player_z;
+	t_vect3		player_spawn;
+	t_vect2		player_dir;
+
+	t_map_ent	*entities;
+	int			num_entities;
+	int			cap_entities;
 }				t_map;
 
 typedef struct s_raythread

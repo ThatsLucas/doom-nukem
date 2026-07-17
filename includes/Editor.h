@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/15 17:41:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 12:20:28 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ typedef struct	s_editor
 	t_list				*texture_selector_buttons;
 	char				*entity_text;
 	int					selected_entity_type;
+	int					selected_entity;
+	int					entity_step;
+	t_vect2				entity_base;
 }						t_editor;
 
 /* Init / Exit */
@@ -147,6 +150,7 @@ void	get_clicked_texture_button(t_game *game, int x, int y);
 void	editor_events(t_game *game);
 void	plan_click(t_game *game, SDL_Event *e);
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
+void	entities_events(t_game *game, SDL_Event *e);
 
 /* Utils */
 void	update_grid_size(t_game *game);

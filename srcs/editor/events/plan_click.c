@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:40:29 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 13:05:39 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	tool_click(t_game *game, SDL_Event *e)
 			props->slope_step = 0;
 			return (1);
 		}
-		click_pos = pixels_to_pos(game->editor, (float)e->motion.x, (float)e->motion.y);
+		click_pos = pixels_to_pos(game->editor, (float)e->button.x, (float)e->button.y);
 		for (int i = 0; i < game->editor->map->num_sectors; i++)
 		{
 			t_sector *s = &game->editor->map->sectors[i];
@@ -89,6 +89,26 @@ static int	tool_click(t_game *game, SDL_Event *e)
 			}
 		}
 		return (1);
+	}
+
+	if (game->editor->selected_tool == 3 && e->button.button == SDL_BUTTON_RIGHT)
+	{
+		if (game->editor->entity_step == 1)
+		{
+			game->editor->entity_step = 0;
+			return (1);
+		}
+		click_pos = pixels_to_pos(game->editor, (float)e->motion.x, (float)e->motion.y);
+		for (int i = 0; i < game->editor->map->num_entities; i++)
+		{
+			t_map_ent *e = &game->editor->map->entities[i];
+			if (dist_vect(click_pos, e->pos) < 0.1f)
+			{
+				ft_memmove(e, e + 1, sizeof(t_map_ent) * (game->editor->map->num_entities - i - 1));
+				game->editor->map->num_entities--;
+				return (1);
+			}
+		}
 	}
 
 	if (game->editor->selected_tool == 0 && e->button.button == SDL_BUTTON_LEFT)

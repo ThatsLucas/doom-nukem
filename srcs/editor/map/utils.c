@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:59:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 14:36:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/17 14:59:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ void	init_editor_map(t_game *game)
 	map->textures = calloc(8, sizeof(t_tex));
 	map->cap_textures = 8;
 
-	if (!map->vertices || !map->sectors || !map->walls || !map->textures)
+	map->entities = calloc(8, sizeof(t_map_ent));
+	map->cap_entities = 8;
+
+	if (!map->vertices || !map->sectors || !map->walls || !map->textures || !map->entities)
 		exit_game(game, "editor: init_editor_map calloc failed");
 
 	init_map_textures(game);
@@ -110,7 +113,10 @@ void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
 	int		new_cap;
 	void	*new_ptr;
 
-	new_cap = *cap * 2;
+	if (*cap)
+		new_cap = *cap * 2;
+	else
+		new_cap = 8;
 	new_ptr = realloc(*pointer, new_cap * sizeofone);
 
 	if (!new_ptr)
