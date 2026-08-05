@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/07 01:39:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:51:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/29 16:13:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 void	toggle_elevator(t_sector *s)
 {
+	printf("==> toggle\n");
 	if (s->isElevating)
 		return ;
 
+	printf("==> done\n");
 	s->levelRemaining = (float)s->levelSize;
 	s->lastMove = get_timestamp();
 	s->isElevating = 1;

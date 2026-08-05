@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/05 17:43:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,62 @@ int	get_directional_frame(t_entity *e, float px, float py)
 	if (frame < 0)
 		frame += n;
 	return (frame);
+}
+
+static int	is_column_occluded(t_game *game, int x, float depth)
+{
+	t_ray	*r = &game->rays[x];
+
+	return (r->wall_idx >= 0 && r->perp_dist > 0.0f
+		&& r->perp_dist < FLT_MAX && depth >= r->perp_dist);
+}
+
+/*
+	Dessine le sprite par tranches de colonnes, en sautant celles cachees
+	par un mur plus proche (game->rays[x].perp_dist), au lieu d'un seul
+	SDL_RenderCopy qui ignore la profondeur des murs.
+*/
+static void	draw_entity_sprite(t_game *game, SDL_Texture *tex, SDL_Rect dest, float depth)
+{
+	int	sw = game->screenSize[0];
+	int	tex_w, tex_h;
+	int	start_x = dest.x < 0 ? 0 : dest.x;
+	int	end_x = dest.x + dest.w > sw ? sw : dest.x + dest.w;
+	int	x = start_x;
+
+	if (dest.w <= 0 || start_x >= end_x)
+		return ;
+	if (SDL_QueryTexture(tex, NULL, NULL, &tex_w, &tex_h) < 0 || tex_w <= 0 || tex_h <= 0)
+		return ;
+	while (x < end_x)
+	{
+		int	span_start;
+		int	span_w;
+		SDL_Rect	src;
+		SDL_Rect	dest_span;
+
+		if (is_column_occluded(game, x, depth))
+		{
+			x++;
+			continue ;
+		}
+		span_start = x;
+		while (x < end_x && !is_column_occluded(game, x, depth))
+			x++;
+		span_w = x - span_start;
+		src.y = 0;
+		src.h = tex_h;
+		src.x = (int)floorf((float)(span_start - dest.x) / dest.w * tex_w);
+		src.w = (int)ceilf((float)span_w / dest.w * tex_w);
+		if (src.x < 0)
+			src.x = 0;
+		if (src.x + src.w > tex_w)
+			src.w = tex_w - src.x;
+		if (src.w <= 0)
+			continue ;
+		dest_span = (SDL_Rect){span_start, dest.y, span_w, dest.h};
+		SDL_RenderCopy(game->window->renderPTR, tex, &src, &dest_span);
+	}
 }
 
 void render_entities(t_game *game)
@@ -146,10 +202,9 @@ void render_entities(t_game *game)
 		{
 			closest = transform_y;
 			game->ply->crosshair_target = e;
-			//printf("entity -> %d & pnj -> %d\n", game->ply->crosshair_target->type, ENTITY_PNJ);
 		}
 
 		if (tex)
-			SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dest);
+			draw_entity_sprite(game, tex, dest, transform_y);
 	}
 }

@@ -25,6 +25,8 @@ void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 		rgb = (t_RGB){255, 0, 0, 255};
 	else if (game->ply->crosshair_target->type == ENTITY_PNJ)
 		rgb = (t_RGB){0, 255, 0, 255};
+	else
+		rgb = (t_RGB){255, 255, 255, 255};
 
 	SDL_SetRenderDrawColor(render, rgb.r, rgb.g, rgb.b, rgb.alphaValue);
 

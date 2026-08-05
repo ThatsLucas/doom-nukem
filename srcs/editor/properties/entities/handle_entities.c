@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 17:19:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 12:00:52 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/27 17:52:34 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_entities(t_game *game, int x)
 	t_editor	*editor			= game->editor;
 	static char	*entities[2]	= {"PNJ Ally", "ENEMY"};
 	static char	*items[6]		= {"Flashlight", "Key", "JetPack", "Pistol", "Shotgun", "Rocket Launcher"};
-	static char	*props[2]		= {"Baril", "Interrupteur"};
+	static char	*props[2]		= {"Barrel", "Switch"};
 	static int	idx = 0;
 
 	if (!x)

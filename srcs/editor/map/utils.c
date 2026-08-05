@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 09:59:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 14:59:19 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/27 17:33:59 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ void	init_editor_map(t_game *game)
 	map->textures = calloc(8, sizeof(t_tex));
 	map->cap_textures = 8;
 
+	map->decals = calloc(8, sizeof(t_decal));
+	map->cap_decals = 8;
+
 	map->entities = calloc(8, sizeof(t_map_ent));
 	map->cap_entities = 8;
 
-	if (!map->vertices || !map->sectors || !map->walls || !map->textures || !map->entities)
+	if (!map->vertices || !map->sectors || !map->walls || !map->textures || !map->entities || ! map->decals)
 		exit_game(game, "editor: init_editor_map calloc failed");
 
 	init_map_textures(game);

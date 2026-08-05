@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 15:34:50 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/27 20:16:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,12 @@ void	display_editor_map(t_game *game)
 	}
 
 	draw_entity(game, map->player_spawn, map->player_dir, 1);
+
+	for (int i = 0; i < map->num_decals; i++)
+	{
+		t_vect2	decal_pos = pos_to_pixels(game->editor, map->decals[i].pos.x, map->decals[i].pos.y);
+		SDL_RenderFillCircle(game->window->renderPTR, decal_pos.x, decal_pos.y, 6, color);
+	}
 
 	return ;
 }

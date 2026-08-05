@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Entities.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 11:52:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/07/25 13:49:52 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum	e_entity_type
 {
 	ENTITY_PNJ,
 	ENTITY_ENEMY,
+	ENTITY_PROP,
 	ENTITY_NONE
 }				t_entity_type;
 
@@ -84,5 +85,6 @@ void	update_entities(t_game *game, t_entities *e);
 
 int		default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
 void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif);
+int		spawn_props(t_game *game, t_vect2 pos, char *png_path);
 
 #endif

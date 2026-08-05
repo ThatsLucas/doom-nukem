@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 15:38:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/27 20:28:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,27 @@ static void	save_textures(t_map *map, int fd)
 
 static void	save_entity(t_map *map, int fd)
 {
+	t_decal	d;
+
 	write(fd, &map->player_spawn, sizeof(t_vect2));
 	write(fd, &map->player_dir, sizeof(t_vect2));
+
+	write(fd, &map->num_decals, sizeof(int));
+	for (int i = 0; i < map->num_decals; ++i)
+	{
+		d = map->decals[i];
+
+		write(fd, &d.wall_idx, sizeof(int));
+		write(fd, &d.u_offset, sizeof(float));
+		write(fd, &d.width, sizeof(float));
+		write(fd, &d.z_bottom, sizeof(float));
+		write(fd, &d.height, sizeof(float));
+		write(fd, &d.elev_sector, sizeof(int));
+		write(fd, &d.pos, sizeof(t_vect2));
+		write(fd, &d.texture.w, sizeof(int));
+		write(fd, &d.texture.h, sizeof(int));
+		write(fd, d.texture.colors, sizeof(t_RGB) * d.texture.w * d.texture.h);
+	}
 
 	return ;
 }

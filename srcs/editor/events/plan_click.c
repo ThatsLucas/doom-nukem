@@ -109,6 +109,8 @@ static int	tool_click(t_game *game, SDL_Event *e)
 				return (1);
 			}
 		}
+		if (suppress_decal(game, click_pos))
+			return (1);
 	}
 
 	if (game->editor->selected_tool == 0 && e->button.button == SDL_BUTTON_LEFT)

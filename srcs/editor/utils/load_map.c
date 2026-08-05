@@ -152,12 +152,52 @@ static int	load_textures(t_map *map, int fd)
 	return (0);
 }
 
+static int	load_decal(t_decal *d, int fd)
+{
+	if (read_full(fd, &d->wall_idx, sizeof(int))
+		|| read_full(fd, &d->u_offset, sizeof(float))
+		|| read_full(fd, &d->width, sizeof(float))
+		|| read_full(fd, &d->z_bottom, sizeof(float))
+		|| read_full(fd, &d->height, sizeof(float))
+		|| read_full(fd, &d->elev_sector, sizeof(int))
+		|| read_full(fd, &d->pos, sizeof(t_vect2))
+		|| read_full(fd, &d->texture.w, sizeof(int))
+		|| read_full(fd, &d->texture.h, sizeof(int)))
+		return (-1);
+	if (d->texture.w <= 0 || d->texture.h <= 0
+		|| d->texture.w > INT_MAX || d->texture.h > INT_MAX)
+		return (-1);
+	d->texture.colors = ft_calloc((size_t)d->texture.w * d->texture.h, sizeof(t_RGB));
+	if (!d->texture.colors)
+		return (-1);
+	if (read_full(fd, d->texture.colors,
+			sizeof(t_RGB) * (size_t)d->texture.w * d->texture.h))
+		return (-1);
+	return (0);
+}
+
 static int	load_entity(t_map *map, int fd)
 {
+	int	i;
+
 	if (read_full(fd, &map->player_spawn, sizeof(t_vect2)))
 		return (-1);
 	if (read_full(fd, &map->player_dir, sizeof(t_vect2)))
 		return (-1);
+	if (read_full(fd, &map->num_decals, sizeof(int)))
+		return (-1);
+	if (map->num_decals < 0 || map->num_decals > INT_MAX)
+		return (-1);
+	map->decals = ft_calloc(map->num_decals, sizeof(t_decal));
+	if (!map->decals)
+		return (-1);
+	i = 0;
+	while (i < map->num_decals)
+	{
+		if (load_decal(&map->decals[i], fd))
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
@@ -208,6 +248,7 @@ t_map	*load_map(char *name, t_game *game)
 	map->cap_sectors = map->num_sectors;
 	map->cap_walls = map->num_walls;
 	map->cap_vertices = map->num_vertices;
+	map->cap_decals = map->num_decals;
 	precompute_next_sectors(map);
 	precompute_lengths(map);
 

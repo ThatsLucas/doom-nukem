@@ -32,6 +32,7 @@ float	get_plane_z(t_plane p, float x, float y);
 t_vect2	get_cam_plane(float FOV, t_vect2 dir);
 t_vect2	get_ray_dir(t_ray *ray, t_ply *ply);
 void	blend_pixels(t_game *game, t_wall *w, t_ray *ray, int x, t_sector *sector);
+void	draw_decals(t_game *game, t_ray *ray, int x, t_sector *sector);
 
 /* envoie de rayon */
 void	send_rays(t_game *game);

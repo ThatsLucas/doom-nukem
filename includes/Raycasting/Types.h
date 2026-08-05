@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 15:34:37 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/27 20:09:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,18 @@ typedef struct s_tex
 	t_RGB	*colors;
 }		t_tex;
 
+typedef struct s_decal
+{
+	int		wall_idx;		// sur quel mur
+	float	u_offset;		// position le long du mur
+	float	width;			// largeur du decalque
+	float	z_bottom;		// hauteur du bas du decalque
+	float	height;			// hauteur du decalque
+	int		elev_sector;	// -1 ou numéro du secteur à activer
+	t_vect2	pos;
+	t_tex	texture;		// texture
+}			t_decal;
+
 typedef struct s_map_entity
 {
 	t_vect2	pos;
@@ -139,6 +151,10 @@ typedef struct s_map
 	t_wall		*walls;
 	int			num_walls;
 	int			cap_walls;
+
+	t_decal		*decals;
+	int			num_decals;
+	int			cap_decals;
 
 	t_sector	*sectors;
 	int			num_sectors;

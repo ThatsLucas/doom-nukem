@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 15:45:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/07/29 16:04:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct	s_editor
 	int					selected_entity;
 	int					entity_step;
 	t_vect2				entity_base;
+	int					switch_sector;
 }						t_editor;
 
 /* Init / Exit */
@@ -178,6 +179,8 @@ void	editor_place_slope(t_game *game, int pixx, int pixy);
 void	init_entity_prop(t_game *game);
 void	display_entities_prop(t_game *game);
 void	handle_entities(t_game *game, int x);
+void	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos);
+int		suppress_decal(t_game *game, t_vect2 pos);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);
