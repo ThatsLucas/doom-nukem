@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/07/17 16:26:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/08 12:33:33 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum	e_entity_type
 {
 	ENTITY_PNJ,
 	ENTITY_ENEMY,
-	ENTITY_NONE
+	ENTITY_BOSS
 }				t_entity_type;
 
 typedef enum	e_entity_status
@@ -63,9 +63,14 @@ typedef struct	s_entity
 	t_entity_status	status;
 
 	double	hitbox;
-
-	long long	last_shot_time;
+	float		sprite_w;
+	float		sprite_h;	long long	last_shot_time;
 	char		*notif;
+
+	float	attack_timer;
+	float	special_timer;
+	float	dash_timer;
+	float	state_timer;
 
 }				t_entity;
 
@@ -88,5 +93,6 @@ void	create_enemy1(t_game *game, t_vect2 pos);
 void	create_enemy2(t_game *game, t_vect2 pos);
 void	create_enemy3(t_game *game, t_vect2 pos);
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_boss1(t_game *game, t_vect2 pos);
 
 #endif

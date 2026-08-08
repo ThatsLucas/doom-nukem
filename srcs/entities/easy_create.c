@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/07/17 16:29:21 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/08 12:36:48 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, in
 	if (!(e.texture = create_image(&idle, game->window->renderPTR))
 		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)))
 		exit_game(game, "Failed to create image enemy");
+	e.sprite_w = (float)w;
+	e.sprite_h = (float)h;
 
 	add_entity(game, &game->entities, e);
 	return (1);
@@ -93,6 +95,8 @@ void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int 
 
 	e.texture = e.textures[0];
 	e.hitbox = 1;
+	e.sprite_w = (float)w;
+	e.sprite_h = (float)h;
 	add_entity(game, &game->entities, e);
 }
 
@@ -111,7 +115,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
 	e.x = pos.x; e.y = pos.y;
 	e.hp = 1000;
-	e.notif = "Aide nous !";
+	e.notif = "Aide nous !"; // a modif en fonction de l'histoire
 
 	e.num_frames = 8;
 	e.textures = malloc(sizeof(SDL_Texture *) * 8);
@@ -136,6 +140,8 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 
 	e.texture = e.textures[0];
 	e.hitbox = 1;
+	e.sprite_w = 400.0f;
+	e.sprite_h = 600.0f;
 	add_entity(game, &game->entities, e);
 }
 
@@ -231,6 +237,8 @@ void	create_enemy2(t_game *game, t_vect2 pos)
 	if (!(e.texture = create_image(&idle, game->window->renderPTR))
 		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)))
 		exit_game(game, "Failed to create image enemy2");
+	e.sprite_w = 690.0f;
+	e.sprite_h = 680.0f;
 
 	add_entity(game, &game->entities, e);
 }
@@ -277,6 +285,63 @@ void	create_enemy3(t_game *game, t_vect2 pos)
 	if (!(e.texture = create_image(&idle, game->window->renderPTR))
 		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)))
 		exit_game(game, "Failed to create image enemy3");
+	e.sprite_w = 600.0f;
+	e.sprite_h = 400.0f;
+
+	add_entity(game, &game->entities, e);
+}
+
+void	create_boss1(t_game *game, t_vect2 pos)
+{
+	t_entity	e;
+	t_png	idle, shoot, dead;
+
+	char	*idle_tex = "assets/png/entities/boss/boss1/idle.png";
+	char	*shoot_tex = "assets/png/entities/boss/boss1/shoot.png";
+	char	*dead_tex = "assets/png/entities/boss/boss1/dead.png";
+
+	e.type = ENTITY_BOSS;
+	e.status = E_STATUS_IDLE;
+	e.attack_range = 5.0f;
+	e.vision_angle = 360.0f;
+	e.vision_range = 10.0f;
+	e.speed = 3.0f;
+	e.dir_x = 1.0f;
+	e.dir_y = 1.0f;
+	e.num_frames = 0;
+	e.textures = 0;
+	e.x = pos.x;
+	e.y = pos.y;
+	e.hp = 500;
+	e.hitbox = 1;
+	e.last_shot_time = 0;
+	e.damage = 20;
+	e.fire_rate = 130;
+
+	/* pour voir z -> a changer */
+	e.sector = find_sector(game->map, pos);
+	if (e.sector == -1)
+		exit_game(game, "Failed to find sector");
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+
+	int boss_w = 1500;
+	int boss_h = 700;
+	idle.w = boss_w; idle.h = boss_h;
+	shoot.w = boss_w; shoot.h = boss_h;
+	dead.w = 1300; dead.h = 400;
+	idle.path = ft_strdup(idle_tex); shoot.path = ft_strdup(shoot_tex); dead.path = ft_strdup(dead_tex);
+	if (!process_png(&idle))
+		exit_game(game, "Failed to load boss1 (idle tex)");
+	if (!process_png(&shoot))
+		exit_game(game, "Failed to load boss1 (shoot text)");
+	if (!process_png(&dead))
+		exit_game(game, "Failed to load boss1 (dead tex)");
+
+	if (!(e.texture = create_image(&idle, game->window->renderPTR))
+		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+		exit_game(game, "Failed to create image boss1");
+	e.sprite_w = (float)boss_w;
+	e.sprite_h = (float)boss_h;
 
 	add_entity(game, &game->entities, e);
 }
