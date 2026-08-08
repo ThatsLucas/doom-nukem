@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Items.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/29 13:59:59 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/08/08 12:10:49 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define FISTS_DAMAGE 25
 #define PISTOL_DAMAGE 50
 #define SHOTGUN_DAMAGE 100
-#define ROCKET_DAMAGE 500
+#define ROCKET_DAMAGE 200
 
 typedef struct s_ply t_ply;
 typedef struct s_game t_game;
