@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:05:41 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/05 17:43:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/08 12:25:09 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	suppress_decal(t_game *game, t_vect2 pos)
 	return (0);
 }
 
-void	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos)
+int	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos)
 {
 	int		wall_idx;
 	t_wall	*wall;
@@ -90,11 +90,11 @@ void	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 p
 
 	wall_idx = get_wall_index(map, pos.x, pos.y);
 	if (wall_idx < 0)
-		return ;
+		return (1);
 	wall = &map->walls[wall_idx];
 	len = dist_vect(map->vertices[wall->v1], map->vertices[wall->v2]);
 	if (len <= 0.0f || height <= 0.0f)
-		return ;
+		return (1);
 	png.path = ft_strdup(png_file);
 	if (!png.path)
 		exit_game(game, "Failed to strdup decal texture path");
@@ -113,5 +113,8 @@ void	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 p
 	decal->z_bottom = 1.0f;
 	decal->pos = pos;
 	decal->elev_sector = game->editor->switch_sector;
+	decal->sector_id = find_sector(game->editor->map, pos);
 	map->num_decals++;
+
+	return (0);
 }

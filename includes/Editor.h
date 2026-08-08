@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/29 16:04:27 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/08 11:55:27 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void	editor_place_slope(t_game *game, int pixx, int pixy);
 void	init_entity_prop(t_game *game);
 void	display_entities_prop(t_game *game);
 void	handle_entities(t_game *game, int x);
-void	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos);
+int		add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos);
 int		suppress_decal(t_game *game, t_vect2 pos);
 
 /* Map Editor */

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 13:05:39 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/08 11:47:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ static int	tool_click(t_game *game, SDL_Event *e)
 			return (1);
 		}
 		click_pos = pixels_to_pos(game->editor, (float)e->motion.x, (float)e->motion.y);
+		if (suppress_decal(game, click_pos))
+			return (1);
 		for (int i = 0; i < game->editor->map->num_entities; i++)
 		{
 			t_map_ent *e = &game->editor->map->entities[i];
@@ -109,8 +111,6 @@ static int	tool_click(t_game *game, SDL_Event *e)
 				return (1);
 			}
 		}
-		if (suppress_decal(game, click_pos))
-			return (1);
 	}
 
 	if (game->editor->selected_tool == 0 && e->button.button == SDL_BUTTON_LEFT)

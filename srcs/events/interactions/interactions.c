@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:43:32 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/05 17:43:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/08 12:25:17 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static t_decal	*get_crosshair_decal(t_game *game)
 		d = &game->map->decals[i];
 		if (dist_vect(game->ply->pos, d->pos) > 2.0f)
 			continue ;
-		if (d->elev_sector >= 0)
-			z_plane = get_plane_z(game->map->sectors[d->elev_sector].floor_plane, d->pos.x, d->pos.y);
+		if (d->sector_id >= 0)
+			z_plane = get_plane_z(game->map->sectors[d->sector_id].floor_plane, d->pos.x, d->pos.y);
 		else
 			z_plane = 0.0f;
 		if (d->wall_idx != ray->wall_idx)
@@ -54,11 +54,9 @@ void	interactions(t_game *game)
 		create_notif(&game->window->menus.notif.notif_buf, ply->crosshair_target->notif, 5, 40);
 	else
 	{
-		printf("click\n");
 		d = get_crosshair_decal(game);
 		if (!d || d->elev_sector == -1)
 			return ;
-		printf("toggle ?\n");
 		toggle_elevator(&game->map->sectors[d->elev_sector]);
 	}
 	

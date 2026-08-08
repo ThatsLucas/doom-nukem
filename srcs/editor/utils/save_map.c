@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/27 20:28:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/08 12:20:07 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static void	save_entity(t_map *map, int fd)
 		write(fd, &d.z_bottom, sizeof(float));
 		write(fd, &d.height, sizeof(float));
 		write(fd, &d.elev_sector, sizeof(int));
+		write(fd, &d.sector_id, sizeof(int));
 		write(fd, &d.pos, sizeof(t_vect2));
 		write(fd, &d.texture.w, sizeof(int));
 		write(fd, &d.texture.h, sizeof(int));
