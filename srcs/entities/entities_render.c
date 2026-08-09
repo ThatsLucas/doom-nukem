@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/08 12:09:04 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/09 15:34:55 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void render_entities(t_game *game)
 
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
+		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
 
 		if (e->status == E_STATUS_DEAD)
 			tex = e->texture_dead;
