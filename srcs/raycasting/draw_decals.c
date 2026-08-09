@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 19:00:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/29 11:32:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 12:45:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static int	clamp_decal_band(t_ray *ray, int sH, float y_top_f, float y_bot_f, in
 		*draw_top = ray->y_wall_top;
 	if (*draw_bot > ray->y_wall_bot)
 		*draw_bot = ray->y_wall_bot;
+	if (*draw_top < ray->y_top)
+		*draw_top = ray->y_top;
+	if (*draw_bot > ray->y_bot)
+		*draw_bot = ray->y_bot;
 	if (*draw_top < 0)
 		*draw_top = 0;
 	if (*draw_bot > sH)
