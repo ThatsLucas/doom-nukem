@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/25 13:56:16 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 15:36:09 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		
 	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
 		game->window->menus.current = 0;
-
-	t_vect2	posss = game->ply->pos;
-	posss.x += 1.0f;
-
-	if (key.keysym.sym == SDLK_h && event->type == SDL_KEYDOWN)
-		spawn_props(game, posss, "assets/png/items/props/barrel.png");
 }
 
 void events_handler(t_game *game)

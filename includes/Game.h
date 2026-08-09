@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/07 02:26:29 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 15:19:26 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ void display_fps_periodic(Uint64 start);
 
 void render_entities(t_game *game);
 int	find_sector(t_map *map, t_vect2 p);
+int	find_sector_z(t_map *map, t_vect2 p, float z);
 
 #endif

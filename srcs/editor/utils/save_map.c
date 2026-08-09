@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 12:20:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 14:49:26 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,19 @@ static void	save_elevators(t_map *map, int fd)
 	return ;
 }
 
+static void	save_entities(t_map *map, int fd)
+{
+	write(fd, &map->num_entities, sizeof(int));
+	for (int i = 0; i < map->num_entities; ++i)
+	{
+		write(fd, &map->entities[i].pos, sizeof(t_vect2));
+		write(fd, &map->entities[i].ang, sizeof(t_vect2));
+		write(fd, &map->entities[i].sector_id, sizeof(int));
+		write(fd, &map->entities[i].id, sizeof(int));
+		write(fd, &map->entities[i].type, sizeof(int));
+	}
+}
+
 int	save_map(char *name, t_map *map)
 {
 	char	*file;
@@ -144,6 +157,7 @@ int	save_map(char *name, t_map *map)
 	save_textures(map, fd);
 	save_entity(map, fd);
 	save_elevators(map, fd);
+	save_entities(map, fd);
 
 	ft_printf("Map Saved !\n");
 

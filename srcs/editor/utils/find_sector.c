@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:55:48 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:11:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 15:20:32 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,54 @@ float	sector_area(t_map *map, t_sector *s)
 	return (fabsf(area) * 0.5f);
 }
 
+static int	point_in_sector_z(t_map *map, t_sector *sector, t_vect2 p, float z)
+{
+	int		inside = 0;
+	t_wall	*w;
+	t_vect2	a;
+	t_vect2	b;
+
+	for (int i = 0; i < sector->num_walls; i++)
+	{
+		w = &map->walls[sector->walls[i]];
+		a = map->vertices[w->v1];
+		b = map->vertices[w->v2];
+		/* l'arête traverse-t-elle la ligne horizontale du point ? */
+		if ((a.y > p.y) != (b.y > p.y))
+		{
+			/* x de l'intersection de l'arête avec la ligne y = p.y */
+			float x_cross = a.x + (p.y - a.y) / (b.y - a.y) * (b.x - a.x);
+			if (p.x < x_cross)
+				inside = !inside;
+		}
+	}
+
+	if (inside && z + 0.001f >= get_plane_z(sector->floor_plane, p.x, p.y) && z < get_plane_z(sector->ceil_plane, p.x, p.y))
+		return (1);
+	return (0);
+}
+
+/*	Trouve l'index du sector dans lequel est le point ou -1	*/
+int	find_sector_z(t_map *map, t_vect2 p, float z)
+{
+	int		best_sector = -1;
+	float	sarea, best_area = FLT_MAX;
+
+	for (int i = 0; i < map->num_sectors; i++)
+	{
+		if (point_in_sector_z(map, &map->sectors[i], p, z))
+		{
+			sarea = sector_area(map, &map->sectors[i]);
+			if (sarea < best_area)
+			{
+				best_area = sarea;
+				best_sector = i;
+			}
+		}
+	}
+	return (best_sector);
+}
+
 static int	point_in_sector(t_map *map, t_sector *sector, t_vect2 p)
 {
 	int		inside = 0;
@@ -72,6 +120,7 @@ static int	point_in_sector(t_map *map, t_sector *sector, t_vect2 p)
 				inside = !inside;
 		}
 	}
+
 	return (inside);
 }
 
@@ -95,3 +144,4 @@ int	find_sector(t_map *map, t_vect2 p)
 	}
 	return (best_sector);
 }
+

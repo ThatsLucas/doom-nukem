@@ -4,15 +4,19 @@ int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 {
 	t_entity	e;
 	t_png		png;
+	t_map		*map;
 
+	map = game->map;
+	if (!map)
+		return (0);
 	e.type = ENTITY_PROP;
 	e.status = E_STATUS_IDLE;
-	e.sector = find_sector(game->map, pos);
+	e.sector = find_sector(map, pos);
 	if (e.sector == -1)
 		return (0);
 	e.x = pos.x;
 	e.y = pos.y;
-	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, e.x, e.y);
+	e.z = get_plane_z(map->sectors[e.sector].floor_plane, e.x, e.y);
 	e.dir_x = 1.0f;
 	e.dir_y = 0.0f;
 	e.hp = 0;

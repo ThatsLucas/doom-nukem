@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 11:55:27 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/09 15:17:59 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_lengths(t_map *map);
 void	precompute_next_sectors(t_map *map);
 int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);
-int		find_sector(t_map *map, t_vect2 p);
 int		get_wall_index(t_map *map, float x, float y);
 
 /* Properties */
