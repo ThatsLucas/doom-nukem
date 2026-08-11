@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:32:55 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:45:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,27 @@ static void	spawn_entities(t_map *map, t_game *game)
 		e = &map->entities[i];
 		if (e->type == 4 && e->id == 0)
 			spawn_props(game, e->pos, "assets/png/items/props/barrel.png");
+		else if (e->type == 2)
+		{
+			if (e->id == 0)
+				create_pnj1(game, e->pos, e->ang);
+			else if (e->id == 1)
+				create_pnj2(game, e->pos, e->ang);
+			else if (e->id == 2)
+				create_pnj3(game, e->pos, e->ang);
+			else if (e->id == 3)
+				create_enemy1(game, e->pos);
+			else if (e->id == 4)
+				create_enemy2(game, e->pos);
+			else if (e->id == 5)
+				create_enemy3(game, e->pos);
+			else if (e->id == 6)
+				create_boss1(game, e->pos);
+			else if (e->id == 7)
+				create_boss2(game, e->pos);
+			else if (e->id == 8)
+				create_boss3(game, e->pos);
+		}
 	}
 
 	return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:18:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:45:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,62 +50,6 @@ int	get_directional_frame(t_entity *e, float px, float py)
 	return (frame);
 }
 
-static int	is_column_occluded(t_game *game, int x, float depth)
-{
-	t_ray	*r = &game->rays[x];
-
-	return (r->wall_idx >= 0 && r->perp_dist > 0.0f
-		&& r->perp_dist < FLT_MAX && depth >= r->perp_dist);
-}
-
-/*
-	Dessine le sprite par tranches de colonnes, en sautant celles cachees
-	par un mur plus proche (game->rays[x].perp_dist), au lieu d'un seul
-	SDL_RenderCopy qui ignore la profondeur des murs.
-*/
-static void	draw_entity_sprite(t_game *game, SDL_Texture *tex, SDL_Rect dest, float depth)
-{
-	int	sw = game->screenSize[0];
-	int	tex_w, tex_h;
-	int	start_x = dest.x < 0 ? 0 : dest.x;
-	int	end_x = dest.x + dest.w > sw ? sw : dest.x + dest.w;
-	int	x = start_x;
-
-	if (dest.w <= 0 || start_x >= end_x)
-		return ;
-	if (SDL_QueryTexture(tex, NULL, NULL, &tex_w, &tex_h) < 0 || tex_w <= 0 || tex_h <= 0)
-		return ;
-	while (x < end_x)
-	{
-		int	span_start;
-		int	span_w;
-		SDL_Rect	src;
-		SDL_Rect	dest_span;
-
-		if (is_column_occluded(game, x, depth))
-		{
-			x++;
-			continue ;
-		}
-		span_start = x;
-		while (x < end_x && !is_column_occluded(game, x, depth))
-			x++;
-		span_w = x - span_start;
-		src.y = 0;
-		src.h = tex_h;
-		src.x = (int)floorf((float)(span_start - dest.x) / dest.w * tex_w);
-		src.w = (int)ceilf((float)span_w / dest.w * tex_w);
-		if (src.x < 0)
-			src.x = 0;
-		if (src.x + src.w > tex_w)
-			src.w = tex_w - src.x;
-		if (src.w <= 0)
-			continue ;
-		dest_span = (SDL_Rect){span_start, dest.y, span_w, dest.h};
-		SDL_RenderCopy(game->window->renderPTR, tex, &src, &dest_span);
-	}
-}
-
 void render_entities(t_game *game)
 {
 	float	FOV = game->settings.FOV;
@@ -133,15 +77,13 @@ void render_entities(t_game *game)
 		t_entity	*e = &game->entities.list[i];
 		SDL_Texture	*tex = NULL;
 
-		if (e->status == E_STATUS_DEAD)
-			continue ;
-
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
-
 		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
 
-		if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
+		if (e->status == E_STATUS_DEAD)
+			tex = e->texture_dead;
+		else if (is_shooting && e->texture_shoot && (e->type == ENTITY_ENEMY || e->type == ENTITY_BOSS))
 			tex = e->texture_shoot;
 		else if (e->textures && e->num_frames > 0)
 		{
@@ -164,21 +106,45 @@ void render_entities(t_game *game)
 
 		float	entity_h;
 		float	aspect_ratio;
-		if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+		float	render_z = e->z;
+		if (e->type == ENTITY_BOSS)
+			render_z = e->z - 0.35f;
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_ENEMY)
 		{
-			entity_h = 1.8f;
-			aspect_ratio = 0.6f;
+			entity_h = 1.0f;
+			aspect_ratio = 0.95f;
+			render_z = e->z - 0.40f;
+		}
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
+		{
+			entity_h = 1.0f;
+			aspect_ratio = 3.0f;
+			render_z = e->z;
 		}
 		else
 		{
-			entity_h = 0.5f;
-			aspect_ratio = 1.0f;
+			if (e->sprite_h > 0.0f)
+				entity_h = (e->sprite_h / 600.0f) * 1.8f;
+			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+			{
+				entity_h = 1.8f;
+				render_z = e->z - 0.05f;
+			}
+			else
+				entity_h = 0.5f;
+
+			if (e->sprite_w > 0.0f && e->sprite_h > 0.0f)
+				aspect_ratio = e->sprite_w / e->sprite_h;
+			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+				aspect_ratio = 0.6f;
+			else
+				aspect_ratio = 1.0f;
 		}
 
 		float	inv_ty = 1.0f / transform_y;
 		int		sx = (int)(half_sw + focal * transform_x * inv_ty);
-		float	dz_bot = e->z - ply_z;
-		float	dz_top = e->z + entity_h - ply_z;
+		float	dz_bot = render_z - ply_z;
+		float	dz_top = render_z + entity_h - ply_z;
 		int		y_bot = (int)(half_sh - dz_bot * focal * inv_ty + pitch);
 		int		y_top = (int)(half_sh - dz_top * focal * inv_ty + pitch);
 		int		sprite_h = y_bot - y_top;
@@ -207,6 +173,6 @@ void render_entities(t_game *game)
 		}
 
 		if (tex)
-			draw_entity_sprite(game, tex, dest, transform_y);
+			SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dest);
 	}
 }
