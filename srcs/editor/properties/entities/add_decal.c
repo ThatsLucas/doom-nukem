@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 18:05:41 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 12:25:09 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:36:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 po
 	decal->pos = pos;
 	decal->elev_sector = game->editor->switch_sector;
 	decal->sector_id = find_sector(game->editor->map, pos);
+	decal->need_key = 0;
 	map->num_decals++;
 
 	return (0);

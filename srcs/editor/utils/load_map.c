@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/09 15:22:07 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:57:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ static int	load_decal(t_decal *d, int fd)
 		|| read_full(fd, &d->height, sizeof(float))
 		|| read_full(fd, &d->elev_sector, sizeof(int))
 		|| read_full(fd, &d->sector_id, sizeof(int))
+		|| read_full(fd, &d->need_key, sizeof(int))
 		|| read_full(fd, &d->pos, sizeof(t_vect2))
 		|| read_full(fd, &d->texture.w, sizeof(int))
 		|| read_full(fd, &d->texture.h, sizeof(int)))

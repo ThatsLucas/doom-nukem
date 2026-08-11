@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 11:57:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 11:10:43 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:49:58 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ void	entities_events(t_game *game, SDL_Event *e)
 			editor->entity_step = 0;
 			return ;
 		}
-		if (!ft_strcmp(editor->entity_text, "Switch"))
+		if (!ft_strcmp(editor->entity_text, "Switch") || !ft_strcmp(editor->entity_text, "Switch_Key"))
 		{
 			if (add_decal(game, map, "assets/png/items/decals/switch.png", 0.5f, click_pos))
 				return ;
 			editor->entity_step = 0;
+			if (!ft_strcmp(editor->entity_text, "Switch_Key"))
+				map->decals[map->num_decals - 1].need_key = 1;
 			return ;
 		}
 		if (map->num_entities == map->cap_entities)

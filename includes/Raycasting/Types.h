@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 12:00:19 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:36:20 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ typedef struct s_decal
 	float	z_bottom;		// hauteur du bas du decalque
 	float	height;			// hauteur du decalque
 	int		elev_sector;	// -1 ou numéro du secteur à activer
-	int		sector_id;
+	int		sector_id;		// sector sur lequel le decal est actif
+	int		need_key;		// interaction avec clef ?
 	t_vect2	pos;
 	t_tex	texture;		// texture
 }			t_decal;
