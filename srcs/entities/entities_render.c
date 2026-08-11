@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 11:18:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:45:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,17 @@ void render_entities(t_game *game)
 		float	render_z = e->z;
 		if (e->type == ENTITY_BOSS)
 			render_z = e->z - 0.35f;
-		if (e->status == E_STATUS_DEAD && (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ))
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_ENEMY)
 		{
 			entity_h = 1.0f;
 			aspect_ratio = 0.95f;
 			render_z = e->z - 0.40f;
+		}
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
+		{
+			entity_h = 1.0f;
+			aspect_ratio = 3.0f;
+			render_z = e->z;
 		}
 		else
 		{
@@ -164,7 +170,6 @@ void render_entities(t_game *game)
 		{
 			closest = transform_y;
 			game->ply->crosshair_target = e;
-			//printf("entity -> %d & pnj -> %d\n", game->ply->crosshair_target->type, ENTITY_PNJ);
 		}
 
 		if (tex)

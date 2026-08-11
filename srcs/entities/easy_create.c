@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 11:50:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:46:21 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,116 @@ void	create_boss1(t_game *game, t_vect2 pos)
 	if (!(e.texture = create_image(&idle, game->window->renderPTR))
 		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
 		exit_game(game, "Failed to create image boss1");
+	e.sprite_w = (float)boss_w;
+	e.sprite_h = (float)boss_h;
+
+	add_entity(game, &game->entities, e);
+}
+
+void	create_boss2(t_game *game, t_vect2 pos)
+{
+	t_entity	e;
+	t_png	idle, shoot, dead;
+
+	char	*idle_tex = "assets/png/entities/boss/boss2/idle.png";
+	char	*shoot_tex = "assets/png/entities/boss/boss2/shoot.png";
+	char	*dead_tex = "assets/png/entities/boss/boss2/dead.png";
+
+	e.type = ENTITY_BOSS;
+	e.status = E_STATUS_IDLE;
+	e.attack_range = 5.0f;
+	e.vision_angle = 360.0f;
+	e.vision_range = 10.0f;
+	e.speed = 2.0f;
+	e.dir_x = 1.0f;
+	e.dir_y = 1.0f;
+	e.num_frames = 0;
+	e.textures = 0;
+	e.x = pos.x;
+	e.y = pos.y;
+	e.hp = 500;
+	e.hitbox = 1;
+	e.last_shot_time = 0;
+	e.damage = 20;
+	e.fire_rate = 300;
+
+	/* pour voir z -> a changer */
+	e.sector = find_sector(game->map, pos);
+	if (e.sector == -1)
+		exit_game(game, "Failed to find sector");
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+
+	int boss_w = 800;
+	int boss_h = 750;
+	idle.w = boss_w; idle.h = boss_h;
+	shoot.w = boss_w; shoot.h = boss_h;
+	dead.w = 700; dead.h = 200;
+	idle.path = ft_strdup(idle_tex); shoot.path = ft_strdup(shoot_tex); dead.path = ft_strdup(dead_tex);
+	if (!process_png(&idle))
+		exit_game(game, "Failed to load boss2 (idle tex)");
+	if (!process_png(&shoot))
+		exit_game(game, "Failed to load boss2 (shoot text)");
+	if (!process_png(&dead))
+		exit_game(game, "Failed to load boss2 (dead tex)");
+
+	if (!(e.texture = create_image(&idle, game->window->renderPTR))
+		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+		exit_game(game, "Failed to create image boss2");
+	e.sprite_w = (float)boss_w;
+	e.sprite_h = (float)boss_h;
+
+	add_entity(game, &game->entities, e);
+}
+
+void	create_boss3(t_game *game, t_vect2 pos)
+{
+	t_entity	e;
+	t_png	idle, shoot, dead;
+
+	char	*idle_tex = "assets/png/entities/boss/boss3/idle.png";
+	char	*shoot_tex = "assets/png/entities/boss/boss3/shoot.png";
+	char	*dead_tex = "assets/png/entities/boss/boss3/dead.png";
+
+	e.type = ENTITY_BOSS;
+	e.status = E_STATUS_IDLE;
+	e.attack_range = 3.0f;
+	e.vision_angle = 360.0f;
+	e.vision_range = 10.0f;
+	e.speed = 1.0f;
+	e.dir_x = 1.0f;
+	e.dir_y = 1.0f;
+	e.num_frames = 0;
+	e.textures = 0;
+	e.x = pos.x;
+	e.y = pos.y;
+	e.hp = 350;
+	e.hitbox = 1;
+	e.last_shot_time = 0;
+	e.damage = 25;
+	e.fire_rate = 300;
+
+	/* pour voir z -> a changer */
+	e.sector = find_sector(game->map, pos);
+	if (e.sector == -1)
+		exit_game(game, "Failed to find sector");
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+
+	int boss_w = 800;
+	int boss_h = 750;
+	idle.w = boss_w; idle.h = boss_h;
+	shoot.w = boss_w; shoot.h = boss_h;
+	dead.w = 500; dead.h = 300;
+	idle.path = ft_strdup(idle_tex); shoot.path = ft_strdup(shoot_tex); dead.path = ft_strdup(dead_tex);
+	if (!process_png(&idle))
+		exit_game(game, "Failed to load boss3 (idle tex)");
+	if (!process_png(&shoot))
+		exit_game(game, "Failed to load boss3 (shoot text)");
+	if (!process_png(&dead))
+		exit_game(game, "Failed to load boss3 (dead tex)");
+
+	if (!(e.texture = create_image(&idle, game->window->renderPTR))
+		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+		exit_game(game, "Failed to create image boss3");
 	e.sprite_w = (float)boss_w;
 	e.sprite_h = (float)boss_h;
 

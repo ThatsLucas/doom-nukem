@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 11:46:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:44:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir);
 void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir);
 void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir);
 void	create_boss1(t_game *game, t_vect2 pos);
+void	create_boss2(t_game *game, t_vect2 pos);
+void	create_boss3(t_game *game, t_vect2 pos);
 
 #endif
