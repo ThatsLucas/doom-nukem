@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:43:32 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 11:54:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:12:17 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,13 @@ void	interactions(t_game *game)
 		d = get_crosshair_decal(game);
 		if (!d || d->elev_sector == -1)
 			return ;
-		printf("decal = %d\n", d->need_key);
 
 		if (d->need_key)
 		{
-			printf("need key\n");
 			for (int i = 0; i < ply->inventory.tool_count; ++i)
 			{
 				if (ply->inventory.tools[i].type == TOOL_KEY)
 				{
-					printf("found key\n");
 					toggle_elevator(&game->map->sectors[d->elev_sector]);
 				}
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/10 18:02:07 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/08/11 13:11:33 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static void config_starter(t_ply *ply)
 		.data.battery = 11,
 		.using = 0};
 	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
+
+	t_tool key = {
+		.type = TOOL_KEY,
+		.data.id = 11,
+		.using = 0};
+	ply->inventory.tools[ply->inventory.tool_count++] = key;
 
 	t_tool jetpack = {
 		.type = TOOL_JETPACK,
