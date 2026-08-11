@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 11:57:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/09 15:20:48 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:10:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ void	entities_events(t_game *game, SDL_Event *e)
 	}
 	else
 	{
+		if (!ft_strcmp(editor->entity_text, "Window"))
+		{
+			add_decal(game, map, "assets/png/items/decals/window_tree.png", 2.0f, click_pos);
+			return ;
+		}
 		if (is_valid_entity_pos(map, click_pos))
 		{
 			editor->entity_base = click_pos;

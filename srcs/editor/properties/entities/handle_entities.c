@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 17:19:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/09 14:40:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:00:18 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_entities(t_game *game, int x)
 	t_editor	*editor			= game->editor;
 	static char	*entities[2]	= {"PNJ Ally", "ENEMY"};
 	static char	*items[6]		= {"Flashlight", "Key", "JetPack", "Pistol", "Shotgun", "Rocket Launcher"};
-	static char	*props[2]		= {"Barrel", "Switch"};
+	static char	*props[3]		= {"Barrel", "Switch", "Window"};
 	static int	idx = 0;
 
 	if (!x)
@@ -39,7 +39,7 @@ void	handle_entities(t_game *game, int x)
 	}
 	if (editor->selected_entity_type == 4)
 	{
-		idx = SDL_clamp(idx, 0, 1);
+		idx = SDL_clamp(idx, 0, 2);
 		editor->entity_text = props[idx];
 	}
 	editor->selected_entity = idx;
