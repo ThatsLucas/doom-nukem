@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/09 15:17:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:31:42 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct	s_editor_properties
 	int			last_vertex;
 	int			selected_wall;
 	int			selected_sector;
+	int			wall_collisions;
 }		t_editor_properties;
 
 typedef struct	s_editor

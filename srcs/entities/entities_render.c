@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/05 17:43:38 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:22:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ void render_entities(t_game *game)
 
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
+
+		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
 
 		if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
 			tex = e->texture_shoot;

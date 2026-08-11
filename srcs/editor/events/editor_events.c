@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 20:50:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/17 12:19:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:41:16 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static void handle_key(t_editor *editor, SDL_Keycode code, t_game *game)
 	return ;
 }
 
-static void	check_slop_button(t_game *game, int x, int y)
+static void	check_toggles(t_game *game, int x, int y)
 {
 	SDL_Rect	box;
 
@@ -128,7 +128,13 @@ static void	check_slop_button(t_game *game, int x, int y)
 	to_responsive(game->window, &box);
 
 	if (x > box.x && x < box.x + box.w && y > box.y && y < box.y + box.h)
-		game->editor->properties.slope_fc = game->editor->properties.slope_fc == 0 ? 1 : 0;
+		game->editor->properties.slope_fc = game->editor->properties.slope_fc == 0 ? 1 : 0;	//slopes
+
+	box.h = 35; box.w = 80; box.x = 1730; box.y = 911;
+	to_responsive(game->window, &box);
+
+	if (x > box.x && x < box.x + box.w && y > box.y && y < box.y + box.h)
+		game->editor->properties.wall_collisions = game->editor->properties.wall_collisions == 0 ? 1 : 0;	//collisions wall
 
 	return ;
 }
@@ -163,7 +169,7 @@ void	editor_events(t_game *game)
 					plan_click(game, &e);
 				get_clicked_texture(game, e.motion.x, e.motion.y);
 				get_clicked_texture_button(game, e.motion.x, e.motion.y);
-				check_slop_button(game, e.motion.x, e.motion.y);
+				check_toggles(game, e.motion.x, e.motion.y);
 				break ;
 
 			case SDL_MOUSEBUTTONUP:
