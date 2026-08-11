@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spawn_props.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/11 14:23:16 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/08/11 14:23:32 by aabouyaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Game.h"
 
 int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
@@ -26,7 +38,6 @@ int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 	e.attack_range = 0;
 	e.fire_rate = 0;
 	e.damage = 0;
-	e.can_shoot = 0;
 	e.last_shot_time = 0;
 	e.notif = NULL;
 	e.hitbox = 0.4;

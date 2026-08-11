@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:14:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:22:26 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum	e_entity_type
 {
 	ENTITY_PNJ,
 	ENTITY_ENEMY,
-	ENTITY_BOSS
+	ENTITY_BOSS,
 	ENTITY_PROP,
 	ENTITY_NONE
 }				t_entity_type;

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:17:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:32:55 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ t_map	*load_map(char *name, t_game *game)
 	game->map = map;
 	game->ply->pos = map->player_spawn;
 	game->ply->dir = map->player_dir;
-	game->ply->sector = find_sector_z(map, game->ply->pos, game->ply->z);
+	game->ply->sector = find_sector(map, game->ply->pos);
 	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
 	spawn_entities(map, game);
 
