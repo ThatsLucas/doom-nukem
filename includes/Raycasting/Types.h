@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:18:06 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/07 02:25:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:15:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,29 @@ typedef struct s_tex
 	t_RGB	*colors;
 }		t_tex;
 
+typedef struct s_decal
+{
+	int		wall_idx;		// sur quel mur
+	float	u_offset;		// position le long du mur
+	float	width;			// largeur du decalque
+	float	z_bottom;		// hauteur du bas du decalque
+	float	height;			// hauteur du decalque
+	int		elev_sector;	// -1 ou numéro du secteur à activer
+	int		sector_id;		// sector sur lequel le decal est actif
+	int		need_key;		// interaction avec clef ?
+	t_vect2	pos;
+	t_tex	texture;		// texture
+}			t_decal;
+
+typedef struct s_map_entity
+{
+	t_vect2	pos;
+	t_vect2	ang;
+	int		sector_id;
+	int		id;
+	int		type;
+}			t_map_ent;
+
 /*Bien sur voici ta structure de map optimise qui bug pas*/
 typedef struct s_map
 {
@@ -130,6 +153,10 @@ typedef struct s_map
 	t_wall		*walls;
 	int			num_walls;
 	int			cap_walls;
+
+	t_decal		*decals;
+	int			num_decals;
+	int			cap_decals;
 
 	t_sector	*sectors;
 	int			num_sectors;
@@ -144,7 +171,11 @@ typedef struct s_map
 
 	/* --- Spawns --- */
 	t_vect2		player_spawn;
-	float		player_z;
+	t_vect2		player_dir;
+
+	t_map_ent	*entities;
+	int			num_entities;
+	int			cap_entities;
 }				t_map;
 
 typedef struct s_raythread

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:52:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:17:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,58 @@ static int	load_textures(t_map *map, int fd)
 	return (0);
 }
 
-static int	load_entity(t_map *map, int fd)
+static int	load_decal(t_decal *d, int fd)
 {
-	if (read_full(fd, &map->player_spawn, sizeof(t_vect2)))
+	if (read_full(fd, &d->wall_idx, sizeof(int))
+		|| read_full(fd, &d->u_offset, sizeof(float))
+		|| read_full(fd, &d->width, sizeof(float))
+		|| read_full(fd, &d->z_bottom, sizeof(float))
+		|| read_full(fd, &d->height, sizeof(float))
+		|| read_full(fd, &d->elev_sector, sizeof(int))
+		|| read_full(fd, &d->sector_id, sizeof(int))
+		|| read_full(fd, &d->need_key, sizeof(int))
+		|| read_full(fd, &d->pos, sizeof(t_vect2))
+		|| read_full(fd, &d->texture.w, sizeof(int))
+		|| read_full(fd, &d->texture.h, sizeof(int)))
 		return (-1);
-	if (read_full(fd, &map->player_z, sizeof(float)))
+	if (d->texture.w <= 0 || d->texture.h <= 0
+		|| d->texture.w > INT_MAX || d->texture.h > INT_MAX)
+		return (-1);
+	d->texture.colors = ft_calloc((size_t)d->texture.w * d->texture.h, sizeof(t_RGB));
+	if (!d->texture.colors)
+		return (-1);
+	if (read_full(fd, d->texture.colors,
+			sizeof(t_RGB) * (size_t)d->texture.w * d->texture.h))
 		return (-1);
 	return (0);
 }
 
-static void	load_elevators(t_map *map, int fd)
+static int	load_entity(t_map *map, int fd)
+{
+	int	i;
+
+	if (read_full(fd, &map->player_spawn, sizeof(t_vect2)))
+		return (-1);
+	if (read_full(fd, &map->player_dir, sizeof(t_vect2)))
+		return (-1);
+	if (read_full(fd, &map->num_decals, sizeof(int)))
+		return (-1);
+	if (map->num_decals < 0 || map->num_decals > INT_MAX)
+		return (-1);
+	map->decals = ft_calloc(map->num_decals, sizeof(t_decal));
+	if (!map->decals)
+		return (-1);
+	i = 0;
+	while (i < map->num_decals)
+	{
+		if (load_decal(&map->decals[i], fd))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+static int	load_elevators(t_map *map, int fd)
 {
 	int	direction;
 	int	level_size;
@@ -170,15 +212,61 @@ static void	load_elevators(t_map *map, int fd)
 	{
 		if (read_full(fd, &direction, sizeof(int))
 			|| read_full(fd, &level_size, sizeof(int)))
-			return ;
+			return (-1);
 		map->sectors[i].direction = direction;
 		map->sectors[i].levelSize = level_size;
+	}
+	return (0);
+}
+
+static int	load_entities(t_map *map, int fd)
+{
+	int	i;
+	int	r;
+
+	r = read_full(fd, &map->num_entities, sizeof(int));
+	if (r < 0)
+	{
+		map->num_entities = 0;
+		map->entities = NULL;
+		map->cap_entities = 0;
+		return (0);
+	}
+	if (map->num_entities < 0 || map->num_entities > INT_MAX)
+		return (-1);
+	map->entities = ft_calloc(map->num_entities, sizeof(t_map_ent));
+	if (!map->entities)
+		return (-1);
+	i = 0;
+	while (i < map->num_entities)
+	{
+		if (read_full(fd, &map->entities[i].pos, sizeof(t_vect2))
+			|| read_full(fd, &map->entities[i].ang, sizeof(t_vect2))
+			|| read_full(fd, &map->entities[i].sector_id, sizeof(int))
+			|| read_full(fd, &map->entities[i].id, sizeof(int))
+			|| read_full(fd, &map->entities[i].type, sizeof(int)))
+			return (-1);
+		i++;
+	}
+	map->cap_entities = map->num_entities;
+	return (0);
+}
+
+static void	spawn_entities(t_map *map, t_game *game)
+{
+	t_map_ent	*e;
+
+	for (int i = 0; i < map->num_entities; ++i)
+	{
+		e = &map->entities[i];
+		if (e->type == 4 && e->id == 0)
+			spawn_props(game, e->pos, "assets/png/items/props/barrel.png");
 	}
 
 	return ;
 }
 
-t_map	*load_map(char *name)
+t_map	*load_map(char *name, t_game *game)
 {
 	char	*file;
 	int		fd;
@@ -202,14 +290,27 @@ t_map	*load_map(char *name)
 		free_map(map);
 		return (NULL);
 	}
-	load_elevators(map, fd);
+	if (load_elevators(map, fd) || load_entities(map, fd))
+	{
+		close(fd);
+		free_map(map);
+		return (NULL);
+	}
 	close(fd);
 	map->cap_textures = map->num_textures;
 	map->cap_sectors = map->num_sectors;
 	map->cap_walls = map->num_walls;
 	map->cap_vertices = map->num_vertices;
+	map->cap_decals = map->num_decals;
 	precompute_next_sectors(map);
 	precompute_lengths(map);
+
+	game->map = map;
+	game->ply->pos = map->player_spawn;
+	game->ply->dir = map->player_dir;
+	game->ply->sector = find_sector_z(map, game->ply->pos, game->ply->z);
+	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
+	spawn_entities(map, game);
 
 	return (map);
 }
@@ -237,7 +338,7 @@ void	load_editor_map(t_game *game)
 		ft_printf("Can't load a map: name needed\n");
 		return ;
 	}
-	map = load_map(s);
+	map = load_map(s, game);
 	if (map)
 	{
 		free_map(game->editor->map);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 19:20:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/17 11:18:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:17:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ static int add_sector(t_map *map, int *loop, int count)
 	s->light_level		= 255;
 	s->has_floor_arrow	= 0;
 	s->has_ceil_arrow	= 0;
+	s->isElevating		= 0;
+	s->levelSize		= 0;
+	s->direction		= 0;
 	return (map->num_sectors++);
 }
 
