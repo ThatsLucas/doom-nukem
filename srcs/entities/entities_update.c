@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_update.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:17:15 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:58 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:49:52 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ void	update_enemy(t_entity *e, t_game *game, float dt)
 		case E_STATUS_IDLE:
 			if (see_player)
 			{
-				printf("il nous voit\n");
 				e->status = E_STATUS_CHASE;
 			}
 			break ;
@@ -205,7 +204,6 @@ void	update_enemy(t_entity *e, t_game *game, float dt)
 			break ;
 
 		case E_STATUS_DEAD:
-			e->hitbox = 0;
 			break ;
 	}
 
@@ -228,7 +226,7 @@ void	update_entities(t_game *game, t_entities *e)
 
 	for (int i = 0; i < e->count; i++)
 	{
-		if (e->list[i].type == ENTITY_ENEMY)
+		if (e->list[i].type == ENTITY_ENEMY || e->list[i].type == ENTITY_BOSS)
 			update_enemy(&e->list[i], game, dt);
 	}
 }

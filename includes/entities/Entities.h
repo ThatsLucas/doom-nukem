@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 11:52:52 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:44:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum	e_entity_type
 {
 	ENTITY_PNJ,
 	ENTITY_ENEMY,
-	ENTITY_NONE
+	ENTITY_BOSS
 }				t_entity_type;
 
 typedef enum	e_entity_status
@@ -49,6 +49,7 @@ typedef struct	s_entity
 	void			**textures;
 	void			*texture;
 	void			*texture_shoot;
+	void			*texture_dead;
 	int				num_frames;
 
 	int	hp;
@@ -62,10 +63,14 @@ typedef struct	s_entity
 	t_entity_status	status;
 
 	double	hitbox;
-
-	int			can_shoot;
-	long long	last_shot_time;
+	float		sprite_w;
+	float		sprite_h;	long long	last_shot_time;
 	char		*notif;
+
+	float	attack_timer;
+	float	special_timer;
+	float	dash_timer;
+	float	state_timer;
 
 }				t_entity;
 
@@ -82,7 +87,14 @@ void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
 void	update_entities(t_game *game, t_entities *e);
 
-int		default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
-void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif);
+void	create_enemy1(t_game *game, t_vect2 pos);
+void	create_enemy2(t_game *game, t_vect2 pos);
+void	create_enemy3(t_game *game, t_vect2 pos);
+void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_boss1(t_game *game, t_vect2 pos);
+void	create_boss2(t_game *game, t_vect2 pos);
+void	create_boss3(t_game *game, t_vect2 pos);
 
 #endif

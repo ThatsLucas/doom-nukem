@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 11:28:42 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 12:13:24 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/08 11:31:05 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /* Function to display the crossair as a cross with a gap in the middle */
 void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 {
-	int				status = 0;
 	SDL_Renderer	*render = game->window->renderPTR;
 	t_RGB			rgb;
 
@@ -28,8 +27,8 @@ void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 
 	SDL_SetRenderDrawColor(render, rgb.r, rgb.g, rgb.b, rgb.alphaValue);
 
-	status += SDL_RenderDrawLine(render, x - size, y, x - gap, y);
-	status += SDL_RenderDrawLine(render, x + gap, y, x + size, y);
-	status += SDL_RenderDrawLine(render, x, y - size, x, y - gap);
-	status += SDL_RenderDrawLine(render, x, y + gap, x, y + size);
+	SDL_RenderDrawLine(render, x - size, y, x - gap, y);
+	SDL_RenderDrawLine(render, x + gap, y, x + size, y);
+	SDL_RenderDrawLine(render, x, y - size, x, y - gap);
+	SDL_RenderDrawLine(render, x, y + gap, x, y + size);
 }

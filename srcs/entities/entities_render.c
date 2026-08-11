@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/09 15:37:56 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:49:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void render_entities(t_game *game)
 		t_entity	*e = &game->entities.list[i];
 		SDL_Texture	*tex = NULL;
 
-		if (e->status == E_STATUS_DEAD)
-			continue ;
-
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
+		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
 
-		if (is_shooting && e->texture_shoot && e->type == ENTITY_ENEMY)
+		if (e->status == E_STATUS_DEAD)
+			tex = e->texture_dead;
+		else if (is_shooting && e->texture_shoot && (e->type == ENTITY_ENEMY || e->type == ENTITY_BOSS))
 			tex = e->texture_shoot;
 		else if (e->textures && e->num_frames > 0)
 		{
@@ -106,21 +106,45 @@ void render_entities(t_game *game)
 
 		float	entity_h;
 		float	aspect_ratio;
-		if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+		float	render_z = e->z;
+		if (e->type == ENTITY_BOSS)
+			render_z = e->z - 0.35f;
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_ENEMY)
 		{
-			entity_h = 1.8f;
-			aspect_ratio = 0.6f;
+			entity_h = 1.0f;
+			aspect_ratio = 0.95f;
+			render_z = e->z - 0.40f;
+		}
+		if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
+		{
+			entity_h = 1.0f;
+			aspect_ratio = 3.0f;
+			render_z = e->z;
 		}
 		else
 		{
-			entity_h = 0.5f;
-			aspect_ratio = 1.0f;
+			if (e->sprite_h > 0.0f)
+				entity_h = (e->sprite_h / 600.0f) * 1.8f;
+			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+			{
+				entity_h = 1.8f;
+				render_z = e->z - 0.05f;
+			}
+			else
+				entity_h = 0.5f;
+
+			if (e->sprite_w > 0.0f && e->sprite_h > 0.0f)
+				aspect_ratio = e->sprite_w / e->sprite_h;
+			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+				aspect_ratio = 0.6f;
+			else
+				aspect_ratio = 1.0f;
 		}
 
 		float	inv_ty = 1.0f / transform_y;
 		int		sx = (int)(half_sw + focal * transform_x * inv_ty);
-		float	dz_bot = e->z - ply_z;
-		float	dz_top = e->z + entity_h - ply_z;
+		float	dz_bot = render_z - ply_z;
+		float	dz_top = render_z + entity_h - ply_z;
 		int		y_bot = (int)(half_sh - dz_bot * focal * inv_ty + pitch);
 		int		y_top = (int)(half_sh - dz_top * focal * inv_ty + pitch);
 		int		sprite_h = y_bot - y_top;
@@ -146,7 +170,6 @@ void render_entities(t_game *game)
 		{
 			closest = transform_y;
 			game->ply->crosshair_target = e;
-			//printf("entity -> %d & pnj -> %d\n", game->ply->crosshair_target->type, ENTITY_PNJ);
 		}
 
 		if (tex)
