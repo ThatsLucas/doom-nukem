@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 11:47:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:56:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ static int	tool_click(t_game *game, SDL_Event *e)
 				set_input_text(game->editor->text_inputs, "sectors_levelSize", buf);
 			}
 		}
+
+		printf("selected_sector: %d\n", game->editor->properties.selected_sector);
+
 		return (1);
 	}
 

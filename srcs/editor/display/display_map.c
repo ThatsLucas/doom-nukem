@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 13:18:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:56:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,23 @@ void	display_editor_map(t_game *game)
 		else
 			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 10, 59, 255);
 		SDL_RenderDrawLineF(game->window->renderPTR, pos.x, pos.y, dest.x, dest.y);
+	}
+
+	if (game->editor->properties.selected_sector >= 0)
+	{
+		for (int i = 0; i < map->sectors[game->editor->properties.selected_sector].num_walls; ++i)
+		{
+			t_wall *w = &map->walls[map->sectors[game->editor->properties.selected_sector].walls[i]];
+
+			if (w->v1 < 0 || w->v1 >= map->num_vertices || w->v2 < 0 || w->v2 >= map->num_vertices)
+				continue;
+
+			pos = pos_to_pixels(game->editor, map->vertices[w->v1].x, map->vertices[w->v1].y);
+			dest = pos_to_pixels(game->editor, map->vertices[w->v2].x, map->vertices[w->v2].y);
+
+			SDL_SetRenderDrawColor(game->window->renderPTR, 0, 255, 0, 255);
+			SDL_RenderDrawLineF(game->window->renderPTR, pos.x, pos.y, dest.x, dest.y);
+		}
 	}
 
 	draw_slope_arrows(game);

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:31:55 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 16:19:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 13:48:55 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,9 @@ void	editor_add_wall(t_game *game, int v1, int v2)
 
 	map->num_walls++;
 
-	if (check_intersections(game, map, map->num_walls - 1, map->num_walls - 1))
-		compute_sectors(map);
+	if (game->editor->properties.wall_collisions)
+		check_intersections(game, map, map->num_walls - 1, map->num_walls - 1);
+	compute_sectors(map);
 
 	return ;
 }
