@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/07/15 18:09:32 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:08:29 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_lobby
     t_font texts[20];
 } t_lobby;
 
-#define CINEMATIC_ONE_DURATION 1000
+#define CINEMATIC_ONE_DURATION 10000
 
 typedef struct s_cinematic
 {

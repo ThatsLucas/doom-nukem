@@ -6,12 +6,13 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 13:46:21 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:09:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 
+/* Tung Tung Tung Sahur */
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;
@@ -57,6 +58,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	add_entity(game, &game->entities, e);
 }
 
+/* Captain America */
 void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;
@@ -102,6 +104,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 	add_entity(game, &game->entities, e);
 }
 
+/* Walter White */
 void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;
@@ -301,6 +304,7 @@ void	create_enemy3(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
+/* Spider */
 void	create_boss1(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -356,6 +360,7 @@ void	create_boss1(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
+/* Gros pouf */
 void	create_boss2(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -411,6 +416,7 @@ void	create_boss2(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
+/* Elephant */
 void	create_boss3(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
