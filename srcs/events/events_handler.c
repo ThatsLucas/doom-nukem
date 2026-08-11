@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/08 11:51:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:47:11 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		// toggle_elevator(&game->map->sectors[game->ply->sector]);
 		t_vect2 pos;
 		pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
-		create_boss1(game, pos);
+		create_pnj3(game, pos, pos);
 	}
 }
 

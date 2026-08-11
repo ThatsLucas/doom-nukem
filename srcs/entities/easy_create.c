@@ -6,99 +6,11 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:35:44 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/09 15:54:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:50:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
-
-int	default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h)
-{
-	t_entity	e;
-
-	e.type = ENTITY_ENEMY;
-	e.status = E_STATUS_IDLE;
-	e.attack_range = 3.0f;
-	e.vision_angle = 360.0f;
-	e.vision_range = 10.0f;
-	e.speed = 2.0f;
-	e.dir_x = 1.0f;
-	e.dir_y = 1.0f;
-	e.num_frames = 0;
-	e.textures = 0;
-	e.x = pos.x;
-	e.y = pos.y;
-	e.hp = 100;
-	e.hitbox = 1;
-	e.last_shot_time = 0;
-	e.damage = 15;
-	e.fire_rate = 200;
-
-	e.sector = find_sector(game->map, pos);
-	if (e.sector == -1)
-		return (0);
-	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
-
-	t_png	idle, shoot;
-	idle.w = w; shoot.w = w;
-	idle.h = h; shoot.h = h;
-	idle.path = ft_strdup(idle_tex); shoot.path = ft_strdup(shoot_tex);
-	if (!process_png(&idle))
-		exit_game(game, "Failed to load enemy");
-	if (!process_png(&shoot))
-		exit_game(game, "Failed to load enemy (shoot text)");
-
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)))
-		exit_game(game, "Failed to create image enemy");
-	e.sprite_w = (float)w;
-	e.sprite_h = (float)h;
-
-	add_entity(game, &game->entities, e);
-	return (1);
-}
-
-void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif)
-{
-	t_entity	e;
-	t_png		png;
-
-	e.type = ENTITY_PNJ;
-	e.status = E_STATUS_IDLE;
-	
-	e.sector = find_sector(game->map, pos);
-	e.dir_x = dir_x;
-	e.dir_y = dir_y;
-	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
-	e.x = pos.x; e.y = pos.y;
-	e.hp = 1000;
-	e.notif = notif;
-
-	e.num_frames = size;
-	e.textures = malloc(sizeof(SDL_Texture *) * size);
-	if (!e.textures)
-		exit_game(game, "Failed to malloc default pnj");
-
-	for (int i = 0; i < size; i++)
-	{
-		png.w = w;
-		png.h = h;
-		png.path = ft_strdup(paths[i]);
-		if (!png.path)
-			exit_game(game, "Failed to strdup default pnj");
-		if (!process_png(&png))
-			exit_game(game, "Failed to process default pnj");
-		e.textures[i] = create_image(&png, game->window->renderPTR);
-		if (!e.textures[i])
-			exit_game(game, "Failed to create image default pnj");
-	}
-
-	e.texture = e.textures[0];
-	e.hitbox = 1;
-	e.sprite_w = (float)w;
-	e.sprite_h = (float)h;
-	add_entity(game, &game->entities, e);
-}
 
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 {
@@ -115,33 +27,123 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
 	e.x = pos.x; e.y = pos.y;
 	e.hp = 1000;
-	e.notif = "Aide nous !"; // a modif en fonction de l'histoire
+	e.notif = "I am Tung Tung Sahur. Find the key, kill the enemies and get out of here !"; // a modif en fonction de l'histoire
 
 	e.num_frames = 8;
-	e.textures = malloc(sizeof(SDL_Texture *) * 8);
+	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
 	if (!e.textures)
 		exit_game(game, "Failed to malloc pnj1");
 
-	for (int i = 1; i < 9; i++)
+	for (int i = 0; i < e.num_frames; i++)
 	{
 		png.w = 400;
 		png.h = 600;
 		char path[200];
-		sprintf(path, "assets/png/entities/pnj/tung/tung%d.png", i);
+		sprintf(path, "assets/png/entities/pnj/tung/tung%d.png", i + 1);
 		png.path = ft_strdup(path);
 		if (!png.path)
-			exit_game(game, "Failed to strdup default pnj");
+			exit_game(game, "Failed to strdup pnj 1");
 		if (!process_png(&png))
-			exit_game(game, "Failed to process default pnj");
+			exit_game(game, "Failed to process pnj 1");
 		e.textures[i] = create_image(&png, game->window->renderPTR);
 		if (!e.textures[i])
-			exit_game(game, "Failed to create image default pnj");
+			exit_game(game, "Failed to create image pnj 1");
 	}
 
 	e.texture = e.textures[0];
 	e.hitbox = 1;
 	e.sprite_w = 400.0f;
 	e.sprite_h = 600.0f;
+	add_entity(game, &game->entities, e);
+}
+
+void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
+{
+	t_entity	e;
+	t_png		png;
+
+	e.type = ENTITY_PNJ;
+	e.status = E_STATUS_IDLE;
+
+	/*a changer pour trouver le bon secteur*/
+	e.sector = find_sector(game->map, pos);
+	e.dir_x = dir.x;
+	e.dir_y = dir.y;
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+	e.x = pos.x; e.y = pos.y;
+	e.hp = 1000;
+	e.notif = "Avengers... assemble!"; // a modif en fonction de l'histoire
+
+	e.num_frames = 8;
+	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
+	if (!e.textures)
+		exit_game(game, "Failed to malloc pnj2");
+
+	for (int i = 0; i < e.num_frames; i++)
+	{
+		png.w = 350;
+		png.h = 750;
+		char path[200];
+		sprintf(path, "assets/png/entities/pnj/captain/captain%d.png", i + 1);
+		png.path = ft_strdup(path);
+		if (!png.path)
+			exit_game(game, "Failed to strdup pnj 2");
+		if (!process_png(&png))
+			exit_game(game, "Failed to process pnj 2");
+		e.textures[i] = create_image(&png, game->window->renderPTR);
+		if (!e.textures[i])
+			exit_game(game, "Failed to create image pnj 2");
+	}
+
+	e.texture = e.textures[0];
+	e.hitbox = 1;
+	e.sprite_w = 350.0f;
+	e.sprite_h = 750.0f;
+	add_entity(game, &game->entities, e);
+}
+
+void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
+{
+	t_entity	e;
+	t_png		png;
+
+	e.type = ENTITY_PNJ;
+	e.status = E_STATUS_IDLE;
+
+	/*a changer pour trouver le bon secteur*/
+	e.sector = find_sector(game->map, pos);
+	e.dir_x = dir.x;
+	e.dir_y = dir.y;
+	e.z = get_plane_z(game->map->sectors[e.sector].floor_plane, pos.x, pos.y);
+	e.x = pos.x; e.y = pos.y;
+	e.hp = 1000;
+	e.notif = "I am the danger Skyler!"; // a modif en fonction de l'histoire
+
+	e.num_frames = 8;
+	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
+	if (!e.textures)
+		exit_game(game, "Failed to malloc pnj3");
+
+	for (int i = 0; i < e.num_frames; i++)
+	{
+		png.w = 350;
+		png.h = 650;
+		char path[200];
+		sprintf(path, "assets/png/entities/pnj/walter/walter%d.png", i + 1);
+		png.path = ft_strdup(path);
+		if (!png.path)
+			exit_game(game, "Failed to strdup pnj 3");
+		if (!process_png(&png))
+			exit_game(game, "Failed to process pnj 3");
+		e.textures[i] = create_image(&png, game->window->renderPTR);
+		if (!e.textures[i])
+			exit_game(game, "Failed to create image pnj 3");
+	}
+
+	e.texture = e.textures[0];
+	e.hitbox = 1;
+	e.sprite_w = 350.0f;
+	e.sprite_h = 650.0f;
 	add_entity(game, &game->entities, e);
 }
 

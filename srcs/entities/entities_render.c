@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/09 15:34:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:18:37 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ void render_entities(t_game *game)
 			if (e->sprite_h > 0.0f)
 				entity_h = (e->sprite_h / 600.0f) * 1.8f;
 			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+			{
 				entity_h = 1.8f;
+				render_z = e->z - 0.05f;
+			}
 			else
 				entity_h = 0.5f;
 

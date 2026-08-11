@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/08 12:33:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 11:46:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
 void	update_entities(t_game *game, t_entities *e);
 
-int		default_enemy(t_game *game, t_vect2 pos, char *idle_tex, char *shoot_tex, int w, int h);
-void	default_pnj(t_game *game, t_vect2 pos, char *paths[], int size, int w, int h, float dir_x, float dir_y, char *notif);
 void	create_enemy1(t_game *game, t_vect2 pos);
 void	create_enemy2(t_game *game, t_vect2 pos);
 void	create_enemy3(t_game *game, t_vect2 pos);
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir);
+void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir);
 void	create_boss1(t_game *game, t_vect2 pos);
 
 #endif
