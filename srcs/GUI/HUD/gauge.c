@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gauge.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:15:21 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:20:25 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 12:53:36 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,48 +56,50 @@ static int	update_flashlight_battery(t_ply *p)
 
 static int	update_jetpack_fuel(t_ply *p)
 {
-	t_tool	*jetpack = NULL;
-	int i;
-
-	for (i = 0; i < MAX_TOOLS; i++)
-	{
-		if (p->inventory.tools[i].type == TOOL_JETPACK)
-		{
-			jetpack = &p->inventory.tools[i];
-			break ;
-		}
-	}
-
+	t_tool		*jetpack = p->inventory.jetpack;
 	static long	last_time = 0;
 	static long	total_time = 0;
+	long		now;
+	long		delta_time;
 
-	if (!jetpack || !jetpack->using)
+	if (!jetpack)
 	{
 		last_time = 0;
-		return (i);
+		total_time = 0;
+		return (0);
 	}
 
-	long	now = get_time_ms();
+	if (!jetpack->using)
+	{
+		last_time = 0;
+		total_time = 0;
+		return (jetpack->data.fuel);
+	}
+
+	now = get_time_ms();
+
 	if (last_time == 0)
 		last_time = now;
 
-	long	delta_time = now - last_time;
-
+	delta_time = now - last_time;
 	total_time += delta_time;
 	last_time = now;
+
 	if (total_time >= 5000)
 	{
-		jetpack->data.fuel-= 1;
-		if (jetpack->data.fuel <= 0)
+		jetpack->data.fuel--;
+		if (jetpack->data.fuel < 0)
 			jetpack->data.fuel = 0;
 		total_time = 0;
 	}
-	return (i);
+
+	return (jetpack->data.fuel);
 }
 
 void	display_gauge(t_game *game, int type)
 {
 	t_ply *p = game->ply;
+	activate_jetpack(game);
 
 	if (type == TOOL_FLASHLIGHT)
 	{
@@ -110,11 +112,12 @@ void	display_gauge(t_game *game, int type)
 	}
 	else if (type == TOOL_JETPACK)
 	{
-		int index = update_jetpack_fuel(p);
+		int fuel = update_jetpack_fuel(p);
 
 		draw_texture(1576, 800, 326, 56, game->window, game->hud_cache.fuel[0]);
 
-		for (int i = 0; i < p->inventory.tools[index].data.fuel; i++)
-			draw_texture(1675 + i * (4 + 15), 816, 15, 24, game->window, game->hud_cache.fuel[1]);
+		for (int i = 0; i < fuel; i++)
+			draw_texture(1675 + i * (4 + 15), 816, 15, 24,
+				game->window, game->hud_cache.fuel[1]);
 	}
 }
