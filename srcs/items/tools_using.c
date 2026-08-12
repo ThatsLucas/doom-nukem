@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_using.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 10:17:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:21:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 12:44:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ void activate_flashlight(t_game *game)
 /* Called in events_handler to use or not jetpack */
 void activate_jetpack(t_game *game)
 {
-	for (int i = 0; i < MAX_TOOLS; i++)
+	if (game->ply->inventory.jetpack)
 	{
-		if (game->ply->inventory.tools[i].type == TOOL_JETPACK)
-		{
-			if (game->ply->keys.space)
-				game->ply->inventory.tools[i].using = 1;
-			else
-				game->ply->inventory.tools[i].using = 0;
-		}
+		if (game->ply->keys.space)
+			game->ply->inventory.jetpack->using = 1;
+		else
+			game->ply->inventory.jetpack->using = 0;
 	}
 }
