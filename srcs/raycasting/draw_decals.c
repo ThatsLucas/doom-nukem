@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_decals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/27 19:00:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 11:00:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:56:53 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	clamp_decal_band(t_ray *ray, int sH, float y_top_f, float y_bot_f, in
 }
 
 /* melange le pixel du decalque (alpha du png) avec ce qui est deja dans le frame_buffer */
-static void	blend_decal_pixel(Uint32 *fb, t_RGB c, int light_level)
+static void	blend_decal_pixel(int x, int y, t_game *game, Uint32 *fb, t_RGB c, int light_level)
 {
 	t_RGB	behind;
 	float	a;
@@ -52,7 +52,7 @@ static void	blend_decal_pixel(Uint32 *fb, t_RGB c, int light_level)
 		c.g = c.g * a + behind.g * (1.0f - a);
 		c.b = c.b * a + behind.b * (1.0f - a);
 	}
-	*fb = write_color(c.r, c.g, c.b, light_level);
+	*fb = write_color(x, y, game, c, light_level);
 }
 
 static void	draw_decal(t_game *game, t_ray *ray, int x, t_sector *sector, t_decal *decal)
@@ -83,7 +83,7 @@ static void	draw_decal(t_game *game, t_ray *ray, int x, t_sector *sector, t_deca
 	{
 		tex_y = SDL_clamp((int)vh, 0, decal->texture.h - 1);
 		vh += vh_step;
-		blend_decal_pixel(fb, decal->texture.colors[tex_y * decal->texture.w + tex_x], sector->light_level);
+		blend_decal_pixel(x, y, game, fb, decal->texture.colors[tex_y * decal->texture.w + tex_x], sector->light_level);
 		fb += game->screenSize[0];
 	}
 }

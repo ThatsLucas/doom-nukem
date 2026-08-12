@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   GUI.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 17:12:34 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/20 10:40:31 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/08/12 16:54:14 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void display_buttons(t_buttons *button_list, t_game *game, int pageID);
 void free_buttons(t_buttons *buttonlist);
 
 ///* gameplay */
-Uint32 write_color(int r, int g, int b, int sect_light);
+Uint32  write_color(int x, int y, t_game *game, t_RGB c, int sect_light);
 void draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector);
 void draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector);
 void draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HUD.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:14:14 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:14:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 17:26:27 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	display_crosshair(t_game *game, int x, int y, int size, int gap);
 void	display_hud_bg(t_game *game);
 void	draw_minimap(SDL_Renderer *render, t_game *game);
 void	display_gauge(t_game *game, int type);
-void	flashlight_use(t_game *game);
 
 /* General functions */
 void		display_hud(t_game *game);

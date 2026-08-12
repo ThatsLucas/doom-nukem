@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 15:56:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:07:46 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@ t_map	*load_map(char *name, t_game *game, int editor)
 		game->ply->sector = find_sector(map, game->ply->pos);
 		game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
 		spawn_entities(map, game);
+		ft_printf("Entites: %d\n", game->entities.count);
 	}
 
 	return (map);

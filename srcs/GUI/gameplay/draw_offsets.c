@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_offsets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:19:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:55:12 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 			tex_y	= (int)vh % tex->h;
 			vh		+= vh_step;
 			c		= tex->colors[tex_y * tex->w + tex_x];
-			*fb		= write_color(c.r, c.g, c.b, sector->light_level);
+			*fb		= write_color(x, y, game, c, sector->light_level);
 			fb		+= sW;
 		}
 	}
@@ -67,7 +67,7 @@ static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 			tex_y	= (int)vh % tex->h;
 			vh		+= vh_step;
 			c		= tex->colors[tex_y * tex->w + tex_x];
-			*fb		= write_color(c.r, c.g, c.b, sector->light_level);
+			*fb		= write_color(x, y, game, c, sector->light_level);
 			fb		+= sW;
 		}
 	}

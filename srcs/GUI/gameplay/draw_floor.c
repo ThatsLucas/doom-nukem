@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:15:29 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:55:05 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 		if (tex_y < 0) tex_y += tex->h;
 
 		c	= tex->colors[tex_y * tex->w + tex_x];
-		*fb	= write_color(c.r, c.g, c.b, sector->light_level);
+		*fb	= write_color(x, y, game, c, sector->light_level);
 		fb	+= sW;
 	}
 	if (ray->y_wall_bot < ray->y_bot)

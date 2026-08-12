@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:05:35 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:19:46 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:55:17 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector)
 		tex_y	= (int)vh % tex->h;
 		vh		+= vh_step;
 		c		= tex->colors[tex_y * tex->w + tex_x];
-		*fb		= write_color(c.r, c.g, c.b, sector->light_level);
+		*fb		= write_color(x, y, game, c, sector->light_level);
 		fb		+= game->screenSize[0];
 	}
 }

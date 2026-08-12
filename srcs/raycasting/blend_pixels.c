@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blend_pixels.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 16:37:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:56:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:55:38 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	blend_pixels(t_game *game, t_wall *w, t_ray *ray, int x, t_sector *sector)
 		color.g		= color.g * w->alpha + behind.g * (1 - w->alpha);
 		color.b		= color.b * w->alpha + behind.b * (1 - w->alpha);
 
-		*fb			= write_color(color.r, color.g, color.b, sector->light_level);
+		*fb			= write_color(x, y, game, color, sector->light_level);
 		fb			+= game->screenSize[0];
 	}
 }

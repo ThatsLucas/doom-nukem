@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 13:04:59 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:16:17 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:54:59 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	draw_sky(t_game *game, t_ray *ray, int x, t_sector *sector)
 		if (tex_y < 0) tex_y += tex->h;
 
 		c	= tex->colors[tex_y * tex->w + tex_x];
-		*fb	= write_color(c.r, c.g, c.b, sector->light_level);
+		*fb	= write_color(x, y, game, c, sector->light_level);
 		fb	+= sW;
 	}
 	if (ray->y_wall_top > ray->y_top)
@@ -79,7 +79,7 @@ void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector)
 		if (tex_y < 0) tex_y += tex->h;
 
 		c			= tex->colors[tex_y * tex->w + tex_x];
-		*fb			= write_color(c.r, c.g, c.b, sector->light_level);
+		*fb			= write_color(x, y, game, c, sector->light_level);
 		fb			+= sW;
 	}
 	if (ray->y_wall_top > ray->y_top)
