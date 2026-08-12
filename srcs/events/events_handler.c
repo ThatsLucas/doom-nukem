@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:19:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 13:04:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 	
 	if (key.keysym.sym == 1073741906 || key.keysym.sym == 1073741905)
 		ply_pitch(game, game->ply, key);
-	if (key.keysym.sym == SDLK_e)
+	if (event->type == SDL_KEYUP && key.keysym.sym == SDLK_e)
 		interactions(game);
 
 	ply = game->ply;

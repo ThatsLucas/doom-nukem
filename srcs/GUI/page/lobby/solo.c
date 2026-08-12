@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/12 11:31:35 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 15:08:23 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,19 @@
 
 void start_level_1(t_game *game)
 {
-    game->current_level = 1;
+    SDL_Color white = {255, 255, 255, 255};
+    t_font font;
+    font.color = white;
+    font.size = 120;
+	t_WIN	*win = game->window;
+
+	create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
+	SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h) / 2, font.w, font.h};
+	to_responsive(win, &text_dest);
+	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
+	SDL_RenderPresent(win->renderPTR);
+
+	game->current_level = 1;
 	free_map(game->map);
 	game->map = load_map("level1", game, 0);
 	if (!game->map)
@@ -31,8 +43,24 @@ void start_level_1(t_game *game)
 
 void start_level_2(t_game *game)
 {
-    SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_Color white = {255, 255, 255, 255};
+    t_font font;
+    font.color = white;
+    font.size = 120;
+	t_WIN	*win = game->window;
+
+	create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
+	SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h) / 2, font.w, font.h};
+	to_responsive(win, &text_dest);
+	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
+	SDL_RenderPresent(win->renderPTR);
+
     game->current_level = 2;
+	free_map(game->map);
+	game->map = load_map("level2", game, 0);
+	if (!game->map)
+		return ;
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     game->clientConnection.state = 3;
     game->window->menus.current = 6;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
@@ -40,8 +68,24 @@ void start_level_2(t_game *game)
 
 void start_level_3(t_game *game)
 {
+    SDL_Color white = {255, 255, 255, 255};
+    t_font font;
+    font.color = white;
+    font.size = 120;
+	t_WIN	*win = game->window;
+
+	create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
+	SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h) / 2, font.w, font.h};
+	to_responsive(win, &text_dest);
+	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
+	SDL_RenderPresent(win->renderPTR);
+
+	game->current_level = 3;
+	free_map(game->map);
+	game->map = load_map("level3", game, 0);
+	if (!game->map)
+		return ;
     SDL_SetRelativeMouseMode(SDL_TRUE);
-    game->current_level = 3;
     game->clientConnection.state = 3;
     game->window->menus.current = 7;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
