@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:13:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 11:30:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void	suppress_wall(t_game *game, int wall_indx);
 /* Save + Load */
 int		save_map(char *name, t_map *map);
 void	save_editor_map(t_game *game);
-t_map	*load_map(char *name, t_game *game);
+t_map	*load_map(char *name, t_game *game, int editor);
 void	load_editor_map(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:45:43 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 11:31:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ static void	spawn_entities(t_map *map, t_game *game)
 	return ;
 }
 
-t_map	*load_map(char *name, t_game *game)
+t_map	*load_map(char *name, t_game *game, int editor)
 {
 	char	*file;
 	int		fd;
@@ -326,12 +326,15 @@ t_map	*load_map(char *name, t_game *game)
 	precompute_next_sectors(map);
 	precompute_lengths(map);
 
-	game->map = map;
-	game->ply->pos = map->player_spawn;
-	game->ply->dir = map->player_dir;
-	game->ply->sector = find_sector(map, game->ply->pos);
-	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
-	spawn_entities(map, game);
+	if (!editor)
+	{
+		game->map = map;
+		game->ply->pos = map->player_spawn;
+		game->ply->dir = map->player_dir;
+		game->ply->sector = find_sector(map, game->ply->pos);
+		game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
+		spawn_entities(map, game);
+	}
 
 	return (map);
 }
@@ -359,7 +362,7 @@ void	load_editor_map(t_game *game)
 		ft_printf("Can't load a map: name needed\n");
 		return ;
 	}
-	map = load_map(s, game);
+	map = load_map(s, game, 1);
 	if (map)
 	{
 		free_map(game->editor->map);

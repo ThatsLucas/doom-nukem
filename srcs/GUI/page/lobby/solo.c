@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/11 14:33:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 11:31:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void start_level_1(t_game *game)
 {
     game->current_level = 1;
 	free_map(game->map);
-	game->map = load_map("level1", game);
+	game->map = load_map("level1", game, 0);
 	if (!game->map)
 		return ;
     SDL_SetRelativeMouseMode(SDL_TRUE);
