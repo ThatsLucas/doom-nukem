@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 16:24:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:04:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:17:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	init_walls_properties(t_game *game)
 	box.w = 150;
 	box.h = 50;
 	box.x = 1715;
-	box.y = 879;
+	box.y = 841;
 	add_text_inputs(game, box, "walls_alpha", 1);
+
+	game->editor->properties.wall_collisions = 1;
 
 	return ;
 }

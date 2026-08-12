@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_offsets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 13:17:46 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/17 11:16:02 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:19:41 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sec
 	t_wall	*w;
 
 	w			= &game->map->walls[ray->wall_idx];
-	draw_top(ny_top, ray, &game->map->textures[w->tex_upper], x, game, sector);
-	draw_bot(ny_bot, ray, &game->map->textures[w->tex_lower], x, game, sector);
 
 	ny_top		= SDL_clamp(ny_top, ray->y_top, ray->y_bot);
 	ny_bot		= SDL_clamp(ny_bot, ray->y_top, ray->y_bot);
+
+	draw_top(ny_top, ray, &game->map->textures[w->tex_upper], x, game, sector);
+	draw_bot(ny_bot, ray, &game->map->textures[w->tex_lower], x, game, sector);
+
 	ray->y_top	= ny_top;
 	ray->y_bot	= ny_bot;
 

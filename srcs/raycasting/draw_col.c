@@ -27,6 +27,7 @@ static void	simple_draw(t_game *game, t_ray *ray, int x, t_sector *sector, int c
 		case 2:
 			draw_ceil(game, ray, x, sector);
 			draw_wall(game, ray, x, sector);
+			draw_decals(game, ray, x, sector);
 			draw_floor(game, ray, x, sector);
 			break;
 

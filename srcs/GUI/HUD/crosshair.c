@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   crosshair.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 11:28:42 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/08 11:31:05 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:20:00 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 		rgb = (t_RGB){255, 0, 0, 255};
 	else if (game->ply->crosshair_target->type == ENTITY_PNJ)
 		rgb = (t_RGB){0, 255, 0, 255};
+	else
+		rgb = (t_RGB){255, 255, 255, 255};
 
 	SDL_SetRenderDrawColor(render, rgb.r, rgb.g, rgb.b, rgb.alphaValue);
 

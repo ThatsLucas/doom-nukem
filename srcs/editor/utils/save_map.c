@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/08 14:52:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/11 14:17:33 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,29 @@ static void	save_textures(t_map *map, int fd)
 
 static void	save_entity(t_map *map, int fd)
 {
+	t_decal	d;
+
 	write(fd, &map->player_spawn, sizeof(t_vect2));
-	write(fd, &map->player_z, sizeof(float));
+	write(fd, &map->player_dir, sizeof(t_vect2));
+
+	write(fd, &map->num_decals, sizeof(int));
+	for (int i = 0; i < map->num_decals; ++i)
+	{
+		d = map->decals[i];
+
+		write(fd, &d.wall_idx, sizeof(int));
+		write(fd, &d.u_offset, sizeof(float));
+		write(fd, &d.width, sizeof(float));
+		write(fd, &d.z_bottom, sizeof(float));
+		write(fd, &d.height, sizeof(float));
+		write(fd, &d.elev_sector, sizeof(int));
+		write(fd, &d.sector_id, sizeof(int));
+		write(fd, &d.need_key, sizeof(int));
+		write(fd, &d.pos, sizeof(t_vect2));
+		write(fd, &d.texture.w, sizeof(int));
+		write(fd, &d.texture.h, sizeof(int));
+		write(fd, d.texture.colors, sizeof(t_RGB) * d.texture.w * d.texture.h);
+	}
 
 	return ;
 }
@@ -105,6 +126,19 @@ static void	save_elevators(t_map *map, int fd)
 	}
 
 	return ;
+}
+
+static void	save_entities(t_map *map, int fd)
+{
+	write(fd, &map->num_entities, sizeof(int));
+	for (int i = 0; i < map->num_entities; ++i)
+	{
+		write(fd, &map->entities[i].pos, sizeof(t_vect2));
+		write(fd, &map->entities[i].ang, sizeof(t_vect2));
+		write(fd, &map->entities[i].sector_id, sizeof(int));
+		write(fd, &map->entities[i].id, sizeof(int));
+		write(fd, &map->entities[i].type, sizeof(int));
+	}
 }
 
 int	save_map(char *name, t_map *map)
@@ -124,6 +158,7 @@ int	save_map(char *name, t_map *map)
 	save_textures(map, fd);
 	save_entity(map, fd);
 	save_elevators(map, fd);
+	save_entities(map, fd);
 
 	ft_printf("Map Saved !\n");
 

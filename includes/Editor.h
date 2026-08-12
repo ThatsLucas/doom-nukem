@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 14:21:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/24 17:49:17 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 11:30:46 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct	s_editor_properties
 	int			last_vertex;
 	int			selected_wall;
 	int			selected_sector;
+	int			wall_collisions;
 }		t_editor_properties;
 
 typedef struct	s_editor
@@ -99,6 +100,7 @@ typedef struct	s_editor
 	t_list				*text_inputs;
 	t_text_input		*selected;
 	t_buttons			*buttons;
+	t_buttons			*buttons_entities;
 	t_size2				settings;
 	t_plan				plan;
 	t_editor_textures	*textures;
@@ -109,6 +111,12 @@ typedef struct	s_editor
 	t_map				*map;
 	t_editor_properties	properties;
 	t_list				*texture_selector_buttons;
+	char				*entity_text;
+	int					selected_entity_type;
+	int					selected_entity;
+	int					entity_step;
+	t_vect2				entity_base;
+	int					switch_sector;
 }						t_editor;
 
 /* Init / Exit */
@@ -144,6 +152,7 @@ void	get_clicked_texture_button(t_game *game, int x, int y);
 void	editor_events(t_game *game);
 void	plan_click(t_game *game, SDL_Event *e);
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
+void	entities_events(t_game *game, SDL_Event *e);
 
 /* Utils */
 void	update_grid_size(t_game *game);
@@ -153,7 +162,6 @@ t_vect2	pos_to_pixels(t_editor *editor, float x, float y);
 void	precompute_lengths(t_map *map);
 void	precompute_next_sectors(t_map *map);
 int		point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps);
-int		find_sector(t_map *map, t_vect2 p);
 int		get_wall_index(t_map *map, float x, float y);
 
 /* Properties */
@@ -168,6 +176,11 @@ void	init_sector_properties(t_game *game);
 void	display_slopes(t_game *game);
 void	init_slope_properties(t_game *game);
 void	editor_place_slope(t_game *game, int pixx, int pixy);
+void	init_entity_prop(t_game *game);
+void	display_entities_prop(t_game *game);
+void	handle_entities(t_game *game, int x);
+int		add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos);
+int		suppress_decal(t_game *game, t_vect2 pos);
 
 /* Map Editor */
 void	init_editor_map(t_game *game);
@@ -183,7 +196,7 @@ void	suppress_wall(t_game *game, int wall_indx);
 /* Save + Load */
 int		save_map(char *name, t_map *map);
 void	save_editor_map(t_game *game);
-t_map	*load_map(char *name);
+t_map	*load_map(char *name, t_game *game, int editor);
 void	load_editor_map(t_game *game);
 
 #endif
