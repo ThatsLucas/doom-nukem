@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 13:45:44 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 12:37:39 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void render_entities(t_game *game)
 			aspect_ratio = 0.95f;
 			render_z = e->z - 0.40f;
 		}
-		if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
+		else if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
 		{
 			entity_h = 1.0f;
 			aspect_ratio = 3.0f;
@@ -142,7 +142,7 @@ void render_entities(t_game *game)
 		}
 
 		float	inv_ty = 1.0f / transform_y;
-		int		sx = (int)(half_sw + focal * transform_x * inv_ty);
+		int		sx = (int)(half_sw + half_sw * transform_x * inv_ty);
 		float	dz_bot = render_z - ply_z;
 		float	dz_top = render_z + entity_h - ply_z;
 		int		y_bot = (int)(half_sh - dz_bot * focal * inv_ty + pitch);
