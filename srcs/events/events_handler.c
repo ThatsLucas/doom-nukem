@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 13:04:25 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:06 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,10 @@ void events_handler(t_game *game)
 		switch (event.type)
 		{
 		case SDL_MOUSEWHEEL:
-			// const char *weapon_names[] = {"Fists", "Pistol", "Shotgun", "Rocket Launcher"};
-			// printf("Changement d'arme !\nAncienne arme: %s\n", weapon_names[game->ply->current_weap_index]);
 			if (game->window->menus.current == 0)
 				handle_mousewheel(game, &event.wheel);
 			if (game->window->menus.current == 2)
 				handle_settings_scroll_mouse_wheel(game, &game->window->menus.settings, &event.wheel);
-			// printf("Nouvelle arme: %s\n", weapon_names[game->ply->current_weap_index]);
 			break;
 
 		case SDL_QUIT:
@@ -99,12 +96,10 @@ void events_handler(t_game *game)
 		case SDL_KEYDOWN:
 			key_handler(game, event.key, &event);
 			break;
-			// printf("Key Pressed: %d\n", event.key.keysym.sym);
 
 		case SDL_KEYUP:
 			handle_key_control_selected(game, event.key.keysym.sym);
 			key_handler(game, event.key, &event);
-			// printf("Key Released: %d\n", event.key.keysym.sym);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:				

@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:38:16 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/04 17:34:36 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:19 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ void	player_shoot(t_game *game)
 				break ;
 		}
 		e->hp -= damage;
-		printf("HP: %d\n", e->hp);
 		if (e->hp <= 0)
 		{
-			printf("entity is DEAD\n");
 			e->status = E_STATUS_DEAD;
 		}
 	}

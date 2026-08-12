@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:49:10 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/05 12:42:35 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 15:59:44 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int check_button_pressed(t_game *game, t_buttons *button_list)
         to_responsive(game->window, &buttonCoords);
         if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
         {
-            printf("Button has been pressed!\n");
             if (button_list->callback_func)
                 button_list->callback_func(game);
             return 1;

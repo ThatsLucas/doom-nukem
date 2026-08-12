@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/11 14:15:59 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:42 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int main(void)
 		// pickup_flash(game);
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
-		// display_fps_periodic(start);
 		send_corresponding_datas_to_server(game);
 		handle_server_response(game, &game->clientConnection);
 	}

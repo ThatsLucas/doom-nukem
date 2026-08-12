@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:23:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:47 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ float to_pixelY(float y, t_game *game);
 float to_PosX(float x, t_game *game);
 float to_PosY(float y, t_game *game);
 int init_all_imgs(t_game *game, t_WIN *win);
-void display_fps_periodic(Uint64 start);
 
 void render_entities(t_game *game);
 int	find_sector(t_map *map, t_vect2 p);

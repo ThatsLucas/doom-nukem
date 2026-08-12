@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 11:31:47 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 15:56:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,6 +328,8 @@ t_map	*load_map(char *name, t_game *game, int editor)
 
 	if (!editor)
 	{
+		game->entities.count = 0;
+		ft_bzero(game->entities.list, sizeof(t_entity));
 		game->map = map;
 		game->ply->pos = map->player_spawn;
 		game->ply->dir = map->player_dir;

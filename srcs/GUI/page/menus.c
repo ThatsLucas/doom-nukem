@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/08/11 14:20:34 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:13 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void draw_in_game(t_game *game)
     // datas.state = 1;
     // datas.x = game->ply->pos.x;
     // datas.y = game->ply->pos.y;
-    // printf("player pos x = %f y = %f\n", datas.x, datas.y);
     // send_join_request("127.0.0.1", &datas);
     apply_constant_forces_to_player(game->ply);
     send_rays(game);

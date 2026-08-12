@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 11:06:48 by root-             #+#    #+#             */
-/*   Updated: 2026/05/01 16:06:50 by edurance         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:16 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile)
         headerIHDR->bytes_per_pixel = 1;
     else if (headerIHDR->color_type == 4)
         headerIHDR->bytes_per_pixel = 2;
-    // printf("image w = %d h = %d\n", pngFile->w, pngFile->h);
     return (1);
 }
