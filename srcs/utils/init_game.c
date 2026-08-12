@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 16:25:44 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:21:42 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/12 15:05:54 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_game *init_game(void)
 	{
 		exit_game(game, "Img Loading\n");
 	}
-	free_languages(game);
 	game->window->menus.main.has_init = 1;
 
 	init_hud_cache(game);
