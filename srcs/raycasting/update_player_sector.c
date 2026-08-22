@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:46:32 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/04/16 17:54:44 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/08/22 16:06:03 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "Raycasting/Types.h"
 #include "Game.h"
 
-/* Calcule si le joueur a change de sector et mets a jour la structure */
-void	update_player_sector(t_game *game, t_vect2 oldpos)
+/* Bascule le joueur au secteur voisin via le premier portail traverse (2D) */
+static void	update_by_crossing(t_game *game, t_vect2 oldpos)
 {
 	t_sector	*sec;
 	t_wall		*w;
@@ -42,4 +42,18 @@ void	update_player_sector(t_game *game, t_vect2 oldpos)
 			return ;
 		}
 	}
+}
+
+/* Calcule si le joueur a change de sector et mets a jour la structure. */
+void	update_player_sector(t_game *game, t_vect2 oldpos)
+{
+	int	found;
+
+	found = find_sector_z(game->map, game->ply->pos, game->ply->z);
+	if (found >= 0)
+	{
+		game->ply->sector = found;
+		return ;
+	}
+	update_by_crossing(game, oldpos);
 }
