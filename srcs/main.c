@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/22 13:00:45 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,36 @@
 #include "Colors.h"
 #include "multiplayer/server.h"
 #include "multiplayer/client.h"
+#include "inventory/Items.h"
+
+static void	spawn_test_items(t_game *game)
+{
+	t_vect2	p;
+	t_vect2	it;
+
+	p = game->ply->pos;
+
+	it = (t_vect2){p.x + 2.0f, p.y - 2.0f};
+	create_item_heal(game, it, 25);
+	it = (t_vect2){p.x + 2.0f, p.y};
+	create_item_fuel(game, it, 30);
+	it = (t_vect2){p.x + 2.0f, p.y + 2.0f};
+	create_item_battery(game, it, 30);
+
+	it = (t_vect2){p.x + 4.0f, p.y - 2.0f};
+	create_item_pistol(game, it, 12);
+	it = (t_vect2){p.x + 4.0f, p.y};
+	create_item_shotgun(game, it, 8);
+	it = (t_vect2){p.x + 4.0f, p.y + 2.0f};
+	create_item_rocket_launcher(game, it, 3);
+
+	it = (t_vect2){p.x + 6.0f, p.y - 2.0f};
+	create_item_flashlight(game, it);
+	it = (t_vect2){p.x + 6.0f, p.y};
+	create_item_key(game, it, 0);
+	it = (t_vect2){p.x + 6.0f, p.y + 2.0f};
+	create_item_jetpack(game, it);
+}
 
 int main(void)
 {
@@ -30,9 +60,16 @@ int main(void)
 
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	// t_vect2 pos;
-	// pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
-	// default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
+	/* charge un niveau et saute direct en jeu (pas de menu, pas de cinematique) */
+	free_map(game->map);
+	game->map = load_map("level1", game, 0);
+	if (!game->map)
+		exit_game(game, "TEST: failed to load level1");
+	game->current_level = 1;
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	game->window->menus.current = 0;
+
+	spawn_test_items(game);
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 

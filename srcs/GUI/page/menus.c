@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/08/12 17:26:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/22 12:59:50 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ static void draw_in_game(t_game *game)
     if (game->clientConnection.is_connected)
         render_multiplayer_players(game);
     render_entities(game);
+	render_entities(game);
+	update_item(game);
+	render_items(game);
+	pickup_flash(game);
     display_hud(game);
     draw_pause_menu(game);
 	check_elevator(game->map);
