@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 16:42:03 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/06/10 11:58:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/09/23 11:43:48 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-static void connect_to_lobby(t_game *game, char *ip)
+static void connect_to_lobby(t_game *game, char *ip, int is_host)
 {
     if (game->clientConnection.con_socket != 0)
         return;
@@ -22,12 +22,15 @@ static void connect_to_lobby(t_game *game, char *ip)
     ft_bzero(&datas, sizeof(t_client_udp_datas));
     game->clientConnection.state = 1;
     connect_player(&game->clientConnection, ip, &datas);
+    game->clientConnection.last_update = SDL_GetTicks64();
+    game->settings.multiplayer_enabled = 1;
+    game->settings.is_host = is_host;
 }
 
 // ca va te co en local si le serveur existe deja
 void host_game(t_game *game)
 {
-    connect_to_lobby(game, "127.0.0.1");
+    connect_to_lobby(game, "127.0.0.1", 1);
 }
 
 void draw_enter_host_addr(t_game *game)
@@ -75,7 +78,7 @@ void draw_enter_host_addr(t_game *game)
                 else if (event.key.keysym.sym == SDLK_RETURN)
                 {
                     SDL_StopTextInput();
-                    return connect_to_lobby(game, str);
+                    return connect_to_lobby(game, str, 0);
                 }
                 else if (event.key.keysym.sym == SDLK_ESCAPE)
                 {

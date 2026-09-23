@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/23 11:45:44 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int main(void)
 		// affichage du renderer sur la page
 		SDL_RenderPresent(game->window->renderPTR);
 		send_corresponding_datas_to_server(game);
-		handle_server_response(game, &game->clientConnection);
+		if (game->settings.multiplayer_enabled)
+			handle_server_response(game, &game->clientConnection);
 	}
 
 	exit_game(game, NULL);

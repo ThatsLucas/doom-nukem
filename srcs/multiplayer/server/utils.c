@@ -38,12 +38,14 @@ int add_new_player(t_game *game, struct sockaddr *newClient)
         return (-2);
     }
     game->serverStatus.playerCount += 1;
-    game->serverStatus.currentState = 1;
+    if (game->serverStatus.playerCount == 1) // premier joueur : on repart du lobby
+        game->serverStatus.currentState = 1;
     int idx = game->serverStatus.playerCount - 1;
     ft_memcpy(&game->serverStatus.address[idx], newClient, sizeof(struct sockaddr));
     game->serverStatus.last_update[idx] = SDL_GetTicks64();
     game->serverStatus.players[idx][0] = 0;
     game->serverStatus.players[idx][1] = 0;
+    game->serverStatus.players[idx][2] = 0;
     game->serverStatus.player_angles[idx] = 0.0;
     datas.state = 1;
     datas.playerCount = game->serverStatus.playerCount;
@@ -80,10 +82,18 @@ void remove_player(t_game *game, struct sockaddr *disconnectedPlayer)
             game->serverStatus.last_update[game->serverStatus.playerCount] = 0;
             game->serverStatus.players[game->serverStatus.playerCount][0] = 0;
             game->serverStatus.players[game->serverStatus.playerCount][1] = 0;
+            game->serverStatus.players[game->serverStatus.playerCount][2] = 0;
             game->serverStatus.player_angles[game->serverStatus.playerCount] = 0.0;
             return;
         }
     }
+}
+
+/*double cote serveur, float dans le paquet : un memcpy deborderait sur playerIndex/is_notif*/
+static void copy_angles(t_server_udp_datas *response, t_game *game)
+{
+    for (int i = 0; i < 4; i++)
+        response->player_angles[i] = (float)game->serverStatus.player_angles[i];
 }
 
 /*Envoie un msg a tout le monde excepte sauf int except*/
@@ -107,7 +117,7 @@ void broadcast_notifications(t_game *game, int except, char *str, int duration, 
     response.state = game->serverStatus.currentState;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
-    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
+    copy_angles(&response, game);
     response.is_notif = 1;
     response.notif_duration = duration;
     response.notif_font_size = fontsize;
@@ -125,7 +135,7 @@ void send_notifications(t_game *game, struct sockaddr *addr, char *str, int dura
     response.state = game->serverStatus.currentState;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
-    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
+    copy_angles(&response, game);
     response.is_notif = 1;
     response.notif_duration = duration;
     response.notif_font_size = fontsize;
@@ -142,7 +152,7 @@ void send_default_info_response(t_game *game)
     response.level = game->serverStatus.currentLevel;
     response.playerCount = game->serverStatus.playerCount;
     ft_memcpy(response.players, game->serverStatus.players, sizeof(game->serverStatus.players));
-    ft_memcpy(response.player_angles, game->serverStatus.player_angles, sizeof(game->serverStatus.player_angles));
+    copy_angles(&response, game);
     response.is_notif = 0;
 
     broadcast_message(game, -1, &response);

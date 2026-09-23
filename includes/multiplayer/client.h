@@ -36,7 +36,7 @@ typedef struct s_udp_connections
     int state;
     int player_count;
     Uint64 last_update;
-    double players[4][2];
+    double players[4][3]; // x, y, z des pieds
     double player_angles[4];
 } t_udp_connections;
 

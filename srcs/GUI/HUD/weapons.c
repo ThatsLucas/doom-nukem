@@ -46,6 +46,7 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &rect);
+	SDL_DestroyTexture(texture);
 }
 
 /* Adds the current weapon on the render in 3D */

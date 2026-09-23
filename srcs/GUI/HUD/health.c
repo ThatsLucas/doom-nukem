@@ -35,6 +35,7 @@ static void	display_hp(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }
 
 /* Adds "HEALTH" on the renderer */
@@ -54,6 +55,7 @@ static void	display_health(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }
 
 /* Display "HEALTH" and the current hp of the player on the screen */

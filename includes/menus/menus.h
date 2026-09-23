@@ -88,6 +88,7 @@ typedef struct s_lobby
     t_png multi_background;
     t_png button;
     t_png playerImgs[5];
+    SDL_Rect playerBounds[5]; // zone opaque de chaque image (sans les marges transparentes)
     t_font texts[20];
 } t_lobby;
 
@@ -187,6 +188,7 @@ void draw_cinematic_two(t_game *game);
 void draw_cinematic_three(t_game *game);
 
 /*LEVELS*/
+void load_level(t_game *game, int level);
 void start_level_1(t_game *game);
 void start_level_2(t_game *game);
 void start_level_3(t_game *game);

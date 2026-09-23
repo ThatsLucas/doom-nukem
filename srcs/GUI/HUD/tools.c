@@ -59,6 +59,7 @@ static void	display_tools(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }
 
 /* Display "TOOLS" and tools assets */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 19:52:18 by lucas             #+#    #+#             */
-/*   Updated: 2026/04/13 10:39:09 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/23 12:24:08 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,32 @@ static SDL_PixelFormatEnum decidePixelFormat(uint8_t color_type)
 
     return (format);
 }
+
+SDL_Rect get_png_opaque_bounds(t_png *pngFile)
+{
+    SDL_Rect full = {0, 0, pngFile->w, pngFile->h};
+    int bpp = pngFile->IHDR.bytes_per_pixel;
+    int min_x = pngFile->w, min_y = pngFile->h, max_x = -1, max_y = -1;
+
+    if (!pngFile->buf || bpp != 4)
+        return (full);
+    for (int y = 0; y < (int)pngFile->h; y++)
+    {
+        for (int x = 0; x < (int)pngFile->w; x++)
+        {
+            if (pngFile->buf[y][x * bpp + 3] <= 16)
+                continue;
+            if (x < min_x) min_x = x;
+            if (x > max_x) max_x = x;
+            if (y < min_y) min_y = y;
+            if (y > max_y) max_y = y;
+        }
+    }
+    if (max_x < 0)
+        return (full);
+    return ((SDL_Rect){min_x, min_y, max_x - min_x + 1, max_y - min_y + 1});
+}
+
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer)
 {
     SDL_PixelFormatEnum format = decidePixelFormat(pngFile->IHDR.color_type);

@@ -66,4 +66,5 @@ void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }

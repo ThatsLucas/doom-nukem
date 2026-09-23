@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:47 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/23 11:36:47 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_settings
 	int move_left;
 	int move_right;
 	int multiplayer_enabled;
+	int is_host;
 } t_settings;
 
 typedef struct s_game

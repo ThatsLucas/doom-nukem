@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 00:00:00 by copilot           #+#    #+#             */
-/*   Updated: 2026/05/29 17:57:21 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/09/23 12:19:14 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,202 +16,224 @@
 #include "Game.h"
 #include "multiplayer/client.h"
 
-static SDL_Texture *get_player_texture(t_game *game, int tex_index)
-{
-    t_lobby *menu;
+#define REMOTE_PLAYER_HEIGHT 1.8f // hauteur en unites monde, comme les entities
+#define WALK_LINGER_MS 300        // garde l'anim de marche entre deux paquets reseau
+#define WALK_EPSILON 0.001
 
-    menu = &game->window->menus.lobby;
-    return (menu->playerImgs[tex_index % 5].texture);
+/* index des textures dans lobby.playerImgs */
+#define TEX_FRONT_IDLE 0
+#define TEX_FRONT_WALK 1
+#define TEX_BACK_IDLE 3
+#define TEX_BACK_WALK 4
+
+/*infos de camera communes a tous les joueurs pour une frame*/
+typedef struct s_player_cam
+{
+    t_vect2 pos;
+    t_vect2 dir;
+    t_vect2 plane;
+    float inv_det;
+    float focal;
+    float z;
+    float pitch;
+    float half_sw;
+    float half_sh;
+} t_player_cam;
+
+/*un joueur distant projete a l'ecran*/
+typedef struct s_player_sprite
+{
+    SDL_Texture *tex;
+    SDL_Rect src; // zone opaque de l'image : les pieds touchent le bas de src
+    SDL_Rect dest;
+    float depth;
+} t_player_sprite;
+
+/*etat d'animation de chaque joueur distant, garde entre les frames*/
+typedef struct s_walk_state
+{
+    double last_pos[2];
+    Uint64 last_moved;
+} t_walk_state;
+
+static t_player_cam init_player_cam(t_game *game)
+{
+    t_player_cam cam;
+    float camera_scale;
+
+    camera_scale = tanf(game->settings.FOV * 0.5f);
+    cam.pos = game->ply->pos;
+    cam.dir = game->ply->dir;
+    cam.plane = get_cam_plane(camera_scale, cam.dir);
+    cam.inv_det = 1.0f / (cam.plane.x * cam.dir.y - cam.dir.x * cam.plane.y);
+    cam.half_sw = game->screenSize[0] * 0.5f;
+    cam.half_sh = game->screenSize[1] * 0.5f;
+    cam.focal = cam.half_sw / camera_scale;
+    cam.z = game->ply->z;
+    cam.pitch = (float)game->ply->pitch;
+    return (cam);
 }
 
-static void draw_player_sprite(t_game *game, float depth, int center_x, int size, int index)
+static int update_walk_state(t_walk_state *state, double x, double y)
 {
-    SDL_Rect dest;
-    int screen_h;
-    int sprite_h;
-    int tex_w;
-    int tex_h;
-    SDL_Texture *texture;
+    Uint64 now;
 
-    if (size <= 0 || depth <= 0.05f)
+    now = SDL_GetTicks64();
+    if (fabs(x - state->last_pos[0]) > WALK_EPSILON || fabs(y - state->last_pos[1]) > WALK_EPSILON)
+        state->last_moved = now;
+    state->last_pos[0] = x;
+    state->last_pos[1] = y;
+    return (now - state->last_moved <= WALK_LINGER_MS);
+}
+
+static int is_facing_camera(t_player_cam *cam, float x, float y, double angle)
+{
+    double to_cam;
+    double diff;
+
+    to_cam = atan2(cam->pos.y - y, cam->pos.x - x);
+    diff = to_cam - angle;
+    while (diff > M_PI)
+        diff -= 2.0 * M_PI;
+    while (diff < -M_PI)
+        diff += 2.0 * M_PI;
+    return (fabs(diff) < M_PI / 2.0);
+}
+
+static void pick_player_texture(t_game *game, t_player_sprite *sprite, int facing, int walking)
+{
+    int idx;
+
+    if (facing)
+        idx = walking ? TEX_FRONT_WALK : TEX_FRONT_IDLE;
+    else
+        idx = walking ? TEX_BACK_WALK : TEX_BACK_IDLE;
+    sprite->tex = game->window->menus.lobby.playerImgs[idx].texture;
+    sprite->src = game->window->menus.lobby.playerBounds[idx];
+}
+
+static int project_player(t_player_cam *cam, t_player_sprite *sprite, float x, float y, float floor_z)
+{
+    float dx;
+    float dy;
+    float tx;
+    float inv_ty;
+
+    dx = x - cam->pos.x;
+    dy = y - cam->pos.y;
+    tx = cam->inv_det * (cam->dir.y * dx - cam->dir.x * dy);
+    sprite->depth = cam->inv_det * (-cam->plane.y * dx + cam->plane.x * dy);
+    if (sprite->depth <= 0.1f || !sprite->tex || sprite->src.w <= 0 || sprite->src.h <= 0)
+        return (0);
+    inv_ty = 1.0f / sprite->depth;
+    int y_bot = (int)(cam->half_sh - (floor_z - cam->z) * cam->focal * inv_ty + cam->pitch);
+    int y_top = (int)(cam->half_sh - (floor_z + REMOTE_PLAYER_HEIGHT - cam->z) * cam->focal * inv_ty + cam->pitch);
+    sprite->dest.h = y_bot - y_top;
+    sprite->dest.w = sprite->dest.h * sprite->src.w / sprite->src.h;
+    sprite->dest.x = (int)(cam->half_sw + cam->half_sw * tx * inv_ty) - sprite->dest.w / 2;
+    sprite->dest.y = y_top;
+    return (sprite->dest.w > 0 && sprite->dest.h > 0);
+}
+
+static int is_column_occluded(t_game *game, int x, float depth)
+{
+    t_ray *ray;
+
+    ray = &game->rays[x];
+    return (ray->wall_idx >= 0 && ray->perp_dist > 0.0f && ray->perp_dist < FLT_MAX && depth >= ray->perp_dist);
+}
+
+static void draw_sprite_span(t_game *game, t_player_sprite *sprite, int start, int end)
+{
+    SDL_Rect src;
+    SDL_Rect dst;
+
+    src = sprite->src;
+    src.x = sprite->src.x + (start - sprite->dest.x) * sprite->src.w / sprite->dest.w;
+    src.w = sprite->src.x + (end - sprite->dest.x) * sprite->src.w / sprite->dest.w - src.x;
+    if (src.w <= 0)
         return;
-    screen_h = game->screenSize[1];
-    texture = get_player_texture(game, index);
-    if (!texture)
-        return;
-    if (SDL_QueryTexture(texture, NULL, NULL, &tex_w, &tex_h) < 0 || tex_w <= 0 || tex_h <= 0)
-        return;
-    float camera_scale = tanf(game->settings.FOV * 0.5f);
-    float focal = (float)game->screenSize[0] / (2.0f * camera_scale);
-    float player_world_h = 1.8f;
-    float base_h = (player_world_h * focal) / depth;
-    const float NEAR_BOOST_DIST = 1.2f;
-    const float BOOST_MAX = 2.2f;
-    float boost = 1.0f;
-    if (depth < NEAR_BOOST_DIST)
+    dst = (SDL_Rect){start, sprite->dest.y, end - start, sprite->dest.h};
+    SDL_RenderCopy(game->window->renderPTR, sprite->tex, &src, &dst);
+}
+
+static void draw_player_sprite(t_game *game, t_player_sprite *sprite)
+{
+    int x;
+    int end;
+    int span_start;
+
+    x = sprite->dest.x < 0 ? 0 : sprite->dest.x;
+    end = sprite->dest.x + sprite->dest.w;
+    if (end > game->screenSize[0])
+        end = game->screenSize[0];
+    while (x < end)
     {
-        float t = (NEAR_BOOST_DIST - depth) / NEAR_BOOST_DIST;
-        t = t * t * (3.0f - 2.0f * t);
-        boost = 1.0f + t * (BOOST_MAX - 1.0f);
-    }
-    sprite_h = (int)(base_h * boost);
-
-    int min_sprite_h = 24;
-    int max_sprite_h = (int)((float)screen_h * 0.95f);
-    if (sprite_h < min_sprite_h)
-        sprite_h = min_sprite_h;
-    if (sprite_h > max_sprite_h)
-        sprite_h = max_sprite_h;
-    dest.w = (int)((float)sprite_h * ((float)tex_w / (float)tex_h));
-
-    int max_sprite_w = (int)((float)game->screenSize[0] * 0.75f);
-    if (dest.w > max_sprite_w)
-        dest.w = max_sprite_w;
-    dest.h = sprite_h;
-    dest.x = center_x - dest.w / 2;
-
-    int floor_y = screen_h - 190; // valeir a modif pour baisser le joueur
-    if (center_x >= 0 && center_x < game->screenSize[0])
-    {
-        int ry = game->rays[center_x].y_wall_bot;
-        if (ry > 0 && ry < screen_h)
-            floor_y = ry;
-    }
-
-    int extra_offset = (int)((float)dest.h * 0.45f) + 24;
-    if (extra_offset > screen_h / 3)
-        extra_offset = screen_h / 3;
-    dest.y = floor_y - dest.h + extra_offset;
-    if (dest.x + dest.w <= 0 || dest.x >= game->screenSize[0])
-        return;
-    if (dest.y + dest.h <= 0 || dest.y >= screen_h)
-        return;
-
-    int start_x = dest.x < 0 ? 0 : dest.x;
-    int end_x = dest.x + dest.w;
-    if (end_x > game->screenSize[0])
-        end_x = game->screenSize[0];
-
-    int x = start_x;
-    while (x < end_x)
-    {
-        int occluded = (game->rays[x].wall_idx >= 0 && game->rays[x].perp_dist > 0.0f && game->rays[x].perp_dist < FLT_MAX && depth >= game->rays[x].perp_dist);
-        if (occluded)
-        {
+        while (x < end && is_column_occluded(game, x, sprite->depth))
             x++;
-            continue;
-        }
-        int span_start = x;
-        while (x < end_x)
-        {
-            int oc = (game->rays[x].wall_idx >= 0 && game->rays[x].perp_dist > 0.0f && game->rays[x].perp_dist < FLT_MAX && depth >= game->rays[x].perp_dist);
-            if (oc)
-                break;
+        span_start = x;
+        while (x < end && !is_column_occluded(game, x, sprite->depth))
             x++;
+        if (x > span_start)
+            draw_sprite_span(game, sprite, span_start, x);
+    }
+}
+
+static int collect_player_sprites(t_game *game, t_player_cam *cam, t_player_sprite *sprites)
+{
+    static t_walk_state walk[4];
+    t_udp_connections *con;
+    int count;
+    int walking;
+    float x;
+    float y;
+    float feet_z;
+
+    con = &game->clientConnection;
+    count = 0;
+    for (int i = 0; i < con->player_count && i < 4; i++)
+    {
+        if (i == con->selfIndex)
+            continue;
+        x = (float)con->players[i][0];
+        y = (float)con->players[i][1];
+        feet_z = (float)con->players[i][2]; // envoye par le joueur : suit le jetpack/saut
+        walking = update_walk_state(&walk[i], x, y);
+        pick_player_texture(game, &sprites[count], is_facing_camera(cam, x, y, con->player_angles[i]), walking);
+        if (project_player(cam, &sprites[count], x, y, feet_z))
+            count++;
+    }
+    return (count);
+}
+
+static void sort_sprites_by_depth(t_player_sprite *sprites, int count)
+{
+    t_player_sprite tmp;
+
+    for (int i = 1; i < count; i++)
+    {
+        for (int j = i; j > 0 && sprites[j - 1].depth < sprites[j].depth; j--)
+        {
+            tmp = sprites[j];
+            sprites[j] = sprites[j - 1];
+            sprites[j - 1] = tmp;
         }
-        int span_end = x;
-        int span_w = span_end - span_start;
-        if (span_w <= 0)
-            continue;
-
-        SDL_Rect src;
-        src.y = 0;
-        src.h = tex_h;
-        float rel_x = (float)(span_start - dest.x) / (float)dest.w;
-        float rel_w = (float)span_w / (float)dest.w;
-        src.x = (int)floorf(rel_x * (float)tex_w);
-        src.w = (int)ceilf(rel_w * (float)tex_w);
-        if (src.x < 0)
-            src.x = 0;
-        if (src.x + src.w > tex_w)
-            src.w = tex_w - src.x;
-        if (src.w <= 0)
-            continue;
-
-        SDL_Rect dest_span = {span_start, dest.y, span_w, dest.h};
-        SDL_RenderCopyEx(game->window->renderPTR, texture, &src, &dest_span, 0.0, NULL, SDL_FLIP_NONE);
     }
 }
 
 void render_multiplayer_players(t_game *game)
 {
-    float camera_scale;
-    t_vect2 dir;
-    t_vect2 plane;
-    float det;
-    float inv_det;
+    t_player_cam cam;
+    t_player_sprite sprites[4];
+    int count;
 
-    if (!game->clientConnection.is_connected || game->clientConnection.player_count <= 0)
+    if (!game->clientConnection.is_connected || game->clientConnection.player_count <= 0 || !game->map)
         return;
-    dir = game->ply->dir;
-    camera_scale = tanf(game->settings.FOV * 0.5f);
-    plane = get_cam_plane(camera_scale, dir);
-    det = plane.x * dir.y - dir.x * plane.y;
-    if (fabsf(det) < 0.00001f)
+    cam = init_player_cam(game);
+    if (fabsf(cam.plane.x * cam.dir.y - cam.dir.x * cam.plane.y) < 0.00001f)
         return;
-    inv_det = 1.0f / det;
-    static double prev_pos[4][2] = {{0}};
-    static double smoothed_speed[4] = {0.0, 0.0, 0.0, 0.0};
-    static Uint64 last_moved_tick[4] = {0, 0, 0, 0};
-    const double EMA_ALPHA = 0.15;
-    const double WALK_THRESHOLD = 0.005;
-    const Uint64 WALK_LINGER_MS = 300;
-    for (int i = 0; i < game->clientConnection.player_count && i < 4; i++)
-    {
-        if (i == game->clientConnection.selfIndex) // pour pas se drw soit meme
-            continue;
-        float player_x = (float)game->clientConnection.players[i][0];
-        float player_y = (float)game->clientConnection.players[i][1];
-        float sprite_x = player_x - game->ply->pos.x;
-        float sprite_y = player_y - game->ply->pos.y;
-        float transform_x;
-        float transform_y;
-        int sprite_h;
-        int sprite_w;
-        int sprite_screen_x;
-
-        if (fabsf(sprite_x) < 0.001f && fabsf(sprite_y) < 0.001f)
-            continue;
-        transform_x = inv_det * (dir.y * sprite_x - dir.x * sprite_y);
-        transform_y = inv_det * (-plane.y * sprite_x + plane.x * sprite_y);
-        if (transform_y <= 0.05f)
-            continue;
-        sprite_h = (int)fabsf(game->screenSize[1] / transform_y);
-        sprite_w = sprite_h / 2;
-        if (sprite_w < 4)
-            sprite_w = 4;
-        sprite_screen_x = (int)((game->screenSize[0] / 2.0f) * (1.0f + transform_x / transform_y));
-        int tex_idx = 0;
-        double prevx = prev_pos[i][0];
-        double prevy = prev_pos[i][1];
-        double dx = player_x - prevx;
-        double dy = player_y - prevy;
-        double measured = sqrt(dx * dx + dy * dy);
-        smoothed_speed[i] = smoothed_speed[i] * (1.0 - EMA_ALPHA) + measured * EMA_ALPHA;
-        if (smoothed_speed[i] > WALK_THRESHOLD)
-            last_moved_tick[i] = SDL_GetTicks64();
-        Uint64 now = SDL_GetTicks64();
-        int is_walking = (smoothed_speed[i] > WALK_THRESHOLD) || (now - last_moved_tick[i] <= WALK_LINGER_MS);
-        double to_cx = (double)game->ply->pos.x - player_x;
-        double to_cy = (double)game->ply->pos.y - player_y;
-        double ang = game->clientConnection.player_angles[i];
-        double to_cam_ang = atan2(to_cy, to_cx);
-        double diff = to_cam_ang - ang;
-        while (diff > M_PI)
-            diff -= 2.0 * M_PI;
-        while (diff < -M_PI)
-            diff += 2.0 * M_PI;
-        int facing_towards_camera = (fabs(diff) < (M_PI / 2.0));
-        if (is_walking)
-            tex_idx = facing_towards_camera ? 1 : 4; /* front_walk : back_walk */
-        else
-            tex_idx = facing_towards_camera ? 0 : 3; /* front_idle : back_idle */
-        SDL_Texture *tex = get_player_texture(game, tex_idx);
-        if (tex)
-            draw_player_sprite(game, transform_y, sprite_screen_x, sprite_w, tex_idx);
-        else
-            draw_player_sprite(game, transform_y, sprite_screen_x, sprite_w, i);
-        prev_pos[i][0] = player_x;
-        prev_pos[i][1] = player_y;
-    }
+    count = collect_player_sprites(game, &cam, sprites);
+    sort_sprites_by_depth(sprites, count);
+    for (int i = 0; i < count; i++)
+        draw_player_sprite(game, &sprites[i]);
 }

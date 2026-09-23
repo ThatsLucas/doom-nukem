@@ -65,6 +65,7 @@ void	display_fps(t_game *game)
 			exit_game(game, (char *)SDL_GetError());
 
 		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+		SDL_DestroyTexture(texture);
 	}
 	{
 		if (!game->fps)
@@ -85,5 +86,6 @@ void	display_fps(t_game *game)
 			exit_game(game, (char *)SDL_GetError());
 
 		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+		SDL_DestroyTexture(texture);
 	}
 }

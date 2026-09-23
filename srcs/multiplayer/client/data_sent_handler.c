@@ -24,6 +24,10 @@ void send_corresponding_datas_to_server(t_game *game)
         datas.state = game->clientConnection.state;
     datas.x = game->ply->pos.x;
     datas.y = game->ply->pos.y;
+    // z = hauteur des yeux : on envoie les pieds, jamais sous le sol (accroupi)
+    datas.z = game->ply->z - EYES_HEIGTH;
+    if (datas.z < game->ply->floor_height)
+        datas.z = game->ply->floor_height;
 
     datas.ang = atan2f(game->ply->dir.y, game->ply->dir.x);
 

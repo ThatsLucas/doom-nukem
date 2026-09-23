@@ -74,6 +74,33 @@ static void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		game->window->menus.current = 0;
 }
 
+/*
+	Alt-tab : on relache les touches, les KEYUP sont perdus quand la fenetre
+	n'a plus le focus (sinon le joueur continue d'avancer tout seul)
+*/
+static void handle_focus(t_game *game, Uint8 window_event)
+{
+	if (window_event == SDL_WINDOWEVENT_FOCUS_LOST)
+		ft_bzero(&game->ply->keys, sizeof(t_keys));
+}
+
+/*
+	Capture la souris seulement en jeu/cinematique, hors pause, et si la fenetre
+	a le focus. Verifie a chaque frame : si SDL refuse au retour d'un alt-tab
+	(souris pas encore dans la fenetre), on reessaie a la frame suivante
+*/
+static void update_mouse_capture(t_game *game)
+{
+	int			menu = game->window->menus.current;
+	Uint32		flags = SDL_GetWindowFlags(game->window->winPTR);
+	SDL_bool	want;
+
+	want = (menu == 0 || (menu >= 5 && menu <= 7)) && !game->is_paused
+		&& (flags & SDL_WINDOW_INPUT_FOCUS);
+	if (SDL_GetRelativeMouseMode() != want)
+		SDL_SetRelativeMouseMode(want);
+}
+
 void events_handler(t_game *game)
 {
 	SDL_Event event;
@@ -115,7 +142,7 @@ void events_handler(t_game *game)
 		case SDL_MOUSEMOTION:
 			if (game->window->menus.current == 2)
 				handle_settings_click(game, &game->window->menus.settings, &event.motion, 0);
-			if (game->window->menus.current == 0)
+			if (game->window->menus.current == 0 && SDL_GetRelativeMouseMode()) // pas de rotation/warp si la souris n'est pas capturee
 				mouse_moves(event.motion.xrel, event.motion.yrel, game);
 			break;
 		case SDL_MOUSEBUTTONUP:
@@ -131,9 +158,12 @@ void events_handler(t_game *game)
 				game->window->w = event.window.data1;
 				game->window->h = event.window.data2;
 			}
+			handle_focus(game, event.window.event);
+			break;
 		}
 	}
 
+	update_mouse_capture(game);
 	ply_directions(game->ply);
 	ply_movements(game->ply, game);
 

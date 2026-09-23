@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:30:24 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 15:40:11 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/09/23 11:49:06 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,22 @@ void handle_connected_player_request(t_game *game, t_client_udp_datas datas, str
         {
             game->serverStatus.players[playerIndex][0] = datas.x;
             game->serverStatus.players[playerIndex][1] = datas.y;
+            game->serverStatus.players[playerIndex][2] = datas.z;
             game->serverStatus.player_angles[playerIndex] = datas.ang;
         }
         else
         {
             char *IPV4 = ft_inet_ntoa(player->sin_addr);
-            if (ft_strcmp(IPV4, "127.0.0.1") == 0)
+            if (IPV4 && ft_strcmp(IPV4, "127.0.0.1") == 0)
             {
                 game->serverStatus.currentState = 2;
                 game->serverStatus.currentLevel = datas.level;
                 if (datas.level < 1 || datas.level > 3)
                     game->serverStatus.currentLevel = 1;
+                // les autres vont charger la map : on leur laisse le delai de chargement
+                Uint64 now = SDL_GetTicks64();
+                for (int i = 0; i < game->serverStatus.playerCount; i++)
+                    game->serverStatus.last_update[i] = now + LOADING_GRACE_DURATION;
                 ft_printf("Host asked to start the game on level #%d, starting...\n", datas.level);
             }
             free(IPV4);

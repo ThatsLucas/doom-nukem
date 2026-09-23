@@ -36,7 +36,7 @@ typedef struct s_udp_server_status
     int playerCount;
     struct sockaddr address[4];
     Uint64 last_update[4];
-    double players[4][2];
+    double players[4][3]; // x, y, z des pieds
     double player_angles[4];
 } t_udp_server_status;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/08/12 15:08:23 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/23 11:43:06 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 #include "multiplayer/client.h"
 // #include "../../../includes/GUI.h"
 
-void start_level_1(t_game *game)
+/*charge le niveau sans check d'hote (appele aussi quand le serveur lance la partie)*/
+void load_level(t_game *game, int level)
 {
+    static char *names[3] = {"level1", "level2", "level3"};
+
+    if (level < 1 || level > 3)
+        return;
     SDL_Color white = {255, 255, 255, 255};
     t_font font;
     font.color = white;
@@ -30,79 +35,65 @@ void start_level_1(t_game *game)
 	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
 	SDL_RenderPresent(win->renderPTR);
 
-	game->current_level = 1;
+	game->current_level = level;
 	free_map(game->map);
-	game->map = load_map("level1", game, 0);
+	game->map = load_map(names[level - 1], game, 0);
+	// le chargement bloque la boucle, on repart de maintenant pour pas timeout
+	game->clientConnection.last_update = SDL_GetTicks64();
 	if (!game->map)
 		return ;
     SDL_SetRelativeMouseMode(SDL_TRUE);
     game->clientConnection.state = 3;
-    game->window->menus.current = 5;
+    game->window->menus.current = 4 + level;
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
+}
+
+static int can_start_level(t_game *game)
+{
+    if (game->settings.multiplayer_enabled && !game->settings.is_host)
+    {
+        create_notif(&game->window->menus.notif.notif_buf, "Only the host can do that!", 5, 70);
+        return (0);
+    }
+    return (1);
+}
+
+void start_level_1(t_game *game)
+{
+    if (can_start_level(game))
+        load_level(game, 1);
 }
 
 void start_level_2(t_game *game)
 {
-    SDL_Color white = {255, 255, 255, 255};
-    t_font font;
-    font.color = white;
-    font.size = 120;
-	t_WIN	*win = game->window;
-
-	create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
-	SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h) / 2, font.w, font.h};
-	to_responsive(win, &text_dest);
-	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
-	SDL_RenderPresent(win->renderPTR);
-
-    game->current_level = 2;
-	free_map(game->map);
-	game->map = load_map("level2", game, 0);
-	if (!game->map)
-		return ;
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-    game->clientConnection.state = 3;
-    game->window->menus.current = 6;
-    game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
+    if (can_start_level(game))
+        load_level(game, 2);
 }
 
 void start_level_3(t_game *game)
 {
-    SDL_Color white = {255, 255, 255, 255};
-    t_font font;
-    font.color = white;
-    font.size = 120;
-	t_WIN	*win = game->window;
-
-	create_text(&font, win->renderPTR, game->languages->loading, DNFONT);
-	SDL_Rect text_dest = {(1920 - font.w) / 2, (1080 - font.h) / 2, font.w, font.h};
-	to_responsive(win, &text_dest);
-	SDL_RenderCopy(win->renderPTR, font.texture, NULL, &text_dest);
-	SDL_RenderPresent(win->renderPTR);
-
-	game->current_level = 3;
-	free_map(game->map);
-	game->map = load_map("level3", game, 0);
-	if (!game->map)
-		return ;
-    SDL_SetRelativeMouseMode(SDL_TRUE);
-    game->clientConnection.state = 3;
-    game->window->menus.current = 7;
-    game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
+    if (can_start_level(game))
+        load_level(game, 3);
 }
 
 static void change_menu_to_main_menu(t_game *game)
 {
+    if (game->settings.multiplayer_enabled)
+        close_connection(game);
     game->window->menus.current = 1;
 }
 
 static void change_menu_to_multi_lobby(t_game *game)
 {
+    if (game->settings.multiplayer_enabled)
+        close_connection(game);
     game->window->menus.current = 4;
 }
 
 static void change_menu_to_solo_lobby(t_game *game)
 {
+    if (game->settings.multiplayer_enabled)
+        close_connection(game);
     game->window->menus.current = 3;
 }
 
@@ -299,8 +290,12 @@ int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
         if (!ret)
             finalRet = 0;
         else
+        {
+            if (i >= 3)
+                lobby->playerBounds[i - 3] = get_png_opaque_bounds(images[i]);
             images[i]->texture =
                 create_image(images[i], renderer);
+        }
     }
     pthread_join(threads[8], &ret);
 

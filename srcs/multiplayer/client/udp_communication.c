@@ -6,7 +6,7 @@
 /*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 11:46:06 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/05/29 17:23:21 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/09/23 11:41:19 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void close_connection(t_game *game)
 {
     close(game->clientConnection.con_socket);
     ft_bzero(&game->clientConnection, sizeof(t_udp_connections));
+    game->settings.multiplayer_enabled = 0;
+    game->settings.is_host = 0;
 }
 // TODO disconnect_player
 

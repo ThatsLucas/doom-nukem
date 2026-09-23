@@ -17,6 +17,7 @@
 
 #define PORT 2026
 #define TIMEOUT_DURATION 2000 // time before we considere player disconnected or crash or whatever happened
+#define LOADING_GRACE_DURATION 15000 // extra time given to clients to load the map when the game starts
 
 typedef struct s_client_udp_datas
 {
@@ -24,6 +25,7 @@ typedef struct s_client_udp_datas
     int level; // if state 2 else 0
     float x;
     float y;
+    float z; // hauteur des pieds (jetpack, saut)
     float ang;
 
     // t_ply players[10];
@@ -35,7 +37,7 @@ typedef struct s_server_udp_datas
     int state; // 1 lobby, 2 ingame, 3 game stop, 4 game full
     int level; // if state 2 else 0
     int playerCount;
-    double players[4][2];
+    double players[4][3]; // x, y, z des pieds
     float player_angles[4];
     int playerIndex;
     // notifications handling

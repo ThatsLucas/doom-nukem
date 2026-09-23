@@ -52,6 +52,7 @@ static void	display_ammo_nb(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }
 
 /* Adds the "AMMO" on the renderer */
@@ -71,6 +72,7 @@ static void	display_ammo(t_game *game, int x, int y, int w, int h)
 		exit_game(game, (char *)SDL_GetError());
 
 	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
 }
 
 /* Display "AMMO" string and the amount of the current weapon on the screen */

@@ -33,40 +33,27 @@ void handle_server_notifications_request(t_server_udp_datas *datas, t_game *game
 
 void handle_game_state(t_server_udp_datas *datas, t_game *game)
 {
-    game->clientConnection.state = datas->state;
+    // on n'ecrase pas clientConnection.state : c'est l'etat qu'on envoie au serveur
+    // (sinon le host repasse a 1 avant que le serveur ait vu sa demande de lancement)
     game->clientConnection.player_count = datas->playerCount;
     ft_memcpy(game->clientConnection.players, datas->players, sizeof(datas->players));
-    ft_memcpy(game->clientConnection.player_angles, datas->player_angles, sizeof(datas->player_angles));
+    // float cote serveur, double cote client : pas de memcpy direct
+    for (int i = 0; i < 4; i++)
+        game->clientConnection.player_angles[i] = datas->player_angles[i];
 
-    if (datas->state == 1)
+    // serveur encore au lobby alors qu'on lance la partie : il n'a juste pas encore recu notre paquet
+    if (datas->state == 1 && game->clientConnection.state != 3)
         game->window->menus.current = 4;
     if (datas->state == 2)
     {
         int curMenu = game->window->menus.current;
-        if ((curMenu > 5 && curMenu < 8) || curMenu == 0)
+        if ((curMenu >= 5 && curMenu <= 7) || curMenu == 0) // deja en cinematique ou en jeu
             return;
-
-        switch (datas->level)
-        {
-        case 1:
-            start_level_1(game);
-            break;
-        case 2:
-            start_level_2(game);
-            break;
-        case 3:
-            start_level_3(game);
-            break;
-        default:
-            break;
-        }
+        load_level(game, datas->level);
     }
     if (datas->state == 4)
     {
-        close(game->clientConnection.con_socket);
-        game->clientConnection.is_connected = 0;
-        game->clientConnection.player_count = 0;
-        game->clientConnection.state = 0;
+        close_connection(game);
         create_notif(&game->window->menus.notif.notif_buf, "The game is full!", 5, 70);
     }
 }
