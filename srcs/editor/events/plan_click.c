@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plan_click.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:37:26 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 15:59:55 by edurance         ###   ########.fr       */
+/*   Updated: 2026/09/23 15:59:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static int	tool_click(t_game *game, SDL_Event *e)
 			game->editor->properties.walls[0] = wall_idx >= 0 && w->tex_upper >= 0 ? game->editor->textures->textures[w->tex_upper] : NULL;
 			game->editor->properties.walls[1] = wall_idx >= 0 && w->tex_mid >= 0 ? game->editor->textures->textures[w->tex_mid] : NULL;
 			game->editor->properties.walls[2] = wall_idx >= 0 && w->tex_lower >= 0 ? game->editor->textures->textures[w->tex_lower] : NULL;
-			snprintf(buf, sizeof(buf), "%d", (int)w->alpha);
+			ft_sputnbr(buf, (int)w->alpha, sizeof(buf));
 			set_input_text(game->editor->text_inputs, "walls_alpha", buf);
 		}
 		else
@@ -141,15 +141,15 @@ static int	tool_click(t_game *game, SDL_Event *e)
 				game->editor->properties.sectors[0] = s->floor_tex >= 0 ? game->editor->textures->textures[s->floor_tex] : NULL;
 				game->editor->properties.sectors[1] = s->ceil_tex >= 0 ? game->editor->textures->textures[s->ceil_tex] : NULL;
 				game->editor->properties.sectors[2] = s->sky_tex >= 0 ? game->editor->textures->textures[s->sky_tex] : NULL;
-				snprintf(buf, sizeof(buf), "%d", s->light_level);
+				ft_sputnbr(buf, (int)s->light_level, sizeof(buf));
 				set_input_text(game->editor->text_inputs, "sectors_light", buf);
-				snprintf(buf, sizeof(buf), "%.2f", -s->floor_plane.d);
+				ft_sputfloat(buf, -s->floor_plane.d, sizeof(buf));
 				set_input_text(game->editor->text_inputs, "sectors_floor_z", buf);
-				snprintf(buf, sizeof(buf), "%.2f", -s->ceil_plane.d);
+				ft_sputfloat(buf, -s->ceil_plane.d, sizeof(buf));
 				set_input_text(game->editor->text_inputs, "sectors_ceil_z", buf);
-				snprintf(buf, sizeof(buf), "%d", s->direction);
+				ft_sputnbr(buf, (int)s->direction, sizeof(buf));
 				set_input_text(game->editor->text_inputs, "sectors_direction", buf);
-				snprintf(buf, sizeof(buf), "%d", s->levelSize);
+				ft_sputnbr(buf, (int)s->levelSize, sizeof(buf));
 				set_input_text(game->editor->text_inputs, "sectors_levelSize", buf);
 			}
 		}
