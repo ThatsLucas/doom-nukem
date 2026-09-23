@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:53:30 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/23 15:18:21 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/09/23 15:46:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list				*ft_lstget(t_list *stack, int place);
 
 int					ft_putfloat(float num, int fd);
+void				ft_sputfloat(char *str, float num, size_t size);
+void				ft_sputnbr(char *str, int n, size_t size);
 
 // ft_printf
 int					ft_put_pointer(void *pointer);
