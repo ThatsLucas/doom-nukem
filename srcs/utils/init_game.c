@@ -53,6 +53,7 @@ t_game *init_game(void)
 		exit_game(game, "TTF Init");
 
 	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
+	game->z_buffer = malloc(game->screenSize[0] * game->screenSize[1] * sizeof(float));
 	game->rays = calloc(game->screenSize[0], sizeof(t_ray));
 	game->fps = NULL;
 	game->frame = SDL_CreateTexture(game->window->renderPTR,
@@ -60,7 +61,7 @@ t_game *init_game(void)
 									SDL_TEXTUREACCESS_STREAMING,
 									game->screenSize[0],
 									game->screenSize[1]);
-	if (!game->frame_buffer || !game->rays || !game->frame)
+	if (!game->frame_buffer || !game->z_buffer || !game->rays || !game->frame)
 		exit_game(game, "game malloc (frames)");
 	game->window->menus.notif.notif_buf = NULL;
 	game->window->menus.current = 1;

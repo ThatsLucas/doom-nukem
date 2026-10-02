@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Game.h"
+#include "GUI/GUI.h"
 
 int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 {
@@ -44,6 +45,7 @@ int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 	e.num_frames = 0;
 	e.textures = NULL;
 	e.texture_shoot = NULL;
+	e.texture_dead = NULL;
 
 	png.w = 0;
 	png.h = 0;
@@ -52,7 +54,7 @@ int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 		exit_game(game, "Failed to strdup prop texture path");
 	if (!process_png(&png))
 		exit_game(game, "Failed to load prop texture");
-	e.texture = create_image(&png, game->window->renderPTR);
+	e.texture = create_sprite(&png);
 	if (!e.texture)
 		exit_game(game, "Failed to create prop image");
 	add_entity(game, &game->entities, e);

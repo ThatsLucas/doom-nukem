@@ -32,12 +32,15 @@ void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector)
 	vh_step = (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
 	vh = (float)(draw_top - ray->y_wall_top) * vh_step;
 	Uint32 *fb	= &game->frame_buffer[draw_top * game->screenSize[0] + x];
+	float *zb	= &game->z_buffer[draw_top * game->screenSize[0] + x];
 	for (int y = draw_top; y < draw_bot; y++)
 	{
 		tex_y	= (int)vh % tex->h;
 		vh		+= vh_step;
 		c		= tex->colors[tex_y * tex->w + tex_x];
 		*fb		= write_color(x, y, game, c, sector->light_level);
+		*zb		= ray->perp_dist;
 		fb		+= game->screenSize[0];
+		zb		+= game->screenSize[0];
 	}
 }

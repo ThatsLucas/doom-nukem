@@ -32,13 +32,16 @@ static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 		vh_step		= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
 		vh			= (float)(step_top - ray->y_wall_top) * vh_step;
 		Uint32 *fb	= &game->frame_buffer[step_top * sW + x];
+		float *zb	= &game->z_buffer[step_top * sW + x];
 		for (int y = step_top; y < step_ny_top; y++)
 		{
 			tex_y	= (int)vh % tex->h;
 			vh		+= vh_step;
 			c		= tex->colors[tex_y * tex->w + tex_x];
 			*fb		= write_color(x, y, game, c, sector->light_level);
+			*zb		= ray->perp_dist;
 			fb		+= sW;
+			zb		+= sW;
 		}
 	}
 	return ;
@@ -62,13 +65,16 @@ static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 		vh_step		= (float)tex->h / (float)(ray->y_wall_bot - ray->y_wall_top);
 		vh			= (float)(step_ny_bot - ray->y_wall_top) * vh_step;
 		Uint32 *fb	= &game->frame_buffer[step_ny_bot * sW + x];
+		float *zb	= &game->z_buffer[step_ny_bot * sW + x];
 		for (int y = step_ny_bot; y < step_bot; y++)
 		{
 			tex_y	= (int)vh % tex->h;
 			vh		+= vh_step;
 			c		= tex->colors[tex_y * tex->w + tex_x];
 			*fb		= write_color(x, y, game, c, sector->light_level);
+			*zb		= ray->perp_dist;
 			fb		+= sW;
+			zb		+= sW;
 		}
 	}
 	return ;

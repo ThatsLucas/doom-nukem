@@ -40,6 +40,8 @@ static void *send_threads_ray(void *arg)
 		ray.camera_x = 2.0f * x / (float)sW - 1.0f;
 		ray.screen_x = x;
 		ray.dir = get_ray_dir(&ray, game->ply);
+		for (int y = 0; y < sH; y++)
+			game->z_buffer[y * sW + x] = FLT_MAX;
 		draw_col(game, &ray, x, game->ply->sector, -1);
 		game->rays[x] = ray;
 	}

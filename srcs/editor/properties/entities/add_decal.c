@@ -12,34 +12,7 @@
 
 #include "Game.h"
 #include "Editor.h"
-
-static t_tex	png_to_tex(t_png *png)
-{
-	t_tex		tex;
-	int			bpp;
-	__uint8_t	*px;
-
-	tex.w = (int)png->w;
-	tex.h = (int)png->h;
-	tex.colors = calloc((size_t)tex.w * tex.h, sizeof(t_RGB));
-	bpp = png->IHDR.bytes_per_pixel;
-	for (__uint32_t y = 0; y < png->h; y++)
-	{
-		for (__uint32_t x = 0; x < png->w; x++)
-		{
-			px = &png->buf[y][x * bpp];
-			if (png->IHDR.color_type == 6)
-				tex.colors[y * tex.w + x] = (t_RGB){px[0], px[1], px[2], px[3]};
-			else if (png->IHDR.color_type == 2)
-				tex.colors[y * tex.w + x] = (t_RGB){px[0], px[1], px[2], 255};
-			else if (png->IHDR.color_type == 4)
-				tex.colors[y * tex.w + x] = (t_RGB){px[0], px[0], px[0], px[1]};
-			else
-				tex.colors[y * tex.w + x] = (t_RGB){px[0], px[0], px[0], 255};
-		}
-	}
-	return (tex);
-}
+#include "GUI/GUI.h"
 
 static void	free_png_buf(t_png *png)
 {

@@ -36,6 +36,7 @@ void exit_game(t_game *game, char *type)
 	free(game->ply);
 	free_map(game->map);
 	free(game->rays);
+	free(game->z_buffer);
 	free(game->fps);
 	free_languages(game);
 	pthread_cancel(game->serverThread);

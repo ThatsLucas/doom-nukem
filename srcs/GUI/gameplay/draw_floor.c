@@ -31,6 +31,7 @@ void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 	float	dy_dot	= ray->dir.y / dot;
 	float	denom_xy= sector->floor_plane.a * dx_dot + sector->floor_plane.b * dy_dot;
 	Uint32	*fb		= &game->frame_buffer[start * sW + x];
+	float	*zb		= &game->z_buffer[start * sW + x];
 	for (int y = start; y <= end; y++)
 	{
 		float vz	= (float)(sH / 2 - y + game->ply->pitch) * ray->inv_focal;
@@ -45,7 +46,9 @@ void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 
 		c	= tex->colors[tex_y * tex->w + tex_x];
 		*fb	= write_color(x, y, game, c, sector->light_level);
+		*zb	= dist;
 		fb	+= sW;
+		zb	+= sW;
 	}
 	if (ray->y_wall_bot < ray->y_bot)
 	ray->y_bot = ray->y_wall_bot;

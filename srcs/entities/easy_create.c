@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Game.h"
+#include "GUI/GUI.h"
 
 /* Tung Tung Tung Sahur */
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
@@ -31,7 +32,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	e.notif = "I am Tung Tung Sahur. Find the key, kill the enemies and get out of here !"; // a modif en fonction de l'histoire
 
 	e.num_frames = 8;
-	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
+	e.textures = malloc(sizeof(t_tex *) * e.num_frames);
 	if (!e.textures)
 		exit_game(game, "Failed to malloc pnj1");
 
@@ -46,7 +47,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 			exit_game(game, "Failed to strdup pnj 1");
 		if (!process_png(&png))
 			exit_game(game, "Failed to process pnj 1");
-		e.textures[i] = create_image(&png, game->window->renderPTR);
+		e.textures[i] = create_sprite(&png);
 		if (!e.textures[i])
 			exit_game(game, "Failed to create image pnj 1");
 	}
@@ -77,7 +78,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 	e.notif = "Avengers... assemble!"; // a modif en fonction de l'histoire
 
 	e.num_frames = 8;
-	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
+	e.textures = malloc(sizeof(t_tex *) * e.num_frames);
 	if (!e.textures)
 		exit_game(game, "Failed to malloc pnj2");
 
@@ -92,7 +93,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 			exit_game(game, "Failed to strdup pnj 2");
 		if (!process_png(&png))
 			exit_game(game, "Failed to process pnj 2");
-		e.textures[i] = create_image(&png, game->window->renderPTR);
+		e.textures[i] = create_sprite(&png);
 		if (!e.textures[i])
 			exit_game(game, "Failed to create image pnj 2");
 	}
@@ -123,7 +124,7 @@ void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 	e.notif = "I am the danger Skyler!"; // a modif en fonction de l'histoire
 
 	e.num_frames = 8;
-	e.textures = malloc(sizeof(SDL_Texture *) * e.num_frames);
+	e.textures = malloc(sizeof(t_tex *) * e.num_frames);
 	if (!e.textures)
 		exit_game(game, "Failed to malloc pnj3");
 
@@ -138,7 +139,7 @@ void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 			exit_game(game, "Failed to strdup pnj 3");
 		if (!process_png(&png))
 			exit_game(game, "Failed to process pnj 3");
-		e.textures[i] = create_image(&png, game->window->renderPTR);
+		e.textures[i] = create_sprite(&png);
 		if (!e.textures[i])
 			exit_game(game, "Failed to create image pnj 3");
 	}
@@ -193,8 +194,8 @@ void	create_enemy1(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load enemy1 (dead tex)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image enemy1");
 
 	add_entity(game, &game->entities, e);
@@ -243,8 +244,8 @@ void	create_enemy2(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load enemy2 (dead text)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image enemy2");
 	e.sprite_w = 690.0f;
 	e.sprite_h = 680.0f;
@@ -295,8 +296,8 @@ void	create_enemy3(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load enemy3 (dead text)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image enemy3");
 	e.sprite_w = 400.0f;
 	e.sprite_h = 600.0f;
@@ -351,8 +352,8 @@ void	create_boss1(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load boss1 (dead tex)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image boss1");
 	e.sprite_w = (float)boss_w;
 	e.sprite_h = (float)boss_h;
@@ -407,8 +408,8 @@ void	create_boss2(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load boss2 (dead tex)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image boss2");
 	e.sprite_w = (float)boss_w;
 	e.sprite_h = (float)boss_h;
@@ -463,8 +464,8 @@ void	create_boss3(t_game *game, t_vect2 pos)
 	if (!process_png(&dead))
 		exit_game(game, "Failed to load boss3 (dead tex)");
 
-	if (!(e.texture = create_image(&idle, game->window->renderPTR))
-		|| !(e.texture_shoot = create_image(&shoot, game->window->renderPTR)) || !(e.texture_dead = create_image(&dead, game->window->renderPTR)))
+	if (!(e.texture = create_sprite(&idle))
+		|| !(e.texture_shoot = create_sprite(&shoot)) || !(e.texture_dead = create_sprite(&dead)))
 		exit_game(game, "Failed to create image boss3");
 	e.sprite_w = (float)boss_w;
 	e.sprite_h = (float)boss_h;

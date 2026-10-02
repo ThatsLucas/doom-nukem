@@ -12,6 +12,7 @@
 
 #include "entities/Entities.h"
 #include "Game.h"
+#include "GUI/GUI.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -75,7 +76,7 @@ void render_entities(t_game *game)
 	for (int i = 0; i < game->entities.count; i++)
 	{
 		t_entity	*e = &game->entities.list[i];
-		SDL_Texture	*tex = NULL;
+		t_tex		*tex = NULL;
 
 		long long	current = get_time_ms();
 		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
@@ -166,13 +167,15 @@ void render_entities(t_game *game)
 		int	cx = (int)half_sw;
 		int	cy = (int)half_sh;
 
-		if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h && transform_y < closest)
+		/* on ne vise pas une entite cachee par un mur/sol/toit */
+		if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h
+			&& transform_y < closest && transform_y < game->z_buffer[cy * sw + cx])
 		{
 			closest = transform_y;
 			game->ply->crosshair_target = e;
 		}
 
 		if (tex)
-			SDL_RenderCopy(game->window->renderPTR, tex, NULL, &dest);
+			draw_sprite_zbuf(game, tex, dest, transform_y, game->map->sectors[e->sector].light_level);
 	}
 }

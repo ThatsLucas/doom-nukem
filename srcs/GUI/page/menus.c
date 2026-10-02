@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/08/12 17:26:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:59:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,13 @@
 
 static void draw_in_game(t_game *game)
 {
-    // t_udp_datas datas; // TODO: just for testing remove this shit and make it good
-    // datas.state = 1;
-    // datas.x = game->ply->pos.x;
-    // datas.y = game->ply->pos.y;
-    // send_join_request("127.0.0.1", &datas);
-    apply_constant_forces_to_player(game->ply);
-    send_rays(game);
+	apply_constant_forces_to_player(game->ply);
+    send_rays(game);        // murs/sols/toits -> frame_buffer + z_buffer
+    render_entities(game);  // sprites dans le frame_buffer, caches par le z_buffer
     SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
     SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
     if (game->clientConnection.is_connected)
         render_multiplayer_players(game);
-    render_entities(game);
     display_hud(game);
     draw_pause_menu(game);
 	check_elevator(game->map);

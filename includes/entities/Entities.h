@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:22:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:29:36 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct	s_game t_game;
 typedef struct	s_vect2 t_vect2;
+typedef struct	s_tex t_tex;
 
 typedef enum	e_entity_type
 {
@@ -48,10 +49,10 @@ typedef struct	s_entity
 
 	int				sector;
 	t_entity_type	type;
-	void			**textures;
-	void			*texture;
-	void			*texture_shoot;
-	void			*texture_dead;
+	t_tex			**textures;		/* sprites lus par le CPU (rendu avec z_buffer) */
+	t_tex			*texture;
+	t_tex			*texture_shoot;
+	t_tex			*texture_dead;
 	int				num_frames;
 
 	int	hp;

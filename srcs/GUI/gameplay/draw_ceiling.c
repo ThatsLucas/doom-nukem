@@ -66,6 +66,7 @@ void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector)
 	float	denom_xy= sector->ceil_plane.a * dx_dot + sector->ceil_plane.b * dy_dot;
 
 	Uint32 *fb	= &game->frame_buffer[start * sW + x];
+	float *zb	= &game->z_buffer[start * sW + x];
 	for (int y = start; y < end; y++)
 	{
 		float vz	= (float)(sH / 2 - y + game->ply->pitch) * ray->inv_focal;
@@ -80,7 +81,9 @@ void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector)
 
 		c			= tex->colors[tex_y * tex->w + tex_x];
 		*fb			= write_color(x, y, game, c, sector->light_level);
+		*zb			= dist;
 		fb			+= sW;
+		zb			+= sW;
 	}
 	if (ray->y_wall_top > ray->y_top)
 		ray->y_top = ray->y_wall_top;

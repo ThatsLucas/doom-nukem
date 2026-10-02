@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/09/23 15:58:38 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/02 11:29:24 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_game
 	t_map *map;
 	SDL_Texture *frame;
 	Uint32 *frame_buffer;
+	float *z_buffer;	// profondeur de chaque pixel du frame_buffer
 	t_ray *rays;
 	char *fps;
 	t_settings settings;

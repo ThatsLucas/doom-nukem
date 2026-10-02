@@ -81,6 +81,9 @@ void draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sec
 /*Images*/
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer);
 SDL_Rect get_png_opaque_bounds(t_png *pngFile);
+t_tex png_to_tex(t_png *png);
+t_tex *create_sprite(t_png *png);
+void draw_sprite_zbuf(t_game *game, t_tex *tex, SDL_Rect dest, float depth, int light);
 
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer *renderer, char *text, char *fontPath);
