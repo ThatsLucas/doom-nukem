@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Items.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:16:00 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:14:51 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/09/22 12:51:26 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 typedef struct s_ply t_ply;
 typedef struct s_game t_game;
+typedef struct s_vect2 t_vect2;
 
 /* WEAPONS */
 typedef enum e_weapon_type
@@ -153,5 +154,17 @@ void render_projectiles(t_game *game);
 void activate_flashlight(t_game *game);
 void activate_jetpack(t_game *game);
 void add_item(t_game *game, t_ground_item new_item);
+
+/* easy_create.c : creation "one-liner" de chaque item, comme les
+   create_pnj/create_enemy/create_boss de srcs/entities/easy_create.c */
+void create_item_heal(t_game *game, t_vect2 pos, int amount);
+void create_item_fuel(t_game *game, t_vect2 pos, int amount);
+void create_item_battery(t_game *game, t_vect2 pos, int amount);
+void create_item_pistol(t_game *game, t_vect2 pos, int ammo);
+void create_item_shotgun(t_game *game, t_vect2 pos, int ammo);
+void create_item_rocket_launcher(t_game *game, t_vect2 pos, int ammo);
+void create_item_flashlight(t_game *game, t_vect2 pos);
+void create_item_key(t_game *game, t_vect2 pos, int id);
+void create_item_jetpack(t_game *game, t_vect2 pos);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 16:17:28 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/09/23 11:45:44 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/10/05 11:57:22 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "Colors.h"
 #include "multiplayer/server.h"
 #include "multiplayer/client.h"
+#include "inventory/Items.h"
 
 int main(void)
 {
@@ -30,9 +31,14 @@ int main(void)
 
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 
-	// t_vect2 pos;
-	// pos.x = game->ply->pos.x + 1; pos.y = game->ply->pos.y;
-	// default_enemy(game, pos, "assets/png/entities/shooter.png", "assets/png/entities/shooter_attack.png", 400, 600);
+	/* charge un niveau et saute direct en jeu (pas de menu, pas de cinematique) */
+	free_map(game->map);
+	game->map = load_map("level1", game, 0);
+	if (!game->map)
+		exit_game(game, "TEST: failed to load level1");
+	game->current_level = 1;
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	game->window->menus.current = 1;
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 
