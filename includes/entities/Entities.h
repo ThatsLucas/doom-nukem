@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/10/02 11:29:36 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/05 08:47:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum	e_entity_type
 	ENTITY_ENEMY,
 	ENTITY_BOSS,
 	ENTITY_PROP,
+	ENTITY_PROJ,
 	ENTITY_NONE
 }				t_entity_type;
 
