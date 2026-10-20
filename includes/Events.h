@@ -16,6 +16,7 @@
 #include "Game.h"
 
 void	events_handler(t_game *game);
+void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event);
 void	ply_movements(t_ply *ply, t_game *game);
 int		wall_collision(t_game *game, float next_x, float next_y);
 void	ply_directions(t_ply *ply);

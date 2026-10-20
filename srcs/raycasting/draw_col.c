@@ -66,6 +66,18 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 	return ;
 }
 
+/* Distance and screen bounds of the wall hit by the ray */
+static void	compute_wall_bounds(t_game *game, t_ray *ray, t_sector *sector)
+{
+	int	sH = game->screenSize[1];
+
+	ray->perp_dist	= ray->t * (ray->dir.x * game->ply->dir.x + ray->dir.y * game->ply->dir.y);
+	ray->z_floor	= get_plane_z(sector->floor_plane, ray->hit.x, ray->hit.y);
+	ray->z_ceil		= get_plane_z(sector->ceil_plane,  ray->hit.x, ray->hit.y);
+	ray->y_wall_bot	= sH / 2 - ((ray->z_floor - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
+	ray->y_wall_top	= sH / 2 - ((ray->z_ceil - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
+}
+
 /* dessine la colonne x du rayon ray, de facon recursive */
 void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 {
@@ -73,18 +85,13 @@ void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 	t_ray		temp;
 	int			next_id, mirror;
 	int			is_transparent = 0;
-	int			sH = game->screenSize[1];
 
 	ray->t			= FLT_MAX;
 	sector			= &game->map->sectors[sector_id];
 	find_smaller_ray(game, sector, ray, skip_wall);
 	if (ray->t >= FLT_MAX - 1)
 		return ;
-	ray->perp_dist	= ray->t * (ray->dir.x * game->ply->dir.x + ray->dir.y * game->ply->dir.y);
-	ray->z_floor	= get_plane_z(sector->floor_plane, ray->hit.x, ray->hit.y);
-	ray->z_ceil		= get_plane_z(sector->ceil_plane,  ray->hit.x, ray->hit.y);
-	ray->y_wall_bot	= sH / 2 - ((ray->z_floor - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
-	ray->y_wall_top	= sH / 2 - ((ray->z_ceil - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
+	compute_wall_bounds(game, ray, sector);
 
 	if (ray->y_wall_top >= ray->y_wall_bot)					/* Si le haut du mur passe en bas du bas du mur */
 		return simple_draw(game, ray, x, sector, 1);

@@ -13,8 +13,7 @@
 #include "Player.h"
 #include "Game.h"
 
-/* Add starter pack to begin a mission */
-static void config_starter(t_ply *ply)
+static void give_starter_weapons(t_ply *ply)
 {
 	t_weapon fists = {
 		.type = WEAP_FISTS,
@@ -35,7 +34,10 @@ static void config_starter(t_ply *ply)
 		.type = WEAP_ROCKET_LAUNCHER,
 		.ammo = 50};
 	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
+}
 
+static void give_starter_tools(t_ply *ply)
+{
 	t_tool flashlight = {
 		.type = TOOL_FLASHLIGHT,
 		.data.battery = 11,
@@ -54,7 +56,13 @@ static void config_starter(t_ply *ply)
 		.using = 0};
 	ply->inventory.tools[ply->inventory.tool_count++] = jetpack;
 	ply->inventory.jetpack = &ply->inventory.tools[ply->inventory.tool_count - 1];
+}
 
+/* Add starter pack to begin a mission */
+static void config_starter(t_ply *ply)
+{
+	give_starter_weapons(ply);
+	give_starter_tools(ply);
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }
 

@@ -12,6 +12,45 @@
 
 #include "Game.h"
 
+/* Moves the projectile toward its target, slower and smaller as it goes away */
+static void	update_flying(t_projectile *p)
+{
+	float	dx = p->target_x - p->x;
+	float	dy = p->target_y - p->y;
+	float	dist = sqrtf(dx * dx + dy * dy); // calculer la distance (hypothenuse)
+	float	ratio = dist / p->start_dist;
+	float	speed = p->speed * (0.2f + 0.8f * ratio);
+
+	p->size_x = (int)(p->fly_dest.w * (0.3f + 0.7f * ratio));
+	p->size_y = (int)(p->fly_dest.h * (0.3f + 0.7f * ratio));
+
+	if (dist <= p->speed)
+	{
+		p->x = p->target_x;
+		p->y = p->target_y;
+		p->state = PROJ_EXPLODING;
+	}
+	else
+	{
+		/* normaliser le vecteur pour avoir la position en fonction de la distance et de la vitesse */
+		p->x += (dx / dist) * speed;
+		p->y += (dy / dist) * speed;
+	}
+}
+
+/* Plays the 3 explosion frames then marks the projectile as dead */
+static void	update_exploding(t_projectile *p)
+{
+	p->expl_tick++;
+	if (p->expl_tick >= p->expl_rate)
+	{
+		p->expl_tick = 0;
+		p->expl_frame++;
+		if (p->expl_frame >= 3)
+			p->state = PROJ_DEAD;
+	}
+}
+
 void	update_projectiles(t_game *game)
 {
 	t_projectile	**cur = &game->projectiles;
@@ -19,43 +58,11 @@ void	update_projectiles(t_game *game)
 	while (*cur)
 	{
 		t_projectile	*p = *cur;
-		
-		if (p->state == PROJ_FLYING)
-		{
-			float	dx = p->target_x - p->x;
-			float	dy = p->target_y - p->y;
-			float	dist = sqrtf(dx * dx + dy * dy); // calculer la distance (hypothenuse)
-			float	ratio = dist / p->start_dist;
-			float	speed = p->speed * (0.2f + 0.8f * ratio);
-			p->size_x = (int)(p->fly_dest.w * (0.3f + 0.7f * ratio));
-			p->size_y = (int)(p->fly_dest.h * (0.3f + 0.7f * ratio));
 
-			if (dist <= p->speed)
-			{
-				p->x = p->target_x;
-				p->y = p->target_y;
-				p->state = PROJ_EXPLODING;
-			}
-			else
-			{
-				/* normaliser le vecteur pour avoir la position en fonction de la distance et de la vitesse */
-				p->x += (dx / dist) * speed;
-				p->y += (dy / dist) * speed;
-			}
-			cur = &p->next;
-		}
+		if (p->state == PROJ_FLYING)
+			update_flying(p);
 		else if (p->state == PROJ_EXPLODING)
-		{
-			p->expl_tick++;
-			if (p->expl_tick >= p->expl_rate)
-			{
-				p->expl_tick = 0;
-				p->expl_frame++;
-				if (p->expl_frame >= 3)
-					p->state = PROJ_DEAD;
-			}
-			cur = &p->next;
-		}
+			update_exploding(p);
 		else if (p->state == PROJ_DEAD)
 		{
 			p->expl_tick++;
@@ -65,8 +72,8 @@ void	update_projectiles(t_game *game)
 				free(p);
 				continue;
 			}
-			cur = &p->next;
 		}
+		cur = &p->next;
 	}
 }
 

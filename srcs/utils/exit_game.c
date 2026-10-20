@@ -13,10 +13,9 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-void exit_game(t_game *game, char *type)
+static void print_exit_error(char *type)
 {
 	const char *error = SDL_GetError();
-	t_WIN *win;
 
 	if (type && error && error[0])
 	{
@@ -26,6 +25,26 @@ void exit_game(t_game *game, char *type)
 	{
 		ft_dprintf(STDERR_FILENO, "%s\n", type);
 	}
+}
+
+static void free_window(t_WIN *win)
+{
+	if (!win)
+		return ;
+	while (win->menus.notif.notif_buf)
+		destroy_notif_node(&win->menus.notif.notif_buf);
+	if (win->buttonList)
+		free_buttons(win->buttonList);
+	if (win->renderPTR)
+		SDL_DestroyRenderer(win->renderPTR);
+	if (win->winPTR)
+		SDL_DestroyWindow(win->winPTR);
+	free(win);
+}
+
+void exit_game(t_game *game, char *type)
+{
+	print_exit_error(type);
 
 	if (!game)
 		exit(1);
@@ -43,19 +62,7 @@ void exit_game(t_game *game, char *type)
 	pthread_join(game->serverThread, NULL);
 	close(game->serverStatus.serverSocket);
 
-	win = game->window;
-	if (win)
-	{
-		while (win->menus.notif.notif_buf)
-			destroy_notif_node(&win->menus.notif.notif_buf);
-		if (win->buttonList)
-			free_buttons(win->buttonList);
-		if (win->renderPTR)
-			SDL_DestroyRenderer(win->renderPTR);
-		if (win->winPTR)
-			SDL_DestroyWindow(win->winPTR);
-		free(win);
-	}
+	free_window(game->window);
 	exit_editor(game);
 	free(game);
 	TTF_Quit();

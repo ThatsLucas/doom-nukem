@@ -12,6 +12,35 @@
 
 #include "Game.h"
 
+/* Damage of the weapon on the entity e (fists only hit at close range) */
+static int	weapon_damage(t_game *game, t_weapon_type type, t_entity *e)
+{
+	int	damage = 0;
+
+	switch (type)
+	{
+		case WEAP_PISTOL:
+			damage = PISTOL_DAMAGE;
+			break ;
+		case WEAP_SHOTGUN:
+			damage = SHOTGUN_DAMAGE;
+			break ;
+		case WEAP_ROCKET_LAUNCHER:
+			damage = ROCKET_DAMAGE;
+			break ;
+		case WEAP_FISTS:
+			float	dx = e->x - game->ply->pos.x;
+			float	dy = e->y - game->ply->pos.y;
+			float	dist = sqrt(dx * dx + dy * dy);
+			if (dist > 2.0f)
+				damage = 0;
+			else
+				damage = FISTS_DAMAGE;
+			break ;
+	}
+	return (damage);
+}
+
 /* Update the frame and the ammo when a player is shooting -> a bouger quand yaura des ennemis*/
 void	player_shoot(t_game *game)
 {
@@ -19,7 +48,6 @@ void	player_shoot(t_game *game)
 	t_weapon_type	type = game->ply->inventory.weapons[idx].type;
 	t_weapon_3D		*w = &game->hud_cache.weapons_3D[type];
 	t_entity		*e = game->ply->crosshair_target;
-	int				damage = 0;
 
 	if (w->is_firing)
 		return ;
@@ -32,28 +60,7 @@ void	player_shoot(t_game *game)
 
 	if (e)
 	{
-		switch (game->ply->inventory.weapons[idx].type)
-		{
-			case WEAP_PISTOL:
-				damage = PISTOL_DAMAGE;
-				break ;
-			case WEAP_SHOTGUN:
-				damage = SHOTGUN_DAMAGE;
-				break ;
-			case WEAP_ROCKET_LAUNCHER:
-				damage = ROCKET_DAMAGE;
-				break ;
-			case WEAP_FISTS:
-				float	dx = e->x - game->ply->pos.x;
-				float	dy = e->y - game->ply->pos.y;
-				float	dist = sqrt(dx * dx + dy * dy);
-				if (dist > 2.0f)
-					damage = 0;
-				else
-					damage = FISTS_DAMAGE;
-				break ;
-		}
-		e->hp -= damage;
+		e->hp -= weapon_damage(game, game->ply->inventory.weapons[idx].type, e);
 		if (e->hp <= 0)
 		{
 			e->status = E_STATUS_DEAD;
@@ -61,7 +68,6 @@ void	player_shoot(t_game *game)
 	}
 	if (game->ply->inventory.weapons[idx].type != WEAP_FISTS)
 		game->ply->inventory.weapons[idx].ammo -= 1;
-
 
 	w->current_frame = 0;
 	w->is_firing = 1;

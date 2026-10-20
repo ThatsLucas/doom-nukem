@@ -12,6 +12,33 @@
 
 #include "Game.h"
 
+/* Fireball and the 3 explosion frames */
+static void	load_rocket_textures(t_game *game, t_projectile *proj)
+{
+	static char	*expl_paths[] = {
+		"assets/png/hud/projectiles/explosion_1.png",
+		"assets/png/hud/projectiles/explosion_2.png",
+		"assets/png/hud/projectiles/explosion_3.png",
+	};
+	t_png		tmp;
+
+	tmp.path = ft_strdup("assets/png/hud/projectiles/fireball_1.png");
+	if (!process_png(&tmp))
+		exit_game(game, "fireball process");
+
+	proj->fly_texture = create_image(&tmp, game->window->renderPTR);
+	proj->fly_dest = (SDL_Rect){0, 0, 436, 221};
+
+	for (int i = 0; i < 3; i++)
+	{
+		t_png	etmp;
+		etmp.path = ft_strdup(expl_paths[i]);
+		if (!process_png(&etmp))
+			exit_game(game, "process explosion");
+		proj->expl_frames[i] = create_image(&etmp, game->window->renderPTR);
+	}
+}
+
 void	spawn_rocket(t_game *game, float tx, float ty)
 {
 	t_projectile	*proj;
@@ -29,28 +56,7 @@ void	spawn_rocket(t_game *game, float tx, float ty)
 	proj->expl_rate = 30;
 	proj->start_dist = sqrtf((proj->target_x - proj->x) * (proj->target_x - proj->x) + (proj->target_y - proj->y) * (proj->target_y - proj->y));
 
-	t_png	tmp;
-	tmp.path = ft_strdup("assets/png/hud/projectiles/fireball_1.png");
-	if (!process_png(&tmp))
-		exit_game(game, "fireball process");
-
-	proj->fly_texture = create_image(&tmp, game->window->renderPTR);
-	proj->fly_dest = (SDL_Rect){0, 0, 436, 221};
-
-	static char	*expl_paths[] = {
-		"assets/png/hud/projectiles/explosion_1.png",
-		"assets/png/hud/projectiles/explosion_2.png",
-		"assets/png/hud/projectiles/explosion_3.png",
-	};
-
-	for (int i = 0; i < 3; i++)
-	{
-		t_png	etmp;
-		etmp.path = ft_strdup(expl_paths[i]);
-		if (!process_png(&etmp))
-			exit_game(game, "process explosion");
-		proj->expl_frames[i] = create_image(&etmp, game->window->renderPTR);
-	}
+	load_rocket_textures(game, proj);
 
 	proj->next = game->projectiles;
 	game->projectiles = proj;

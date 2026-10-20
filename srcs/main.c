@@ -21,6 +21,41 @@
 #include "multiplayer/client.h"
 #include "inventory/Items.h"
 
+/* TEST: charge un niveau et saute direct en jeu (pas de menu, pas de cinematique) */
+static void load_start_level(t_game *game)
+{
+	free_map(game->map);
+	game->map = load_map("level1", game, 0);
+	if (!game->map)
+		exit_game(game, "TEST: failed to load level1");
+	game->current_level = 1;
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+	game->window->menus.current = 1;
+}
+
+/* One frame of the editor */
+static void editor_frame(t_game *game)
+{
+	editor_events(game);
+	display_editor(game);
+	SDL_RenderPresent(game->window->renderPTR);
+}
+
+/* One frame of the game / menus, then sync with the server */
+static void game_frame(t_game *game)
+{
+	events_handler(game);
+	draw_current_menu(game);
+	display_notif(game->window, &game->window->menus.notif.notif_buf);
+	display_fps(game);
+
+	// affichage du renderer sur la page
+	SDL_RenderPresent(game->window->renderPTR);
+	send_corresponding_datas_to_server(game);
+	if (game->settings.multiplayer_enabled)
+		handle_server_response(game, &game->clientConnection);
+}
+
 int main(void)
 {
 	t_game *game;
@@ -30,48 +65,17 @@ int main(void)
 		return (1);
 
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
-
-	/* charge un niveau et saute direct en jeu (pas de menu, pas de cinematique) */
-	free_map(game->map);
-	game->map = load_map("level1", game, 0);
-	if (!game->map)
-		exit_game(game, "TEST: failed to load level1");
-	game->current_level = 1;
-	SDL_SetRelativeMouseMode(SDL_TRUE);
-	game->window->menus.current = 1;
+	load_start_level(game);
 
 	pthread_create(&game->serverThread, NULL, create_server, game);
 
 	while (1)
 	{
-		// Uint64 start = SDL_GetPerformanceCounter();
 		SDL_RenderClear(game->window->renderPTR);
-
 		if (game->window->menus.current == -1)
-		{
-			editor_events(game);
-			display_editor(game);
-			SDL_RenderPresent(game->window->renderPTR);
-			continue ;
-		}
-		events_handler(game);
-		draw_current_menu(game);
-		display_notif(game->window, &game->window->menus.notif.notif_buf);
-
-		// display_buttons(game->window->buttonList, game->window->renderPTR);
-		// Creation du renderer (de la frame)
-		// SDL_RenderFillCircle(game->window->renderPTR, game->ply->pos_x, game->ply->pos_y, 20, rgb);
-		// draw_player(game->window->renderPTR, game, 20, rgb);
-
-		// display_hud(game);
-		display_fps(game);
-
-		// pickup_flash(game);
-		// affichage du renderer sur la page
-		SDL_RenderPresent(game->window->renderPTR);
-		send_corresponding_datas_to_server(game);
-		if (game->settings.multiplayer_enabled)
-			handle_server_response(game, &game->clientConnection);
+			editor_frame(game);
+		else
+			game_frame(game);
 	}
 
 	exit_game(game, NULL);
