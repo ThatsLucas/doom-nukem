@@ -44,7 +44,18 @@ void send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection);
 int get_server_response(t_udp_connections *connection, t_server_udp_datas *datas);
 void handle_server_notifications_request(t_server_udp_datas *datas, t_game *game);
 void handle_game_state(t_server_udp_datas *datas, t_game *game);
+
+/*un joueur distant projete a l'ecran*/
+typedef struct s_player_sprite
+{
+    SDL_Texture *tex;
+    SDL_Rect src; // zone opaque de l'image : les pieds touchent le bas de src
+    SDL_Rect dest;
+    float depth;
+} t_player_sprite;
+
 void render_multiplayer_players(t_game *game);
+void draw_player_sprite(t_game *game, t_player_sprite *sprite);
 
 int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp_datas *datas);
 void handle_server_response(t_game *game, t_udp_connections *connection);

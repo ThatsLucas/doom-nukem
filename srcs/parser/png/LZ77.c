@@ -10,7 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
+#include "parser/PNG.h"
+
+/* Copies len bytes found distance bytes back in the output buffer */
+static void copy_back_reference(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, int len, int distance)
+{
+    for (int i = 0; i < len; i++) // dedicace à felix fallait être là
+    {
+        if (*buf_len + i >= max_len || (__uint32_t)distance > *buf_len + i)
+        {
+            ft_dprintf(STDERR_FILENO, "lz77: bruhhhhhhhhhhh\n"); //si ca arrive c la merde
+            return;
+        }
+
+        buf[*buf_len + i] = buf[*buf_len - distance + i];
+    }
+    *buf_len += len;
+}
 
 void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader, int sym, int *dist_symbol, int *dist_len)
 {
@@ -47,15 +63,5 @@ void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitR
     int dist_extra = read_bits(bitReader, dist_table[sym][1]);
     int distance = dist_base + dist_extra;
 
-    for (int i = 0; i < len; i++) // dedicace à felix fallait être là
-    {
-        if (*buf_len + i >= max_len || (__uint32_t)distance > *buf_len + i)
-        {
-            ft_dprintf(STDERR_FILENO, "lz77: bruhhhhhhhhhhh\n"); //si ca arrive c la merde
-            return;
-        }
-
-        buf[*buf_len + i] = buf[*buf_len - distance + i];
-    }
-    *buf_len += len;
+    copy_back_reference(buf, buf_len, max_len, len, distance);
 }

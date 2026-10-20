@@ -40,15 +40,6 @@ typedef struct s_player_cam
     float half_sh;
 } t_player_cam;
 
-/*un joueur distant projete a l'ecran*/
-typedef struct s_player_sprite
-{
-    SDL_Texture *tex;
-    SDL_Rect src; // zone opaque de l'image : les pieds touchent le bas de src
-    SDL_Rect dest;
-    float depth;
-} t_player_sprite;
-
 /*etat d'animation de chaque joueur distant, garde entre les frames*/
 typedef struct s_walk_state
 {
@@ -133,50 +124,6 @@ static int project_player(t_player_cam *cam, t_player_sprite *sprite, float x, f
     sprite->dest.x = (int)(cam->half_sw + cam->half_sw * tx * inv_ty) - sprite->dest.w / 2;
     sprite->dest.y = y_top;
     return (sprite->dest.w > 0 && sprite->dest.h > 0);
-}
-
-static int is_column_occluded(t_game *game, int x, float depth)
-{
-    t_ray *ray;
-
-    ray = &game->rays[x];
-    return (ray->wall_idx >= 0 && ray->perp_dist > 0.0f && ray->perp_dist < FLT_MAX && depth >= ray->perp_dist);
-}
-
-static void draw_sprite_span(t_game *game, t_player_sprite *sprite, int start, int end)
-{
-    SDL_Rect src;
-    SDL_Rect dst;
-
-    src = sprite->src;
-    src.x = sprite->src.x + (start - sprite->dest.x) * sprite->src.w / sprite->dest.w;
-    src.w = sprite->src.x + (end - sprite->dest.x) * sprite->src.w / sprite->dest.w - src.x;
-    if (src.w <= 0)
-        return;
-    dst = (SDL_Rect){start, sprite->dest.y, end - start, sprite->dest.h};
-    SDL_RenderCopy(game->window->renderPTR, sprite->tex, &src, &dst);
-}
-
-static void draw_player_sprite(t_game *game, t_player_sprite *sprite)
-{
-    int x;
-    int end;
-    int span_start;
-
-    x = sprite->dest.x < 0 ? 0 : sprite->dest.x;
-    end = sprite->dest.x + sprite->dest.w;
-    if (end > game->screenSize[0])
-        end = game->screenSize[0];
-    while (x < end)
-    {
-        while (x < end && is_column_occluded(game, x, sprite->depth))
-            x++;
-        span_start = x;
-        while (x < end && !is_column_occluded(game, x, sprite->depth))
-            x++;
-        if (x > span_start)
-            draw_sprite_span(game, sprite, span_start, x);
-    }
 }
 
 static int collect_player_sprites(t_game *game, t_player_cam *cam, t_player_sprite *sprites)

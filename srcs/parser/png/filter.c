@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
-#include "../../../includes/parser/filter.h"
-#include "../../../includes/parser/huffman.h"
+#include "parser/PNG.h"
+#include "parser/filter.h"
+#include "parser/huffman.h"
 
 static int abs_value(int val)
 {

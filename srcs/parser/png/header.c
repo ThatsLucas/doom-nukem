@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
+#include "parser/PNG.h"
 
 static int check_header_validity(char *buf)
 {

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
-
+#include "parser/PNG.h"
 
 static int open_png_file(char *path)
 {
@@ -32,6 +31,14 @@ t_readPNG read_nbytes(int pngFile, int nbytes)
     return (readDatas);
 }
 
+/* Frees the path and returns the thread failure value */
+static void *png_failure(t_png *pngFile)
+{
+    free(pngFile->path);
+    pngFile->path = NULL;
+    return ((void *)(long)0);
+}
+
 void *process_png(void *pngStruct)
 {
     t_IDAT *IDATS;
@@ -39,30 +46,22 @@ void *process_png(void *pngStruct)
     pngFile->buf = NULL;
     pngFile->fd = open_png_file(pngFile->path);
     if (!pngFile->fd)
-    {
-        free(pngFile->path);
-        pngFile->path = NULL;
-        return ((void *)(long)0);
-    }
+        return (png_failure(pngFile));
     find_png_header(pngFile);
     find_png_IHDR(&pngFile->IHDR, pngFile);
     IDATS = find_all_IDAT(pngFile);
-	close(pngFile->fd);
+    close(pngFile->fd);
     if (!IDATS)
     {
         ft_dprintf(STDERR_FILENO, "Issue parsing IDATS, can't read img\n");
-        free(pngFile->path);
-        pngFile->path = NULL;
-        return ((void *)(long)0);
+        return (png_failure(pngFile));
     }
     __uint8_t *mergedBuffer = merge_all_buffers(IDATS);
     if (!mergedBuffer)
     {
         ft_dprintf(STDERR_FILENO, "Issue concatening IDATS, can't read img\n");
         free_idat_list(IDATS);
-        free(pngFile->path);
-        pngFile->path = NULL;
-        return ((void *)(long)0);
+        return (png_failure(pngFile));
     }
     parse_deflate_blocs(pngFile, mergedBuffer, get_total_compressed_size(IDATS));
     free(mergedBuffer);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
+#include "parser/PNG.h"
 
 static int read_IHDR_header(int fd, t_IHDR *headerIHDR)
 {

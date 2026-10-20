@@ -10,50 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/parser/PNG.h"
-
-__uint64_t get_total_compressed_size(t_IDAT *lst)
-{
-    __uint64_t size = 0;
-    
-    while (lst)
-    {
-        size += lst->chunklen;
-        lst = lst->next;
-    }
-    return size;
-}
-
-__uint8_t *merge_all_buffers(t_IDAT *lst)
-{
-    __uint64_t compressedSize = get_total_compressed_size(lst);
-    __uint8_t *compressedBuffer = malloc(sizeof(__uint8_t) * compressedSize);
-    if (!compressedBuffer)
-    {
-        perror("compressed buffer allocation:");
-        return NULL;
-    }
-    __uint64_t i = 0;
-    while(lst)
-    {
-        ft_memmove(compressedBuffer + i, lst->datas, lst->chunklen);
-        i += lst->chunklen;
-        lst = lst->next;
-    }
-    return compressedBuffer;
-}
-
-void free_idat_list(t_IDAT *lst)
-{
-    while (lst)
-    {
-        t_IDAT *tmp = lst->next;
-        free(lst->datas);
-        free(lst);
-        lst = tmp;
-    }
-    lst = NULL;
-}
+#include "parser/PNG.h"
 
 static void free_idat(t_IDAT *idat)
 {
@@ -70,7 +27,6 @@ static int is_IDAT_or_IEND(__uint32_t type)
         return (2);
     return (0);
 }
-
 
 static int fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
 {
@@ -104,34 +60,70 @@ static int fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
     return (1);
 }
 
+/* Reads the length and the type of the next chunk, returns 0 on error */
+static int read_chunk_header(int fd, __uint32_t *len, __uint32_t *type)
+{
+    ssize_t bytes_read = read(fd, len, sizeof(*len));
+    if (bytes_read != sizeof(*len))
+    {
+        ft_dprintf(STDERR_FILENO, "returned in invalid len\n");
+        return (0);
+    }
+    *len = big_endian_to_little_endian(*len);
+
+    bytes_read = read(fd, type, sizeof(*type));
+    if (bytes_read != sizeof(*type))
+    {
+        ft_dprintf(STDERR_FILENO, "invalid type size\n");
+        return (0);
+    }
+    return (1);
+}
+
+static void append_idat(t_IDAT **head, t_IDAT *node)
+{
+    t_IDAT *last;
+
+    node->next = NULL;
+    if (!*head)
+    {
+        *head = node;
+        return ;
+    }
+    last = *head;
+    while (last->next)
+        last = last->next;
+    last->next = node;
+}
+
+/* Skips an ancillary chunk, returns 0 if the chunk is mandatory (unknown) */
+static int skip_unknown_chunk(int fd, __uint32_t type, __uint32_t len)
+{
+    char *c = (char *)&type;
+
+    if (!(c[0] & 0x20))
+    {
+        ft_dprintf(STDERR_FILENO, "[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
+        return (0);
+    }
+    lseek(fd, len + 4, SEEK_CUR);
+    return (1);
+}
+
 t_IDAT * find_all_IDAT(t_png *pngFile)
 {
     t_IDAT *head = NULL;
     t_IDAT *tmp_idata;
-    // ft_printf("\n");
+    __uint32_t len;
+    __uint32_t type;
+
     while (1)
     {
-        __uint32_t len;
-        __uint32_t type;
-
-        ssize_t bytes_read = read(pngFile->fd, &len, sizeof(len));
-        if (bytes_read != sizeof(len))
+        if (!read_chunk_header(pngFile->fd, &len, &type))
         {
-            ft_dprintf(STDERR_FILENO, "returned in invalid len\n");
             free_idat_list(head);
             return head;
         }
-        len = big_endian_to_little_endian(len);
-
-        bytes_read = read(pngFile->fd, &type, sizeof(type));
-        if (bytes_read != sizeof(type))
-        {
-            ft_dprintf(STDERR_FILENO, "invalid type size\n");
-
-            free_idat_list(head);
-            return head;
-        }
-
         int typeRet = is_IDAT_or_IEND(type);
         if (typeRet == 1)
         {
@@ -141,33 +133,14 @@ t_IDAT * find_all_IDAT(t_png *pngFile)
                 free_idat_list(head);
                 return NULL;
             }
-            tmp_idata->next = NULL;
-            if (!head)
-                head = tmp_idata;
-            else
-            {
-                t_IDAT *last = head;
-                while (last->next)
-                    last = last->next;
-                last->next = tmp_idata;
-            }
-            // ft_printf("[PNG PARSER] - just read an IDAT...\n");
+            append_idat(&head, tmp_idata);
         }
         else if (typeRet == 2)
-        {
-            // ft_printf("[PNG PARSER] - end of image found returning...\n");
             break;
-        }
-        else
+        else if (!skip_unknown_chunk(pngFile->fd, type, len))
         {
-            char *c = (char *)&type;
-            if (!(c[0] & 0x20))
-            {
-                free_idat_list(head);
-                ft_dprintf(STDERR_FILENO, "[PNG PARSER] - Error, mandatory unknown header found (%c), can't diplay the image\n", c);
-                return head;
-            }
-            lseek(pngFile->fd, len + 4, SEEK_CUR);
+            free_idat_list(head);
+            return head;
         }
     }
     return (head);

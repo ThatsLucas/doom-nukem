@@ -12,8 +12,8 @@
 
 #include "GUI/GUI.h"
 #include "Window.h"
-#include "../../../includes/parser/PNG.h"
-#include "../../../includes/parser/huffman.h"
+#include "parser/PNG.h"
+#include "parser/huffman.h"
 
 static SDL_PixelFormatEnum decidePixelFormat(uint8_t color_type)
 {
