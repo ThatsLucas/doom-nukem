@@ -41,42 +41,33 @@ static void	select_props(t_game *game)
 	return ;
 }
 
+static void	add_entity_type_button(t_game *game, char *label, void (*callback)(t_game *), SDL_Rect dest)
+{
+	t_RGB	color = (t_RGB){171, 0, 186, 255};
+	t_RGB	hover = (t_RGB){193, 115, 200, 255};
+	t_font	*text = calloc(1, sizeof(t_font));
+
+	text->color = (SDL_Color){255, 255, 255, 255};
+	text->size = 24;
+	create_text(text, game->window->renderPTR, label, "assets/fonts/MontserratBlack.ttf");
+	create_button(&game->editor->buttons_entities, callback, dest, color, hover, text, text, -1);
+}
+
 void	init_entity_prop(t_game *game)
 {
 	SDL_Rect	dest;
-	t_RGB		color = (t_RGB){171, 0, 186, 255};
-	t_RGB		hover = (t_RGB){193, 115, 200, 255};
-	t_font		*player_spawn = calloc(1, sizeof(t_font));
-	t_font		*entities = calloc(1, sizeof(t_font));
-	t_font		*items = calloc(1, sizeof(t_font));
-	t_font		*props = calloc(1, sizeof(t_font));
 
 	dest.w = 250;
 	dest.h = 80;
 	dest.x = 1555;
 	dest.y = 555;
-	player_spawn->color = (SDL_Color){255, 255, 255, 255};
-	player_spawn->size = 24;
-	create_text(player_spawn, game->window->renderPTR, "Player Spawn", "assets/fonts/MontserratBlack.ttf");
-	create_button(&game->editor->buttons_entities, select_spawn, dest, color, hover, player_spawn, player_spawn, -1);
-
+	add_entity_type_button(game, "Player Spawn", select_spawn, dest);
 	dest.y += 100;
-	entities->color = (SDL_Color){255, 255, 255, 255};
-	entities->size = 24;
-	create_text(entities, game->window->renderPTR, "Entities", "assets/fonts/MontserratBlack.ttf");
-	create_button(&game->editor->buttons_entities, select_entity, dest, color, hover, entities, entities, -1);
-
+	add_entity_type_button(game, "Entities", select_entity, dest);
 	dest.y += 100;
-	items->color = (SDL_Color){255, 255, 255, 255};
-	items->size = 24;
-	create_text(items, game->window->renderPTR, "Items", "assets/fonts/MontserratBlack.ttf");
-	create_button(&game->editor->buttons_entities, select_item, dest, color, hover, items, items, -1);
-
+	add_entity_type_button(game, "Items", select_item, dest);
 	dest.y += 100;
-	props->color = (SDL_Color){255, 255, 255, 255};
-	props->size = 24;
-	create_text(props, game->window->renderPTR, "Props", "assets/fonts/MontserratBlack.ttf");
-	create_button(&game->editor->buttons_entities, select_props, dest, color, hover, props, props, -1);
+	add_entity_type_button(game, "Props", select_props, dest);
 
 	game->editor->entity_text = ". . .";
 

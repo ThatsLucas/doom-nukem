@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init_editor_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,6 @@
 
 #include "Editor.h"
 #include "Game.h"
-
 
 static t_RGB	*create_texture_color(t_game *game, SDL_Surface *s, int w, int h)
 {
@@ -37,13 +36,33 @@ static t_RGB	*create_texture_color(t_game *game, SDL_Surface *s, int w, int h)
 	return (res);
 }
 
+/* Render the GPU texture into a surface to read back its pixels */
+static t_RGB	*read_texture_colors(t_game *game, SDL_Texture *texture, int width, int height)
+{
+	SDL_Renderer	*renderer = game->window->renderPTR;
+	SDL_Texture		*target;
+	SDL_Surface		*surface;
+	t_RGB			*colors;
+
+	target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+	SDL_SetRenderTarget(renderer, target);
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+	surface = SDL_CreateRGBSurface(0, width, height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+	SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
+	SDL_SetRenderTarget(renderer, NULL);
+	SDL_DestroyTexture(target);
+	colors = create_texture_color(game, surface, width, height);
+
+	SDL_FreeSurface(surface);
+	return (colors);
+}
+
 static void	init_map_textures(t_game *game)
 {
 	t_map			*map = game->editor->map;
 	int				width, height, i;
-	SDL_Texture		*texture, *target;
-	SDL_Surface		*surface;
-	SDL_Renderer	*renderer = game->window->renderPTR;
+	SDL_Texture		*texture;
 
 	while (map->cap_textures < game->editor->textures->num_textures)
 		map_realloc(game, (void **)&map->textures, &map->cap_textures, sizeof(t_tex));
@@ -54,17 +73,7 @@ static void	init_map_textures(t_game *game)
 		SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 		map->textures[i].h = height;
 		map->textures[i].w = width;
-		target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-		SDL_SetRenderTarget(renderer, target);
-		SDL_RenderCopy(renderer, texture, NULL, NULL);
-
-		surface = SDL_CreateRGBSurface(0, width, height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
-		SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);
-		SDL_SetRenderTarget(renderer, NULL);
-		SDL_DestroyTexture(target);
-		map->textures[i].colors = create_texture_color(game, surface, width, height);
-
-		SDL_FreeSurface(surface);
+		map->textures[i].colors = read_texture_colors(game, texture, width, height);
 	}
 
 	ft_printf("Editor: Map texture initialized (%d)\n", i);
@@ -108,43 +117,4 @@ void	init_editor_map(t_game *game)
 	init_map_textures(game);
 
 	return ;
-}
-
-/*	Réallouer le tableau dynamique de la map	*/
-void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
-{
-	int		new_cap;
-	void	*new_ptr;
-
-	if (*cap)
-		new_cap = *cap * 2;
-	else
-		new_cap = 8;
-	new_ptr = realloc(*pointer, new_cap * sizeofone);
-
-	if (!new_ptr)
-		exit_game(game, "map_realloc failed");
-
-	*pointer = new_ptr;
-	*cap = new_cap;
-
-	return ;
-}
-
-int	get_wall_index(t_map *map, float x, float y)
-{
-	t_wall	*wall;
-	t_vect2	pos;
-
-	pos.x = x;
-	pos.y = y;
-
-	for (int i = 0; i < map->num_walls; ++i)
-	{
-		wall = &map->walls[i];
-		if (point_on_segment(pos, map->vertices[wall->v1], map->vertices[wall->v2], 0.1f))
-			return (i) ;
-	}
-
-	return (-1);
 }

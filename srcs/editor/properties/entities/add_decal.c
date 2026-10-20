@@ -52,13 +52,29 @@ int	suppress_decal(t_game *game, t_vect2 pos)
 	return (0);
 }
 
+/* Size and place the decal on the wall, centered on pos */
+static void	place_decal(t_game *game, t_map *map, int wall_idx, t_vect2 pos, float len)
+{
+	t_decal	*decal = &map->decals[map->num_decals];
+	float	center_u;
+
+	decal->width = decal->height * ((float)decal->texture.w / (float)decal->texture.h);
+	center_u = project_on_wall(map, &map->walls[wall_idx], pos, len) - decal->width * 0.5f;
+	decal->u_offset = SDL_clamp(center_u, 0.0f, len - decal->width);
+	decal->wall_idx = wall_idx;
+	decal->z_bottom = 1.0f;
+	decal->pos = pos;
+	decal->elev_sector = game->editor->switch_sector;
+	decal->sector_id = find_sector(game->editor->map, pos);
+	decal->need_key = 0;
+}
+
 int	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos)
 {
 	int		wall_idx;
 	t_wall	*wall;
 	t_decal	*decal;
 	t_png	png;
-	float	center_u;
 	float	len;
 
 	wall_idx = get_wall_index(map, pos.x, pos.y);
@@ -79,15 +95,7 @@ int	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 po
 	decal->texture = png_to_tex(&png);
 	free_png_buf(&png);
 	decal->height = height;
-	decal->width = decal->height * ((float)decal->texture.w / (float)decal->texture.h);
-	center_u = project_on_wall(map, wall, pos, len) - decal->width * 0.5f;
-	decal->u_offset = SDL_clamp(center_u, 0.0f, len - decal->width);
-	decal->wall_idx = wall_idx;
-	decal->z_bottom = 1.0f;
-	decal->pos = pos;
-	decal->elev_sector = game->editor->switch_sector;
-	decal->sector_id = find_sector(game->editor->map, pos);
-	decal->need_key = 0;
+	place_decal(game, map, wall_idx, pos, len);
 	map->num_decals++;
 
 	return (0);

@@ -137,6 +137,8 @@ void	display_editor(t_game *game);
 void	display_grid(t_game *game);
 void	display_separators(t_game *game);
 void	display_editor_map(t_game *game);
+void	draw_map_slope_arrows(t_game *game);
+void	draw_map_entities(t_game *game);
 
 /* Texture Selector */
 void	draw_texture_selector(t_game *game);
@@ -150,7 +152,13 @@ void	get_clicked_texture_button(t_game *game, int x, int y);
 
 /* Events */
 void	editor_events(t_game *game);
+void	editor_text_input(t_editor *editor, char *text);
+void	editor_key_down(t_editor *editor, SDL_Keycode code, t_game *game);
 void	plan_click(t_game *game, SDL_Event *e);
+int		click_remove_slope(t_game *game, SDL_Event *e);
+int		click_remove_entity(t_game *game, SDL_Event *e);
+void	click_erase(t_game *game, SDL_Event *e);
+void	click_select(t_game *game, SDL_Event *e);
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel);
 void	entities_events(t_game *game, SDL_Event *e);
 
@@ -190,6 +198,9 @@ void	editor_add_wall(t_game *game, int v1, int v2);
 t_vect2	*get_clicked_vertice(t_game *game, float x, float y);
 void	clear_editor_plan(t_game *game);
 void	compute_sectors(t_map *map);
+int		he_wall(int he);
+int		trace_he_loop(t_map *map, int start_he, int *loop_out);
+float	signed_area_he(t_map *map, int *loop, int count);
 void	suppress_vertice(t_game *game, float x, float y);
 void	suppress_wall(t_game *game, int wall_indx);
 
@@ -198,5 +209,19 @@ int		save_map(char *name, t_map *map);
 void	save_editor_map(t_game *game);
 t_map	*load_map(char *name, t_game *game, int editor);
 void	load_editor_map(t_game *game);
+int		read_full(int fd, void *buf, size_t size);
+char	*get_map_name_input(t_game *game);
+int		load_vertices_walls(t_map *map, int fd);
+int		load_sectors(t_map *map, int fd);
+int		load_elevators(t_map *map, int fd);
+int		load_textures(t_map *map, int fd);
+int		load_spawn_and_decals(t_map *map, int fd);
+int		load_entities(t_map *map, int fd);
+void	save_vertices_walls(t_map *map, int fd);
+void	save_sectors(t_map *map, int fd);
+void	save_textures(t_map *map, int fd);
+void	save_spawn_and_decals(t_map *map, int fd);
+void	save_elevators(t_map *map, int fd);
+void	save_entities(t_map *map, int fd);
 
 #endif

@@ -47,34 +47,12 @@ static t_plane	compute_slope_plane(t_vect2 base, t_vect2 tip, float intensity)
 	return ((t_plane){-A, -B, 1.0f, -(A * base.x) - (B * base.y)});
 }
 
-void	editor_place_slope(t_game *game, int pixx, int pixy)
+/* Second click: apply the slope from slope_base to click_pos on the floor or ceil */
+static void	apply_slope(t_game *game, t_sector *sector, t_vect2 click_pos)
 {
-	t_editor_properties	*props;
-	t_vect2				click_pos;
-	int					sector_idx;
-	t_sector			*sector;
+	t_editor_properties	*props = &game->editor->properties;
 	float				intensity;
 	t_plane				plane;
-
-	props = &game->editor->properties;
-	if (pixx > game->editor->plan.size.w)
-		return ;
-	click_pos = pixels_to_pos(game->editor, (float)pixx, (float)pixy);
-
-	if (props->slope_step == 0)
-	{
-		if (find_sector(game->editor->map, click_pos) < 0)
-			return ;
-		props->slope_base = click_pos;
-		props->slope_step = 1;
-		return ;
-	}
-
-	sector_idx = find_sector(game->editor->map, props->slope_base);
-	props->slope_step = 0;
-	if (sector_idx < 0)
-		return ;
-	sector = &game->editor->map->sectors[sector_idx];
 
 	if (props->slope_fc == 0)
 	{
@@ -94,4 +72,31 @@ void	editor_place_slope(t_game *game, int pixx, int pixy)
 		sector->ceil_arrow_tip = click_pos;
 		sector->has_ceil_arrow = 1;
 	}
+}
+
+void	editor_place_slope(t_game *game, int pixx, int pixy)
+{
+	t_editor_properties	*props;
+	t_vect2				click_pos;
+	int					sector_idx;
+
+	props = &game->editor->properties;
+	if (pixx > game->editor->plan.size.w)
+		return ;
+	click_pos = pixels_to_pos(game->editor, (float)pixx, (float)pixy);
+
+	if (props->slope_step == 0)
+	{
+		if (find_sector(game->editor->map, click_pos) < 0)
+			return ;
+		props->slope_base = click_pos;
+		props->slope_step = 1;
+		return ;
+	}
+
+	sector_idx = find_sector(game->editor->map, props->slope_base);
+	props->slope_step = 0;
+	if (sector_idx < 0)
+		return ;
+	apply_slope(game, &game->editor->map->sectors[sector_idx], click_pos);
 }

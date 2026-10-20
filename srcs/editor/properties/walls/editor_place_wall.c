@@ -13,6 +13,45 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Click on an existing vertice: close the current wall or start a new one */
+static void	click_existing_vertice(t_game *game, t_map *map, t_vect2 *existing)
+{
+	t_editor_properties	*props = &game->editor->properties;
+
+	if (props->draw_wall_active)
+	{
+		if (existing - map->vertices != props->last_vertex)
+		{
+			editor_add_wall(game, props->last_vertex, existing - map->vertices);
+			props->draw_wall_active = 0;
+			compute_sectors(map);
+		}
+		return ;
+	}
+	props->draw_wall_active = 1;
+	props->last_vertex = existing - map->vertices;
+}
+
+/* Click on an empty spot: add a vertice and continue the current wall */
+static void	click_new_vertice(t_game *game, t_map *map, t_vect2 click_pos)
+{
+	t_editor_properties	*props = &game->editor->properties;
+
+	editor_add_vertice(game, click_pos.x, click_pos.y);
+	if (props->draw_wall_active)
+	{
+		int new_vertex = map->num_vertices - 1;
+
+		editor_add_wall(game, props->last_vertex, new_vertex);
+		props->last_vertex = new_vertex;
+	}
+	else
+	{
+		props->draw_wall_active = 1;
+		props->last_vertex = map->num_vertices - 1;
+	}
+}
+
 /*	Placer un wall dans l'editor en cliquant	*/
 void	editor_place_wall(t_game *game, int pixx, int pixy, int button)
 {
@@ -34,37 +73,8 @@ void	editor_place_wall(t_game *game, int pixx, int pixy, int button)
 		return ;
 
 	existing = get_clicked_vertice(game, click_pos.x, click_pos.y);
-
-	if (game->editor->properties.draw_wall_active && existing)
-	{
-		if (existing - map->vertices != game->editor->properties.last_vertex)
-		{
-			editor_add_wall(game, game->editor->properties.last_vertex, existing - map->vertices);
-			game->editor->properties.draw_wall_active = 0;
-			compute_sectors(map);
-		}
-		return ;
-	}
-	else if (existing)
-	{
-		game->editor->properties.draw_wall_active = 1;
-		game->editor->properties.last_vertex = existing - map->vertices;
-		return ;
-	}
-
-	editor_add_vertice(game, click_pos.x, click_pos.y);
-	if (game->editor->properties.draw_wall_active)
-	{
-		int new_vertex = map->num_vertices - 1;
-
-		editor_add_wall(game, game->editor->properties.last_vertex, new_vertex);
-		game->editor->properties.last_vertex = new_vertex;
-	}
+	if (existing)
+		click_existing_vertice(game, map, existing);
 	else
-	{
-		game->editor->properties.draw_wall_active = 1;
-		game->editor->properties.last_vertex = map->num_vertices - 1;
-	}
-
-	return ;
+		click_new_vertice(game, map, click_pos);
 }

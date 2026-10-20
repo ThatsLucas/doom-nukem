@@ -42,6 +42,26 @@ static int	is_on_texture(int x, int y)
 	return (0);
 }
 
+/* Write the chosen texture (or none) into the variable waiting for it */
+static void	set_selected_texture(t_game *game, int selected)
+{
+	if (selected == game->editor->textures->num_textures)
+	{
+		*game->editor->texture_selector.variable_to_set = NULL;
+		if (game->editor->texture_selector.index_to_set)
+			*game->editor->texture_selector.index_to_set = -1;
+	}
+	else
+	{
+		*game->editor->texture_selector.variable_to_set = game->editor->textures->textures[selected];
+		if (game->editor->texture_selector.index_to_set)
+			*game->editor->texture_selector.index_to_set = selected;
+	}
+	game->editor->texture_selector.display = 0;
+	game->editor->texture_selector.variable_to_set = NULL;
+	game->editor->texture_selector.index_to_set = NULL;
+}
+
 void	get_clicked_texture(t_game *game, int x, int y)
 {
 	SDL_Rect	box = { .x = 710, .y = 555, .w = 580, .h = 340};
@@ -63,21 +83,7 @@ void	get_clicked_texture(t_game *game, int x, int y)
 	selected = (y / 120) * 5 + (x / 120) + game->editor->texture_selector.page * 15;
 	if (selected > game->editor->textures->num_textures)
 		return ;
-	if (selected == game->editor->textures->num_textures)
-	{
-		*game->editor->texture_selector.variable_to_set = NULL;
-		if (game->editor->texture_selector.index_to_set)
-			*game->editor->texture_selector.index_to_set = -1;
-	}
-	else
-	{
-		*game->editor->texture_selector.variable_to_set = game->editor->textures->textures[selected];
-		if (game->editor->texture_selector.index_to_set)
-			*game->editor->texture_selector.index_to_set = selected;
-	}
-	game->editor->texture_selector.display = 0;
-	game->editor->texture_selector.variable_to_set = NULL;
-	game->editor->texture_selector.index_to_set = NULL;
+	set_selected_texture(game, selected);
 
 	return ;
 }

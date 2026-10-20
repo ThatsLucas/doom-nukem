@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_map.c                                         :+:      :+:    :+:   */
+/*   save_map_sections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 13:07:13 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:17:33 by aabouyaz         ###   ########.fr       */
+/*   Created: 2026/10/20 13:03:09 by aabouyaz          #+#    #+#             */
+/*   Updated: 2026/10/20 13:03:09 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	save_one_wall(t_wall *w, int fd)
 	write(fd, &w->alpha, sizeof(float));
 }
 
-static void	save_vertices_walls(t_map *map, int fd)
+void	save_vertices_walls(t_map *map, int fd)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static void	save_vertices_walls(t_map *map, int fd)
 	return ;
 }
 
-static void	save_sectors(t_map *map, int fd)
+void	save_sectors(t_map *map, int fd)
 {
 	t_sector	s;
 
@@ -71,7 +71,7 @@ static void	save_sectors(t_map *map, int fd)
 	return ;
 }
 
-static void	save_textures(t_map *map, int fd)
+void	save_textures(t_map *map, int fd)
 {
 	t_tex	t;
 
@@ -88,7 +88,7 @@ static void	save_textures(t_map *map, int fd)
 	return ;
 }
 
-static void	save_entity(t_map *map, int fd)
+void	save_spawn_and_decals(t_map *map, int fd)
 {
 	t_decal	d;
 
@@ -117,7 +117,7 @@ static void	save_entity(t_map *map, int fd)
 	return ;
 }
 
-static void	save_elevators(t_map *map, int fd)
+void	save_elevators(t_map *map, int fd)
 {
 	for (int i = 0; i < map->num_sectors; ++i)
 	{
@@ -128,7 +128,7 @@ static void	save_elevators(t_map *map, int fd)
 	return ;
 }
 
-static void	save_entities(t_map *map, int fd)
+void	save_entities(t_map *map, int fd)
 {
 	write(fd, &map->num_entities, sizeof(int));
 	for (int i = 0; i < map->num_entities; ++i)
@@ -139,56 +139,4 @@ static void	save_entities(t_map *map, int fd)
 		write(fd, &map->entities[i].id, sizeof(int));
 		write(fd, &map->entities[i].type, sizeof(int));
 	}
-}
-
-int	save_map(char *name, t_map *map)
-{
-	char	*file;
-
-	file = ft_strjoin("saves/", name);
-
-	int	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	free(file);
-	if (fd < 0)
-		return (1);
-
-	write(fd, &map->mapSize, sizeof(t_vect2));
-	save_vertices_walls(map, fd);
-	save_sectors(map, fd);
-	save_textures(map, fd);
-	save_entity(map, fd);
-	save_elevators(map, fd);
-	save_entities(map, fd);
-
-	ft_printf("Map Saved !\n");
-
-	close(fd);
-	return (0);
-}
-
-void	save_editor_map(t_game *game)
-{
-	t_list			*current = game->editor->text_inputs;
-	t_text_input	*input;
-	char			*s;
-	t_map			*map;
-
-	s = NULL;
-	while (current)
-	{
-		input = (t_text_input *)current->content;
-		if (!ft_strcmp("mapName", input->name))
-		{
-			s = input->text;
-			break ;
-		}
-		current = current->next;
-	}
-	if (!s || !ft_strlen(s))
-	{
-		ft_printf("Can't save the map: name needed\n");
-		return ;
-	}
-	map = game->editor->map;
-	save_map(s, map);
 }
