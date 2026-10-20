@@ -155,8 +155,10 @@ void activate_flashlight(t_game *game);
 void activate_jetpack(t_game *game);
 void add_item(t_game *game, t_ground_item new_item);
 
-/* easy_create.c : creation "one-liner" de chaque item, comme les
-   create_pnj/create_enemy/create_boss de srcs/entities/easy_create.c */
+/* items_create*.c : creation "one-liner" de chaque item, comme les
+   create_pnj/create_enemy/create_boss de srcs/entities/entities_create_*.c */
+void create_ground_item(t_game *game, t_vect2 pos, char *png_path,
+		float world_height, t_ground_item item);
 void create_item_heal(t_game *game, t_vect2 pos, int amount);
 void create_item_fuel(t_game *game, t_vect2 pos, int amount);
 void create_item_battery(t_game *game, t_vect2 pos, int amount);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pickup_items.c                                     :+:      :+:    :+:   */
+/*   items_pickup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,6 +13,36 @@
 #include "inventory/Inventory.h"
 #include "Player.h"
 #include "Game.h"
+
+/* Adds fuel to the jetpack if the player has one */
+static void pickup_fuel(t_ply *ply, int amount)
+{
+	for (int i = 0; i < ply->inventory.tool_count; i++)
+	{
+		if (ply->inventory.tools[i].type == TOOL_JETPACK)
+		{
+			ply->inventory.tools[i].data.fuel += amount;
+			if (ply->inventory.tools[i].data.fuel > MAX_FUEL)
+				ply->inventory.tools[i].data.fuel = MAX_FUEL;
+			break;
+		}
+	}
+}
+
+/* Adds battery to the flashlight if the player has one */
+static void pickup_battery(t_ply *ply, int amount)
+{
+	for (int i = 0; i < ply->inventory.tool_count; i++)
+	{
+		if (ply->inventory.tools[i].type == TOOL_FLASHLIGHT)
+		{
+			ply->inventory.tools[i].data.battery += amount;
+			if (ply->inventory.tools[i].data.battery > MAX_BATTERY)
+				ply->inventory.tools[i].data.battery = MAX_BATTERY;
+			break;
+		}
+	}
+}
 
 /* Pickup a consumable -> Battery, heal or fuel */
 static void pickup_consumable(t_game *game, t_ground_item *item)
@@ -31,28 +61,10 @@ static void pickup_consumable(t_game *game, t_ground_item *item)
 			ply->hp = MAX_HP;
 		break;
 	case CONS_FUEL:
-		for (int i = 0; i < ply->inventory.tool_count; i++)
-		{
-			if (ply->inventory.tools[i].type == TOOL_JETPACK)
-			{
-				ply->inventory.tools[i].data.fuel += cons->amount;
-				if (ply->inventory.tools[i].data.fuel > MAX_FUEL)
-					ply->inventory.tools[i].data.fuel = MAX_FUEL;
-				break;
-			}
-		}
+		pickup_fuel(ply, cons->amount);
 		break;
 	case CONS_BATTERY:
-		for (int i = 0; i < ply->inventory.tool_count; i++)
-		{
-			if (ply->inventory.tools[i].type == TOOL_FLASHLIGHT)
-			{
-				ply->inventory.tools[i].data.battery += cons->amount;
-				if (ply->inventory.tools[i].data.battery > MAX_BATTERY)
-					ply->inventory.tools[i].data.battery = MAX_BATTERY;
-				break;
-			}
-		}
+		pickup_battery(ply, cons->amount);
 		break;
 	default:
 		break;
