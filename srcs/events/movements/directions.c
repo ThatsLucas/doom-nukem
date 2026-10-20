@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   directions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:06 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/29 14:02:59 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/10/20 16:29:57 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
 
-/*
-	Calcule le nouvelle angle du joueur
-	1073741903 = RIGHT
-	1073741904 = LEFT
-*/
+/* Tourne le joueur avec les touches de direction. */
 void ply_directions(t_ply *ply)
 {
 	float old_dir_x;

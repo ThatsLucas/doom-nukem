@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Calcule la taille totale des données IDAT. */
 __uint64_t get_total_compressed_size(t_IDAT *lst)
 {
     __uint64_t size = 0;
@@ -24,6 +25,7 @@ __uint64_t get_total_compressed_size(t_IDAT *lst)
     return size;
 }
 
+/* Concatène les données de tous les blocs IDAT. */
 __uint8_t *merge_all_buffers(t_IDAT *lst)
 {
     __uint64_t compressedSize = get_total_compressed_size(lst);
@@ -43,6 +45,7 @@ __uint8_t *merge_all_buffers(t_IDAT *lst)
     return compressedBuffer;
 }
 
+/* Libère la liste des blocs IDAT. */
 void free_idat_list(t_IDAT *lst)
 {
     while (lst)

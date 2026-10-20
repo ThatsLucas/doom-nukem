@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Lit l’en-tête du bloc IHDR. */
 static int read_IHDR_header(int fd, t_IHDR *headerIHDR)
 {
     ssize_t bytes_read = read(fd, &headerIHDR->chunklen, sizeof(headerIHDR->chunklen));
@@ -31,6 +32,7 @@ static int read_IHDR_header(int fd, t_IHDR *headerIHDR)
     return (0);
 }
 
+/* Lit toutes les données du bloc IHDR. */
 static int read_all_IHDR_datas(t_png *pngFile)
 {
     int fd = pngFile->fd;
@@ -68,7 +70,7 @@ static int read_all_IHDR_datas(t_png *pngFile)
     return (0);
 }
 
-// read juste pas besoin de check l'integrite normalement
+/* Lit les informations de contrôle CRC. */
 static int read_crc_info(t_IHDR *headerIHDR, int fd)
 {
     int ret = 0;
@@ -76,12 +78,14 @@ static int read_crc_info(t_IHDR *headerIHDR, int fd)
     return (ret);
 }
 
+/* Convertit les valeurs au format petit-boutiste. */
 static void convert_all_value_to_little_endian(t_png *pngFile)
 {
     pngFile->w = big_endian_to_little_endian(pngFile->w);
     pngFile->h = big_endian_to_little_endian(pngFile->h);
 }
 
+/* Lit et valide le bloc IHDR. */
 int find_png_IHDR(t_IHDR *headerIHDR, t_png *pngFile)
 {
     if (read_IHDR_header(pngFile->fd, headerIHDR) < 0)

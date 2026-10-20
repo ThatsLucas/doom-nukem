@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/*Recuperer la timestamp actuelle en ms*/
+/* Récupère l’horodatage actuel. */
 long	get_timestamp(void)
 {
 	struct timeval time;
@@ -23,7 +23,7 @@ long	get_timestamp(void)
 	return ((long)(time.tv_sec * 1000 + time.tv_usec / 1000));
 }
 
-/* Renders str with the hud text font at dest (1920x1080 space) */
+/* Affiche un libellé du HUD à la position indiquée. */
 static void	draw_hud_label(t_game *game, char *str, SDL_Rect dest)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -45,7 +45,7 @@ static void	draw_hud_label(t_game *game, char *str, SDL_Rect dest)
 	SDL_DestroyTexture(texture);
 }
 
-/* Counts the frames and updates game->fps every second. Returns 0 on the first call */
+/* Met à jour les FPS. */
 static int	update_fps(t_game *game)
 {
 	static int fps = 0;
@@ -71,7 +71,7 @@ static int	update_fps(t_game *game)
 	return (1);
 }
 
-/* Afficher les fps en haut a droite de l'ecran */
+/* Affiche le compteur de FPS. */
 void	display_fps(t_game *game)
 {
 	if (!update_fps(game))

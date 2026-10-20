@@ -13,7 +13,7 @@
 #include "multiplayer/server.h"
 #include "Game.h"
 
-/*return la pos dans la table interne du joueur si trouve*/
+/* Renvoie l’indice du joueur s’il est déjà connecté. */
 int is_player_connected(t_game *game, struct sockaddr *client)
 {
     for (int i = 0; i < 4; i++)
@@ -24,6 +24,7 @@ int is_player_connected(t_game *game, struct sockaddr *client)
     return (-1);
 }
 
+/* Ajoute un nouveau joueur au serveur. */
 int add_new_player(t_game *game, struct sockaddr *newClient)
 {
     t_server_udp_datas datas;
@@ -53,6 +54,7 @@ int add_new_player(t_game *game, struct sockaddr *newClient)
     return (idx);
 }
 
+/* Retire un joueur du serveur. */
 void remove_player(t_game *game, struct sockaddr *disconnectedPlayer)
 {
     if (!game || !disconnectedPlayer)

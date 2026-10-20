@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/02 10:00:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/02 10:00:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:31:22 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/*
-	Dessine un sprite dans le frame_buffer avec un test de profondeur :
-	un pixel n'est ecrit que si rien (mur, sol, toit, autre sprite)
-	n'a deja ete dessine plus pres a cet endroit.
-	depth doit etre dans la meme unite que ray->perp_dist (transform_y)
-*/
+/* Dessine un sprite pixel par pixel en respectant le z-buffer. */
 void	draw_sprite_zbuf(t_game *game, t_tex *tex, SDL_Rect d, float depth, int light)
 {
 	int		sW = game->screenSize[0], sH = game->screenSize[1];

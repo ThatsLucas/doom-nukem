@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* Affiche le ciel si il y en a un */
+/* Dessine le ciel lorsqu’une texture est définie. */
 static void	draw_sky(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	int		tex_x, tex_y;
@@ -43,7 +43,7 @@ static void	draw_sky(t_game *game, t_ray *ray, int x, t_sector *sector)
 	return ;
 }
 
-/* affiche un plafond */
+/* Dessine le plafond (ou le ciel) d’une colonne. */
 void	draw_ceil(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	int			tex_x, tex_y;

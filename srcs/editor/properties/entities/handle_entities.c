@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Gère le choix de l’entité à placer. */
 void	handle_entities(t_game *game, int x)
 {
 	t_editor	*editor			= game->editor;

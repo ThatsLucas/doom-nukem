@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "entities/Entities.h"
 
+/* Vérifie si la position touche la hitbox d’une entité. */
 int	entities_collision(t_game *game, float next_x, float next_y)
 {
 	double	dx, dy, hitbox;

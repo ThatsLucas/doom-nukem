@@ -13,6 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
+/* Renvoie le vecteur allant de a à b. */
 t_vect2	edge(t_vect2 a, t_vect2 b)
 {
 	t_vect2	res;
@@ -23,12 +24,13 @@ t_vect2	edge(t_vect2 a, t_vect2 b)
 	return (res);
 }
 
-/*	r × s = r.x * s.y - r.y * s.x	*/
+/* Calcule le produit vectoriel 2D. */
 float vect2_product(t_vect2 r, t_vect2 s)
 {
 	return (r.x * s.y - r.y * s.x);
 }
 
+/* Calcule la distance entre deux points. */
 float	dist_vect(t_vect2 a, t_vect2 b)
 {
 	float	len;

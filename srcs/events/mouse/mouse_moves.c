@@ -14,6 +14,7 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
+/* Tourne la vue horizontalement selon la souris. */
 static void mouse_x(int x, t_ply *pl, t_game *game)
 {
 	t_vect2 old_dir;
@@ -37,6 +38,7 @@ static void mouse_x(int x, t_ply *pl, t_game *game)
 	pl->dir.y = old_dir.x * sinf(angle) + old_dir.y * cosf(angle);
 }
 
+/* Incline la vue verticalement selon la souris. */
 static void mouse_y(int y, t_ply *pl, t_game *game)
 {
 	int newpitch;
@@ -48,7 +50,7 @@ static void mouse_y(int y, t_ply *pl, t_game *game)
 		pl->pitch = newpitch;
 }
 
-/*hook pour les mouvements de souris (directions)*/
+/* Oriente la vue selon le mouvement de la souris. */
 void mouse_moves(int x, int y, t_game *game)
 {
 	static int middle_x = 0;

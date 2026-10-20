@@ -13,7 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
-/* Cherche le plus petit rayon qui hit un mur */
+/* Trouve le mur le plus proche touché par le rayon. */
 void	find_smaller_ray(t_game *game, t_sector *sector, t_ray *ray, int skip_wall)
 {
 	t_wall		*w;

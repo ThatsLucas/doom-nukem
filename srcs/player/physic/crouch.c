@@ -12,6 +12,7 @@
 
 #include "Player.h"
 
+/* Accroupit ou relève le joueur. */
 void player_crouch(t_ply *ply)
 {
     if (!ply->physic.is_crouching)

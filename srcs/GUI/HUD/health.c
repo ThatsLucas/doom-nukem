@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/* Adds hp amount on the renderer */
+/* Affiche les points de vie du joueur. */
 static void	display_hp(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {150, 0, 0, 255};
@@ -38,7 +38,7 @@ static void	display_hp(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Adds "HEALTH" on the renderer */
+/* Affiche la santé du joueur. */
 static void	display_health(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -58,7 +58,7 @@ static void	display_health(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Display "HEALTH" and the current hp of the player on the screen */
+/* Affiche le module de santé du HUD. */
 void	display_module_health(t_game *game, int x, int y, int w, int h)
 {
 	display_health(game, x, y, w, h);

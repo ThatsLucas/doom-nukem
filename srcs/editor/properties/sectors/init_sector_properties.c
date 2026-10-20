@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	Initialisation de la partie sector dans les propriétés	*/
+/* Crée les champs des propriétés du secteur. */
 void	init_sector_properties(t_game *game)
 {
 	SDL_Rect	box;

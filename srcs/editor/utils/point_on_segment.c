@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* Le point A est til sur la droite BC */
+/* Vérifie si un point se trouve sur un segment. */
 int point_on_segment(t_vect2 a, t_vect2 b, t_vect2 c, float eps)
 {
 	t_vect2	bc = edge(b, c);

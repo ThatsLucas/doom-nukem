@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:00:11 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:00:11 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:24:38 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
-/* Slope tool, right click: cancel the current slope or remove a slope arrow */
+/* Supprime la pente du secteur cliqué. */
 int	click_remove_slope(t_game *game, SDL_Event *e)
 {
 	t_editor_properties	*props = &game->editor->properties;
@@ -44,10 +44,7 @@ int	click_remove_slope(t_game *game, SDL_Event *e)
 	return (1);
 }
 
-/*
-	Entity tool, right click: cancel the current entity or remove a decal / entity.
-	Returns 0 if nothing was removed, so the click falls back to the eraser.
-*/
+/* Supprime l’entité cliquée. */
 int	click_remove_entity(t_game *game, SDL_Event *e)
 {
 	t_vect2	click_pos;
@@ -73,7 +70,7 @@ int	click_remove_entity(t_game *game, SDL_Event *e)
 	return (0);
 }
 
-/* Right click with any tool: remove the vertice / wall under the cursor */
+/* Efface l’élément cliqué avec la gomme. */
 void	click_erase(t_game *game, SDL_Event *e)
 {
 	t_vect2	mousePos;

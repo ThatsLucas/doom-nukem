@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Connecte le joueur au salon multijoueur. */
 static void connect_to_lobby(t_game *game, char *ip, int is_host)
 {
     if (game->clientConnection.con_socket != 0)
@@ -27,13 +28,13 @@ static void connect_to_lobby(t_game *game, char *ip, int is_host)
     game->settings.is_host = is_host;
 }
 
-// ca va te co en local si le serveur existe deja
+/* Démarre une partie en tant qu’hôte. */
 void host_game(t_game *game)
 {
     connect_to_lobby(game, "127.0.0.1", 1);
 }
 
-/* Handles one event of the ip prompt, returns 1 when the prompt is closed */
+/* Gère un événement de saisie de l’adresse du serveur. */
 static int handle_addr_event(t_game *game, char *str, size_t *cursor_pos, size_t text_size)
 {
     SDL_Event event;
@@ -73,7 +74,7 @@ static int handle_addr_event(t_game *game, char *str, size_t *cursor_pos, size_t
     return (0);
 }
 
-/* Draws the typed ip and the two instruction texts */
+/* Affiche l’adresse saisie et les instructions de connexion. */
 static void draw_addr_texts(t_WIN *win, char *str, size_t text_size)
 {
     t_font text;
@@ -95,7 +96,7 @@ static void draw_addr_texts(t_WIN *win, char *str, size_t text_size)
         SDL_DestroyTexture(text.texture);
 }
 
-/* Blocking prompt to type the host ip address */
+/* Affiche la saisie de l’adresse du serveur hôte. */
 void draw_enter_host_addr(t_game *game)
 {
     char str[30];

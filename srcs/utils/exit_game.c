@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Affiche le message d’erreur avant la fermeture du jeu. */
 static void print_exit_error(char *type)
 {
 	const char *error = SDL_GetError();
@@ -27,6 +28,7 @@ static void print_exit_error(char *type)
 	}
 }
 
+/* Libère les ressources de la fenêtre. */
 static void free_window(t_WIN *win)
 {
 	if (!win)
@@ -42,6 +44,7 @@ static void free_window(t_WIN *win)
 	free(win);
 }
 
+/* Libère toutes les ressources et quitte le jeu. */
 void exit_game(t_game *game, char *type)
 {
 	print_exit_error(type);

@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Change la langue si l’une d’elles est cliquée. */
 int handle_language_selection(t_game *game, t_settings_menu *menu,
                                      SDL_MouseMotionEvent *MouseDatas, int click)
 {
@@ -49,6 +50,7 @@ int handle_language_selection(t_game *game, t_settings_menu *menu,
     return (0);
 }
 
+/* Sélectionne la commande cliquée pour la réassigner. */
 int handle_click_control(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas)
 {
     SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};
@@ -67,6 +69,7 @@ int handle_click_control(t_game *game, t_settings_menu *menu, SDL_MouseMotionEve
     return (0);
 }
 
+/* Applique la résolution de la fenêtre sélectionnée. */
 static void set_window_resolution(t_game *game, int w, int h)
 {
     SDL_SetWindowSize(game->window->winPTR, w, h);
@@ -74,6 +77,7 @@ static void set_window_resolution(t_game *game, int w, int h)
     game->window->h = h;
 }
 
+/* Change la résolution si un bouton est cliqué. */
 int handle_resolution_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas)
 {
     SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};
@@ -97,7 +101,7 @@ int handle_resolution_click(t_game *game, t_settings_menu *menu, SDL_MouseMotion
     return (0);
 }
 
-/* mode: 3 fullscreen, 4 borderless, 5 windowed */
+/* Applique le mode d’affichage sélectionné. */
 static void set_display_mode(t_game *game, int mode)
 {
     Uint32 flags = SDL_GetWindowFlags(game->window->winPTR);
@@ -120,6 +124,7 @@ static void set_display_mode(t_game *game, int mode)
     }
 }
 
+/* Change le mode d’affichage si un bouton est cliqué. */
 int handle_display_mode_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas)
 {
     SDL_Rect mouseCoords = {MouseDatas->x - (game->window->w - menu->ViewPortCoords.w) / 2, MouseDatas->y - menu->ViewPortCoords.y, 0, 0};

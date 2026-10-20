@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Game.h"
 
+/* Applique la gravité et maintient le joueur au-dessus du sol. */
 void apply_constant_forces_to_player(t_ply *ply)
 {
     float delta_time = get_delta_time(ply);

@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Moves the projectile toward its target, slower and smaller as it goes away */
+/* Met à jour la trajectoire du projectile en vol. */
 static void	update_flying(t_projectile *p)
 {
 	float	dx = p->target_x - p->x;
@@ -38,7 +38,7 @@ static void	update_flying(t_projectile *p)
 	}
 }
 
-/* Plays the 3 explosion frames then marks the projectile as dead */
+/* Met à jour l’animation d’explosion du projectile. */
 static void	update_exploding(t_projectile *p)
 {
 	p->expl_tick++;
@@ -51,6 +51,7 @@ static void	update_exploding(t_projectile *p)
 	}
 }
 
+/* Met à jour les projectiles et supprime ceux terminés. */
 void	update_projectiles(t_game *game)
 {
 	t_projectile	**cur = &game->projectiles;
@@ -77,6 +78,7 @@ void	update_projectiles(t_game *game)
 	}
 }
 
+/* Affiche les projectiles. */
 void	render_projectiles(t_game *game)
 {
 	t_projectile	**cur = &game->projectiles;

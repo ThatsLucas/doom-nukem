@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Initialise les boutons et les champs de saisie de l’éditeur. */
 static void	init_buttons_inputs(t_game *game)
 {
 	init_settings_global_buttons(game);
@@ -21,6 +22,7 @@ static void	init_buttons_inputs(t_game *game)
 	return ;
 }
 
+/* Initialise l’éditeur. */
 void	init_editor(t_game *game)
 {
 	game->editor = calloc(1, sizeof(t_editor));
@@ -48,6 +50,7 @@ void	init_editor(t_game *game)
 	return ;
 }
 
+/* Libère l’éditeur et revient au menu. */
 void	exit_editor(t_game *game)
 {
 	TTF_CloseFont(game->editor->font); 

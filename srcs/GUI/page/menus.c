@@ -15,6 +15,7 @@
 #include "menus/menus.h"
 #include "multiplayer/shared.h"
 
+/* Affiche les éléments du jeu en cours. */
 static void draw_in_game(t_game *game)
 {
 	apply_constant_forces_to_player(game->ply);
@@ -33,6 +34,7 @@ static void draw_in_game(t_game *game)
 
 }
 
+/* Affiche la page active. */
 void draw_current_menu(t_game *game)
 {
 	switch (game->window->menus.current)

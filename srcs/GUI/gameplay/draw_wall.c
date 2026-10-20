@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* affiche un mur */
+/* Dessine le mur d’une colonne. */
 void	draw_wall(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	int		draw_top = (ray->y_wall_top > ray->y_top) ? ray->y_wall_top : ray->y_top;

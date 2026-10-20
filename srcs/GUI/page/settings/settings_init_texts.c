@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Crée les textures des textes des paramètres. */
 void init_settings_texts(t_game *game)
 {
     t_languages *lang = game->languages;

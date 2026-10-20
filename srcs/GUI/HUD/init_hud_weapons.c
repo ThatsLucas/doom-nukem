@@ -15,7 +15,7 @@
 #include "parser/PNG.h"
 #include "Game.h"
 
-/* Initialize 3D weapon in multi threads*/
+/* Initialise l’arme 3D et ses animations. */
 static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect *rects, int frame_count, int fire_rate)
 {
 	t_weapon_3D	*w = &game->hud_cache.weapons_3D[weapon_idx];
@@ -54,6 +54,7 @@ static void	init_3D_weapon(t_game *game, int weapon_idx, char **paths, SDL_Rect 
 	}
 }
 
+/* Initialise les sprites 3D des poings. */
 static void	init_3D_fists(t_game *game)
 {
 	static char	*fists_paths[] = {
@@ -73,6 +74,7 @@ static void	init_3D_fists(t_game *game)
 	init_3D_weapon(game, WEAP_FISTS, fists_paths, fists_rects, 4, 90);
 }
 
+/* Initialise les sprites 3D du pistolet. */
 static void	init_3D_pistol(t_game *game)
 {
 	static char	*pistol_paths[] = {
@@ -88,6 +90,7 @@ static void	init_3D_pistol(t_game *game)
 	init_3D_weapon(game, WEAP_PISTOL, pistol_paths, pistol_rects, 2, 130);
 }
 
+/* Initialise les sprites 3D du fusil à pompe. */
 static void	init_3D_shotgun(t_game *game)
 {
 	static char	*shotgun_paths[] = {
@@ -109,6 +112,7 @@ static void	init_3D_shotgun(t_game *game)
 	init_3D_weapon(game, WEAP_SHOTGUN, shotgun_paths, shotgun_rects, 5, 130);
 }
 
+/* Initialise les sprites 3D du lance-roquettes. */
 static void	init_3D_rocket(t_game *game)
 {
 	static char	*rocket_paths[] = {
@@ -134,7 +138,7 @@ static void	init_3D_rocket(t_game *game)
 	init_3D_weapon(game, WEAP_ROCKET_LAUNCHER, rocket_paths, rocket_rects, 7, 100);
 }
 
-/* Initialize 3D weapons */
+/* Initialise les sprites 3D de toutes les armes. */
 void	init_3D_weapons(t_game *game)
 {
 	init_3D_fists(game);

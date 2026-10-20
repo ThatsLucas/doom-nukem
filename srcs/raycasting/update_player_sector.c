@@ -14,7 +14,7 @@
 #include "Raycasting/Types.h"
 #include "Game.h"
 
-/* Bascule le joueur au secteur voisin via le premier portail traverse (2D) */
+/* Transfère le joueur vers le secteur voisin après le passage d’un portail. */
 static void	update_by_crossing(t_game *game, t_vect2 oldpos)
 {
 	t_sector	*sec;
@@ -44,7 +44,7 @@ static void	update_by_crossing(t_game *game, t_vect2 oldpos)
 	}
 }
 
-/* Calcule si le joueur a change de sector et mets a jour la structure. */
+/* Met à jour le secteur dans lequel se trouve le joueur. */
 void	update_player_sector(t_game *game, t_vect2 oldpos)
 {
 	int	found;

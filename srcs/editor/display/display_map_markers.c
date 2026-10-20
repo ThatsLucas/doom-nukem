@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:01:54 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:01:54 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:58:47 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* Dessine la flèche de pente. */
 static void	draw_slope_arrow(t_game *game, t_vect2 base, t_vect2 tip, t_RGB color)
 {
 	t_vect2	pb;
@@ -25,6 +26,7 @@ static void	draw_slope_arrow(t_game *game, t_vect2 base, t_vect2 tip, t_RGB colo
 	SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, pt.x, pt.y);
 }
 
+/* Dessine une entité et sa direction. */
 static void	draw_entity(t_game *game, t_vect2 base, t_vect2 dir, int type)
 {
 	t_vect2	pb;
@@ -58,6 +60,7 @@ static void	draw_entity(t_game *game, t_vect2 base, t_vect2 dir, int type)
 	SDL_RenderDrawLineF(game->window->renderPTR, pb.x, pb.y, pt.x, pt.y);
 }
 
+/* Dessine les flèches des pentes de la carte. */
 void	draw_map_slope_arrows(t_game *game)
 {
 	t_map				*map;
@@ -96,7 +99,7 @@ void	draw_map_slope_arrows(t_game *game)
 	}
 }
 
-/* Entities, player spawn and decals */
+/* Dessine les entités de la carte. */
 void	draw_map_entities(t_game *game)
 {
 	t_map		*map = game->editor->map;

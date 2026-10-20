@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Affiche les textes de la page courante. */
 static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *win)
 {
     Uint64 part = CINEMATIC_ONE_DURATION / 4;
@@ -29,7 +30,7 @@ static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *w
         draw_cinematic_subtitle(menu, win, 3);
 }
 
-/* Scientists walking and smoke rising */
+/* Anime les éléments de la première cinématique. */
 static void move_cinematic_one(t_cinematic *menu, float delta)
 {
     // px per sec
@@ -41,6 +42,7 @@ static void move_cinematic_one(t_cinematic *menu, float delta)
     menu->smokeYPos -= 20 * delta;
 }
 
+/* Affiche la cinématique du niveau 1. */
 void draw_cinematic_one(t_game *game)
 {
     t_WIN *win = game->window;

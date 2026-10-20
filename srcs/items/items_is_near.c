@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-	To know if the player can pickup the item
-
-	Calculates the distance between player pos and item pos.
-	If the distance is under or equal to the range* then true (1);
-	Else then false (0);
-*/
+/* Vérifie si le joueur est assez près pour ramasser l’objet. */
 int	is_near(float px, float py, float ix, float iy, float range)
 {
 	float	dx, dy;

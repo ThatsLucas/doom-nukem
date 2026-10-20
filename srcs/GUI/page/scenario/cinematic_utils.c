@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Time since the last frame in seconds, and saves the current time */
+/* Calcule le temps écoulé depuis la dernière image. */
 float cinematic_delta(t_cinematic *menu, Uint64 curTime)
 {
     float delta;
@@ -26,7 +26,7 @@ float cinematic_delta(t_cinematic *menu, Uint64 curTime)
     return (delta);
 }
 
-/* Grows and shrinks blue_light_ratio between -70 and 70 */
+/* Fait pulser la lumière de la cinématique. */
 void update_light_pulse(t_cinematic *menu, float delta)
 {
     // px per sec
@@ -41,13 +41,13 @@ void update_light_pulse(t_cinematic *menu, float delta)
         menu->blue_light_ratio = -70;
 }
 
-/* Subtitle number idx, centered at the bottom of the screen */
+/* Affiche un sous-titre de la cinématique. */
 void draw_cinematic_subtitle(t_cinematic *menu, t_WIN *win, int idx)
 {
     draw_texture(1920 / 2 - menu->texts[idx].w / 2, 950, menu->texts[idx].w, menu->texts[idx].h, win, menu->texts[idx].texture);
 }
 
-/* Starts the timer on the first frame and goes back to the game at the end */
+/* Lance le niveau quand la cinématique est terminée. */
 void end_cinematic_if_over(t_game *game, t_cinematic *menu, Uint64 curTime)
 {
     if (!menu->cinematatic_begin_time)

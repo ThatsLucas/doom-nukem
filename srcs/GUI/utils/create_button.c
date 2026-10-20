@@ -14,6 +14,7 @@
 #include "Window.h"
 #include "Game.h"
 
+/* Ajoute un nouveau bouton à la liste. */
 static  void insert_new_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
 {
     t_buttons *new;
@@ -41,6 +42,7 @@ static  void insert_new_button(t_buttons **button_list, void (*callback)(t_game 
     return;
 }
 
+/* Vérifie si la souris est sur le bouton. */
 int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoords)
 {
     if (mouseCoords.x < buttonCoords.x || mouseCoords.x > buttonCoords.x  + buttonCoords.w)
@@ -50,12 +52,13 @@ int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoords)
     return 1;
 }
 
+/* Crée un bouton et l’ajoute à la liste. */
 void create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID)
 {
     insert_new_button(button_list, callback, coords, color, hoverColor, text, textHover, pageID);
 }
 
-/* Label of the button, centered (minus its vertical offset) */
+/* Dessine le texte du bouton. */
 static void draw_button_text(t_game *game, t_buttons *button, t_font *textFont, int HOffset)
 {
     int x = button->buttonCoords.x + (button->buttonCoords.w / 2 - textFont->w / 2);
@@ -68,7 +71,7 @@ static void draw_button_text(t_game *game, t_buttons *button, t_font *textFont, 
     SDL_RenderCopy(game->window->renderPTR, textFont->texture, NULL, &btn_text_dest);
 }
 
-/* Draws one button, using its hover color / text when the mouse is on it */
+/* Affiche le bouton. */
 static void display_button(t_buttons *button, t_game *game, SDL_Rect mouseCoords)
 {
     t_RGB color = button->color;
@@ -94,6 +97,7 @@ static void display_button(t_buttons *button, t_game *game, SDL_Rect mouseCoords
         draw_button_text(game, button, textFont, HOffset);
 }
 
+/* Affiche les boutons de la page indiquée. */
 void display_buttons(t_buttons *button_list, t_game *game, int pageID)
 {
     SDL_Rect mouseCoords;
@@ -107,6 +111,7 @@ void display_buttons(t_buttons *button_list, t_game *game, int pageID)
     }
 }
 
+/* Exécute l’action du bouton cliqué. */
 int check_button_pressed(t_game *game, t_buttons *button_list)
 {
     SDL_Rect mouseCoords;
@@ -132,6 +137,7 @@ int check_button_pressed(t_game *game, t_buttons *button_list)
     return 0;
 }
 
+/* Libère la liste des boutons. */
 void free_buttons(t_buttons *buttonlist)
 {
     if (!buttonlist)

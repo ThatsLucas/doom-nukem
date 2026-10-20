@@ -15,7 +15,7 @@
 #include "menus/menus.h"
 #include "multiplayer/client.h"
 
-/*charge le niveau sans check d'hote (appele aussi quand le serveur lance la partie)*/
+/* Charge le niveau demandé. */
 void load_level(t_game *game, int level)
 {
     static char *names[3] = {"level1", "level2", "level3"};
@@ -47,6 +47,7 @@ void load_level(t_game *game, int level)
     game->window->menus.cinematic.cinematatic_duration = CINEMATIC_ONE_DURATION;
 }
 
+/* Vérifie si le niveau peut être lancé. */
 static int can_start_level(t_game *game)
 {
     if (game->settings.multiplayer_enabled && !game->settings.is_host)
@@ -57,24 +58,28 @@ static int can_start_level(t_game *game)
     return (1);
 }
 
+/* Lance le niveau 1. */
 void start_level_1(t_game *game)
 {
     if (can_start_level(game))
         load_level(game, 1);
 }
 
+/* Lance le niveau 2. */
 void start_level_2(t_game *game)
 {
     if (can_start_level(game))
         load_level(game, 2);
 }
 
+/* Lance le niveau 3. */
 void start_level_3(t_game *game)
 {
     if (can_start_level(game))
         load_level(game, 3);
 }
 
+/* Quitte le salon pour le menu principal. */
 void lobby_to_main_menu(t_game *game)
 {
     if (game->settings.multiplayer_enabled)
@@ -82,6 +87,7 @@ void lobby_to_main_menu(t_game *game)
     game->window->menus.current = 1;
 }
 
+/* Ouvre le salon multijoueur. */
 void lobby_to_multi_lobby(t_game *game)
 {
     if (game->settings.multiplayer_enabled)
@@ -89,6 +95,7 @@ void lobby_to_multi_lobby(t_game *game)
     game->window->menus.current = 4;
 }
 
+/* Ouvre le salon solo. */
 void lobby_to_solo_lobby(t_game *game)
 {
     if (game->settings.multiplayer_enabled)

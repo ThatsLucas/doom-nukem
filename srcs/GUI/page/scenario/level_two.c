@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Affiche les textes de la page courante. */
 static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *win)
 {
     Uint64 part = CINEMATIC_ONE_DURATION / 3;
@@ -27,6 +28,7 @@ static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *w
         draw_cinematic_subtitle(menu, win, 6);
 }
 
+/* Affiche la cinématique du niveau 2. */
 void draw_cinematic_two(t_game *game)
 {
     t_WIN *win = game->window;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lobby_solo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 13:57:44 by lle-duc           #+#    #+#             */
-/*   Updated: 2026/09/23 11:43:06 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/10/20 16:33:14 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 #include "menus/menus.h"
 #include "multiplayer/client.h"
 
+/* Affiche les textes du salon solo. */
 static void draw_texts(t_game *game, t_lobby *menu)
 {
     draw_texture(1920 / 2 - (menu->texts[0].w / 2), 150, menu->texts[0].w, menu->texts[0].h, game->window, menu->texts[0].texture);
 }
+
+/* Affiche le salon solo. */
 void draw_lobby_menu(t_game *game)
 {
     // SDL_Renderer *renderer = game->window->renderPTR;

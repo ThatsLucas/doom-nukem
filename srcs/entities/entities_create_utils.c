@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* Champs communs a tous les pnjs */
+/* Initialise les champs communs d’un PNJ. */
 void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir)
 {
 	e->type = ENTITY_PNJ;
@@ -29,10 +29,7 @@ void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir)
 	e->hitbox = 1;
 }
 
-/*
-	Charge les 8 frames directionnelles d'un pnj : <prefix>1.png ... <prefix>8.png
-	Toutes les frames font w * h.
-*/
+/* Charge les 8 images directionnelles d’un PNJ. */
 void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 {
 	t_png	png;
@@ -63,7 +60,7 @@ void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 	e->sprite_h = (float)h;
 }
 
-/* Champs communs aux ennemis et aux boss */
+/* Initialise les champs communs d’un ennemi ou d’un boss. */
 void	init_fighter_base(t_game *game, t_entity *e, t_entity_type type, t_vect2 pos)
 {
 	e->type = type;
@@ -86,6 +83,7 @@ void	init_fighter_base(t_game *game, t_entity *e, t_entity_type type, t_vect2 po
 	e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, pos.x, pos.y);
 }
 
+/* Charge la texture correspondant à l’état de l’entité. */
 static t_tex	*load_state_texture(t_game *game, char *dir, char *file, int w, int h)
 {
 	t_png	png;
@@ -104,10 +102,7 @@ static t_tex	*load_state_texture(t_game *game, char *dir, char *file, int w, int
 	return (tex);
 }
 
-/*
-	Charge idle.png, shoot.png et dead.png depuis dir.
-	size = {largeur idle/shoot, hauteur idle/shoot, largeur dead, hauteur dead}
-*/
+/* Charge les textures idle, tir et mort d’un combattant. */
 void	load_fighter_textures(t_game *game, t_entity *e, char *dir, int size[4])
 {
 	e->texture = load_state_texture(game, dir, "idle.png", size[0], size[1]);

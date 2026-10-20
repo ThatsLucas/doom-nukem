@@ -13,6 +13,7 @@
 #include "multiplayer/client.h"
 #include "Game.h"
 
+/* Reçoit une réponse du serveur. */
 int get_server_response(t_udp_connections *connection, t_server_udp_datas *datas)
 {
     ssize_t n = recvfrom(connection->con_socket, datas, sizeof(t_server_udp_datas), 0, NULL, NULL);
@@ -24,6 +25,7 @@ int get_server_response(t_udp_connections *connection, t_server_udp_datas *datas
     return (0);
 }
 
+/* Affiche une notification envoyée par le serveur. */
 void handle_server_notifications_request(t_server_udp_datas *datas, t_game *game)
 {
     if (!datas->is_notif)
@@ -31,6 +33,7 @@ void handle_server_notifications_request(t_server_udp_datas *datas, t_game *game
     create_notif(&game->window->menus.notif.notif_buf, datas->notif_str, datas->notif_duration, datas->notif_font_size);
 }
 
+/* Met à jour l’état de la partie reçu du serveur. */
 void handle_game_state(t_server_udp_datas *datas, t_game *game)
 {
     // on n'ecrase pas clientConnection.state : c'est l'etat qu'on envoie au serveur

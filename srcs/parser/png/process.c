@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Ouvre le fichier PNG à décoder. */
 static int open_png_file(char *path)
 {
     int pngFile = open(path, O_RDONLY);
@@ -24,6 +25,7 @@ static int open_png_file(char *path)
     return (pngFile);
 }
 
+/* Lit nbytes octets du fichier PNG. */
 t_readPNG read_nbytes(int pngFile, int nbytes)
 {
     t_readPNG readDatas;
@@ -31,7 +33,7 @@ t_readPNG read_nbytes(int pngFile, int nbytes)
     return (readDatas);
 }
 
-/* Frees the path and returns the thread failure value */
+/* Libère les ressources après une erreur de décodage PNG. */
 static void *png_failure(t_png *pngFile)
 {
     free(pngFile->path);
@@ -39,6 +41,7 @@ static void *png_failure(t_png *pngFile)
     return ((void *)(long)0);
 }
 
+/* Décode entièrement un fichier PNG (fonction de thread). */
 void *process_png(void *pngStruct)
 {
     t_IDAT *IDATS;

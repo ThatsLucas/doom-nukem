@@ -13,7 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Raycasting/Types.h"
 
-/* retourne la hauteur d'un point x,y sur un plan p */
+/* Calcule la hauteur d’un point sur un plan. */
 float	get_plane_z(t_plane p, float x, float y)
 {
 	if (!p.c)

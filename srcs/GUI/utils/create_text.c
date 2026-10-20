@@ -13,6 +13,7 @@
 #include "GUI/GUI.h"
 #include <SDL_ttf.h>
 
+/* Crée la texture d’un texte sur une ligne. */
 void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath)
 {
     textData->font = TTF_OpenFont(fontPath, textData->size);
@@ -27,7 +28,7 @@ void create_text(t_font *textData, SDL_Renderer  *renderer, char *text, char *fo
     TTF_CloseFont(textData->font);
 }
 
-// pareil que create_text mais il met des \n dès que ca dépasse maxW
+/* Crée la texture d’un texte sur plusieurs lignes. */
 void create_text_multiple_lines(t_font *textData, SDL_Renderer  *renderer, char *text, char *fontPath, uint32_t maxW)
 {
     textData->font = TTF_OpenFont(fontPath, textData->size);

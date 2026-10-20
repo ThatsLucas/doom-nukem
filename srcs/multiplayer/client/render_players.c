@@ -26,7 +26,7 @@
 #define TEX_BACK_IDLE 3
 #define TEX_BACK_WALK 4
 
-/*infos de camera communes a tous les joueurs pour une frame*/
+/* Données de caméra communes à tous les joueurs d’une image. */
 typedef struct s_player_cam
 {
     t_vect2 pos;
@@ -40,13 +40,14 @@ typedef struct s_player_cam
     float half_sh;
 } t_player_cam;
 
-/*etat d'animation de chaque joueur distant, garde entre les frames*/
+/* État de marche d’un joueur distant, conservé entre les images. */
 typedef struct s_walk_state
 {
     double last_pos[2];
     Uint64 last_moved;
 } t_walk_state;
 
+/* Initialise la caméra de rendu du joueur distant. */
 static t_player_cam init_player_cam(t_game *game)
 {
     t_player_cam cam;
@@ -65,6 +66,7 @@ static t_player_cam init_player_cam(t_game *game)
     return (cam);
 }
 
+/* Met à jour l’état de déplacement du joueur distant. */
 static int update_walk_state(t_walk_state *state, double x, double y)
 {
     Uint64 now;
@@ -77,6 +79,7 @@ static int update_walk_state(t_walk_state *state, double x, double y)
     return (now - state->last_moved <= WALK_LINGER_MS);
 }
 
+/* Vérifie si le joueur est tourné vers la caméra. */
 static int is_facing_camera(t_player_cam *cam, float x, float y, double angle)
 {
     double to_cam;
@@ -91,6 +94,7 @@ static int is_facing_camera(t_player_cam *cam, float x, float y, double angle)
     return (fabs(diff) < M_PI / 2.0);
 }
 
+/* Sélectionne la texture du joueur distant. */
 static void pick_player_texture(t_game *game, t_player_sprite *sprite, int facing, int walking)
 {
     int idx;
@@ -103,6 +107,7 @@ static void pick_player_texture(t_game *game, t_player_sprite *sprite, int facin
     sprite->src = game->window->menus.lobby.playerBounds[idx];
 }
 
+/* Projette le joueur distant dans la vue. */
 static int project_player(t_player_cam *cam, t_player_sprite *sprite, float x, float y, float floor_z)
 {
     float dx;
@@ -126,6 +131,7 @@ static int project_player(t_player_cam *cam, t_player_sprite *sprite, float x, f
     return (sprite->dest.w > 0 && sprite->dest.h > 0);
 }
 
+/* Rassemble les sprites des joueurs visibles. */
 static int collect_player_sprites(t_game *game, t_player_cam *cam, t_player_sprite *sprites)
 {
     static t_walk_state walk[4];
@@ -153,6 +159,7 @@ static int collect_player_sprites(t_game *game, t_player_cam *cam, t_player_spri
     return (count);
 }
 
+/* Trie les sprites selon leur profondeur. */
 static void sort_sprites_by_depth(t_player_sprite *sprites, int count)
 {
     t_player_sprite tmp;
@@ -168,6 +175,7 @@ static void sort_sprites_by_depth(t_player_sprite *sprites, int count)
     }
 }
 
+/* Affiche les joueurs distants. */
 void render_multiplayer_players(t_game *game)
 {
     t_player_cam cam;

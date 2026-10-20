@@ -13,12 +13,14 @@
 #include "parser/PNG.h"
 #include "parser/huffman.h"
 
+/* Lit le bit suivant du flux DEFLATE. */
 static __uint8_t get_bit(__uint8_t byte, short index)
 {
     __uint8_t bit = ((byte >> index) & 0x01);
     return (bit);
 }
 
+/* Lit le nombre de bits demandé dans le flux. */
 __uint32_t read_bits(t_bitreader *bitReader, int bitsToRead)
 {
     __uint32_t ret = 0;
@@ -35,6 +37,7 @@ __uint32_t read_bits(t_bitreader *bitReader, int bitsToRead)
     return (ret);
 }
 
+/* Décode le prochain symbole Huffman du flux. */
 int read_symbol(t_bitreader *bitReader, int *table_symbol, int *table_len, int maxbits)
 {
     int code = 0;

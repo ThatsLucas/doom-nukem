@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:12:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:12:00 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:33:37 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/*
-	Three buttons on a row (left, center, right) with their labels.
-	first: index of the first button coords / text, text_dy: label vertical offset
-*/
+/* Dessine trois boutons alignés avec leurs libellés. */
 static void draw_three_buttons(t_WIN *win, int y, int first_coord, int first_text, int text_dy)
 {
     t_settings_menu *menu = &win->menus.settings;
@@ -37,6 +34,7 @@ static void draw_three_buttons(t_WIN *win, int y, int first_coord, int first_tex
     }
 }
 
+/* Affiche le choix du mode d’affichage. */
 int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     yPos = draw_section_header(yPos, scrollH, game->window, &menu->texts[18]);
@@ -44,6 +42,7 @@ int draw_display_mode(int yPos, int *scrollH, t_game *game, t_settings_menu *men
     return (yPos);
 }
 
+/* Affiche le choix de la résolution. */
 int draw_resolution(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     yPos = draw_section_header(yPos, scrollH, game->window, &menu->texts[14]);
@@ -51,7 +50,7 @@ int draw_resolution(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
     return (yPos);
 }
 
-/* Frame drawn behind the selected language flag */
+/* Affiche un cadre autour de la langue sélectionnée. */
 static void draw_selected_language(t_game *game, t_settings_menu *menu, int languageXOffset, int y)
 {
     int languagePos[4];
@@ -77,6 +76,7 @@ static void draw_selected_language(t_game *game, t_settings_menu *menu, int lang
                  menu->languages[4].texture);
 }
 
+/* Affiche le choix de la langue. */
 int draw_languages(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     t_WIN *win = game->window;

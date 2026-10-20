@@ -12,7 +12,7 @@
 
 #include "GUI/GUI.h"
 
-/* Convertit les pixels d'un png decode en t_tex (lisible par le CPU) */
+/* Convertit un PNG décodé en texture logicielle. */
 t_tex	png_to_tex(t_png *png)
 {
 	t_tex		tex;
@@ -43,10 +43,7 @@ t_tex	png_to_tex(t_png *png)
 	return (tex);
 }
 
-/*
-	Equivalent de create_image mais pour le rendu logiciel des sprites :
-	renvoie un t_tex alloue et libere le buffer du png
-*/
+/* Alloue une texture logicielle depuis un PNG et libère son tampon. */
 t_tex	*create_sprite(t_png *png)
 {
 	t_tex	*tex;

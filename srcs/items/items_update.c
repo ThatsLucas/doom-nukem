@@ -13,7 +13,7 @@
 #include "inventory/Items.h"
 #include "Game.h"
 
-/* Checks all the items in the game loop */
+/* Tente de ramasser chaque objet encore au sol. */
 void	update_item(t_game *game)
 {
 	for (int i = 0; i < game->items_count; i++)

@@ -12,6 +12,7 @@
 
 #include "GUI/GUI.h"
 
+/* Détruit la texture d’un texte. */
 void destroy_text_texture(t_font *text)
 {
     if (text && text->texture)

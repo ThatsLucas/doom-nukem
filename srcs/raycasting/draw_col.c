@@ -13,7 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
-/* Affiche les mur/toit/sol en fonction du cas */
+/* Dessine le mur, le plafond ou le sol selon le type de surface. */
 static void	simple_draw(t_game *game, t_ray *ray, int x, t_sector *sector, int cas)
 {
 	switch (cas)
@@ -40,6 +40,7 @@ static void	simple_draw(t_game *game, t_ray *ray, int x, t_sector *sector, int c
 	return ;
 }
 
+/* Récupère le secteur suivant traversé par le rayon. */
 static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	float		nz_floor, nz_ceil;
@@ -66,7 +67,7 @@ static void get_next_sect(int *next_id, int *mirror, t_game *game, t_ray *ray, i
 	return ;
 }
 
-/* Distance and screen bounds of the wall hit by the ray */
+/* Calcule les limites à l’écran du mur touché par le rayon. */
 static void	compute_wall_bounds(t_game *game, t_ray *ray, t_sector *sector)
 {
 	int	sH = game->screenSize[1];
@@ -78,7 +79,7 @@ static void	compute_wall_bounds(t_game *game, t_ray *ray, t_sector *sector)
 	ray->y_wall_top	= sH / 2 - ((ray->z_ceil - game->ply->z) / ray->perp_dist) * ray->focal + game->ply->pitch;
 }
 
-/* dessine la colonne x du rayon ray, de facon recursive */
+/* Dessine la colonne correspondant au rayon. */
 void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 {
 	t_sector	*sector;

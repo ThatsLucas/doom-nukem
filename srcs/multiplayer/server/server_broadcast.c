@@ -13,14 +13,14 @@
 #include "multiplayer/server.h"
 #include "Game.h"
 
-/*return la pos dans la table interne du joueur si trouve*/
+/* Copie les angles d’orientation du joueur. */
 static void copy_angles(t_server_udp_datas *response, t_game *game)
 {
     for (int i = 0; i < 4; i++)
         response->player_angles[i] = (float)game->serverStatus.player_angles[i];
 }
 
-/*Envoie un msg a tout le monde excepte sauf int except*/
+/* Envoie un message à tous les joueurs sauf un. */
 void broadcast_message(t_game *game, int except, t_server_udp_datas *datas)
 {
     for (int i = 0; i < game->serverStatus.playerCount; i++)
@@ -31,6 +31,7 @@ void broadcast_message(t_game *game, int except, t_server_udp_datas *datas)
     }
 }
 
+/* Envoie une notification à tous les joueurs sauf un. */
 void broadcast_notifications(t_game *game, int except, char *str, int duration, int fontsize)
 {
     t_server_udp_datas response;
@@ -49,6 +50,7 @@ void broadcast_notifications(t_game *game, int except, char *str, int duration, 
     broadcast_message(game, except, &response);
 }
 
+/* Envoie une notification à un joueur. */
 void send_notifications(t_game *game, struct sockaddr *addr, char *str, int duration, int fontsize, int playerIndex)
 {
     t_server_udp_datas response;
@@ -67,6 +69,7 @@ void send_notifications(t_game *game, struct sockaddr *addr, char *str, int dura
     send_to_client(&response, addr, game->serverStatus.serverSocket, playerIndex);
 }
 
+/* Envoie l’état de la partie à tous les joueurs. */
 void send_default_info_response(t_game *game)
 {
     t_server_udp_datas response;

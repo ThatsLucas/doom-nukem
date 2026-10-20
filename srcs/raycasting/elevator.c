@@ -13,6 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
+/* Déclenche le mouvement de l’ascenseur. */
 void	toggle_elevator(t_sector *s)
 {
 	if (s->isElevating)
@@ -25,6 +26,7 @@ void	toggle_elevator(t_sector *s)
 	return ;
 }
 
+/* Fait avancer les ascenseurs en mouvement. */
 void	check_elevator(t_map *map)
 {
 	t_sector	*s;

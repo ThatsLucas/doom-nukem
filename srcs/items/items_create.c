@@ -26,6 +26,7 @@
 
 #define ITEM_PICKUP_RANGE 1.2f
 
+/* Charge la texture de l’objet. */
 static void	load_item_texture(t_game *game, t_ground_item *item, char *png_path)
 {
 	t_png	png;
@@ -46,7 +47,7 @@ static void	load_item_texture(t_game *game, t_ground_item *item, char *png_path)
 	item->aspect_ratio = (float)item->w / (float)item->h;
 }
 
-/* fonction de fabrique commune */
+/* Crée un objet au sol avec sa texture. */
 void	create_ground_item(t_game *game, t_vect2 pos, char *png_path,
 			float world_height, t_ground_item item)
 {

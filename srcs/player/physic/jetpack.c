@@ -12,6 +12,7 @@
 
 #include "Player.h"
 
+/* Propulse le joueur vers le haut avec le jetpack. */
 void use_jetpack(t_ply *ply)
 {
     if (ply->inventory.jetpack->type != TOOL_JETPACK)

@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* affiche un sol */
+/* Dessine le sol d’une colonne. */
 void	draw_floor(t_game *game, t_ray *ray, int x, t_sector *sector)
 {	
 	int			tex_x, tex_y;

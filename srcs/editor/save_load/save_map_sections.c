@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Enregistre les données d’un mur. */
 static void	save_one_wall(t_wall *w, int fd)
 {
 	write(fd, &w->v1, sizeof(int));
@@ -26,6 +27,7 @@ static void	save_one_wall(t_wall *w, int fd)
 	write(fd, &w->alpha, sizeof(float));
 }
 
+/* Enregistre les sommets et les murs. */
 void	save_vertices_walls(t_map *map, int fd)
 {
 	int	i;
@@ -42,6 +44,7 @@ void	save_vertices_walls(t_map *map, int fd)
 	return ;
 }
 
+/* Enregistre les secteurs. */
 void	save_sectors(t_map *map, int fd)
 {
 	t_sector	s;
@@ -71,6 +74,7 @@ void	save_sectors(t_map *map, int fd)
 	return ;
 }
 
+/* Enregistre les textures. */
 void	save_textures(t_map *map, int fd)
 {
 	t_tex	t;
@@ -88,6 +92,7 @@ void	save_textures(t_map *map, int fd)
 	return ;
 }
 
+/* Enregistre le point d’apparition et les décalques. */
 void	save_spawn_and_decals(t_map *map, int fd)
 {
 	t_decal	d;
@@ -117,6 +122,7 @@ void	save_spawn_and_decals(t_map *map, int fd)
 	return ;
 }
 
+/* Enregistre les ascenseurs. */
 void	save_elevators(t_map *map, int fd)
 {
 	for (int i = 0; i < map->num_sectors; ++i)
@@ -128,6 +134,7 @@ void	save_elevators(t_map *map, int fd)
 	return ;
 }
 
+/* Enregistre les entités. */
 void	save_entities(t_map *map, int fd)
 {
 	write(fd, &map->num_entities, sizeof(int));

@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "GUI/HUD.h"
 
-/* To format an amount of seconds in MM:SS */
+/* Formate une durée au format minutes et secondes. */
 static void	format_time(long total_seconds, char *buf)
 {
 	int	minutes = total_seconds / 60;
@@ -27,7 +27,7 @@ static void	format_time(long total_seconds, char *buf)
 	buf[5] = '\0';
 }
 
-/* Get the elapsed time between the start and now */
+/* Récupère le temps écoulé depuis le début de la partie. */
 static void	get_timer(char *buf)
 {
 	static struct timeval	start;
@@ -46,7 +46,7 @@ static void	get_timer(char *buf)
 	format_time(elapsed, buf);
 }
 
-/* Display formated time (MM:SS) on the screen */
+/* Affiche le temps de jeu écoulé. */
 void	display_timer(t_game *game, int x, int y, int w, int h, t_RGB rgb)
 {
 	SDL_Color fg = {rgb.r, rgb.g, rgb.b, rgb.alphaValue};

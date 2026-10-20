@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 12:00:00 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/07/06 16:14:15 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:30:32 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
-/* Produit en croix 2D : signe = de quel cote du segment a->b se trouve p */
+/* Détermine de quel côté du segment se trouve le point. */
 static float cross_side(t_vect2 a, t_vect2 b, t_vect2 p)
 {
 	return ((b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x));
 }
 
-/* Vrai si le deplacement [p1,p2] traverse le mur [a,b] */
+/* Vérifie si le déplacement traverse le mur. */
 static int segments_cross(t_vect2 p1, t_vect2 p2, t_vect2 a, t_vect2 b)
 {
 	float d1 = cross_side(a, b, p1);
@@ -32,7 +32,7 @@ static int segments_cross(t_vect2 p1, t_vect2 p2, t_vect2 a, t_vect2 b)
 		&& ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)));
 }
 
-/* Hauteur libre necessaire pour que le joueur passe */
+/* Calcule la hauteur libre nécessaire au passage du joueur. */
 static float needed_headroom(t_ply *ply)
 {
 	if (ply->physic.is_crouching)
@@ -40,10 +40,7 @@ static float needed_headroom(t_ply *ply)
 	return (EYES_HEIGTH + HEAD_MARGIN);
 }
 
-/*
-	Un portail est infranchissable si la marche du secteur voisin est 
-	trop haute ou si le passage est trop bas pour la taille du joueur.
-*/
+/* Vérifie si la marche ou le plafond du portail bloque le joueur. */
 static int portal_is_blocked(t_game *game, int neigh, t_vect2 next)
 {
 	t_ply	*ply = game->ply;
@@ -65,10 +62,7 @@ static int portal_is_blocked(t_game *game, int neigh, t_vect2 next)
 	return (0);
 }
 
-/*
-	Renvoie 1 si le deplacement vers (next_x, next_y) traverse un mur solide ou un portail infranchissable,
-	0 si le mouvement est permis.
-*/
+/* Renvoie 1 si le déplacement traverse un mur ou un portail bloquant. */
 int wall_collision(t_game *game, float next_x, float next_y)
 {
 	t_sector	*sec;

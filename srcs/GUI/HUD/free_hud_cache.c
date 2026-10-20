@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/* Function to free hud cache (fonts are closed here; textures are freed by SDL_DestroyRenderer) */
+/* Libère les textures et polices du cache du HUD. */
 void	free_hud_cache(t_game *game)
 {
 	for (int i = 0; i < MAX_WEAPONS; i++)

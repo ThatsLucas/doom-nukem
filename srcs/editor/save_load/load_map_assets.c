@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Charge les textures de la carte. */
 int	load_textures(t_map *map, int fd)
 {
 	int		i;
@@ -44,6 +45,7 @@ int	load_textures(t_map *map, int fd)
 	return (0);
 }
 
+/* Charge un décalque utilisé par la carte. */
 static int	load_decal(t_decal *d, int fd)
 {
 	if (read_full(fd, &d->wall_idx, sizeof(int))
@@ -70,6 +72,7 @@ static int	load_decal(t_decal *d, int fd)
 	return (0);
 }
 
+/* Charge le point d’apparition et les décalques. */
 int	load_spawn_and_decals(t_map *map, int fd)
 {
 	int	i;
@@ -95,6 +98,7 @@ int	load_spawn_and_decals(t_map *map, int fd)
 	return (0);
 }
 
+/* Charge les entités de la carte. */
 int	load_entities(t_map *map, int fd)
 {
 	int	i;

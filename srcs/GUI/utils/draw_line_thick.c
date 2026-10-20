@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Dessine une ligne épaisse. */
 void	draw_line_thick(SDL_Renderer *ren, float x1, float y1, float x2, float y2, int thickness)
 {
 	float	dx = x2 - x1;

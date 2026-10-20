@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Dessine le fond d’un champ de saisie. */
 static void	draw_case(t_game *game, t_text_input *input)
 {
 	SDL_Rect	box = input->box;
@@ -26,6 +27,7 @@ static void	draw_case(t_game *game, t_text_input *input)
 	return ;
 }
 
+/* Dessine le texte du champ de saisie. */
 static void draw_text(t_game *game, t_text_input *input, char *text)
 {
 	SDL_Color   black = {0, 0, 0, 255};
@@ -56,7 +58,7 @@ static void draw_text(t_game *game, t_text_input *input, char *text)
 	}
 }
 
-/* Draw the text of all inputs in them */
+/* Affiche les champs de saisie. */
 void	display_text_input(t_game *game, t_list **lst)
 {
 	t_list			*current = *lst;

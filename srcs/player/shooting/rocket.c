@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Fireball and the 3 explosion frames */
+/* Charge les textures de la roquette et de son explosion. */
 static void	load_rocket_textures(t_game *game, t_projectile *proj)
 {
 	static char	*expl_paths[] = {
@@ -39,6 +39,7 @@ static void	load_rocket_textures(t_game *game, t_projectile *proj)
 	}
 }
 
+/* Tire une roquette vers la cible. */
 void	spawn_rocket(t_game *game, float tx, float ty)
 {
 	t_projectile	*proj;

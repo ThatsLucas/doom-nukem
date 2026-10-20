@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Called in events_handler to activate and desactivate flashlight */
+/* Allume ou éteint la lampe torche. */
 void activate_flashlight(t_game *game)
 {
 	for (int i = 0; i < MAX_TOOLS; i++)
@@ -27,7 +27,7 @@ void activate_flashlight(t_game *game)
 	}
 }
 
-/* Called in events_handler to use or not jetpack */
+/* Active le jetpack tant que la touche espace est enfoncée. */
 void activate_jetpack(t_game *game)
 {
 	if (game->ply->inventory.jetpack)

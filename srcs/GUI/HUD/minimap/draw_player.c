@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
+/* Dessine le joueur sur la mini-carte. */
 void	draw_player_minimap(SDL_Renderer *render, t_game *game, int size, t_RGB color)
 {
 	SDL_Vertex	points[3];

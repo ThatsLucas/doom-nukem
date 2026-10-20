@@ -13,6 +13,7 @@
 #include "Window.h"
 #include "Game.h"
 
+/* Alloue le tampon des notifications. */
 static t_notif_buf *allocate_new_notif_buf(void)
 {
     t_notif_buf *new_notif_buf = malloc(sizeof(t_notif_buf));
@@ -23,6 +24,7 @@ static t_notif_buf *allocate_new_notif_buf(void)
     return (new_notif_buf);
 }
 
+/* Alloue une nouvelle notification. */
 static t_notif *allocate_new_notif(char *str, int duration_ms, int fontSize)
 {
     t_notif *notif = malloc(sizeof(t_notif));
@@ -42,6 +44,7 @@ static t_notif *allocate_new_notif(char *str, int duration_ms, int fontSize)
     return (notif);
 }
 
+/* Supprime la première notification de la file. */
 void destroy_notif_node(t_notif_buf **notif_buf)
 {
     if (!notif_buf || !*notif_buf)
@@ -57,6 +60,7 @@ void destroy_notif_node(t_notif_buf **notif_buf)
     *notif_buf = tmp;
 }
 
+/* Charge l’image de fond des notifications. */
 int init_notif(t_png *notifImg, SDL_Renderer *renderer)
 {
     notifImg->path = ft_strdup("assets/png/notif/notif_bg.png");
@@ -66,6 +70,7 @@ int init_notif(t_png *notifImg, SDL_Renderer *renderer)
     return (1);
 }
 
+/* Ajoute une notification à la file d’attente. */
 void create_notif(t_notif_buf **notif_buf, char *str, int duration_ms, int fontSize)
 {
     if (!*notif_buf)

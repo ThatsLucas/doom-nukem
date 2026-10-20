@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Change d’arme avec la molette. */
 void	handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel)
 {
 	t_inventory *inv = &game->ply->inventory;

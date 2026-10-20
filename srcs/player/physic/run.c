@@ -12,7 +12,7 @@
 
 #include "Player.h"
 
-/* Active/desactive le sprint (maintenir Shift) */
+/* Active ou désactive la course. */
 void player_run(t_ply *ply, int is_pressed)
 {
     if (is_pressed && !ply->physic.is_crouching)

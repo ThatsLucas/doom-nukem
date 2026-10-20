@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_hud_cache.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 11:30:07 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 12:16:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:32:29 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "parser/PNG.h"
 #include "Game.h"
 
-/* Loads a gauge and its unit texture (battery, fuel) into dst[0] and dst[1] */
+/* Initialise la jauge du HUD. */
 static void	init_hud_gauge(t_game *game, char **paths, SDL_Texture **dst, char **errors)
 {
 	t_png	gauge;
@@ -33,6 +33,7 @@ static void	init_hud_gauge(t_game *game, char **paths, SDL_Texture **dst, char *
 		exit_game(game, errors[1]);
 }
 
+/* Initialise l’arrière-plan du HUD. */
 static void	init_hud_background(t_game *game)
 {
 	t_png	hud_bg;
@@ -45,10 +46,7 @@ static void	init_hud_background(t_game *game)
 		exit_game(game, "Error loading hud bg: create image failed");
 }
 
-/*
-	Initialize weapons, tools and player assets to keep a cache of textures
-	Open and keep fonts in cache
-*/
+/* Met en cache les textures et polices du HUD. */
 void	init_hud_cache(t_game *game)
 {
 	init_3D_weapons(game);

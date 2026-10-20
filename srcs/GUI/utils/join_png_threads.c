@@ -14,10 +14,7 @@
 #include "Window.h"
 #include "GUI/GUI.h"
 
-/*
-	Waits for the count process_png threads and creates the texture of
-	every image that loaded. Returns 0 if one of them failed.
-*/
+/* Attend le décodage des PNG et crée leurs textures. */
 int	join_png_threads(pthread_t *threads, t_png **images, int count, SDL_Renderer *renderer)
 {
 	void	*ret = NULL;

@@ -13,6 +13,7 @@
 #include "entities/Entities.h"
 #include "Game.h"
 
+/* Ajoute une entité à la liste. */
 void	add_entity(t_game *game, t_entities *e, t_entity entity)
 {
 	if (e->count >= e->capacity)

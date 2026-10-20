@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/* Display the players current asset (base on frames) */
+/* Affiche le module du portrait du joueur. */
 void	display_player_module(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Texture	*texture;

@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
+/* Initialise les propriétés de l’objet à placer. */
 static void	init_prop_fields(t_entity *e, t_map *map, t_vect2 pos)
 {
 	e->type = ENTITY_PROP;
@@ -38,6 +39,7 @@ static void	init_prop_fields(t_entity *e, t_map *map, t_vect2 pos)
 	e->texture_dead = NULL;
 }
 
+/* Charge la texture de l’objet à placer. */
 static void	load_prop_texture(t_game *game, t_entity *e, char *png_path)
 {
 	t_png	png;
@@ -54,6 +56,7 @@ static void	load_prop_texture(t_game *game, t_entity *e, char *png_path)
 		exit_game(game, "Failed to create prop image");
 }
 
+/* Place un élément de décor sur la carte. */
 int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 {
 	t_entity	e;

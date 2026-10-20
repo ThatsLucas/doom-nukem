@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Vérifie si le point se trouve dans le rectangle. */
 static int	is_in_box(int x, int y, SDL_Rect *rect)
 {
 	if (x <= rect->x + rect->w && x > rect->x && y <= rect->y + rect->h && y > rect->y)
@@ -21,6 +22,7 @@ static int	is_in_box(int x, int y, SDL_Rect *rect)
 	return (0);
 }
 
+/* Vérifie si le curseur se trouve sur une texture. */
 static int	is_on_texture(int x, int y)
 {
 	int	count = 0;
@@ -42,7 +44,7 @@ static int	is_on_texture(int x, int y)
 	return (0);
 }
 
-/* Write the chosen texture (or none) into the variable waiting for it */
+/* Enregistre la texture sélectionnée dans la variable destinataire. */
 static void	set_selected_texture(t_game *game, int selected)
 {
 	if (selected == game->editor->textures->num_textures)
@@ -62,6 +64,7 @@ static void	set_selected_texture(t_game *game, int selected)
 	game->editor->texture_selector.index_to_set = NULL;
 }
 
+/* Sélectionne la texture cliquée. */
 void	get_clicked_texture(t_game *game, int x, int y)
 {
 	SDL_Rect	box = { .x = 710, .y = 555, .w = 580, .h = 340};

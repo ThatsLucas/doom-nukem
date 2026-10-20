@@ -6,13 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 19:20:02 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:17:41 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:25:21 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
+/* Libère les secteurs déjà calculés. */
 static void free_existing_sectors(t_map *map)
 {
 	int	i;
@@ -27,6 +28,7 @@ static void free_existing_sectors(t_map *map)
 	map->num_sectors = 0;
 }
 
+/* Ajoute un secteur à la carte. */
 static int add_sector(t_map *map, int *loop, int count)
 {
 	t_sector	*s;
@@ -63,10 +65,7 @@ static int add_sector(t_map *map, int *loop, int count)
 	return (map->num_sectors++);
 }
 
-/*
-	Trace the loop starting at the half-edge start. If it is a valid
-	CCW loop (positive area) it becomes a new sector.
-*/
+/* Traite la boucle des demi-arêtes d’un secteur. */
 static void	process_he_loop(t_map *map, int start, int *visited, int *loop, int *wall_ids)
 {
 	int		count, i;
@@ -89,6 +88,7 @@ static void	process_he_loop(t_map *map, int start, int *visited, int *loop, int 
 		visited[start] = 1;
 }
 
+/* Détecte les secteurs à partir des boucles de murs. */
 void compute_sectors(t_map *map)
 {
 	int		*visited, *loop, *wall_ids;

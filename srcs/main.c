@@ -21,7 +21,7 @@
 #include "multiplayer/client.h"
 #include "inventory/Items.h"
 
-/* TEST: charge un niveau et saute direct en jeu (pas de menu, pas de cinematique) */
+/* Charge directement le niveau de départ (tests). */
 static void load_start_level(t_game *game)
 {
 	free_map(game->map);
@@ -33,7 +33,7 @@ static void load_start_level(t_game *game)
 	game->window->menus.current = 1;
 }
 
-/* One frame of the editor */
+/* Affiche une image de l’éditeur. */
 static void editor_frame(t_game *game)
 {
 	editor_events(game);
@@ -41,7 +41,7 @@ static void editor_frame(t_game *game)
 	SDL_RenderPresent(game->window->renderPTR);
 }
 
-/* One frame of the game / menus, then sync with the server */
+/* Affiche une image du jeu et synchronise les données du serveur. */
 static void game_frame(t_game *game)
 {
 	events_handler(game);
@@ -56,6 +56,7 @@ static void game_frame(t_game *game)
 		handle_server_response(game, &game->clientConnection);
 }
 
+/* Lance le programme et exécute sa boucle principale. */
 int main(void)
 {
 	t_game *game;

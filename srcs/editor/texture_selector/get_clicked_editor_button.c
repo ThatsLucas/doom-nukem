@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Vérifie si le bouton de fermeture est cliqué. */
 int	check_close_button(t_game *game, int x, int y)
 {
 	SDL_Rect	close = {.x = 1370, .y = 535, .w = 50, .h = 50};
@@ -26,6 +27,7 @@ int	check_close_button(t_game *game, int x, int y)
 	return (0);
 }
 
+/* Renvoie l’indice du bouton de l’éditeur cliqué. */
 int	get_clicked_editor_button(t_game *game, int x, int y)
 {
 	SDL_Rect	up = {.x = 1320, .y = 618, .w = 100, .h = 100};

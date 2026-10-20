@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	Initialisation de la partie murs dans les propriétés	*/
+/* Crée les champs des propriétés des murs. */
 void	init_walls_properties(t_game *game)
 {
 	SDL_Rect	box;

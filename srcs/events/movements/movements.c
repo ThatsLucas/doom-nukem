@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/29 14:04:59 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/10/20 16:30:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
-/*Gere les mouvements mediaux*/
+/* Gère les déplacements vers l’avant et l’arrière. */
 static void medial_moves(t_ply *ply, t_game *game)
 {
 	float steps;
@@ -38,7 +38,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 	}
 }
 
-/*Gere les mouvements lateraux*/
+/* Gère les déplacements latéraux. */
 static void lateral_moves(t_ply *ply, t_game *game)
 {
 	float steps;
@@ -69,10 +69,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 	}
 }
 
-/*
-	Gere les mouvements du joueur
-	Met a jour sa position z et son secteur
-*/
+/* Déplace le joueur puis met à jour sa hauteur et son secteur. */
 void ply_movements(t_ply *ply, t_game *game)
 {
 	t_vect2 oldpos;

@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Lit exactement size octets, sinon renvoie -1. */
 int	read_full(int fd, void *buf, size_t size)
 {
 	ssize_t	r;
@@ -25,7 +26,7 @@ int	read_full(int fd, void *buf, size_t size)
 	return (0);
 }
 
-/* Returns the text of the "mapName" input, or NULL */
+/* Récupère le texte saisi pour le nom de la carte. */
 char	*get_map_name_input(t_game *game)
 {
 	t_list			*current = game->editor->text_inputs;

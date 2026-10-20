@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	Effacer la map dans l'éditor	*/
+/* Efface toute la carte de l’éditeur. */
 void	clear_editor_plan(t_game *game)
 {
 	t_map	*map = game->editor->map;

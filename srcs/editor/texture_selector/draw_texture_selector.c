@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Dessine une texture aux coins arrondis. */
 void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture)
 {
 	SDL_Rect dest = {x, y, w, h};
@@ -29,6 +30,7 @@ void	draw_texture_rounded(int x, int y, int w, int h, t_WIN *win, SDL_Texture *t
 	return ;
 }
 
+/* Affiche un emplacement de texture vide. */
 static void	draw_empty(int x, int y, int w, int h, t_WIN *win)
 {
 	SDL_Rect dest = {x, y, w, h};
@@ -43,6 +45,7 @@ static void	draw_empty(int x, int y, int w, int h, t_WIN *win)
 	return ;
 }
 
+/* Affiche le fond du sélecteur de textures. */
 static void draw_background(t_game *game)
 {
 	SDL_Rect	rectangle;
@@ -60,6 +63,7 @@ static void draw_background(t_game *game)
 	SDL_RenderDrawRect(game->window->renderPTR, &rectangle);
 }
 
+/* Affiche la grille des textures disponibles. */
 static void draw_texture_grid(t_game *game)
 {
 	int			pos_x, pos_y;
@@ -86,6 +90,7 @@ static void draw_texture_grid(t_game *game)
 	return ;
 }
 
+/* Affiche le sélecteur de textures. */
 void	draw_texture_selector(t_game *game)
 {
 	if (!game->editor->texture_selector.display)

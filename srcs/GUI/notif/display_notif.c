@@ -13,6 +13,7 @@
 #include "Window.h"
 #include "Game.h"
 
+/* Dessine le texte de la notification. */
 static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, int notifW, int notifH)
 {
     if (!notif->font.texture)
@@ -30,7 +31,7 @@ static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, 
         ft_dprintf(STDERR_FILENO, "ERROR: %s\n", SDL_GetError());
 }
 
-/* First frame: place the notif above the screen and create its text */
+/* Crée une notification et prépare son affichage. */
 static void spawn_notif(t_WIN *win, t_notif_buf **notif_buf)
 {
     t_notif *notif = (*notif_buf)->notif;
@@ -52,7 +53,7 @@ static void spawn_notif(t_WIN *win, t_notif_buf **notif_buf)
     notif->duration = SDL_GetTicks() + notif->duration * 1000;
 }
 
-/* Slides the notif down until it is fully visible */
+/* Anime l’entrée de la notification à l’écran. */
 static void slide_in_notif(t_WIN *win, t_notif *notif)
 {
     if ((notif->coords.y * win->h) / 1080 < (win->h * 50 + (long)win->menus.notif.Popup.h / 3) / 1080)
@@ -65,7 +66,7 @@ static void slide_in_notif(t_WIN *win, t_notif *notif)
         notif->state = NOTIF_DELETING;
 }
 
-/* Once its time is over, slides the notif up. Returns 1 if it was destroyed */
+/* Anime la sortie de la notification de l’écran. */
 static int slide_out_notif(t_WIN *win, t_notif_buf **notif_buf)
 {
     t_notif *notif = (*notif_buf)->notif;
@@ -85,6 +86,7 @@ static int slide_out_notif(t_WIN *win, t_notif_buf **notif_buf)
     return (1);
 }
 
+/* Affiche et anime la notification courante. */
 void display_notif(t_WIN *win, t_notif_buf **notif_buf)
 {
     if (!*notif_buf)

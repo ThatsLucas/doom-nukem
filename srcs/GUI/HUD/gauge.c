@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/* Adds the time since the last call, returns 1 (and resets) every period ms */
+/* Vérifie si la durée indiquée s’est écoulée. */
 static int	tick_elapsed(long *last_time, long *total_time, long period)
 {
 	long	now = get_time_ms();
@@ -30,7 +30,7 @@ static int	tick_elapsed(long *last_time, long *total_time, long period)
 	return (0);
 }
 
-/* Drains the flashlight battery while it is used, returns its tool index */
+/* Met à jour la charge de la lampe torche lorsqu’elle est utilisée. */
 static int	update_flashlight_battery(t_ply *p)
 {
 	static long	last_time = 0;
@@ -60,7 +60,7 @@ static int	update_flashlight_battery(t_ply *p)
 	return (i);
 }
 
-/* Drains the jetpack fuel while it is used, returns the fuel left */
+/* Met à jour le carburant du jetpack lorsqu’il est utilisé. */
 static int	update_jetpack_fuel(t_ply *p)
 {
 	t_tool		*jetpack = p->inventory.jetpack;
@@ -84,6 +84,7 @@ static int	update_jetpack_fuel(t_ply *p)
 	return (jetpack->data.fuel);
 }
 
+/* Affiche la jauge de la lampe torche ou du jetpack. */
 void	display_gauge(t_game *game, int type)
 {
 	t_ply *p = game->ply;

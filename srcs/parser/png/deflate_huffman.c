@@ -13,6 +13,7 @@
 #include "parser/PNG.h"
 #include "parser/huffman.h"
 
+/* Décode les symboles d’un bloc compressé jusqu’à la fin du bloc. */
 void read_compressed_datas(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader, int *lit_symbol, int *lit_len, int *dist_symbol, int *dist_len)
 {
     while (1)
@@ -30,7 +31,7 @@ void read_compressed_datas(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, 
     }
 }
 
-/* The 4 decoding tables (32768 entries each), zeroed */
+/* Alloue et initialise les tables de décodage Huffman. */
 static void alloc_huffman_tables(int **lit_symbol, int **lit_len, int **dist_symbol, int **dist_len)
 {
     *lit_symbol  = malloc(32768 * sizeof(int));
@@ -43,6 +44,7 @@ static void alloc_huffman_tables(int **lit_symbol, int **lit_len, int **dist_sym
     ft_bzero(*dist_len,    32768 * sizeof(int));
 }
 
+/* Libère les tables de décodage Huffman. */
 static void free_huffman_tables(int *lit_symbol, int *lit_len, int *dist_symbol, int *dist_len)
 {
     free(lit_symbol);
@@ -51,6 +53,7 @@ static void free_huffman_tables(int *lit_symbol, int *lit_len, int *dist_symbol,
     free(dist_len);
 }
 
+/* Décode un bloc DEFLATE à codes Huffman fixes. */
 int huffman_fixed(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader)
 {
     int *lit_symbol, *lit_len, *dist_symbol, *dist_len;
@@ -74,6 +77,7 @@ int huffman_fixed(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitread
     return (1);
 }
 
+/* Décode un bloc DEFLATE à codes Huffman dynamiques. */
 int huffman_dynamic(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader)
 {
     __uint32_t HLIT = read_bits(bitReader, 5) + 257;
@@ -88,6 +92,7 @@ int huffman_dynamic(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitre
     return (1);
 }
 
+/* Copie un bloc DEFLATE non compressé. */
 int huffman_uncompressed(__uint8_t *buf, __uint32_t *buf_len, t_bitreader *bitReader)
 {
     __uint32_t LEN;

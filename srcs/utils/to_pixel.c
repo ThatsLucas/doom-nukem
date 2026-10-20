@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Convertit une abscisse de la carte en pixels. */
 float	to_pixelX(float x, t_game *game)
 {
 	static float	coeff = 0.0f;
@@ -22,6 +23,7 @@ float	to_pixelX(float x, t_game *game)
 	return (x * coeff);
 }
 
+/* Convertit une ordonnée de la carte en pixels. */
 float	to_pixelY(float y, t_game *game)
 {
 	static float	coeff = 0.0f;

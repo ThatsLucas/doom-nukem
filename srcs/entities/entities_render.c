@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 16:41:28 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/12 12:37:39 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:28:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-/* Donnees de camera communes a toutes les entites d'une frame */
+/* Données de caméra communes à toutes les entités d’une image. */
 typedef struct s_sprite_ctx
 {
 	int		sw;
@@ -32,7 +32,7 @@ typedef struct s_sprite_ctx
 	float	pitch;
 }	t_sprite_ctx;
 
-/* Taille d'une entite dans le monde (hauteur, ratio l/h, z de base) */
+/* Taille d’une entité dans le monde (hauteur, ratio, z de base). */
 typedef struct s_sprite_dim
 {
 	float	h;
@@ -40,6 +40,7 @@ typedef struct s_sprite_dim
 	float	z;
 }	t_sprite_dim;
 
+/* Initialise le contexte de rendu du sprite. */
 static void	init_sprite_ctx(t_game *game, t_sprite_ctx *c)
 {
 	float	camera_scale = tanf(game->settings.FOV * 0.5f);
@@ -57,6 +58,7 @@ static void	init_sprite_ctx(t_game *game, t_sprite_ctx *c)
 	c->closest = FLT_MAX;
 }
 
+/* Sélectionne la texture correspondant à l’entité. */
 static t_tex	*select_entity_texture(t_entity *e, t_vect2 ply_pos)
 {
 	long long	current = get_time_ms();
@@ -71,6 +73,7 @@ static t_tex	*select_entity_texture(t_entity *e, t_vect2 ply_pos)
 	return (e->texture);
 }
 
+/* Calcule la taille d’affichage d’une entité vivante. */
 static void	compute_alive_size(t_entity *e, t_sprite_dim *d)
 {
 	if (e->sprite_h > 0.0f)
@@ -91,6 +94,7 @@ static void	compute_alive_size(t_entity *e, t_sprite_dim *d)
 		d->aspect = 1.0f;
 }
 
+/* Calcule la taille d’affichage de l’entité. */
 static t_sprite_dim	compute_entity_size(t_entity *e)
 {
 	t_sprite_dim	d;
@@ -115,11 +119,7 @@ static t_sprite_dim	compute_entity_size(t_entity *e)
 	return (d);
 }
 
-/*
-	Transforme la position de l'entite en espace camera (transform_x / transform_y),
-	puis division perspective pour obtenir le rectangle a l'ecran.
-	Renvoie 0 si l'entite est trop loin, derriere le joueur ou hors ecran.
-*/
+/* Projette l’entité à l’écran, renvoie 0 si elle est invisible. */
 static int	project_entity(t_sprite_ctx *c, t_entity *e, SDL_Rect *dest, float *depth)
 {
 	float			dx = e->x - c->pos.x;
@@ -154,7 +154,7 @@ static int	project_entity(t_sprite_ctx *c, t_entity *e, SDL_Rect *dest, float *d
 	return (1);
 }
 
-/* on ne vise pas une entite cachee par un mur/sol/toit */
+/* Met à jour la cible du viseur visible. */
 static void	update_crosshair_target(t_game *game, t_sprite_ctx *c, t_entity *e, SDL_Rect dest, float depth)
 {
 	int	cx = (int)c->half_sw;
@@ -168,6 +168,7 @@ static void	update_crosshair_target(t_game *game, t_sprite_ctx *c, t_entity *e, 
 	}
 }
 
+/* Met à jour et affiche les entités. */
 void	render_entities(t_game *game)
 {
 	t_sprite_ctx	c;

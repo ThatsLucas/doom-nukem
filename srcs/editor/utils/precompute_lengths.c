@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Pré-calcule la longueur de chaque mur. */
 void	precompute_lengths(t_map *map)
 {
 	t_wall	*w;

@@ -14,6 +14,7 @@
 #include "Editor.h"
 #include "GUI/GUI.h"
 
+/* Libère le tampon de l’image PNG. */
 static void	free_png_buf(t_png *png)
 {
 	for (__uint32_t y = 0; y < png->h; y++)
@@ -21,6 +22,7 @@ static void	free_png_buf(t_png *png)
 	free(png->buf);
 }
 
+/* Projette la position du décalque sur le mur. */
 static float	project_on_wall(t_map *map, t_wall *wall, t_vect2 pos, float len)
 {
 	t_vect2	v1;
@@ -32,6 +34,7 @@ static float	project_on_wall(t_map *map, t_wall *wall, t_vect2 pos, float len)
 	return ((pos.x - v1.x) * dir.x + (pos.y - v1.y) * dir.y);
 }
 
+/* Supprime le décalque proche de la position. */
 int	suppress_decal(t_game *game, t_vect2 pos)
 {
 	t_map	*map;
@@ -52,7 +55,7 @@ int	suppress_decal(t_game *game, t_vect2 pos)
 	return (0);
 }
 
-/* Size and place the decal on the wall, centered on pos */
+/* Place le décalque au centre de la position projetée sur le mur. */
 static void	place_decal(t_game *game, t_map *map, int wall_idx, t_vect2 pos, float len)
 {
 	t_decal	*decal = &map->decals[map->num_decals];
@@ -69,6 +72,7 @@ static void	place_decal(t_game *game, t_map *map, int wall_idx, t_vect2 pos, flo
 	decal->need_key = 0;
 }
 
+/* Ajoute un décalque sur le mur le plus proche. */
 int	add_decal(t_game *game, t_map *map, char *png_file, float height, t_vect2 pos)
 {
 	int		wall_idx;

@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Player.h"
 
+/* Fait sauter le joueur, ou utilise le jetpack en l’air. */
 void player_jump(t_game *game)
 {
     t_ply *ply = game->ply;

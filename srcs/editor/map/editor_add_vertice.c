@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	retourne la position de la vertice cliquée	*/
+/* Récupère le sommet situé sous le curseur. */
 t_vect2	*get_clicked_vertice(t_game *game, float x, float y)
 {
 	t_map	*map = game->editor->map;
@@ -30,6 +30,7 @@ t_vect2	*get_clicked_vertice(t_game *game, float x, float y)
 	return (NULL);
 }
 
+/* Copie les propriétés du mur. */
 static void	copy_wall_info(t_wall *src, t_wall *dest)
 {
 	dest->alpha			= src->alpha;
@@ -42,6 +43,7 @@ static void	copy_wall_info(t_wall *src, t_wall *dest)
 	return ;
 }
 
+/* Découpe le mur au sommet ajouté. */
 static void	split_wall(t_game *game, t_map *map, int vmid, int idx)
 {
 	t_wall	*new, *wall;
@@ -59,7 +61,7 @@ static void	split_wall(t_game *game, t_map *map, int vmid, int idx)
 	return ;
 }
 
-/*	Ajouter une vertice à la map	*/
+/* Ajoute un sommet, en coupant le mur s’il tombe dessus. */
 int	editor_add_vertice(t_game *game, float x, float y)
 {
 	t_map	*map = game->editor->map;

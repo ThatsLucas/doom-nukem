@@ -12,6 +12,7 @@
 
 #include "multiplayer/multiplayer.h"
 
+/* Ouvre le socket UDP et lance la boucle du serveur. */
 void *start_server_thread(void *serverStruct)
 {
     int socketFD;

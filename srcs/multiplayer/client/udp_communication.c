@@ -13,11 +13,13 @@
 #include "multiplayer/client.h"
 #include "Game.h"
 
+/* Envoie une requête UDP au serveur. */
 void send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection)
 {
     sendto(connection->con_socket, datas, sizeof(t_client_udp_datas), MSG_CONFIRM, (struct sockaddr *)&connection->servaddr, sizeof(connection->servaddr));
 }
 
+/* Connecte le client au serveur. */
 int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp_datas *datas)
 {
     ft_bzero(connection, sizeof(*connection));
@@ -42,6 +44,7 @@ int connect_player(t_udp_connections *connection, char *serveraddr, t_client_udp
     return (1);
 }
 
+/* Ferme la connexion et quitte le mode multijoueur. */
 void close_connection(t_game *game)
 {
     close(game->clientConnection.con_socket);
@@ -51,6 +54,7 @@ void close_connection(t_game *game)
 }
 // TODO disconnect_player
 
+/* Récupère la réponse la plus récente du serveur. */
 static int get_latest_server_response(t_udp_connections *connection, t_server_udp_datas *datas)
 {
     t_server_udp_datas latest;
@@ -78,6 +82,7 @@ static int get_latest_server_response(t_udp_connections *connection, t_server_ud
     return (has_data);
 }
 
+/* Traite la dernière réponse du serveur. */
 void handle_server_response(t_game *game, t_udp_connections *connection)
 {
     t_server_udp_datas serverDatas;

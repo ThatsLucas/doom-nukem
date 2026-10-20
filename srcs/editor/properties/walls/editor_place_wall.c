@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/* Click on an existing vertice: close the current wall or start a new one */
+/* Gère le clic sur un sommet existant pour fermer ou commencer un mur. */
 static void	click_existing_vertice(t_game *game, t_map *map, t_vect2 *existing)
 {
 	t_editor_properties	*props = &game->editor->properties;
@@ -32,7 +32,7 @@ static void	click_existing_vertice(t_game *game, t_map *map, t_vect2 *existing)
 	props->last_vertex = existing - map->vertices;
 }
 
-/* Click on an empty spot: add a vertice and continue the current wall */
+/* Ajoute un sommet à la position cliquée pour poursuivre le mur. */
 static void	click_new_vertice(t_game *game, t_map *map, t_vect2 click_pos)
 {
 	t_editor_properties	*props = &game->editor->properties;
@@ -52,7 +52,7 @@ static void	click_new_vertice(t_game *game, t_map *map, t_vect2 click_pos)
 	}
 }
 
-/*	Placer un wall dans l'editor en cliquant	*/
+/* Trace un mur sommet par sommet. */
 void	editor_place_wall(t_game *game, int pixx, int pixy, int button)
 {
 	t_vect2	click_pos;

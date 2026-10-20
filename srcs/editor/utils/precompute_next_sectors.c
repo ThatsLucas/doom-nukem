@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/* cherche un autre secteur qui référence aussi le mur w */
+/* Recherche l’autre secteur associé au mur. */
 static int	find_other_sector(t_map *map, int w, int owner_sector)
 {
 	int	si;
@@ -37,6 +37,7 @@ static int	find_other_sector(t_map *map, int w, int owner_sector)
 	return (-1);
 }
 
+/* Réinitialise les liens entre les murs. */
 static void	reset_wall_links(t_map *map)
 {
 	int	wi;
@@ -52,7 +53,7 @@ static void	reset_wall_links(t_map *map)
 	}
 }
 
-/* Link the wall w (owned by sector si) to its front/back and next sector */
+/* Relie le mur à ses voisins et au secteur adjacent. */
 static void	link_wall(t_map *map, int w, int si)
 {
 	int	other;
@@ -73,6 +74,7 @@ static void	link_wall(t_map *map, int w, int si)
 	}
 }
 
+/* Pré-calcule les liens entre murs et secteurs voisins. */
 void	precompute_next_sectors(t_map *map)
 {
 	int	si;

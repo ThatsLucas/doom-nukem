@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
+/* Crée un ennemi de type 1. */
 void	create_enemy1(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -28,6 +29,7 @@ void	create_enemy1(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
+/* Crée un ennemi de type 2. */
 void	create_enemy2(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -43,6 +45,7 @@ void	create_enemy2(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
+/* Crée un ennemi de type 3. */
 void	create_enemy3(t_game *game, t_vect2 pos)
 {
 	t_entity	e;

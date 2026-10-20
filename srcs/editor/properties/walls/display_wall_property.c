@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	Afficher le texte des propriété de murs	*/
+/* Affiche les propriétés du mur. */
 void	display_walls_property(t_game *game)
 {
 	SDL_Rect	background, toggle;

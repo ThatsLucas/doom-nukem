@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Récupère le décalque visé par le joueur. */
 static t_decal	*get_crosshair_decal(t_game *game)
 {
 	t_ray	*ray;
@@ -45,6 +46,7 @@ static t_decal	*get_crosshair_decal(t_game *game)
 	return (NULL);
 }
 
+/* Parle au PNJ visé ou active l’ascenseur visé. */
 void	interactions(t_game *game)
 {
 	t_ply	*ply = game->ply;

@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Donnees de camera communes a tous les items d'une frame */
+/* Données de caméra communes à tous les objets d’une image. */
 typedef struct s_item_cam
 {
 	int		sw;
@@ -27,6 +27,7 @@ typedef struct s_item_cam
 	float	pitch;
 }	t_item_cam;
 
+/* Initialise la caméra de rendu des objets. */
 static void	init_item_cam(t_game *game, t_item_cam *c)
 {
 	float	camera_scale = tanf(game->settings.FOV * 0.5f);
@@ -43,14 +44,7 @@ static void	init_item_cam(t_game *game, t_item_cam *c)
 	c->inv_det = 1.0f / (c->plane.x * c->dir.y - c->dir.x * c->plane.y);
 }
 
-/*
-	Calculs pour placer un item a l'ecran :
-		- Transformation de la pos en cam (transform_y et transform_x)
-		- Division perspective pour avoir la position sur l'ecran (inv_ty et sX)
-		- Calcule la taille du sprite selon la distance et la hauteur
-
-	Renvoie 0 si l'item est trop loin, derriere le joueur ou hors ecran.
-*/
+/* Projette l’objet à l’écran, renvoie 0 s’il est invisible. */
 static int	project_item(t_item_cam *c, t_ground_item *item, SDL_Rect *dest)
 {
 	float	dx = item->pos_x - c->pos.x;
@@ -82,7 +76,7 @@ static int	project_item(t_item_cam *c, t_ground_item *item, SDL_Rect *dest)
 	return (1);
 }
 
-/* On skip les items ramasses, trop loin ou derriere le joueur */
+/* Affiche les objets au sol. */
 void	render_items(t_game *game)
 {
 	t_item_cam		c;

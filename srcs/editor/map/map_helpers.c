@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	Réallouer le tableau dynamique de la map	*/
+/* Double la capacité d’un tableau de la carte. */
 void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
 {
 	int		new_cap;
@@ -34,6 +34,7 @@ void	map_realloc(t_game *game, void **pointer, int *cap, unsigned int sizeofone)
 	return ;
 }
 
+/* Renvoie l’indice du mur sous le point, ou -1. */
 int	get_wall_index(t_map *map, float x, float y)
 {
 	t_wall	*wall;

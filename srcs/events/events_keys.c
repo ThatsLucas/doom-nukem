@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:21:33 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:21:33 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:30:54 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
-/* Pressed / released state of the movement keys */
+/* Met à jour l’état des touches de déplacement. */
 static void update_movement_keys(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 {
 	t_ply *ply;
@@ -37,18 +37,7 @@ static void update_movement_keys(t_game *game, SDL_KeyboardEvent key, SDL_Event 
 	ply->keys.space = (event->type == SDL_KEYUP && key.keysym.sym == SDLK_SPACE) ? 0 : ply->keys.space;
 }
 
-/*
-	27 = Escape
-	119 = W
-	97 = A
-	115 = S
-	100 = D
-	1073741903 = RIGHT
-	1073741904 = LEFT
-	1073741906 = UP
-	1073741905 = DOWN
-	8 = BackSpace
-*/
+/* Gère l’appui ou le relâchement d’une touche. */
 void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 {
 	t_ply *ply;

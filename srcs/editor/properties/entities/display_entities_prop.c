@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Affiche un texte centré dans la zone indiquée. */
 static void	draw_centered_text(t_game *game, char *txt, int x, int y)
 {
 	static SDL_Color	color = (SDL_Color){0, 0, 0, 255};
@@ -39,6 +40,7 @@ static void	draw_centered_text(t_game *game, char *txt, int x, int y)
 	return ;
 }
 
+/* Affiche les propriétés des entités. */
 void	display_entities_prop(t_game *game)
 {
 	display_buttons(game->editor->buttons_entities, game, -1);

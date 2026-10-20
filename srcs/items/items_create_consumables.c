@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "inventory/Items.h"
 
-/* heal */
+/* Crée un objet de soin. */
 void	create_item_heal(t_game *game, t_vect2 pos, int amount)
 {
 	t_ground_item	item;
@@ -24,7 +24,7 @@ void	create_item_heal(t_game *game, t_vect2 pos, int amount)
 	create_ground_item(game, pos, "assets/png/items/cons/medic.png", 0.4f, item);
 }
 
-/* fuel */
+/* Crée un objet de carburant. */
 void	create_item_fuel(t_game *game, t_vect2 pos, int amount)
 {
 	t_ground_item	item;
@@ -35,7 +35,7 @@ void	create_item_fuel(t_game *game, t_vect2 pos, int amount)
 	create_ground_item(game, pos, "assets/png/items/cons/fuel.png", 0.4f, item);
 }
 
-/* battery */
+/* Crée un objet de batterie. */
 void	create_item_battery(t_game *game, t_vect2 pos, int amount)
 {
 	t_ground_item	item;

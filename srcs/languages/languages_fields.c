@@ -13,10 +13,7 @@
 #include "languages/language.h"
 #include "Game.h"
 
-/*
-	Every text of t_languages, in the same order as the lines
-	of the language files in srcs/languages/dict/
-*/
+/* Liste les champs de traduction dans l’ordre des fichiers de langue. */
 void get_language_fields(t_languages *l, char ***tab)
 {
     char **fields[LANGUAGE_FIELDS] = {

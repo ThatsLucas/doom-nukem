@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Charge les données d’un mur. */
 static int	load_one_wall(t_wall *w, int fd)
 {
 	if (read_full(fd, &w->v1, sizeof(int))
@@ -30,6 +31,7 @@ static int	load_one_wall(t_wall *w, int fd)
 	return (0);
 }
 
+/* Charge les sommets et les murs. */
 int	load_vertices_walls(t_map *map, int fd)
 {
 	int	i;
@@ -60,6 +62,7 @@ int	load_vertices_walls(t_map *map, int fd)
 	return (0);
 }
 
+/* Charge les données d’un secteur. */
 static int	load_one_sector(t_sector *s, int fd)
 {
 	if (read_full(fd, &s->num_walls, sizeof(int)))
@@ -88,6 +91,7 @@ static int	load_one_sector(t_sector *s, int fd)
 	return (0);
 }
 
+/* Charge les secteurs. */
 int	load_sectors(t_map *map, int fd)
 {
 	int	i;
@@ -109,6 +113,7 @@ int	load_sectors(t_map *map, int fd)
 	return (0);
 }
 
+/* Charge les ascenseurs. */
 int	load_elevators(t_map *map, int fd)
 {
 	int	direction;

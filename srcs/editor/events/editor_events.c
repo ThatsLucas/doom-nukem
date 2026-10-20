@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Met à jour les options activables de l’éditeur. */
 static void	check_toggles(t_game *game, int x, int y)
 {
 	SDL_Rect	box;
@@ -32,6 +33,7 @@ static void	check_toggles(t_game *game, int x, int y)
 	return ;
 }
 
+/* Gère l’appui sur un bouton de la souris dans l’éditeur. */
 static void	mouse_button_down(t_game *game, SDL_Event *e)
 {
 	get_selected_input(game, &game->editor->text_inputs, e->motion.x, e->motion.y);
@@ -45,7 +47,7 @@ static void	mouse_button_down(t_game *game, SDL_Event *e)
 	check_toggles(game, e->motion.x, e->motion.y);
 }
 
-/* Handle editor events (mouse, keys, etc.) */
+/* Traite les événements SDL de l’éditeur. */
 void	editor_events(t_game *game)
 {
 	SDL_Event e;

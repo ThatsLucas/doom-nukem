@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:06 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:30:43 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,14 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
-/*
-	Alt-tab : on relache les touches, les KEYUP sont perdus quand la fenetre
-	n'a plus le focus (sinon le joueur continue d'avancer tout seul)
-*/
+/* Relâche les touches quand la fenêtre perd le focus. */
 static void handle_focus(t_game *game, Uint8 window_event)
 {
 	if (window_event == SDL_WINDOWEVENT_FOCUS_LOST)
 		ft_bzero(&game->ply->keys, sizeof(t_keys));
 }
 
-/*
-	Capture la souris seulement en jeu/cinematique, hors pause, et si la fenetre
-	a le focus. Verifie a chaque frame : si SDL refuse au retour d'un alt-tab
-	(souris pas encore dans la fenetre), on reessaie a la frame suivante
-*/
+/* Capture la souris en jeu si la fenêtre a le focus. */
 static void update_mouse_capture(t_game *game)
 {
 	int			menu = game->window->menus.current;
@@ -41,6 +34,7 @@ static void update_mouse_capture(t_game *game)
 		SDL_SetRelativeMouseMode(want);
 }
 
+/* Gère l’appui sur un bouton de la souris. */
 static void on_mouse_button_down(t_game *game, SDL_Event *event)
 {
 	if (event->button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0 && !game->is_paused)
@@ -53,6 +47,7 @@ static void on_mouse_button_down(t_game *game, SDL_Event *event)
 	}
 }
 
+/* Gère le déplacement de la souris. */
 static void on_mouse_motion(t_game *game, SDL_Event *event)
 {
 	if (game->window->menus.current == 2)
@@ -61,6 +56,7 @@ static void on_mouse_motion(t_game *game, SDL_Event *event)
 		mouse_moves(event->motion.xrel, event->motion.yrel, game);
 }
 
+/* Gère la rotation de la molette de la souris. */
 static void on_mouse_wheel(t_game *game, SDL_Event *event)
 {
 	if (game->window->menus.current == 0)
@@ -69,6 +65,7 @@ static void on_mouse_wheel(t_game *game, SDL_Event *event)
 		handle_settings_scroll_mouse_wheel(game, &game->window->menus.settings, &event->wheel);
 }
 
+/* Gère un événement de la fenêtre. */
 static void on_window_event(t_game *game, SDL_Event *event)
 {
 	if (event->window.event == SDL_WINDOWEVENT_RESIZED)
@@ -79,6 +76,7 @@ static void on_window_event(t_game *game, SDL_Event *event)
 	handle_focus(game, event->window.event);
 }
 
+/* Transmet l’événement au gestionnaire approprié. */
 static void dispatch_event(t_game *game, SDL_Event *event)
 {
 	if (event->type == SDL_MOUSEWHEEL)
@@ -105,6 +103,7 @@ static void dispatch_event(t_game *game, SDL_Event *event)
 		on_window_event(game, event);
 }
 
+/* Traite tous les événements SDL en attente. */
 void events_handler(t_game *game)
 {
 	SDL_Event event;

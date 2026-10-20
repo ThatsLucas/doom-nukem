@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Convertit un entier big-endian en little-endian. */
 __uint32_t big_endian_to_little_endian(__uint32_t n)
 {
     static const __uint32_t islittle = 0x01020304;

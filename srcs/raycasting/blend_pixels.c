@@ -13,7 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
-/* melange les pixels pour obtenir un effet transparent */
+/* Mélange la texture d’un mur transparent avec l’arrière-plan. */
 void	blend_pixels(t_game *game, t_wall *w, t_ray *ray, int x, t_sector *sector)
 {
 	float	u_world, vh, vh_step;

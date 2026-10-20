@@ -14,6 +14,7 @@
 #include "parser/PNG.h"
 #include "Game.h"
 
+/* Agrandit le tableau des images PNG. */
 static void	realloc_png(t_game *game, t_editor_textures *textures)
 {
 	if (textures->cap_textures == 0)
@@ -32,6 +33,7 @@ static void	realloc_png(t_game *game, t_editor_textures *textures)
 	return ;
 }
 
+/* Crée la liste des images PNG à charger. */
 static void	create_png_list(t_game *game, t_editor *editor, int fd)
 {
 	char	*line = NULL;
@@ -59,6 +61,7 @@ static void	create_png_list(t_game *game, t_editor *editor, int fd)
 	return ;
 }
 
+/* Initialise les boutons de l’éditeur. */
 static void	init_buttons(t_game *game)
 {
 	t_png	s_png[3];
@@ -91,6 +94,7 @@ static void	init_buttons(t_game *game)
 	return ;
 }
 
+/* Charge les textures et boutons de l’éditeur. */
 void	init_editor_cache(t_game *game)
 {
 	t_editor	*editor = game->editor;

@@ -12,6 +12,7 @@
 
 #include "Player.h"
 
+/* Renvoie le temps écoulé en secondes depuis le dernier appel. */
 float get_delta_time(t_ply *ply)
 {
     Uint64 Curtime = SDL_GetTicks64();

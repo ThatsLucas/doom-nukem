@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Retourne au menu principal. */
 static void change_menu_to_main_menu(t_game *game)
 {
     if (game->is_paused == 1)
@@ -24,7 +25,7 @@ static void change_menu_to_main_menu(t_game *game)
     game->window->menus.current = 1;
 }
 
-/* Thread: creates the texts and the back button of the settings menu */
+/* Initialise les textes du menu des paramètres. */
 static void *init_texts(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
@@ -40,7 +41,7 @@ static void *init_texts(void *gameStruct)
     return ((void *)1);
 }
 
-/* Lists the images to load and sets their paths */
+/* Définit les images du menu des paramètres. */
 static void set_settings_images(t_settings_menu *SettingsMenu, t_png **images)
 {
     t_png *list[12] = {
@@ -79,6 +80,7 @@ static void set_settings_images(t_settings_menu *SettingsMenu, t_png **images)
     }
 }
 
+/* Initialise le menu des paramètres. */
 int init_settings_menu(t_game *game, SDL_Renderer *renderer,
                        t_settings_menu *SettingsMenu)
 {

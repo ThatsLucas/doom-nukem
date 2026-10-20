@@ -15,6 +15,7 @@
 #include "Raycasting/Raycasting.h"
 #include "GUI/HUD.h"
 
+/* Applique les actions correspondant à l’état de l’entité. */
 static void	actions_base_on_state(t_entity *e, t_game *game, float dt)
 {
 	if (e->status == E_STATUS_CHASE)
@@ -27,6 +28,7 @@ static void	actions_base_on_state(t_entity *e, t_game *game, float dt)
 	}
 }
 
+/* Met à jour l’état de l’ennemi. */
 static void	update_enemy_status(t_entity *e, float distance, int see_player)
 {
 	switch (e->status)
@@ -55,6 +57,7 @@ static void	update_enemy_status(t_entity *e, float distance, int see_player)
 	}
 }
 
+/* Met à jour l’état et les actions d’un ennemi. */
 static void	update_enemy(t_entity *e, t_game *game, float dt)
 {
 	t_ply	*p = game->ply;
@@ -68,6 +71,7 @@ static void	update_enemy(t_entity *e, t_game *game, float dt)
 	actions_base_on_state(e, game, dt);
 }
 
+/* Met à jour toutes les entités. */
 void	update_entities(t_game *game, t_entities *e)
 {
 	static long long	last_time = 0;

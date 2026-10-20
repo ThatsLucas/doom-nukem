@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "inventory/Items.h"
 
+/* Libère tous les objets au sol. */
 void cleanup_items(t_game *game)
 {
 	if (!game || !game->items)

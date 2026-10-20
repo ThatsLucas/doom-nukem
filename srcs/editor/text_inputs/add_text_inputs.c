@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* Add an input in memory */
+/* Ajoute un champ de saisie à l’éditeur. */
 void	add_text_inputs(t_game *game, SDL_Rect coords, char *name, int page)
 {
 	t_text_input	*text;

@@ -15,7 +15,7 @@
 #include "parser/PNG.h"
 #include "Game.h"
 
-/* Processing png on a path (thread_worker) */
+/* Charge et traite une image PNG dans un fil d’exécution. */
 void	*load_png_thread(void *arg)
 {
 	t_load_job	*job = (t_load_job *)arg;
@@ -31,7 +31,7 @@ void	*load_png_thread(void *arg)
 	return (NULL);
 }
 
-/* Adds count jobs of the same type, returns the next free index */
+/* Ajoute les tâches de chargement des ressources. */
 static int	add_jobs(t_game *game, t_load_job *jobs, int i, char **paths, int count, int type)
 {
 	for (int j = 0; j < count; j++, i++)
@@ -44,7 +44,7 @@ static int	add_jobs(t_game *game, t_load_job *jobs, int i, char **paths, int cou
 	return (i);
 }
 
-/* Fill jobs with the good paths, index and types */
+/* Prépare les tâches de chargement des ressources. */
 static int	fill_jobs(t_game *game, t_load_job *jobs)
 {
 	int i = 0;
@@ -84,7 +84,7 @@ static int	fill_jobs(t_game *game, t_load_job *jobs)
 	return (i);
 }
 
-/* Creates the texture of a finished job and stores it in the hud cache */
+/* Crée et stocke la texture d’une tâche terminée. */
 static void	store_job_texture(t_game *game, t_load_job *job)
 {
 	SDL_Texture	**dst = NULL;
@@ -101,7 +101,7 @@ static void	store_job_texture(t_game *game, t_load_job *job)
 		exit_game(game, "create image failed");
 }
 
-/* Creating threads to process all the assets and join them to create images */
+/* Charge en parallèle toutes les ressources du HUD. */
 void	init_all_assets(t_game *game)
 {
 	pthread_t	threads[64]; // valeur par defaut pour avoir une taille

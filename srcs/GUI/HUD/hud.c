@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 10:08:31 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:20:28 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:32:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
-/* General function to display all the HUD */
+/* Affiche tous les éléments du HUD. */
 void	display_hud(t_game *game)
 {
 	t_RGB	timer_color = {255, 255, 255, 255};
@@ -37,5 +37,4 @@ void	display_hud(t_game *game)
 	draw_minimap(game->window->renderPTR, game);
 	display_gauge(game, TOOL_FLASHLIGHT);
 	display_gauge(game, TOOL_JETPACK);
-	//render_projectiles(game);
 }

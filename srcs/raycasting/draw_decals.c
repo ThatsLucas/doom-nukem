@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* limite le decalque au rectangle [y_top_f, y_bot_f] borne par le mur visible */
+/* Limite le décalque à la partie visible du mur. */
 static int	clamp_decal_band(t_ray *ray, int sH, float y_top_f, float y_bot_f, int *draw_top, int *draw_bot)
 {
 	*draw_top = (int)y_top_f;
@@ -34,7 +34,7 @@ static int	clamp_decal_band(t_ray *ray, int sH, float y_top_f, float y_bot_f, in
 	return (*draw_top < *draw_bot);
 }
 
-/* melange le pixel du decalque (alpha du png) avec ce qui est deja dans le frame_buffer */
+/* Mélange le pixel du décalque avec le pixel déjà affiché. */
 static void	blend_decal_pixel(int x, int y, t_game *game, Uint32 *fb, t_RGB c, int light_level)
 {
 	t_RGB	behind;
@@ -55,6 +55,7 @@ static void	blend_decal_pixel(int x, int y, t_game *game, Uint32 *fb, t_RGB c, i
 	*fb = write_color(x, y, game, c, light_level);
 }
 
+/* Dessine un décalque sur le mur touché par le rayon. */
 static void	draw_decal(t_game *game, t_ray *ray, int x, t_sector *sector, t_decal *decal)
 {
 	float	u_world;
@@ -88,7 +89,7 @@ static void	draw_decal(t_game *game, t_ray *ray, int x, t_sector *sector, t_deca
 	}
 }
 
-/* dessine tous les decalques colles sur le mur touche par ce rayon */
+/* Affiche les décalques présents sur le mur touché par le rayon. */
 void	draw_decals(t_game *game, t_ray *ray, int x, t_sector *sector)
 {
 	t_map	*map;

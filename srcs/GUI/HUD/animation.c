@@ -13,6 +13,7 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
+/* Récupère le temps écoulé en millisecondes. */
 long long get_time_ms(void)
 {
 	struct timeval tv;
@@ -21,7 +22,7 @@ long long get_time_ms(void)
 	return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000);
 }
 
-/* Updates the current frame to make a sprite animation of the player and the weapons */
+/* Fait avancer les animations du joueur et de l’arme du HUD. */
 void update_hud_anim(t_game *game)
 {
 	int idx = game->ply->current_weap_index;

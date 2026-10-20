@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* plan_pixels to real position */
+/* Convertit les coordonnées en pixels en position dans le plan. */
 t_vect2	pixels_to_pos(t_editor *editor, float x, float y)
 {
 	t_vect2		res;

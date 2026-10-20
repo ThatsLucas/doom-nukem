@@ -14,6 +14,7 @@
 #include "parser/filter.h"
 #include "parser/huffman.h"
 
+/* Calcule la valeur absolue. */
 static int abs_value(int val)
 {
     if (val < 0)
@@ -21,6 +22,7 @@ static int abs_value(int val)
     return (val);
 }
 
+/* Calcule le prédicteur Paeth utilisé par le filtre PNG. */
 static int paeth(t_filterType fType)
 {
     int estimate = fType.left + fType.top - fType.topleft;
@@ -35,6 +37,7 @@ static int paeth(t_filterType fType)
     return (fType.topleft);
 }
 
+/* Applique le filtre PNG à un octet. */
 static __uint8_t apply_filter(__uint8_t filter, __uint8_t byte, t_filterType fType)
 {
     if (filter == FILTER_NONE)
@@ -48,6 +51,7 @@ static __uint8_t apply_filter(__uint8_t filter, __uint8_t byte, t_filterType fTy
     return (byte + paeth(fType));    
 }
 
+/* Détermine la direction du filtre PNG. */
 static t_filterType find_filter_direction(int i, int j, int bytes_per_pixel, __uint8_t **pngBuff)
 {
     t_filterType fType;
@@ -69,6 +73,7 @@ static t_filterType find_filter_direction(int i, int j, int bytes_per_pixel, __u
     return (fType);
 }
 
+/* Défiltre les lignes et remplit le tampon de l’image. */
 void fill_img_buffer(t_png *pngFile, __uint8_t *buff, __uint32_t len)
 {
     __uint32_t i = 0;

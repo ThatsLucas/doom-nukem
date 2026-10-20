@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ammo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:23:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/04/13 11:39:42 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:31:42 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "GUI/HUD.h"
 
-/*
-	Adds the amount of ammo on the renderer
-	If the ammo of the current weapon is < 0, it means the players current weapon are fists
-	Else if the ammo is valid (> 0), we display the amount
-*/
+/* Affiche le nombre de munitions de l’arme (rien pour les poings). */
 static void	display_ammo_nb(t_game *game, int x, int y, int w, int h)
 {
 	char *buf;
@@ -55,7 +51,7 @@ static void	display_ammo_nb(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Adds the "AMMO" on the renderer */
+/* Affiche le libellé « AMMO ». */
 static void	display_ammo(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -75,7 +71,7 @@ static void	display_ammo(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Display "AMMO" string and the amount of the current weapon on the screen */
+/* Affiche le module des munitions du HUD. */
 void	display_module_ammo(t_game *game, int x, int y, int w, int h)
 {
 	display_ammo(game, x, y, w, h);

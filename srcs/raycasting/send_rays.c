@@ -13,6 +13,7 @@
 #include "Raycasting/Raycasting.h"
 #include "Game.h"
 
+/* Calcule les rayons affectés aux fils d’exécution. */
 static void *send_threads_ray(void *arg)
 {
 	t_raythread *infos;
@@ -50,10 +51,7 @@ static void *send_threads_ray(void *arg)
 	return (NULL);
 }
 
-/*
-	Envoie des rayons verticaux de 0 a SCREEN_WIDTH
-	Affiche le plafond, le mur et le sol
-*/
+/* Lance un rayon par colonne de l’écran pour dessiner la scène. */
 void send_rays(t_game *game)
 {
 	t_raythread infos[RAYCAST_THREADS];

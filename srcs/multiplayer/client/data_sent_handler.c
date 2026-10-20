@@ -13,6 +13,7 @@
 #include "multiplayer/client.h"
 #include "Game.h"
 
+/* Envoie au serveur les données du joueur. */
 void send_corresponding_datas_to_server(t_game *game)
 {
     t_client_udp_datas datas;

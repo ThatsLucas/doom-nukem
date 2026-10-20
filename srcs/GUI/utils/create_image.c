@@ -15,6 +15,7 @@
 #include "parser/PNG.h"
 #include "parser/huffman.h"
 
+/* Détermine le format de couleur des pixels. */
 static SDL_PixelFormatEnum decidePixelFormat(uint8_t color_type)
 {
     SDL_PixelFormatEnum format;
@@ -32,6 +33,7 @@ static SDL_PixelFormatEnum decidePixelFormat(uint8_t color_type)
     return (format);
 }
 
+/* Calcule le rectangle des pixels non transparents du PNG. */
 SDL_Rect get_png_opaque_bounds(t_png *pngFile)
 {
     SDL_Rect full = {0, 0, pngFile->w, pngFile->h};
@@ -57,6 +59,7 @@ SDL_Rect get_png_opaque_bounds(t_png *pngFile)
     return ((SDL_Rect){min_x, min_y, max_x - min_x + 1, max_y - min_y + 1});
 }
 
+/* Crée une texture SDL à partir d’un PNG décodé. */
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer)
 {
     SDL_PixelFormatEnum format = decidePixelFormat(pngFile->IHDR.color_type);

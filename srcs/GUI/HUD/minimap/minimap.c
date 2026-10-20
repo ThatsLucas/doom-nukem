@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "GUI/HUD.h"
 
+/* Affiche la mini-carte. */
 void	draw_minimap(SDL_Renderer *render, t_game *game)
 {
 	SDL_SetRenderTarget(render, game->minimap_tex);

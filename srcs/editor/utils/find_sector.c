@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Renvoie le sommet partagé par deux murs. */
 static int	shared_vertex(t_wall *a, t_wall *b)
 {
 	if (a->v1 == b->v1 || a->v1 == b->v2)
@@ -20,6 +21,7 @@ static int	shared_vertex(t_wall *a, t_wall *b)
 	return (a->v2);
 }
 
+/* Calcule l’aire d’un secteur. */
 float	sector_area(t_map *map, t_sector *s)
 {
 	float	area;
@@ -51,6 +53,7 @@ float	sector_area(t_map *map, t_sector *s)
 	return (fabsf(area) * 0.5f);
 }
 
+/* Vérifie si le point se trouve dans le secteur à la hauteur indiquée. */
 static int	point_in_sector_z(t_map *map, t_sector *sector, t_vect2 p, float z)
 {
 	int		inside = 0;
@@ -78,7 +81,7 @@ static int	point_in_sector_z(t_map *map, t_sector *sector, t_vect2 p, float z)
 	return (0);
 }
 
-/*	Trouve l'index du sector dans lequel est le point ou -1	*/
+/* Renvoie le secteur contenant le point à la hauteur z. */
 int	find_sector_z(t_map *map, t_vect2 p, float z)
 {
 	int		best_sector = -1;
@@ -99,6 +102,7 @@ int	find_sector_z(t_map *map, t_vect2 p, float z)
 	return (best_sector);
 }
 
+/* Vérifie si le point se trouve dans le secteur. */
 static int	point_in_sector(t_map *map, t_sector *sector, t_vect2 p)
 {
 	int		inside = 0;
@@ -123,7 +127,7 @@ static int	point_in_sector(t_map *map, t_sector *sector, t_vect2 p)
 	return (inside);
 }
 
-/*	Trouve l'index du sector dans lequel est le point ou -1	*/
+/* Renvoie le secteur contenant le point, ou -1. */
 int	find_sector(t_map *map, t_vect2 p)
 {
 	int		best_sector = -1;

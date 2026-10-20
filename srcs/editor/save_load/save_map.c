@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Enregistre une carte dans un fichier. */
 int	save_map(char *name, t_map *map)
 {
 	char	*file;
@@ -38,6 +39,7 @@ int	save_map(char *name, t_map *map)
 	return (0);
 }
 
+/* Enregistre la carte de l’éditeur sous le nom saisi. */
 void	save_editor_map(t_game *game)
 {
 	char			*s;

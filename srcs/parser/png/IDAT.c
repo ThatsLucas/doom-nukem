@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Libère les données du bloc IDAT. */
 static void free_idat(t_IDAT *idat)
 {
     free(idat->datas);
@@ -19,6 +20,7 @@ static void free_idat(t_IDAT *idat)
     idat = NULL;
 }
 
+/* Vérifie si le bloc PNG est IDAT ou IEND. */
 static int is_IDAT_or_IEND(__uint32_t type)
 {
     if (!ft_memcmp(&type, "IDAT", 4))
@@ -28,6 +30,7 @@ static int is_IDAT_or_IEND(__uint32_t type)
     return (0);
 }
 
+/* Remplit la structure des données IDAT. */
 static int fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
 {
     idat->datas = NULL;
@@ -60,7 +63,7 @@ static int fill_idat_struct(int fd, t_IDAT *idat, __uint32_t len)
     return (1);
 }
 
-/* Reads the length and the type of the next chunk, returns 0 on error */
+/* Lit la longueur et le type du prochain bloc PNG. */
 static int read_chunk_header(int fd, __uint32_t *len, __uint32_t *type)
 {
     ssize_t bytes_read = read(fd, len, sizeof(*len));
@@ -80,6 +83,7 @@ static int read_chunk_header(int fd, __uint32_t *len, __uint32_t *type)
     return (1);
 }
 
+/* Ajoute les données du bloc IDAT au tampon. */
 static void append_idat(t_IDAT **head, t_IDAT *node)
 {
     t_IDAT *last;
@@ -96,7 +100,7 @@ static void append_idat(t_IDAT **head, t_IDAT *node)
     last->next = node;
 }
 
-/* Skips an ancillary chunk, returns 0 if the chunk is mandatory (unknown) */
+/* Ignore un bloc PNG inconnu facultatif. */
 static int skip_unknown_chunk(int fd, __uint32_t type, __uint32_t len)
 {
     char *c = (char *)&type;
@@ -110,6 +114,7 @@ static int skip_unknown_chunk(int fd, __uint32_t type, __uint32_t len)
     return (1);
 }
 
+/* Lit tous les blocs IDAT du fichier PNG. */
 t_IDAT * find_all_IDAT(t_png *pngFile)
 {
     t_IDAT *head = NULL;

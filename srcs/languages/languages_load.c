@@ -13,6 +13,7 @@
 #include "languages/language.h"
 #include "Game.h"
 
+/* Remplit les textes avec les traductions de la langue. */
 static void fill_language_texts(t_game *game, int index, char *str)
 {
     char **tab[LANGUAGE_FIELDS];
@@ -26,6 +27,7 @@ static void fill_language_texts(t_game *game, int index, char *str)
     *tab[index] = ft_strdup(str + 1);
 }
 
+/* Découpe le tampon de texte en lignes. */
 static int split_buffer(t_game *game, char *str)
 {
     char **splitted = ft_split(str, '\n');
@@ -37,6 +39,7 @@ static int split_buffer(t_game *game, char *str)
     return (1);
 }
 
+/* Ouvre le fichier de traduction. */
 static int open_language_file(int language)
 {
     int fd = -1;
@@ -51,6 +54,7 @@ static int open_language_file(int language)
     return (fd);
 }
 
+/* Charge les textes de la langue choisie. */
 void parse_languages(t_game *game, int language)
 {
     int fd = open_language_file(language);

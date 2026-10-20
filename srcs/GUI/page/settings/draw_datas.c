@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Affiche l’invite de choix d’une touche. */
 void draw_pick_a_key(t_WIN *win)
 {
     SDL_Rect coords = {0, 0, 1920, 1080};
@@ -25,6 +26,7 @@ void draw_pick_a_key(t_WIN *win)
                  win->menus.settings.texts[13].w, win->menus.settings.texts[13].h, win, win->menus.settings.texts[13].texture);
 }
 
+/* Dessine une texture à la position indiquée. */
 void draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture)
 {
     SDL_Rect dest = {x, y, w, h};
@@ -32,7 +34,7 @@ void draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture)
     SDL_RenderCopy(win->renderPTR, texture, NULL, &dest);
 }
 
-/* Separator + title of a settings section, returns the y below the title */
+/* Affiche le titre d’une section des paramètres. */
 int draw_section_header(int yPos, int *scrollH, t_WIN *win, t_font *title)
 {
     t_settings_menu *menu = &win->menus.settings;
@@ -47,7 +49,7 @@ int draw_section_header(int yPos, int *scrollH, t_WIN *win, t_font *title)
     return (yPos);
 }
 
-/* One control: key image, action label and key name */
+/* Dessine une ligne de commande des paramètres. */
 static void draw_control_row(t_WIN *win, int y, t_font *label, t_font *key)
 {
     t_settings_menu *menu = &win->menus.settings;
@@ -60,6 +62,7 @@ static void draw_control_row(t_WIN *win, int y, t_font *label, t_font *key)
     draw_texture(xPos + ((keyW - key->w) / 2), y + (keyH - key->h + 35) / 2, key->w, key->h, win, key->texture);
 }
 
+/* Affiche la liste des commandes et leurs touches. */
 int draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu)
 {
     int keyW = menu->keys.w / 8;
@@ -78,6 +81,7 @@ int draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu)
     return (yPos);
 }
 
+/* Affiche la barre de défilement des paramètres. */
 void draw_scroll_bar(t_game *game, t_settings_menu *menu)
 {
     t_WIN *win = game->window;

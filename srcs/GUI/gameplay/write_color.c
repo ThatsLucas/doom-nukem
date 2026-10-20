@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:24:01 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 17:25:33 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:31:30 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
+/* Récupère la lumière de la lampe torche. */
 static t_tool	*get_flashlight(t_game *game)
 {
 	for (int i = 0; i < game->ply->inventory.tool_count; i++)
@@ -26,10 +27,7 @@ static t_tool	*get_flashlight(t_game *game)
 	return (NULL);
 }
 
-/*
-	Renvoie une couleur par rapport au facteur de lumiere 
-	le bit shift de 8 est une division par 256 et pas 255 => résultat imparfait mais optimisé
-*/
+/* Applique la lumière du secteur et de la lampe à une couleur. */
 Uint32  write_color(int x, int y, t_game *game, t_RGB c, int sect_light)
 {
 	static t_tool	*flashlight = NULL;

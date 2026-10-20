@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Crée les entités définies dans la carte. */
 static void	spawn_entities(t_map *map, t_game *game)
 {
 	t_map_ent	*e;
@@ -48,7 +49,7 @@ static void	spawn_entities(t_map *map, t_game *game)
 	return ;
 }
 
-/* Reads every section of the file, returns NULL on error */
+/* Lit les sections du fichier de carte. */
 static t_map	*read_map_file(char *name)
 {
 	char	*file;
@@ -78,7 +79,7 @@ static t_map	*read_map_file(char *name)
 	return (map);
 }
 
-/* Puts the player on the spawn and creates the entities of the map */
+/* Place le joueur et crée les entités de la carte. */
 static void	setup_game_map(t_game *game, t_map *map)
 {
 	game->entities.count = 0;
@@ -92,6 +93,7 @@ static void	setup_game_map(t_game *game, t_map *map)
 	ft_printf("Entites: %d\n", game->entities.count);
 }
 
+/* Charge une carte depuis un fichier. */
 t_map	*load_map(char *name, t_game *game, int editor)
 {
 	t_map	*map;
@@ -113,6 +115,7 @@ t_map	*load_map(char *name, t_game *game, int editor)
 	return (map);
 }
 
+/* Charge dans l’éditeur la carte saisie. */
 void	load_editor_map(t_game *game)
 {
 	char			*s;

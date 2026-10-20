@@ -13,6 +13,7 @@
 #include "languages/language.h"
 #include "Game.h"
 
+/* Libère tous les textes traduits. */
 void free_languages(t_game *game)
 {
     char **tab[LANGUAGE_FIELDS];

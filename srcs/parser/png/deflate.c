@@ -13,6 +13,7 @@
 #include "parser/PNG.h"
 #include "parser/huffman.h"
 
+/* Alloue le tampon de décompression PNG. */
 static void allocate_png_buffer(t_png *pngFile)
 {
     pngFile->buf = malloc(sizeof(__uint8_t *) * pngFile->h);
@@ -22,7 +23,7 @@ static void allocate_png_buffer(t_png *pngFile)
     }
 }
 
-/* Decodes one deflate block of type btype, returns 0 on error */
+/* Décode un bloc DEFLATE. */
 static int decode_block(int btype, __uint8_t *out_buf, __uint32_t *out_len, size_t alloc_size, t_bitreader *bitReader)
 {
     if (btype == 1)
@@ -35,6 +36,7 @@ static int decode_block(int btype, __uint8_t *out_buf, __uint32_t *out_len, size
     return (0);
 }
 
+/* Décompresse les blocs DEFLATE du PNG. */
 int parse_deflate_blocs(t_png *pngFile, __uint8_t *buff, __uint64_t buffer_len)
 {
     t_bitreader bitReader;

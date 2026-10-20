@@ -12,7 +12,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/* Check if the texture_selector is displayed and the cursor was on it */
+/* Vérifie si le curseur a cliqué sur le sélecteur de textures. */
 static int	check_selector_clicked(t_game *game, int x, int y)
 {
 	SDL_Rect	box = {.x = 680, .y = 525, .w = 750, .h = 400};
@@ -27,7 +27,7 @@ static int	check_selector_clicked(t_game *game, int x, int y)
 	return (0);
 }
 
-/* Dispatch the click to the selected tool, returns 1 if the click was consumed */
+/* Transmet le clic à l’outil sélectionné. */
 static int	tool_click(t_game *game, SDL_Event *e)
 {
 	int	tool = game->editor->selected_tool;
@@ -60,7 +60,7 @@ static int	tool_click(t_game *game, SDL_Event *e)
 	return (0);
 }
 
-/* Move the plan while the mouse button is held down */
+/* Déplace le plan lorsque le bouton de la souris est maintenu. */
 static void	drag_plan(t_game *game, SDL_MouseMotionEvent *motion)
 {
 	static int	plan_clicked = 0;
@@ -90,7 +90,7 @@ static void	drag_plan(t_game *game, SDL_MouseMotionEvent *motion)
 	}
 }
 
-/* Manage when plan is clicked or mouse moved */
+/* Gère les clics et les déplacements de la souris sur le plan. */
 void	plan_click(t_game *game, SDL_Event *e)
 {
 	SDL_MouseMotionEvent	*motion = &e->motion;

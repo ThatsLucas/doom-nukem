@@ -12,7 +12,7 @@
 
 #include "GUI/GUI.h"
 
-/* One step of the midpoint circle algorithm */
+/* Calcule l’étape suivante du tracé du cercle. */
 static void	circle_step(int *d, int *offsetx, int *offsety, int radius)
 {
 	if (*d >= 2 * *offsetx) {
@@ -30,7 +30,7 @@ static void	circle_step(int *d, int *offsetx, int *offsety, int radius)
 	}
 }
 
-/* The 8 symmetric points of the circle for this offset */
+/* Dessine les points symétriques du cercle. */
 static void	draw_circle_points(SDL_Renderer *renderer, int x, int y, int offsetx, int offsety)
 {
 	SDL_Point	points[8];
@@ -47,6 +47,7 @@ static void	draw_circle_points(SDL_Renderer *renderer, int x, int y, int offsetx
 	SDL_RenderDrawPoints(renderer, points, 8);
 }
 
+/* Dessine le contour d’un cercle. */
 int	SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb)
 {
 	int offsetx, offsety, d;
@@ -65,6 +66,7 @@ int	SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB
 	return 0;
 }
 
+/* Dessine un cercle plein. */
 int	SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB rgb)
 {
 	int offsetx, offsety, d;

@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "inventory/Items.h"
 
-/* flashlight */
+/* Crée l’objet lampe torche. */
 void	create_item_flashlight(t_game *game, t_vect2 pos)
 {
 	t_ground_item	item;
@@ -25,7 +25,7 @@ void	create_item_flashlight(t_game *game, t_vect2 pos)
 	create_ground_item(game, pos, "assets/png/hud/tools/flashlight.png", 0.3f, item);
 }
 
-/* key */
+/* Crée l’objet clé. */
 void	create_item_key(t_game *game, t_vect2 pos, int id)
 {
 	t_ground_item	item;
@@ -37,7 +37,7 @@ void	create_item_key(t_game *game, t_vect2 pos, int id)
 	create_ground_item(game, pos, "assets/png/hud/tools/key.png", 0.25f, item);
 }
 
-/* jetpack */
+/* Crée l’objet jetpack. */
 void	create_item_jetpack(t_game *game, t_vect2 pos)
 {
 	t_ground_item	item;

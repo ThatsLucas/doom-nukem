@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:04:12 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:04:12 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:25:12 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,26 @@
 	Encodage : he = 2 * wall_idx + dir   (dir = 0 forward, 1 reverse)
 */
 
+/* Renvoie l’indice du mur de la demi-arête. */
 int		he_wall(int he)			{ return he / 2; }
+/* Vérifie si la demi-arête est orientée vers l’avant. */
 static int	he_is_forward(int he)	{ return (he % 2) == 0; }
 
+/* Récupère le sommet de départ de la demi-arête. */
 static int	he_start(t_map *map, int he)
 {
 	t_wall *w = &map->walls[he / 2];
 	return he_is_forward(he) ? w->v1 : w->v2;
 }
 
+/* Récupère le sommet d’arrivée de la demi-arête. */
 static int	he_end(t_map *map, int he)
 {
 	t_wall *w = &map->walls[he / 2];
 	return he_is_forward(he) ? w->v2 : w->v1;
 }
 
-/*
-	Angle "sortant" d'une demi-arête depuis son vertex de départ
-*/
+/* Calcule l’angle sortant de la demi-arête. */
 static float	he_out_angle(t_map *map, int he)
 {
 	t_vect2 a = map->vertices[he_start(map, he)];
@@ -42,15 +44,7 @@ static float	he_out_angle(t_map *map, int he)
 	return atan2f(b.y - a.y, b.x - a.x);
 }
 
-/*
-	On vient d'arriver par current_he. On cherche la demi-arête
-	sortante qui correspond au "prochain bord de la même face".
-
-	On prend le voisin dont l'angle est le PLUS PROCHE de back_angle
-	en tournant dans le sens CW math (= CCW visuel en coords écran)
-
-	On garde le plus petit delta.
-*/
+/* Récupère la demi-arête suivante dans la boucle. */
 static int	next_he_in_loop(t_map *map, int current_he, int pivot)
 {
 	int		i, total, best;
@@ -83,6 +77,7 @@ static int	next_he_in_loop(t_map *map, int current_he, int pivot)
 	return (best);
 }
 
+/* Suit une boucle fermée de demi-arêtes et renvoie sa taille. */
 int	trace_he_loop(t_map *map, int start_he, int *loop_out)
 {
 	int origin_v, pivot, current, next, count, max_steps;
@@ -105,9 +100,7 @@ int	trace_he_loop(t_map *map, int start_he, int *loop_out)
 	return (-1);
 }
 
-/*
-	Aire signée d'une boucle de demi-arêtes
-*/
+/* Calcule l’aire signée d’une boucle de demi-arêtes. */
 float	signed_area_he(t_map *map, int *loop, int count)
 {
 	int		i;

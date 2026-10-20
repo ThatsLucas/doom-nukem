@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* Recentre la vue sur la grille et recalcule les bornes de zoom */
+/* Recentre la vue sur la grille et ajuste le zoom. */
 void	fit_grid_view(t_game *game)
 {
 	t_plan	*plan = &game->editor->plan;
@@ -34,7 +34,7 @@ void	fit_grid_view(t_game *game)
 	return ;
 }
 
-/* when update button is clicked, update grid size */
+/* Met à jour la taille de la grille. */
 void	update_grid_size(t_game *game)
 {
 	t_list			*current = game->editor->text_inputs;

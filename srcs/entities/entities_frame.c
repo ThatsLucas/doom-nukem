@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 11:40:04 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 11:40:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:28:23 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 #include "Game.h"
 #include <math.h>
 
-/*
-	Choisit la frame directionnelle a afficher selon l'angle entre
-	la direction de l'entite et la direction entite -> joueur.
-*/
+/* Choisit l’image directionnelle selon l’angle entité-joueur. */
 int	get_directional_frame(t_entity *e, float px, float py)
 {
 	int	n = e->num_frames;

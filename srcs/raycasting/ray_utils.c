@@ -14,7 +14,7 @@
 #include "Raycasting/Types.h"
 #include "Game.h"
 
-/* calcule le plan de camera */
+/* Calcule le plan de caméra. */
 t_vect2	get_cam_plane(float FOV, t_vect2 dir)
 {
 	t_vect2 plane;
@@ -24,7 +24,7 @@ t_vect2	get_cam_plane(float FOV, t_vect2 dir)
 	return (plane);
 }
 
-/* calcule la dirextion d'un rayon */
+/* Calcule la direction d’un rayon. */
 t_vect2	get_ray_dir(t_ray *ray, t_ply *ply)
 {
 	t_vect2	dir;
@@ -35,11 +35,7 @@ t_vect2	get_ray_dir(t_ray *ray, t_ply *ply)
 	return (dir);
 }
 
-/*
-	Un mur de portail est partage par deux secteurs (sector_front et
-	sector_back, precalcules au save). Retourne celui des deux qui n'est
-	PAS le secteur courant, -1 sinon.
-*/
+/* Renvoie l’autre secteur d’un mur de portail, ou -1. */
 int	wall_other_sector(t_map *map, int wall_idx, int cur_sector)
 {
 	t_wall	*w;

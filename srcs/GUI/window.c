@@ -18,7 +18,7 @@ flag == le mode d'affichage de la fenetre, fullscreen, borderless ect
 https://wiki.libsdl.org/SDL2/SDL_WindowFlags
 */
 
-// tout doit être free mise à part
+/* Charge toutes les images des menus. */
 int init_all_imgs(t_game *game, t_WIN *win)
 {
     SDL_Color white = {255, 255, 255, 255};
@@ -48,6 +48,7 @@ int init_all_imgs(t_game *game, t_WIN *win)
     return (1);
 }
 
+/* Crée la fenêtre SDL et son renderer. */
 t_WIN *create_window(const char *title, int x, int y, int w, int h, Uint32 flags)
 {
     t_WIN *windowDatas = malloc(sizeof(t_WIN));

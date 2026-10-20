@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Sélectionne le point d’apparition du joueur. */
 static void	select_spawn(t_game *game)
 {
 	game->editor->selected_entity_type = 1;
@@ -20,6 +21,7 @@ static void	select_spawn(t_game *game)
 	return ;
 }
 
+/* Sélectionne le type entité. */
 static void	select_entity(t_game *game)
 {
 	game->editor->selected_entity_type = 2;
@@ -27,6 +29,7 @@ static void	select_entity(t_game *game)
 	return ;
 }
 
+/* Sélectionne l’objet à placer dans la carte. */
 static void	select_item(t_game *game)
 {
 	game->editor->selected_entity_type = 3;
@@ -34,6 +37,7 @@ static void	select_item(t_game *game)
 	return ;
 }
 
+/* Sélectionne le type décor. */
 static void	select_props(t_game *game)
 {
 	game->editor->selected_entity_type = 4;
@@ -41,6 +45,7 @@ static void	select_props(t_game *game)
 	return ;
 }
 
+/* Ajoute un bouton de sélection du type d’entité. */
 static void	add_entity_type_button(t_game *game, char *label, void (*callback)(t_game *), SDL_Rect dest)
 {
 	t_RGB	color = (t_RGB){171, 0, 186, 255};
@@ -53,6 +58,7 @@ static void	add_entity_type_button(t_game *game, char *label, void (*callback)(t
 	create_button(&game->editor->buttons_entities, callback, dest, color, hover, text, text, -1);
 }
 
+/* Crée les boutons des propriétés des entités. */
 void	init_entity_prop(t_game *game)
 {
 	SDL_Rect	dest;

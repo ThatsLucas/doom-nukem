@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Convertit une couleur t_RGB en SDL_Color. */
 SDL_Color	RGBtoSDLColor(t_RGB color)
 {
 	SDL_Color	res;

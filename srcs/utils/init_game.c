@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Charge les paramètres du jeu. */
 static void load_settings(t_game *game)
 {
 	game->settings.FOV = DEFAULT_FOV;
@@ -22,7 +23,7 @@ static void load_settings(t_game *game)
 	game->settings.move_right = 'd';
 }
 
-/* TTF, SDL, window and menu images */
+/* Initialise SDL, la fenêtre et les menus. */
 static void init_window(t_game *game)
 {
 	if (TTF_Init() < 0)
@@ -41,7 +42,7 @@ static void init_window(t_game *game)
 	game->window->menus.main.has_init = 1;
 }
 
-/* Frame buffer, z buffer, rays and the streaming texture of the frame */
+/* Initialise les tampons de rendu et la texture de l’image. */
 static void init_buffers(t_game *game)
 {
 	game->frame_buffer = calloc(game->screenSize[0] * game->screenSize[1], sizeof(Uint32));
@@ -57,6 +58,7 @@ static void init_buffers(t_game *game)
 		exit_game(game, "game malloc (frames)");
 }
 
+/* Initialise les données du monde de jeu. */
 static void init_world(t_game *game)
 {
 	init_entities(&game->entities);
@@ -67,6 +69,7 @@ static void init_world(t_game *game)
 	game->items_capacity = 16;
 }
 
+/* Alloue et initialise la structure du jeu. */
 t_game *init_game(void)
 {
 	t_game *game;

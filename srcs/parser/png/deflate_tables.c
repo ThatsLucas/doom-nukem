@@ -13,10 +13,7 @@
 #include "parser/PNG.h"
 #include "parser/huffman.h"
 
-/*
-	Canonical huffman codes: from the code length of each symbol,
-	fills table_symbol / table_len indexed by the code (lengths up to 15)
-*/
+/* Construit la table Huffman canonique à partir des longueurs de codes. */
 void build_code_table(int *lengths, __uint32_t count, int *table_symbol, int *table_len)
 {
     int frequecy[16] = {0};
@@ -37,6 +34,7 @@ void build_code_table(int *lengths, __uint32_t count, int *table_symbol, int *ta
     }
 }
 
+/* Ajoute une valeur au nombre de répétitions indiqué. */
 static void push_value_n_times(int *lengths, __uint32_t *i, __uint32_t HLIT, __uint32_t HDIST, int n, int bit, t_bitreader *bitReader, int val)
 {
     __uint32_t repeat = read_bits(bitReader, bit) + n;
@@ -49,7 +47,7 @@ static void push_value_n_times(int *lengths, __uint32_t *i, __uint32_t HLIT, __u
     *i -= 1;
 }
 
-/* Reads the HCLEN code lengths and builds the code length table (7 bits max) */
+/* Construit la table des longueurs de codes Huffman. */
 static void build_code_length_table(__uint32_t HCLEN, t_bitreader *bitReader, int *table_symbol, int *table_len)
 {
     int order[19] = {16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15};
@@ -76,7 +74,7 @@ static void build_code_length_table(__uint32_t HCLEN, t_bitreader *bitReader, in
     }
 }
 
-/* Decodes the HLIT + HDIST code lengths of the literal and distance trees */
+/* Lit les longueurs des codes des arbres Huffman. */
 static int *read_tree_lengths(__uint32_t HLIT, __uint32_t HDIST, t_bitreader *bitReader, int *table_symbol, int *table_len)
 {
     int *lengths = malloc((HLIT + HDIST)  * sizeof(int));
@@ -97,6 +95,7 @@ static int *read_tree_lengths(__uint32_t HLIT, __uint32_t HDIST, t_bitreader *bi
     return (lengths);
 }
 
+/* Construit les tables Huffman d’un bloc dynamique. */
 void build_meta_tree(__uint32_t HLIT, __uint32_t HDIST, __uint32_t HCLEN, t_bitreader *bitReader, int *lit_symbol, int *lit_len, int *dist_symbol, int *dist_len)
 {
     int table_symbol[128] = {0};

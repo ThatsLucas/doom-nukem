@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 15:10:13 by edurance          #+#    #+#             */
-/*   Updated: 2026/06/08 12:16:37 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:32:44 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "GUI/HUD.h"
 
-/*
-	Display tools assets
-	If the player has the tool -> opacity 100%
-	Else if the player has not the tool yet -> opacity decreased to 50%
-*/
+/* Affiche les outils, à demi-transparents s’ils ne sont pas possédés. */
 static void	display_tools_png(t_game *game, int x, int y)
 {
 	t_inventory *inv = &game->ply->inventory;
@@ -42,7 +38,7 @@ static void	display_tools_png(t_game *game, int x, int y)
 		draw_texture(x + layout[i][0], y + layout[i][1], layout[i][2], layout[i][3], game->window, game->hud_cache.tools_textures[i]);
 }
 
-/* Adds "TOOLS" on the renderer */
+/* Affiche les outils du HUD. */
 static void	display_tools(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color color = {255, 255, 255, 255};
@@ -62,7 +58,7 @@ static void	display_tools(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Display "TOOLS" and tools assets */
+/* Affiche le module des outils du HUD. */
 void	display_module_tools(t_game *game, int x, int y, int w, int h)
 {
 	display_tools(game, x, y, w, h);

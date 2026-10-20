@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 12:34:56 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/06/23 16:25:20 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 14:00:17 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Editor.h"
 #include "Game.h"
 
-/* White label used by the global buttons */
+/* Crée le libellé d’un bouton global. */
 static t_font	*button_label(t_game *game, char *label, int size)
 {
 	t_font	*text = calloc(1, sizeof(t_font));
@@ -24,13 +24,14 @@ static t_font	*button_label(t_game *game, char *label, int size)
 	return (text);
 }
 
+/* Ajoute un bouton aux commandes globales de l’éditeur. */
 static void	add_global_button(t_game *game, void (*callback)(t_game *), SDL_Rect box,
 				t_RGB colors[2], t_font *text)
 {
 	create_button(&game->editor->buttons, callback, box, colors[0], colors[1], text, text, -1);
 }
 
-/*	Boutons global des propriété (initialisation)	*/
+/* Initialise les boutons globaux des paramètres de l’éditeur. */
 void	init_settings_global_buttons(t_game *game)
 {
 	t_RGB	green[2] = {{0, 130, 32, 255}, {2, 168, 43, 255}};

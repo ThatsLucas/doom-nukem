@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "inventory/Items.h"
 
-/* pistol */
+/* Crée l’objet pistolet. */
 void	create_item_pistol(t_game *game, t_vect2 pos, int ammo)
 {
 	t_ground_item	item;
@@ -24,7 +24,7 @@ void	create_item_pistol(t_game *game, t_vect2 pos, int ammo)
 	create_ground_item(game, pos, "assets/png/items/weapons/pistol.png", 0.35f, item);
 }
 
-/* shotgun */
+/* Crée l’objet fusil à pompe. */
 void	create_item_shotgun(t_game *game, t_vect2 pos, int ammo)
 {
 	t_ground_item	item;
@@ -35,7 +35,7 @@ void	create_item_shotgun(t_game *game, t_vect2 pos, int ammo)
 	create_ground_item(game, pos, "assets/png/items/weapons/shotgun.png", 0.35f, item);
 }
 
-/* rocket launcher */
+/* Crée l’objet lance-roquettes. */
 void	create_item_rocket_launcher(t_game *game, t_vect2 pos, int ammo)
 {
 	t_ground_item	item;

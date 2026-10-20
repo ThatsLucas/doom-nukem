@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* Add text to the selected input if there is any */
+/* Ajoute le texte saisi au champ sélectionné. */
 void	editor_text_input(t_editor *editor, char *text)
 {
 	if (!editor->selected)
@@ -24,6 +24,7 @@ void	editor_text_input(t_editor *editor, char *text)
 	return ;
 }
 
+/* Récupère la valeur décimale saisie dans l’éditeur. */
 static float	get_input_float_ev(t_list *inputs, char *name)
 {
 	t_text_input	*inp;
@@ -38,6 +39,7 @@ static float	get_input_float_ev(t_list *inputs, char *name)
 	return (0.0f);
 }
 
+/* Récupère la valeur entière saisie dans l’éditeur. */
 static int	get_input_int_ev(t_list *inputs, char *name)
 {
 	t_text_input	*inp;
@@ -52,6 +54,7 @@ static int	get_input_int_ev(t_list *inputs, char *name)
 	return (0);
 }
 
+/* Applique les valeurs saisies aux propriétés du mur. */
 static void	apply_wall_inputs(t_game *game)
 {
 	t_editor_properties	*props;
@@ -69,6 +72,7 @@ static void	apply_wall_inputs(t_game *game)
 	game->editor->map->walls[props->selected_wall].alpha = (float)alpha;
 }
 
+/* Applique les valeurs saisies aux propriétés du secteur. */
 static void	apply_sector_inputs(t_game *game)
 {
 	t_editor_properties	*props;
@@ -92,6 +96,7 @@ static void	apply_sector_inputs(t_game *game)
 	sector->levelSize = get_input_int_ev(game->editor->text_inputs, "sectors_levelSize");
 }
 
+/* Gère l’appui sur une touche dans l’éditeur. */
 void	editor_key_down(t_editor *editor, SDL_Keycode code, t_game *game)
 {
 	if (code == SDLK_ESCAPE)

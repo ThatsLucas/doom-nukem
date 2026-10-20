@@ -6,31 +6,35 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/07 11:59:50 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:17:03 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:59:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
+/* Sélectionne l’outil curseur. */
 static void	select_cursor(t_game *game)
 {
 	game->editor->selected_tool = 0;
 	game->editor->properties.selected_property = 0;
 }
 
+/* Sélectionne l’outil mur. */
 static void	select_wall(t_game *game)
 {
 	game->editor->selected_tool = 1;
 	game->editor->properties.selected_property = 1;
 }
 
+/* Sélectionne l’outil pente. */
 static void	select_slope(t_game *game)
 {
 	game->editor->selected_tool = 2;
 	game->editor->properties.selected_property = 2;
 }
 
+/* Sélectionne l’outil entité. */
 static void	select_entity(t_game *game)
 {
 	game->editor->selected_tool = 3;
@@ -38,7 +42,7 @@ static void	select_entity(t_game *game)
 	game->editor->entity_step = 0;
 }
 
-/*	initaliser les boutons des propriétés	*/
+/* Crée les boutons des outils de l’éditeur. */
 void	init_action_buttons(t_game *game)
 {
 	SDL_Rect	dest;

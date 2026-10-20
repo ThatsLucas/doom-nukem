@@ -6,14 +6,14 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/08 11:06:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:16:53 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:59:19 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.h"
 #include "Editor.h"
 
-/* Vertices, plus the wall preview line when drawing a wall */
+/* Dessine les sommets et l’aperçu du mur en cours de tracé. */
 static void	draw_map_vertices(t_game *game, t_vect2 *selected_vertice, int mouseX, int mouseY)
 {
 	t_map	*map = game->editor->map;
@@ -34,7 +34,7 @@ static void	draw_map_vertices(t_game *game, t_vect2 *selected_vertice, int mouse
 	}
 }
 
-/* All the walls, the hovered one in red */
+/* Dessine les murs de la carte. */
 static void	draw_map_walls(t_game *game, int index_wall_hover)
 {
 	t_map	*map = game->editor->map;
@@ -58,7 +58,7 @@ static void	draw_map_walls(t_game *game, int index_wall_hover)
 	}
 }
 
-/* Walls of the selected sector, in green */
+/* Dessine les murs du secteur sélectionné. */
 static void	draw_selected_sector(t_game *game)
 {
 	t_map		*map = game->editor->map;
@@ -83,7 +83,7 @@ static void	draw_selected_sector(t_game *game)
 	}
 }
 
-/*	Affiche la map dans l'editor	*/
+/* Affiche la carte dans l’éditeur. */
 void	display_editor_map(t_game *game)
 {
 	t_vect2		mousePos, *selected_vertice;

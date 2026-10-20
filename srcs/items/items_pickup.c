@@ -14,7 +14,7 @@
 #include "Player.h"
 #include "Game.h"
 
-/* Adds fuel to the jetpack if the player has one */
+/* Ajoute du carburant au jetpack du joueur. */
 static void pickup_fuel(t_ply *ply, int amount)
 {
 	for (int i = 0; i < ply->inventory.tool_count; i++)
@@ -29,7 +29,7 @@ static void pickup_fuel(t_ply *ply, int amount)
 	}
 }
 
-/* Adds battery to the flashlight if the player has one */
+/* Recharge la lampe torche du joueur. */
 static void pickup_battery(t_ply *ply, int amount)
 {
 	for (int i = 0; i < ply->inventory.tool_count; i++)
@@ -44,7 +44,7 @@ static void pickup_battery(t_ply *ply, int amount)
 	}
 }
 
-/* Pickup a consumable -> Battery, heal or fuel */
+/* Ajoute un consommable à l’inventaire du joueur. */
 static void pickup_consumable(t_game *game, t_ground_item *item)
 {
 	t_ply *ply = game->ply;
@@ -71,7 +71,7 @@ static void pickup_consumable(t_game *game, t_ground_item *item)
 	}
 }
 
-/* Adds ammo or a weapon in your inventory */
+/* Ajoute une arme ou des munitions à l’inventaire du joueur. */
 static void pickup_weapon(t_game *game, t_ground_item *item)
 {
 	t_ply *ply = game->ply;
@@ -95,7 +95,7 @@ static void pickup_weapon(t_game *game, t_ground_item *item)
 	}
 }
 
-/* Adds a tool in your inventory */
+/* Ajoute un outil à l’inventaire du joueur. */
 static void pickup_tool(t_game *game, t_ground_item *item)
 {
 	t_ply *ply = game->ply;
@@ -116,7 +116,7 @@ static void pickup_tool(t_game *game, t_ground_item *item)
 	}
 }
 
-/* Choses pickup consumable/weapon depending on the item type if you are near the item */
+/* Ramasse un objet selon son type. */
 void pickup_item(t_game *game, t_ground_item *item)
 {
 	t_ply *ply = game->ply;

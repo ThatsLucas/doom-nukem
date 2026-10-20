@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Function to display the crossair as a cross with a gap in the middle */
+/* Dessine le viseur au centre de l’écran. */
 void	display_crosshair(t_game *game, int x, int y, int size, int gap)
 {
 	SDL_Renderer	*render = game->window->renderPTR;

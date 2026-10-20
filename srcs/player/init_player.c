@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Game.h"
 
+/* Ajoute les armes de départ à l’inventaire du joueur. */
 static void give_starter_weapons(t_ply *ply)
 {
 	t_weapon fists = {
@@ -36,6 +37,7 @@ static void give_starter_weapons(t_ply *ply)
 	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
 }
 
+/* Ajoute les outils de départ à l’inventaire du joueur. */
 static void give_starter_tools(t_ply *ply)
 {
 	t_tool flashlight = {
@@ -58,7 +60,7 @@ static void give_starter_tools(t_ply *ply)
 	ply->inventory.jetpack = &ply->inventory.tools[ply->inventory.tool_count - 1];
 }
 
-/* Add starter pack to begin a mission */
+/* Configure l’équipement de départ du joueur. */
 static void config_starter(t_ply *ply)
 {
 	give_starter_weapons(ply);
@@ -66,11 +68,7 @@ static void config_starter(t_ply *ply)
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
 }
 
-/*
-	Initialize the player with default direction and position.
-	Adds default health (100 max).
-	Adds default weapons and tools with config starter.
-*/
+/* Initialise le joueur : position, santé et équipement de départ. */
 void init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_y)
 {
 	t_ply *ply;

@@ -12,7 +12,7 @@
 
 #include "parser/PNG.h"
 
-/* Copies len bytes found distance bytes back in the output buffer */
+/* Copie les octets correspondant à une référence arrière. */
 static void copy_back_reference(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, int len, int distance)
 {
     for (int i = 0; i < len; i++) // dedicace à felix fallait être là
@@ -28,6 +28,7 @@ static void copy_back_reference(__uint8_t *buf, __uint32_t *buf_len, size_t max_
     *buf_len += len;
 }
 
+/* Décode une référence LZ77 (longueur, distance) dans le tampon. */
 void lz77(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, t_bitreader *bitReader, int sym, int *dist_symbol, int *dist_len)
 {
     int length_table[29][2] = { //RFC 1951

@@ -13,6 +13,7 @@
 #include "Raycasting/Types.h"
 #include "Game.h"
 
+/* Libère la carte. */
 void free_map(t_map *map)
 {
 	if (!map)

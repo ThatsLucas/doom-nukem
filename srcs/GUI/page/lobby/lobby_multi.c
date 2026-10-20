@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* One breathing player sprite per connected player */
+/* Affiche les joueurs connectés dans le salon. */
 static void draw_lobby_players(t_game *game, t_lobby *menu)
 {
     t_WIN *win = game->window;
@@ -31,10 +31,12 @@ static void draw_lobby_players(t_game *game, t_lobby *menu)
         draw_texture(1920 / 2 - (1024 / 8 / 2) - 300, 500, 1024 / 8, 1536 / 8, win, menu->playerImgs[(breathFrame + 3) % 3].texture);
 }
 
+/* Affiche les textes du salon multijoueur. */
 static void draw_texts(t_game *game, t_lobby *menu)
 {
     draw_texture(1920 / 2 - (menu->texts[11].w / 2), 50, menu->texts[11].w, menu->texts[11].h, game->window, menu->texts[11].texture);
 }
+/* Affiche le salon multijoueur. */
 void draw_lobby_multiplayer_menu(t_game *game)
 {
     // SDL_Renderer *renderer = game->window->renderPTR;

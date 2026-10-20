@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Récupère la valeur décimale saisie. */
 static float	get_input_float(t_list *inputs, char *name)
 {
 	t_list			*current;
@@ -29,6 +30,7 @@ static float	get_input_float(t_list *inputs, char *name)
 	return (0.0f);
 }
 
+/* Calcule le plan de la pente. */
 static t_plane	compute_slope_plane(t_vect2 base, t_vect2 tip, float intensity)
 {
 	float	dx;
@@ -47,7 +49,7 @@ static t_plane	compute_slope_plane(t_vect2 base, t_vect2 tip, float intensity)
 	return ((t_plane){-A, -B, 1.0f, -(A * base.x) - (B * base.y)});
 }
 
-/* Second click: apply the slope from slope_base to click_pos on the floor or ceil */
+/* Applique la pente entre le point de départ et le point cliqué. */
 static void	apply_slope(t_game *game, t_sector *sector, t_vect2 click_pos)
 {
 	t_editor_properties	*props = &game->editor->properties;
@@ -74,6 +76,7 @@ static void	apply_slope(t_game *game, t_sector *sector, t_vect2 click_pos)
 	}
 }
 
+/* Place une pente en deux clics. */
 void	editor_place_slope(t_game *game, int pixx, int pixy)
 {
 	t_editor_properties	*props;

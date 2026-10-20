@@ -12,20 +12,7 @@
 
 #include "Raycasting/Raycasting.h"
 
-/*
-	Calcule le point d'intersection entre deux vecteurs ou:
-	- P est le point de depart
-	- r est la direction de depart
-	- Q est le point de depart de l'edge (vecteur rencontre)
-	- s est la direction de l'edge
-
-	r*s doit etre different de 0 pour que les deux vecteurs se croisent
-	t doit etre superieur ou egal a 0 (sinon l'intersection est derriere le vecteur P)
-	u doit etre entre 0 et 1 sinon l'intersection est en dehors de l'edge
-
-	Remplis les donnes de ray avec le point de l'intersection
-	Sinon une donnee est invalide ( pas d'intersection utile )
-*/
+/* Met à jour le rayon si son intersection avec le mur est valide. */
 void	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_ray *ray, int wall_idx)
 {
 	t_vect2	qp;
@@ -54,6 +41,7 @@ void	max_inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_ray *ray, int
 	return ;
 }
 
+/* Calcule l’intersection de deux droites et renvoie t. */
 float	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 {
 	t_vect2	qp;
@@ -71,6 +59,7 @@ float	inter_point(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 	return (t);
 }
 
+/* Calcule l’intersection d’un rayon et d’un segment, -1 si aucune. */
 float	inter_point_filter(t_vect2	P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 {
 	t_vect2	qp;

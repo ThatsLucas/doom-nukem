@@ -14,7 +14,7 @@
 #include "parser/PNG.h"
 #include "GUI/HUD.h"
 
-/* Display the current weapons asset (the one being held by the player)*/
+/* Affiche l’arme tenue par le joueur. */
 static void	display_weapon(t_game *game, int x, int y)
 {
 	static const int	layout[][4] = {
@@ -29,7 +29,7 @@ static void	display_weapon(t_game *game, int x, int y)
 	draw_texture(x + layout[type][0], y + layout[type][1], layout[type][2], layout[type][3], game->window, game->hud_cache.weapon_textures_2D[type]);
 }
 
-/* Adds "WEAPON" on the renderer */
+/* Affiche les armes du HUD. */
 static void	display_weapons(t_game *game, int x, int y, int w, int h)
 {
 	SDL_Color	fg = {255, 255, 255, 255};
@@ -49,7 +49,7 @@ static void	display_weapons(t_game *game, int x, int y, int w, int h)
 	SDL_DestroyTexture(texture);
 }
 
-/* Adds the current weapon on the render in 3D */
+/* Affiche l’arme tenue en vue première personne. */
 void	display_held_weapon(t_game *game)
 {
 	int				idx = game->ply->current_weap_index;
@@ -60,7 +60,7 @@ void	display_held_weapon(t_game *game)
 	draw_texture(dest.x, dest.y, dest.w, dest.h, game->window, w->frames[w->current_frame].texture);
 }
 
-/* Display "WEAPON" and the current weapons asset */
+/* Affiche le module des armes du HUD. */
 void	display_module_weapons(t_game *game, int x, int y, int w, int h)
 {
 	display_weapons(game, x, y, w, h);

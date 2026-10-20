@@ -13,6 +13,7 @@
 #include "entities/Entities.h"
 #include "Game.h"
 
+/* Initialise la liste des entités. */
 void	init_entities(t_entities *e)
 {
 	e->count = 0;

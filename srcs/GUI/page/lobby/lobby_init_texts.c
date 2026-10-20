@@ -15,6 +15,7 @@
 #include "menus/menus.h"
 #include "multiplayer/client.h"
 
+/* Crée les textures des textes du salon. */
 void init_lobby_texts(t_game *game)
 {
     t_languages *lang = game->languages;

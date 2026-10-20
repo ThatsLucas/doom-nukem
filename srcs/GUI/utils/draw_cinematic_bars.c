@@ -13,6 +13,7 @@
 #include "GUI/GUI.h"
 #include "Window.h"
 
+/* Dessine les bandes noires des cinématiques. */
 void draw_cinematic_bars(t_RGB rgb, t_WIN *win)
 {
     SDL_Rect RectPos = {0, 0, 1920, 200};

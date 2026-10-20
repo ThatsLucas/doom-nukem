@@ -13,6 +13,7 @@
 #include "multiplayer/server.h"
 #include "Game.h"
 
+/* Convertit une adresse IPv4 en texte. */
 static char *ft_inet_ntoa(struct in_addr in)
 {
     unsigned char *bytes = (unsigned char *)&in;
@@ -39,13 +40,14 @@ static char *ft_inet_ntoa(struct in_addr in)
     return (str);
 }
 
+/* Envoie des données à un client. */
 void send_to_client(t_server_udp_datas *datas, struct sockaddr *addr, int socket, int playerIndex)
 {
     datas->playerIndex = playerIndex;
     sendto(socket, datas, sizeof(t_server_udp_datas), MSG_CONFIRM, addr, sizeof(struct sockaddr));
 }
 
-/*fonction pour traiter les demandes d'un joueur deja connecte*/
+/* Traite la requête d’un joueur connecté. */
 void handle_connected_player_request(t_game *game, t_client_udp_datas datas, struct sockaddr_in *player, int playerIndex)
 {
     if (datas.state == 3)
@@ -85,7 +87,7 @@ void handle_connected_player_request(t_game *game, t_client_udp_datas datas, str
     game->serverStatus.last_update[playerIndex] = SDL_GetTicks64();
 }
 
-/*Loop infini pour recevoir les msg*/
+/* Reçoit et traite les paquets des clients. */
 void receive_connections(int listenfd, t_game *game)
 {
     unsigned int len;
@@ -120,6 +122,7 @@ void receive_connections(int listenfd, t_game *game)
     }
 }
 
+/* Lance le serveur dans un thread. */
 void *create_server(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;

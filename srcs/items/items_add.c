@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "inventory/Items.h"
 
-/* Adds an item to the list and realloc it if needed */
+/* Ajoute un objet au sol. */
 void	add_item(t_game *game, t_ground_item new_item)
 {
 	t_ground_item *tmp;

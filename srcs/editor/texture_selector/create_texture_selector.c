@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Ouvre le sélecteur de textures pour la variable indiquée. */
 void	create_texture_selector(t_game *game, SDL_Texture **addr, int *tex_index)
 {
 	game->editor->texture_selector.display = 1;

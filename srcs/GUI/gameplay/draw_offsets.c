@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
+/* Dessine la partie supérieure de la surface. */
 static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_sector *sector)
 {
 	int		tex_x, tex_y;
@@ -47,6 +48,7 @@ static void	draw_top(int ny_top, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	return ;
 }
 
+/* Dessine la partie inférieure de la surface. */
 static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_sector *sector)
 {
 	int		tex_x, tex_y;
@@ -80,7 +82,7 @@ static void	draw_bot(int ny_bot, t_ray *ray, t_tex *tex, int x, t_game *game, t_
 	return ;
 }
 
-/* dessine le decalage entre le portail et le plafond + le portail et le sol */
+/* Dessine les parties haute et basse d’un mur de portail. */
 void	draw_offsets(t_ray *ray, t_game *game, int ny_top, int ny_bot, int x, t_sector *sector)
 {
 	t_wall	*w;

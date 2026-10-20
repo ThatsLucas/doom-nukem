@@ -12,6 +12,7 @@
 
 #include "GUI/GUI.h"
 
+/* Dessine un rectangle plein de la couleur indiquée. */
 void create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb)
 {
 	SDL_SetRenderDrawColor( renderer, rgb.r, rgb.g, rgb.b, rgb.alphaValue );

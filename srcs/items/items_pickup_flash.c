@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Adds a flash when you pick the item on the floor */
+/* Affiche le flash blanc qui s’estompe après un ramassage. */
 void	pickup_flash(t_game *game)
 {
 	/* flash alpha -> intensite du flash*/

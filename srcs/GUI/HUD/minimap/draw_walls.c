@@ -13,7 +13,7 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
-/* Function to draw walls on the map -> red for walls (border) and brown for sectors portals */
+/* Dessine les murs sur la mini-carte. */
 void	draw_minimap_walls(t_game *game, SDL_Renderer *render)
 {
 	t_map	*map = game->map;

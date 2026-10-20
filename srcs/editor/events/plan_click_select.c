@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Met à jour le texte du champ de saisie sélectionné. */
 static void	set_input_text(t_list *inputs, char *name, char *value)
 {
 	t_text_input	*inp;
@@ -29,7 +30,7 @@ static void	set_input_text(t_list *inputs, char *name, char *value)
 	}
 }
 
-/* Show the wall properties (textures + alpha) of the clicked wall */
+/* Affiche les propriétés du mur sélectionné. */
 static void	select_wall(t_game *game, int wall_idx)
 {
 	t_wall	*w = &game->editor->map->walls[wall_idx];
@@ -44,7 +45,7 @@ static void	select_wall(t_game *game, int wall_idx)
 	set_input_text(game->editor->text_inputs, "walls_alpha", buf);
 }
 
-/* Fill the sector text inputs with the values of s */
+/* Remplit les champs de saisie avec les propriétés du secteur. */
 static void	fill_sector_inputs(t_list *inputs, t_sector *s)
 {
 	char	buf[32];
@@ -61,7 +62,7 @@ static void	fill_sector_inputs(t_list *inputs, t_sector *s)
 	set_input_text(inputs, "sectors_levelSize", buf);
 }
 
-/* Show the sector properties (textures + values) of the clicked sector */
+/* Affiche les propriétés du secteur sélectionné. */
 static void	select_sector(t_game *game, int sector_idx)
 {
 	t_sector	*s = &game->editor->map->sectors[sector_idx];
@@ -74,7 +75,7 @@ static void	select_sector(t_game *game, int sector_idx)
 	fill_sector_inputs(game->editor->text_inputs, s);
 }
 
-/* Select tool, left click: select the wall under the cursor, else the sector */
+/* Sélectionne le mur ou le secteur cliqué. */
 void	click_select(t_game *game, SDL_Event *e)
 {
 	t_vect2	mousePos;

@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Thread: creates the 16 subtitles of the cinematics */
+/* Initialise les textes des cinématiques. */
 static void *init_texts(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
@@ -36,7 +36,7 @@ static void *init_texts(void *gameStruct)
     return ((void *)1);
 }
 
-/* Start positions of the animated elements */
+/* Initialise les positions des éléments de la cinématique. */
 static void init_cinematic_positions(t_cinematic *cinematic)
 {
     cinematic->scientificsXPos[0] = 1700.0f;
@@ -55,7 +55,7 @@ static void init_cinematic_positions(t_cinematic *cinematic)
     cinematic->grow_order = -1;
 }
 
-/* Lists the images to load and sets their paths */
+/* Définit les images de la cinématique. */
 static void set_cinematic_images(t_cinematic *cinematic, t_png **images)
 {
     t_png *list[13] = {
@@ -96,6 +96,7 @@ static void set_cinematic_images(t_cinematic *cinematic, t_png **images)
     }
 }
 
+/* Initialise les cinématiques. */
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer,
                           t_cinematic *cinematic)
 {

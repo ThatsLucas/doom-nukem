@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 11:40:04 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 11:40:04 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:28:56 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
 
+/* Calcule la distance entre deux points. */
 static float	distance(t_vect2 a, t_vect2 b)
 {
 	return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
 }
 
-/*
-	Renvoie 1 si un mur plein du secteur coupe le segment entite -> joueur
-	avant d'atteindre le joueur.
-*/
+/* Vérifie si un mur plein du secteur coupe la ligne entité-joueur. */
 static int	sector_blocks_ray(t_game *game, int sector_id, t_vect2 e_pos, t_vect2 p_pos)
 {
 	t_sector	*sector = &game->map->sectors[sector_id];
@@ -53,7 +51,7 @@ static int	sector_blocks_ray(t_game *game, int sector_id, t_vect2 e_pos, t_vect2
 	return (0);
 }
 
-/* Renvoie 0 si un mur bloque la vue entre l'entite et le joueur */
+/* Vérifie si un mur bloque la vue entre une entité et le joueur. */
 int	check_wall_blocking(t_game *game, float ex, float ey, int entity_sector, float px, float py)
 {
 	t_vect2		e_pos = {ex, ey};

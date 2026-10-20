@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* Tung Tung Tung Sahur */
+/* Crée le PNJ 1 et son message. */
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;
@@ -24,6 +24,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	add_entity(game, &game->entities, e);
 }
 
+/* Crée le PNJ 2 et son message. */
 void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;
@@ -34,6 +35,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 	add_entity(game, &game->entities, e);
 }
 
+/* Crée le PNJ 3 et son message. */
 void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 {
 	t_entity	e;

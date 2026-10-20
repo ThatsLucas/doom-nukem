@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "multiplayer/client.h"
 
+/* Vérifie si la colonne du sprite est masquée. */
 static int is_column_occluded(t_game *game, int x, float depth)
 {
     t_ray *ray;
@@ -23,6 +24,7 @@ static int is_column_occluded(t_game *game, int x, float depth)
     return (ray->wall_idx >= 0 && ray->perp_dist > 0.0f && ray->perp_dist < FLT_MAX && depth >= ray->perp_dist);
 }
 
+/* Dessine une portion verticale du sprite. */
 static void draw_sprite_span(t_game *game, t_player_sprite *sprite, int start, int end)
 {
     SDL_Rect src;
@@ -37,6 +39,7 @@ static void draw_sprite_span(t_game *game, t_player_sprite *sprite, int start, i
     SDL_RenderCopy(game->window->renderPTR, sprite->tex, &src, &dst);
 }
 
+/* Dessine le sprite d’un joueur distant. */
 void draw_player_sprite(t_game *game, t_player_sprite *sprite)
 {
     int x;

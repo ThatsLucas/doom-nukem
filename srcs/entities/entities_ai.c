@@ -15,6 +15,7 @@
 #include "Raycasting/Raycasting.h"
 #include "GUI/HUD.h"
 
+/* Renvoie l’écart entre deux angles, ramené dans [-π, π]. */
 float	angle_diff(float a, float b)
 {
 	float diff = fmod(b - a + M_PI, 2 * M_PI) - M_PI;
@@ -22,6 +23,7 @@ float	angle_diff(float a, float b)
 	return (diff);
 }
 
+/* Vérifie si l’entité voit le joueur. */
 int	check_vision(t_game *game, t_entity *e, t_ply *p)
 {
 	float	dx = p->pos.x - e->x;
@@ -46,6 +48,7 @@ int	check_vision(t_game *game, t_entity *e, t_ply *p)
 	return (1);
 }
 
+/* Rapproche l’entité du joueur. */
 void	move_to_ply(t_entity *e, t_ply *p, float dt)
 {
 	t_vect2	dir;
@@ -68,6 +71,7 @@ void	move_to_ply(t_entity *e, t_ply *p, float dt)
 	//e->dir_y = dir.y;
 }
 
+/* Inflige des dégâts aléatoires au joueur selon la cadence de tir. */
 void	attack_ply(t_ply *p, t_entity *e)
 {
 	long long current = get_time_ms();

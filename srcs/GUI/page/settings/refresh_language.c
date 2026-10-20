@@ -14,13 +14,14 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Destroys the old texture of the text and creates it again with str */
+/* Recrée la texture du texte après sa mise à jour. */
 static void refresh_text(t_font *text, SDL_Renderer *renderer, char *str, char *font)
 {
     destroy_text_texture(text);
     create_text(text, renderer, str, font);
 }
 
+/* Recrée les textes du menu principal dans la nouvelle langue. */
 void refresh_main_menu_texts(t_game *game)
 {
     t_main_menu *main = &game->window->menus.main;
@@ -34,6 +35,7 @@ void refresh_main_menu_texts(t_game *game)
     refresh_text(&main->btn_three_text_hover, renderer, game->languages->level_editor, DNFONT);
 }
 
+/* Recrée les textes des paramètres dans la nouvelle langue. */
 void refresh_settings_texts(t_game *game, t_settings_menu *menu)
 {
     SDL_Renderer *renderer = game->window->renderPTR;
@@ -56,6 +58,7 @@ void refresh_settings_texts(t_game *game, t_settings_menu *menu)
     refresh_text(&menu->texts[22], renderer, game->languages->mouse_sensi, DNFONT);
 }
 
+/* Recrée les textes du salon dans la nouvelle langue. */
 void refresh_lobby_texts(t_game *game)
 {
     t_lobby *menu = &game->window->menus.lobby;
@@ -83,6 +86,7 @@ void refresh_lobby_texts(t_game *game)
     refresh_text(&menu->texts[19], renderer, game->languages->join, DNFONTOUTLINED);
 }
 
+/* Recrée les textes des cinématiques dans la nouvelle langue. */
 void refresh_cinematics_texts(t_game *game)
 {
     t_cinematic *menu = &game->window->menus.cinematic;
@@ -106,6 +110,7 @@ void refresh_cinematics_texts(t_game *game)
     refresh_text(&menu->texts[15], renderer, game->languages->cinematic_text_sixteen, DNFONT);
 }
 
+/* Recrée les textes du menu pause dans la nouvelle langue. */
 void refresh_pause_menu_texts(t_game *game)
 {
     t_pause *pause = &game->window->menus.pause;

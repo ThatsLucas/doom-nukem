@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	Initalisation des inputs dans les propriétés	*/
+/* Initialise les champs de saisie des propriétés globales. */
 void	init_settings_global_inputs(t_game *game)
 {
 	SDL_Rect	box;

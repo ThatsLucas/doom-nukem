@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Ajoute un bouton ouvrant le sélecteur de textures. */
 void	add_texture_selector_button(t_game *game, SDL_Texture **text, int page, SDL_Rect box)
 {
 	t_text_select_button	*new;
@@ -30,6 +31,7 @@ void	add_texture_selector_button(t_game *game, SDL_Texture **text, int page, SDL
 	return ;
 }
 
+/* Affiche les boutons du sélecteur de textures. */
 void	display_texture_selector_button(t_game *game)
 {
 	t_list					*current = game->editor->texture_selector_buttons;
@@ -60,6 +62,7 @@ void	display_texture_selector_button(t_game *game)
 	return ;
 }
 
+/* Récupère l’adresse de l’indice de texture sélectionné. */
 static int	*get_tex_index_ptr(t_game *game, t_text_select_button *btn)
 {
 	t_editor_properties	*p = &game->editor->properties;
@@ -80,6 +83,7 @@ static int	*get_tex_index_ptr(t_game *game, t_text_select_button *btn)
 	return (NULL);
 }
 
+/* Ouvre le sélecteur du bouton de texture cliqué. */
 void	get_clicked_texture_button(t_game *game, int x, int y)
 {
 	t_list					*current = game->editor->texture_selector_buttons;

@@ -13,6 +13,7 @@
 #include "GUI/GUI.h"
 #include "Window.h"
 
+/* Adapte un rectangle à la taille de la fenêtre. */
 void to_responsive(t_WIN *win, SDL_Rect *cur)
 {
     cur->w = (cur->w * win->w) / 1920;

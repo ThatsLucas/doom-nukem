@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "GUI/GUI.h"
 
-/* Spider */
+/* Crée le boss du niveau 1. */
 void	create_boss1(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -29,7 +29,7 @@ void	create_boss1(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
-/* Gros pouf */
+/* Crée le boss du niveau 2. */
 void	create_boss2(t_game *game, t_vect2 pos)
 {
 	t_entity	e;
@@ -45,7 +45,7 @@ void	create_boss2(t_game *game, t_vect2 pos)
 	add_entity(game, &game->entities, e);
 }
 
-/* Elephant */
+/* Crée le boss du niveau 3. */
 void	create_boss3(t_game *game, t_vect2 pos)
 {
 	t_entity	e;

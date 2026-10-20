@@ -13,6 +13,7 @@
 #include "multiplayer/server.h"
 #include "Game.h"
 
+/* Déconnecte les joueurs qui ne répondent plus. */
 void handle_player_timeout(t_game *game)
 {
     Uint64 curTime = SDL_GetTicks64();

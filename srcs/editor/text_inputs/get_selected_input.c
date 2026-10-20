@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/* select an input if x and y are in it */
+/* Récupère le champ de saisie sélectionné. */
 void	get_selected_input(t_game *game, t_list **lst, int x, int y)
 {
 	t_editor		*editor = game->editor;

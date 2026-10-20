@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/*	Initialisation de la partie pente dans les propriétés	*/
+/* Crée les champs des propriétés des pentes. */
 void	init_slope_properties(t_game *game)
 {
 	SDL_Rect	box;

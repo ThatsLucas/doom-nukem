@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Value of a slider (FOV, sensibility), centered */
+/* Affiche la valeur du curseur de réglage. */
 static void draw_slider_value(t_WIN *win, int value, int y)
 {
     t_font text;
@@ -31,6 +31,7 @@ static void draw_slider_value(t_WIN *win, int value, int y)
     }
 }
 
+/* Affiche le curseur de sensibilité de la souris. */
 int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     t_WIN *win = game->window;
@@ -48,6 +49,7 @@ int draw_mouse_sensibility(int yPos, int *scrollH, t_game *game, t_settings_menu
     return (yPos);
 }
 
+/* Affiche le curseur du champ de vision. */
 int draw_FOV(int yPos, int *scrollH, t_game *game, t_settings_menu *menu)
 {
     t_WIN *win = game->window;

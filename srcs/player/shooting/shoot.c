@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* Damage of the weapon on the entity e (fists only hit at close range) */
+/* Calcule les dégâts infligés par l’arme à l’entité. */
 static int	weapon_damage(t_game *game, t_weapon_type type, t_entity *e)
 {
 	int	damage = 0;
@@ -41,7 +41,7 @@ static int	weapon_damage(t_game *game, t_weapon_type type, t_entity *e)
 	return (damage);
 }
 
-/* Update the frame and the ammo when a player is shooting -> a bouger quand yaura des ennemis*/
+/* Fait tirer le joueur sur l’entité visée. */
 void	player_shoot(t_game *game)
 {
 	int				idx = game->ply->current_weap_index;

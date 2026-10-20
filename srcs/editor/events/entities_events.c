@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 11:57:58 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 13:10:31 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 16:24:04 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Editor.h"
 #include <math.h>
 
+/* Vérifie si la position de l’entité est valide. */
 static int	is_valid_entity_pos(t_map *map, t_vect2 pos)
 {
 	if (!map)
@@ -25,6 +26,7 @@ static int	is_valid_entity_pos(t_map *map, t_vect2 pos)
 	return (find_sector(map, pos) >= 0);
 }
 
+/* Normalise le vecteur de direction. */
 static void	normalize_direction(t_vect2 *dir)
 {
 	float	length;
@@ -44,10 +46,7 @@ static void	normalize_direction(t_vect2 *dir)
 	}
 }
 
-/*
-	Switch decals are placed on the second click.
-	Returns 1 if the entity was a switch (handled), 0 otherwise.
-*/
+/* Place un interrupteur sur la carte. */
 static int	place_switch(t_game *game, t_map *map, t_vect2 click_pos)
 {
 	t_editor	*editor = game->editor;
@@ -70,7 +69,7 @@ static int	place_switch(t_game *game, t_map *map, t_vect2 click_pos)
 	return (0);
 }
 
-/* Second click: add the entity at entity_base, looking toward click_pos */
+/* Place l’entité sur la carte et définit son orientation. */
 static void	place_map_entity(t_game *game, t_map *map, t_vect2 click_pos)
 {
 	t_editor	*editor = game->editor;
@@ -97,7 +96,7 @@ static void	place_map_entity(t_game *game, t_map *map, t_vect2 click_pos)
 	editor->entity_step = 0;
 }
 
-/* Second click with the player type: set the player spawn and direction */
+/* Définit le point d’apparition et l’orientation du joueur. */
 static void	place_player_spawn(t_editor *editor, t_map *map, t_vect2 click_pos)
 {
 	t_vect2	dir;
@@ -111,7 +110,7 @@ static void	place_player_spawn(t_editor *editor, t_map *map, t_vect2 click_pos)
 	editor->entity_step = 0;
 }
 
-/* First click: remember the base position (windows are placed directly) */
+/* Démarre le placement d’une entité sur la carte. */
 static void	start_entity_placement(t_game *game, t_map *map, t_vect2 click_pos)
 {
 	t_editor	*editor = game->editor;
@@ -131,6 +130,7 @@ static void	start_entity_placement(t_game *game, t_map *map, t_vect2 click_pos)
 		editor->entity_step = 0;
 }
 
+/* Gère le placement des entités à la souris. */
 void	entities_events(t_game *game, SDL_Event *e)
 {
 	t_vect2		click_pos;

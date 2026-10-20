@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	Afficher le texte des propriété de sectors	*/
+/* Affiche les propriétés du secteur. */
 void	display_sector_property(t_game *game)
 {
 	draw_prop_text(game, "floor_texture", 1481, 463);

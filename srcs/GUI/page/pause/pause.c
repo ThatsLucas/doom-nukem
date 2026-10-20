@@ -14,12 +14,14 @@
 #include "Window.h"
 #include "menus/menus.h"
 
+/* Reprend la partie. */
 static void draw_game_menu(t_game *game)
 {
     game->is_paused = 0;
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
+/* Retourne au menu principal. */
 static void go_main_menu(t_game *game)
 {
     game->is_paused = 0;
@@ -32,6 +34,7 @@ static void go_main_menu(t_game *game)
     game->window->menus.current = 1;
 }
 
+/* Initialise les boutons du menu pause. */
 static void init_pause_buttons(t_WIN *win, t_pause *menu)
 {
     t_main_menu *MainMenu = &win->menus.main;
@@ -46,6 +49,7 @@ static void init_pause_buttons(t_WIN *win, t_pause *menu)
     create_button(&win->buttonList, &go_main_menu, coords, color, color, &menu->texts[3], &menu->texts[4], 0);
 }
 
+/* Initialise les textes du menu pause. */
 void init_pause_texts(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
@@ -78,6 +82,7 @@ void init_pause_texts(void *gameStruct)
     init_pause_buttons(win, menu);
 }
 
+/* Affiche le menu pause. */
 void draw_pause_menu(t_game *game)
 {
     t_WIN *win = game->window;

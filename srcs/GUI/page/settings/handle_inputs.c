@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Saves the new key of a control and updates its text */
+/* Définit la touche associée à une commande. */
 static void set_control_key(t_game *game, int *setting, t_font *text, int key)
 {
     *setting = key;
@@ -23,6 +23,7 @@ static void set_control_key(t_game *game, int *setting, t_font *text, int key)
                 DNFONT);
 }
 
+/* Assigne la touche pressée à la commande sélectionnée. */
 int handle_key_control_selected(t_game *game, int key)
 {
     t_settings_menu *menu = &game->window->menus.settings;
@@ -45,6 +46,7 @@ int handle_key_control_selected(t_game *game, int key)
     return (1);
 }
 
+/* Gère un clic dans le menu des paramètres. */
 void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (grab_fov(game, menu, MouseDatas, click))
@@ -63,6 +65,7 @@ void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionE
         return;
 }
 
+/* Relâche les curseurs du menu des paramètres. */
 void handle_settings_released(t_settings_menu *menu)
 {
     if (menu->isGrabbingSlider)

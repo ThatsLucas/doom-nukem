@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* Scrollable part of the settings, drawn inside the viewport dest */
+/* Affiche les paramètres dans leur zone défilante. */
 static void draw_settings_viewport(t_game *game, t_settings_menu *menu, SDL_Rect *dest)
 {
     SDL_Renderer *renderer = game->window->renderPTR;
@@ -31,6 +31,7 @@ static void draw_settings_viewport(t_game *game, t_settings_menu *menu, SDL_Rect
     SDL_RenderSetViewport(renderer, NULL);
 }
 
+/* Affiche le menu des paramètres. */
 void draw_settings_menu(t_game *game)
 {
     t_WIN *win = game->window;

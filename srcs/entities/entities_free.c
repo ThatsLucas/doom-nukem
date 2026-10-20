@@ -12,6 +12,7 @@
 
 #include "entities/Entities.h"
 
+/* Libère toutes les entités. */
 void	free_entities(t_entities *e)
 {
 	if (e->list)

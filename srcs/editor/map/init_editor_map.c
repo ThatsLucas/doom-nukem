@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Crée une texture à partir d’une couleur. */
 static t_RGB	*create_texture_color(t_game *game, SDL_Surface *s, int w, int h)
 {
 	t_RGB	*res;
@@ -36,7 +37,7 @@ static t_RGB	*create_texture_color(t_game *game, SDL_Surface *s, int w, int h)
 	return (res);
 }
 
-/* Render the GPU texture into a surface to read back its pixels */
+/* Lit les couleurs des pixels d’une texture. */
 static t_RGB	*read_texture_colors(t_game *game, SDL_Texture *texture, int width, int height)
 {
 	SDL_Renderer	*renderer = game->window->renderPTR;
@@ -58,6 +59,7 @@ static t_RGB	*read_texture_colors(t_game *game, SDL_Texture *texture, int width,
 	return (colors);
 }
 
+/* Initialise les textures de la carte. */
 static void	init_map_textures(t_game *game)
 {
 	t_map			*map = game->editor->map;
@@ -82,7 +84,7 @@ static void	init_map_textures(t_game *game)
 	return ;
 }
 
-/*	Initialisation de la map de l'Editor	*/
+/* Initialise la carte de l’éditeur. */
 void	init_editor_map(t_game *game)
 {
 	t_map	*map = NULL;

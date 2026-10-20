@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Règle la sensibilité de la souris avec le curseur. */
 int grab_mouse_sensibility(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (!menu->isGrabbingSliderMouseSensi && !click)
@@ -49,6 +50,7 @@ int grab_mouse_sensibility(t_game *game, t_settings_menu *menu, SDL_MouseMotionE
     return (1);
 }
 
+/* Règle le champ de vision avec le curseur. */
 int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     if (!menu->isGrabbingSlider && !click)
@@ -79,6 +81,7 @@ int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDat
     return (1);
 }
 
+/* Fait défiler les paramètres avec la molette. */
 void handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL_MouseWheelEvent *wheel)
 {
     int minScrollY = 40;
@@ -98,6 +101,7 @@ void handle_settings_scroll_mouse_wheel(t_game *game, t_settings_menu *menu, SDL
     game->window->menus.settings.scrollH = (int)(((float)(menu->scroll_grab.y - minScrollY) / (float)(maxScrollY - minScrollY)) * 2000.0f);
 }
 
+/* Fait défiler les paramètres avec la barre de défilement. */
 int grab_scroll(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click)
 {
     int minScrollY = 40;

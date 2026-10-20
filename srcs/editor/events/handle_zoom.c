@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/* Zoom or unZoom the plan with mouse wheel */
+/* Zoome ou dézoome le plan avec la molette. */
 void	handle_zoom(t_editor *editor, SDL_MouseWheelEvent *wheel)
 {
 	if (wheel->mouseX >= editor->plan.size.w)

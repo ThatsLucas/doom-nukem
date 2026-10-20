@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Met à jour les indices des murs après suppression d’un sommet. */
 static void	update_walls(t_map *map, int index)
 {
 	for (int i = 0; i < map->num_walls; ++i)
@@ -26,6 +27,7 @@ static void	update_walls(t_map *map, int index)
 	return ;
 }
 
+/* Supprime le sommet cliqué et ses murs. */
 void	suppress_vertice(t_game *game, float x, float y)
 {
 	t_vect2	*vertice;
@@ -56,6 +58,7 @@ void	suppress_vertice(t_game *game, float x, float y)
 	return ;
 }
 
+/* Supprime un mur. */
 void	suppress_wall(t_game *game, int wall_indx)
 {
 	t_wall	*wall;

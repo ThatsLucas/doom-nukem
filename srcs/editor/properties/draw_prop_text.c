@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	Affichage du texte des propriétés	*/
+/* Affiche un texte du panneau des propriétés. */
 void	draw_prop_text(t_game *game, char *txt, int x, int y)
 {
 	static SDL_Color	color = (SDL_Color){0, 0, 0, 255};

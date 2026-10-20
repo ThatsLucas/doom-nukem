@@ -14,18 +14,21 @@
 #include "Game.h"
 #include "menus/menus.h"
 
+/* Ouvre le salon de jeu. */
 static void draw_game_menu(t_game *game)
 {
     game->window->menus.current = 3;
     SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
+/* Ouvre l’éditeur de carte. */
 static void draw_editor(t_game *game)
 {
     game->window->menus.current = -1;
     SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
+/* Initialise les images du menu principal. */
 static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
 {
     pthread_t threads[3];
@@ -39,7 +42,7 @@ static int init_imgs(SDL_Renderer *renderer, t_main_menu *MainMenu)
     return (join_png_threads(threads, images, 3, renderer));
 }
 
-/* White outlined text (normal) and red text (hover) of a main menu button */
+/* Initialise les textes des boutons du menu principal. */
 static void init_button_texts(t_font *text, t_font *hover, SDL_Renderer *renderer, char *str, int hoffset)
 {
     text->color = (SDL_Color){255, 255, 255, 255};
@@ -52,6 +55,7 @@ static void init_button_texts(t_font *text, t_font *hover, SDL_Renderer *rendere
     hover->textHOffset = hoffset;
 }
 
+/* Initialise le menu principal. */
 int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu *MainMenu, int button_offset)
 {
     if (!init_imgs(renderer, MainMenu))
@@ -70,13 +74,14 @@ int init_home_menu(t_game *game, t_WIN *win, SDL_Renderer *renderer, t_main_menu
     return (1);
 }
 
-/* Draws texture in the 1920x1080 space at dest */
+/* Affiche une image du menu à la position indiquée. */
 static void draw_menu_image(t_game *game, SDL_Texture *texture, SDL_Rect dest)
 {
     to_responsive(game->window, &dest);
     SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
 }
 
+/* Affiche le menu principal. */
 void draw_main_menu(t_game *game)
 {
     t_main_menu *menu = &game->window->menus.main;

@@ -14,7 +14,7 @@
 #include "Game.h"
 #include "menus/menus.h"
 
-/* 9 subtitles (texts[7] to texts[15]) shown one after the other */
+/* Affiche les textes de la page courante. */
 static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *win)
 {
     Uint64 part = CINEMATIC_ONE_DURATION / 9;
@@ -30,7 +30,7 @@ static void draw_texts(Uint64 curTime, Uint64 Begin, t_cinematic *menu, t_WIN *w
     }
 }
 
-/* Random lightning on the left or the right */
+/* Dessine l’éclair de la cinématique. */
 static void draw_lightning(t_cinematic *menu, t_WIN *win, Uint64 curTime)
 {
     int rng = curTime % 10;
@@ -41,6 +41,7 @@ static void draw_lightning(t_cinematic *menu, t_WIN *win, Uint64 curTime)
         draw_texture(1200 - (40 * rng), 0, menu->lightning.w, menu->lightning.h, win, menu->lightning.texture);
 }
 
+/* Affiche la cinématique du niveau 3. */
 void draw_cinematic_three(t_game *game)
 {
     t_WIN *win = game->window;

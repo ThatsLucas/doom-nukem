@@ -13,7 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
-/* Display the plan grid (with zoom) */
+/* Affiche la grille de l’éditeur. */
 void	display_grid(t_game *game)
 {
 	t_editor	*editor = game->editor;

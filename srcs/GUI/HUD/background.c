@@ -12,7 +12,7 @@
 
 #include "Game.h"
 
-/* To display the gray background for the hud */
+/* Affiche le fond du HUD. */
 void	display_hud_bg(t_game *game)
 {
 	draw_texture(0, 1080 - 190, 1920, 190, game->window, game->hud_cache.bg_texture);

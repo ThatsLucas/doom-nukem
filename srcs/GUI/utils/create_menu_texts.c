@@ -14,11 +14,7 @@
 #include "Window.h"
 #include "GUI/GUI.h"
 
-/*
-	Labels of a classic menu button:
-		texts[0] -> red text (normal)
-		texts[1] -> white outlined text (hover)
-*/
+/* Crée le texte rouge et le texte blanc survolé d’un bouton. */
 void	create_menu_button_texts(t_font *texts, SDL_Renderer *renderer, char *str)
 {
 	texts[0].color = (SDL_Color){221, 21, 0, 255};
@@ -32,7 +28,7 @@ void	create_menu_button_texts(t_font *texts, SDL_Renderer *renderer, char *str)
 	create_text(&texts[1], renderer, str, DNFONTOUTLINED);
 }
 
-/* White DNFONT text of the given size */
+/* Crée un texte blanc de la taille indiquée. */
 void	create_white_text(t_font *font, SDL_Renderer *renderer, char *str, int size)
 {
 	font->color = (SDL_Color){255, 255, 255, 255};

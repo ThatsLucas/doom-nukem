@@ -15,6 +15,7 @@
 #include "menus/menus.h"
 #include "multiplayer/client.h"
 
+/* Initialise les boutons du salon solo. */
 static void init_solo_buttons(t_WIN *win, t_lobby *menu)
 {
     t_RGB color = {255, 255, 255, 0};
@@ -28,6 +29,7 @@ static void init_solo_buttons(t_WIN *win, t_lobby *menu)
     create_button(&win->buttonList, &lobby_to_multi_lobby, (SDL_Rect){1920 / 2 - bw / 2, 1000 - bh / 2, bw, bh}, color, color, &menu->texts[10], &menu->texts[9], 3);
 }
 
+/* Initialise les boutons du salon multijoueur. */
 static void init_multi_buttons(t_WIN *win, t_lobby *menu)
 {
     t_RGB color = {255, 255, 255, 0};
@@ -43,7 +45,7 @@ static void init_multi_buttons(t_WIN *win, t_lobby *menu)
     create_button(&win->buttonList, &draw_enter_host_addr, (SDL_Rect){1520 - bw, 1000 - bh / 2, bw, bh}, color, color, &menu->texts[19], &menu->texts[18], 4);
 }
 
-/* Thread: creates the texts and the buttons of the solo and multi lobbies */
+/* Initialise les textes du salon. */
 static void *init_texts(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
@@ -55,7 +57,7 @@ static void *init_texts(void *gameStruct)
     return ((void *)1);
 }
 
-/* Waits for the png threads and creates their textures */
+/* Attend le chargement des images du salon et crée leurs textures. */
 static int join_lobby_images(pthread_t *threads, t_png **images, t_lobby *lobby, SDL_Renderer *renderer)
 {
     void *ret = NULL;
@@ -78,7 +80,7 @@ static int join_lobby_images(pthread_t *threads, t_png **images, t_lobby *lobby,
     return (finalRet);
 }
 
-/* Lists the images to load and sets their paths */
+/* Prépare les chemins des images du salon. */
 static void set_lobby_images(t_lobby *lobby, t_png **images)
 {
     t_png *list[8] = {
@@ -108,6 +110,7 @@ static void set_lobby_images(t_lobby *lobby, t_png **images)
     }
 }
 
+/* Initialise le salon. */
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer,
                     t_lobby *lobby)
 {

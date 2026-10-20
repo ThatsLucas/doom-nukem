@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	affichage et initialisation des propriétés	*/
+/* Affiche le panneau des propriétés de l’outil actif. */
 void	display_properties(t_game *game)
 {
 	switch (game->editor->properties.selected_property)
@@ -41,6 +41,7 @@ void	display_properties(t_game *game)
 	return ;
 }
 
+/* Initialise les panneaux de propriétés. */
 void	init_properties(t_game *game)
 {
 	t_editor	*editor = game->editor;

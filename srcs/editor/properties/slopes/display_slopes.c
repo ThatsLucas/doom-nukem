@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
-/*	Afficher le texte des pente de sectors	*/
+/* Affiche les propriétés des pentes. */
 void	display_slopes(t_game *game)
 {
 	SDL_Rect	box;

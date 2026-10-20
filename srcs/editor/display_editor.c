@@ -13,6 +13,7 @@
 #include "Editor.h"
 #include "Game.h"
 
+/* Affiche la partie gauche de l’éditeur. */
 static void	left_part(t_game *game)
 {
 	SDL_Rect	rect;
@@ -29,6 +30,7 @@ static void	left_part(t_game *game)
 	return ;
 }
 
+/* Affiche la partie droite de l’éditeur. */
 static void	right_part(t_game *game)
 {
 	SDL_Rect	rect;
@@ -46,6 +48,7 @@ static void	right_part(t_game *game)
 	return ;
 }
 
+/* Affiche les textures des outils de l’éditeur. */
 static void	display_tools_textures(t_game *game)
 {
 	t_editor	*editor = game->editor;
@@ -74,7 +77,7 @@ static void	display_tools_textures(t_game *game)
 	return ;
 }
 
-/* Display all the editor frame */
+/* Affiche l’éditeur complet. */
 void	display_editor(t_game *game)
 {
 	left_part(game);

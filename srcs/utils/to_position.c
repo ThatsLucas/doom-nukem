@@ -12,6 +12,7 @@
 
 #include "Game.h"
 
+/* Convertit une abscisse en pixels en position sur la carte. */
 float	to_PosX(float x, t_game *game)
 {
 	static float	coeff = 0.0f;
@@ -22,6 +23,7 @@ float	to_PosX(float x, t_game *game)
 	return (x / coeff);
 }
 
+/* Convertit une ordonnée en pixels en position sur la carte. */
 float	to_PosY(float y, t_game *game)
 {
 	static float	coeff = 0.0f;

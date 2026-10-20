@@ -12,6 +12,7 @@
 
 #include "parser/PNG.h"
 
+/* Vérifie la validité de l’en-tête PNG. */
 static int check_header_validity(char *buf)
 {
     // "137 80 78 71 13 10 26 10" = char chelou P N G char chelou
@@ -24,6 +25,7 @@ static int check_header_validity(char *buf)
     return (1);
 }
 
+/* Lit et vérifie la signature PNG. */
 int find_png_header(t_png *pngFile)
 {
     t_readPNG readDatas = read_nbytes(pngFile->fd, 8);

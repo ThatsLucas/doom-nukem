@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Editor.h"
 
+/* Récupère la transparence du mur. */
 static int	get_alpha(t_game *game)
 {
 	t_list			*current = game->editor->text_inputs;
@@ -34,6 +35,7 @@ static int	get_alpha(t_game *game)
 	return (255);
 }
 
+/* Vérifie si le mur existe déjà. */
 static int	wall_already_exist(t_game *game, int v1, int v2)
 {
 	t_map	*map = game->editor->map;
@@ -51,6 +53,7 @@ static int	wall_already_exist(t_game *game, int v1, int v2)
 	return (0);
 }
 
+/* Calcule l’intersection entre deux segments. */
 static float	inter_segments(t_vect2 P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 *res)
 {
 	t_vect2	qp;
@@ -70,6 +73,7 @@ static float	inter_segments(t_vect2 P, t_vect2 r, t_vect2 Q, t_vect2 s, t_vect2 
 	return (t);
 }
 
+/* Copie les propriétés du mur. */
 static void	copy_wall_info(t_wall *src, t_wall *dest)
 {
 	dest->alpha			= src->alpha;
@@ -82,6 +86,7 @@ static void	copy_wall_info(t_wall *src, t_wall *dest)
 	return ;
 }
 
+/* Découpe le mur au sommet ajouté. */
 static int	split_wall(t_game *game, int wall_a, int wall_b, int vmid)
 {
 	t_map	*map = game->editor->map;
@@ -115,7 +120,7 @@ static int	split_wall(t_game *game, int wall_a, int wall_b, int vmid)
 	return (b2_index);
 }
 
-/*	Si un mur croise un autre on le split	*/
+/* Recherche les intersections entre les murs et les découpe si nécessaire. */
 static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int walls_num)
 {
 	t_vect2	a, b, c, d;
@@ -145,6 +150,7 @@ static int	check_intersections(t_game *game, t_map *map, int new_wall_id, int wa
 	return (0);
 }
 
+/* Récupère l’indice de texture associé au mur. */
 static int	get_wall_text_index(SDL_Texture *tex, t_editor *editor)
 {
 	for (int i = 0; i < editor->textures->num_textures; ++i)
@@ -156,7 +162,7 @@ static int	get_wall_text_index(SDL_Texture *tex, t_editor *editor)
 	return (0);
 }
 
-/*	Ajouter un mur à la map	*/
+/* Ajoute un mur entre deux sommets. */
 void	editor_add_wall(t_game *game, int v1, int v2)
 {
 	t_map	*map = game->editor->map;
