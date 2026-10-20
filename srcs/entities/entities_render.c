@@ -16,166 +16,178 @@
 #include <math.h>
 #include <stdlib.h>
 
-/*
-	Fonction qui pour chaque entity va faire les calculs suivants pour le render proprement:
-		- Transformation de la pos en cam (transform_y et transform_x) -> 53/54
-		- Division perspective pour avoir la position sur l'ecran (inv_ty et sX)
-		- Calcule la taille du sprite selon la distance et la hauteur
-
-	A savoir qu'on skip les entities qui sont trop loin ou derriere le joueur
-*/
-int	get_directional_frame(t_entity *e, float px, float py)
+/* Donnees de camera communes a toutes les entites d'une frame */
+typedef struct s_sprite_ctx
 {
-	int	n = e->num_frames;
+	int		sw;
+	float	half_sw;
+	float	half_sh;
+	float	focal;
+	float	inv_det;
+	float	closest;
+	t_vect2	plane;
+	t_vect2	dir;
+	t_vect2	pos;
+	float	z;
+	float	pitch;
+}	t_sprite_ctx;
 
-	float	to_px = e->x - px;
-	float	to_py = e->y - py;
+/* Taille d'une entite dans le monde (hauteur, ratio l/h, z de base) */
+typedef struct s_sprite_dim
+{
+	float	h;
+	float	aspect;
+	float	z;
+}	t_sprite_dim;
 
-	float	e_angle = atan2f(e->dir_y, e->dir_x);
-	float	view_angle = atan2f(to_py, to_px);
+static void	init_sprite_ctx(t_game *game, t_sprite_ctx *c)
+{
+	float	camera_scale = tanf(game->settings.FOV * 0.5f);
 
-	float	rel = e_angle - view_angle;
-
-	// normaliser l'angle pour qu'il soit etre PI et -PI
-	while (rel > M_PI)
-		rel -= 2.0f * M_PI;
-	while (rel < -M_PI)
-		rel += 2.0f * M_PI;
-
-	// normaliser l'angle pour que ca donne un indexe de frame
-	float	normalized = (rel + M_PI) / (2.0f * M_PI);
-	int		frame = (int)(normalized * n) % n;
-
-	if (frame < 0)
-		frame += n;
-	return (frame);
+	c->sw = game->screenSize[0];
+	c->half_sw = c->sw * 0.5f;
+	c->half_sh = game->screenSize[1] * 0.5f;
+	c->focal = c->half_sw / camera_scale;
+	c->plane = get_cam_plane(camera_scale, game->ply->dir);
+	c->dir = game->ply->dir;
+	c->pos = game->ply->pos;
+	c->z = game->ply->z;
+	c->pitch = game->ply->pitch;
+	c->inv_det = 1.0f / (c->plane.x * c->dir.y - c->dir.x * c->plane.y);
+	c->closest = FLT_MAX;
 }
 
-void render_entities(t_game *game)
+static t_tex	*select_entity_texture(t_entity *e, t_vect2 ply_pos)
 {
-	float	FOV = game->settings.FOV;
-	int		sw = game->screenSize[0];
-	int		sh = game->screenSize[1];
-	float	half_sw = sw * 0.5f;
-	float	half_sh = sh * 0.5f;
-	float	camera_scale = tanf(FOV * 0.5f);
-	float	focal = half_sw / camera_scale;
-	t_vect2	plane = get_cam_plane(camera_scale, game->ply->dir);
+	long long	current = get_time_ms();
+	int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
 
-	float	dir_x = game->ply->dir.x;
-	float	dir_y = game->ply->dir.y;
-	float	ply_x = game->ply->pos.x;
-	float	ply_y = game->ply->pos.y;
-	float	ply_z = game->ply->z;
-	float	pitch = game->ply->pitch;
-	float	inv_det = 1.0f / (plane.x * dir_y - dir_x * plane.y);
-	float	closest = FLT_MAX;
+	if (e->status == E_STATUS_DEAD)
+		return (e->texture_dead);
+	if (is_shooting && e->texture_shoot && (e->type == ENTITY_ENEMY || e->type == ENTITY_BOSS))
+		return (e->texture_shoot);
+	if (e->textures && e->num_frames > 0)
+		return (e->textures[get_directional_frame(e, ply_pos.x, ply_pos.y)]);
+	return (e->texture);
+}
 
+static void	compute_alive_size(t_entity *e, t_sprite_dim *d)
+{
+	if (e->sprite_h > 0.0f)
+		d->h = (e->sprite_h / 600.0f) * 1.8f;
+	else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+	{
+		d->h = 1.8f;
+		d->z = e->z - 0.05f;
+	}
+	else
+		d->h = 0.5f;
+
+	if (e->sprite_w > 0.0f && e->sprite_h > 0.0f)
+		d->aspect = e->sprite_w / e->sprite_h;
+	else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
+		d->aspect = 0.6f;
+	else
+		d->aspect = 1.0f;
+}
+
+static t_sprite_dim	compute_entity_size(t_entity *e)
+{
+	t_sprite_dim	d;
+
+	d.z = e->z;
+	if (e->type == ENTITY_BOSS)
+		d.z = e->z - 0.35f;
+	if (e->status == E_STATUS_DEAD && e->type == ENTITY_ENEMY)
+	{
+		d.h = 1.0f;
+		d.aspect = 0.95f;
+		d.z = e->z - 0.40f;
+	}
+	else if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
+	{
+		d.h = 1.0f;
+		d.aspect = 3.0f;
+		d.z = e->z;
+	}
+	else
+		compute_alive_size(e, &d);
+	return (d);
+}
+
+/*
+	Transforme la position de l'entite en espace camera (transform_x / transform_y),
+	puis division perspective pour obtenir le rectangle a l'ecran.
+	Renvoie 0 si l'entite est trop loin, derriere le joueur ou hors ecran.
+*/
+static int	project_entity(t_sprite_ctx *c, t_entity *e, SDL_Rect *dest, float *depth)
+{
+	float			dx = e->x - c->pos.x;
+	float			dy = e->y - c->pos.y;
+	float			transform_x;
+	float			transform_y;
+	t_sprite_dim	d;
+
+	if (dx * dx + dy * dy > MAX_ENTITY_DIST_RENDER_SQ)
+		return (0);
+	transform_x = c->inv_det * (c->dir.y * dx - c->dir.x * dy);
+	transform_y = c->inv_det * (-c->plane.y * dx + c->plane.x * dy);
+	if (transform_y <= 0.1f)
+		return (0);
+	d = compute_entity_size(e);
+
+	float	inv_ty = 1.0f / transform_y;
+	int		sx = (int)(c->half_sw + c->half_sw * transform_x * inv_ty);
+	float	dz_bot = d.z - c->z;
+	float	dz_top = d.z + d.h - c->z;
+	int		y_bot = (int)(c->half_sh - dz_bot * c->focal * inv_ty + c->pitch);
+	int		y_top = (int)(c->half_sh - dz_top * c->focal * inv_ty + c->pitch);
+	int		sprite_h = y_bot - y_top;
+	int		sprite_w = (int)(sprite_h * d.aspect);
+
+	if (sprite_h <= 0 || sprite_w <= 0)
+		return (0);
+	if (sx + sprite_w / 2 < 0 || sx - sprite_w / 2 >= c->sw)
+		return (0);
+	*dest = (SDL_Rect){.x = sx - sprite_w / 2, .y = y_top, .w = sprite_w, .h = sprite_h};
+	*depth = transform_y;
+	return (1);
+}
+
+/* on ne vise pas une entite cachee par un mur/sol/toit */
+static void	update_crosshair_target(t_game *game, t_sprite_ctx *c, t_entity *e, SDL_Rect dest, float depth)
+{
+	int	cx = (int)c->half_sw;
+	int	cy = (int)c->half_sh;
+
+	if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h
+		&& depth < c->closest && depth < game->z_buffer[cy * c->sw + cx])
+	{
+		c->closest = depth;
+		game->ply->crosshair_target = e;
+	}
+}
+
+void	render_entities(t_game *game)
+{
+	t_sprite_ctx	c;
+	t_entity		*e;
+	t_tex			*tex;
+	SDL_Rect		dest;
+	float			depth;
+
+	init_sprite_ctx(game, &c);
 	update_entities(game, &game->entities);
 	game->ply->crosshair_target = NULL;
 	for (int i = 0; i < game->entities.count; i++)
 	{
-		t_entity	*e = &game->entities.list[i];
-		t_tex		*tex = NULL;
-
-		long long	current = get_time_ms();
-		int			is_shooting = e->last_shot_time > 0 && (current - e->last_shot_time) < (e->fire_rate * 0.7);
+		e = &game->entities.list[i];
 		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
-
-		if (e->status == E_STATUS_DEAD)
-			tex = e->texture_dead;
-		else if (is_shooting && e->texture_shoot && (e->type == ENTITY_ENEMY || e->type == ENTITY_BOSS))
-			tex = e->texture_shoot;
-		else if (e->textures && e->num_frames > 0)
-		{
-			int frame = get_directional_frame(e, ply_x, ply_y);
-			tex = e->textures[frame];
-		}
-		else
-			tex = e->texture;
-
-		float	dx = e->x - ply_x;
-		float	dy = e->y - ply_y;
-
-		if (dx * dx + dy * dy > MAX_ENTITY_DIST_RENDER_SQ)
+		tex = select_entity_texture(e, c.pos);
+		if (!project_entity(&c, e, &dest, &depth))
 			continue ;
-
-		float	transform_x = inv_det * (dir_y * dx - dir_x * dy);
-		float	transform_y = inv_det * (-plane.y * dx + plane.x * dy);
-		if (transform_y <= 0.1f)
-			continue ;
-
-		float	entity_h;
-		float	aspect_ratio;
-		float	render_z = e->z;
-		if (e->type == ENTITY_BOSS)
-			render_z = e->z - 0.35f;
-		if (e->status == E_STATUS_DEAD && e->type == ENTITY_ENEMY)
-		{
-			entity_h = 1.0f;
-			aspect_ratio = 0.95f;
-			render_z = e->z - 0.40f;
-		}
-		else if (e->status == E_STATUS_DEAD && e->type == ENTITY_BOSS)
-		{
-			entity_h = 1.0f;
-			aspect_ratio = 3.0f;
-			render_z = e->z;
-		}
-		else
-		{
-			if (e->sprite_h > 0.0f)
-				entity_h = (e->sprite_h / 600.0f) * 1.8f;
-			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
-			{
-				entity_h = 1.8f;
-				render_z = e->z - 0.05f;
-			}
-			else
-				entity_h = 0.5f;
-
-			if (e->sprite_w > 0.0f && e->sprite_h > 0.0f)
-				aspect_ratio = e->sprite_w / e->sprite_h;
-			else if (e->type == ENTITY_ENEMY || e->type == ENTITY_PNJ)
-				aspect_ratio = 0.6f;
-			else
-				aspect_ratio = 1.0f;
-		}
-
-		float	inv_ty = 1.0f / transform_y;
-		int		sx = (int)(half_sw + half_sw * transform_x * inv_ty);
-		float	dz_bot = render_z - ply_z;
-		float	dz_top = render_z + entity_h - ply_z;
-		int		y_bot = (int)(half_sh - dz_bot * focal * inv_ty + pitch);
-		int		y_top = (int)(half_sh - dz_top * focal * inv_ty + pitch);
-		int		sprite_h = y_bot - y_top;
-		int		sprite_w = (int)(sprite_h * aspect_ratio);
-
-		if (sprite_h <= 0 || sprite_w <= 0)
-			continue ;
-
-		if (sx + sprite_w / 2 < 0 || sx - sprite_w / 2 >= sw)
-			continue ;
-
-		SDL_Rect	dest = {
-			.x = sx - sprite_w / 2,
-			.y = y_top,
-			.w = sprite_w,
-			.h = sprite_h
-		};
-
-		int	cx = (int)half_sw;
-		int	cy = (int)half_sh;
-
-		/* on ne vise pas une entite cachee par un mur/sol/toit */
-		if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h
-			&& transform_y < closest && transform_y < game->z_buffer[cy * sw + cx])
-		{
-			closest = transform_y;
-			game->ply->crosshair_target = e;
-		}
-
+		update_crosshair_target(game, &c, e, dest, depth);
 		if (tex)
-			draw_sprite_zbuf(game, tex, dest, transform_y, game->map->sectors[e->sector].light_level);
+			draw_sprite_zbuf(game, tex, dest, depth, game->map->sectors[e->sector].light_level);
 	}
 }

@@ -21,6 +21,7 @@
 typedef struct	s_game t_game;
 typedef struct	s_vect2 t_vect2;
 typedef struct	s_tex t_tex;
+typedef struct	s_ply t_ply;
 
 typedef enum	e_entity_type
 {
@@ -90,6 +91,20 @@ void	init_entities(t_entities *e);
 void	add_entity(t_game *game, t_entities *e, t_entity entity);
 int		entities_collision(t_game *game, float next_x, float next_y);
 void	update_entities(t_game *game, t_entities *e);
+int		get_directional_frame(t_entity *e, float px, float py);
+
+/* entities_ai.c */
+float	angle_diff(float a, float b);
+int		check_vision(t_game *game, t_entity *e, t_ply *p);
+void	move_to_ply(t_entity *e, t_ply *p, float dt);
+void	attack_ply(t_ply *p, t_entity *e);
+int		check_wall_blocking(t_game *game, float ex, float ey, int entity_sector, float px, float py);
+
+/* entities_create_utils.c */
+void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir);
+void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h);
+void	init_fighter_base(t_game *game, t_entity *e, t_entity_type type, t_vect2 pos);
+void	load_fighter_textures(t_game *game, t_entity *e, char *dir, int size[4]);
 
 void	create_enemy1(t_game *game, t_vect2 pos);
 void	create_enemy2(t_game *game, t_vect2 pos);
