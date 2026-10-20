@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 11:59:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:57:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/20 18:49:59 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@
 # endif
 
 # ifndef DEFAULT_MOUSE_SENSIBILITY
-#  define DEFAULT_MOUSE_SENSIBILITY (MAX_MOUSE_SENSIBILITY
-		+ MIN_MOUSE_SENSIBILITY) / 2
+#  define DEFAULT_MOUSE_SENSIBILITY (MAX_MOUSE_SENSIBILITY + MIN_MOUSE_SENSIBILITY) / 2
 # endif
 
 # ifndef RAYCAST_THREADS
