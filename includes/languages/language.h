@@ -17,6 +17,8 @@
 
 typedef struct s_game t_game;
 
+#define LANGUAGE_FIELDS 48
+
 typedef struct s_languages
 {
     char *loading;
@@ -71,5 +73,6 @@ typedef struct s_languages
 
 void parse_languages(t_game *game, int language);
 void free_languages(t_game *game);
+void get_language_fields(t_languages *l, char ***tab);
 
 #endif
