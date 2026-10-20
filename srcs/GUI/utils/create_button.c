@@ -41,7 +41,7 @@ static  void insert_new_button(t_buttons **button_list, void (*callback)(t_game 
     return;
 }
 
-static int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoords)
+int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoords)
 {
     if (mouseCoords.x < buttonCoords.x || mouseCoords.x > buttonCoords.x  + buttonCoords.w)
         return 0;
@@ -55,45 +55,54 @@ void create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect
     insert_new_button(button_list, callback, coords, color, hoverColor, text, textHover, pageID);
 }
 
+/* Label of the button, centered (minus its vertical offset) */
+static void draw_button_text(t_game *game, t_buttons *button, t_font *textFont, int HOffset)
+{
+    int x = button->buttonCoords.x + (button->buttonCoords.w / 2 - textFont->w / 2);
+    int y = button->buttonCoords.y + (button->buttonCoords.h / 2 - textFont->h / 2) - HOffset;
+    int w = textFont->w;
+    int h = textFont->h;
+    SDL_Rect btn_text_dest = {x, y, w, h};
+
+    to_responsive(game->window, &btn_text_dest);
+    SDL_RenderCopy(game->window->renderPTR, textFont->texture, NULL, &btn_text_dest);
+}
+
+/* Draws one button, using its hover color / text when the mouse is on it */
+static void display_button(t_buttons *button, t_game *game, SDL_Rect mouseCoords)
+{
+    t_RGB color = button->color;
+    t_font *textFont = button->text;
+    int HOffset = 0;
+
+    if (textFont)
+        HOffset = textFont->textHOffset;
+    SDL_Rect buttonCoords = button->buttonCoords;
+    to_responsive(game->window, &buttonCoords);
+    if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
+    {
+        color = button->hoverColor;
+        if (button->textHover)
+        {
+            textFont = button->textHover;
+            HOffset = button->textHover->textHOffset;
+        }
+    }
+    if (color.alphaValue > 0)
+        create_rectangle(game->window->renderPTR, button->buttonCoords, color);
+    if (textFont && textFont->texture)
+        draw_button_text(game, button, textFont, HOffset);
+}
+
 void display_buttons(t_buttons *button_list, t_game *game, int pageID)
 {
     SDL_Rect mouseCoords;
+
     SDL_GetMouseState(&mouseCoords.x, &mouseCoords.y);
     while(button_list)
     {
-        if (button_list->page_id  != pageID)
-        {
-            button_list = button_list->next;
-            continue;
-        }
-        t_RGB color = button_list->color;
-        t_font *textFont = button_list->text;
-        int HOffset = 0;
-        if (textFont)
-            HOffset = textFont->textHOffset;
-        SDL_Rect buttonCoords = button_list->buttonCoords;
-        to_responsive(game->window, &buttonCoords);
-        if (is_mouse_pos_inside_button(mouseCoords, buttonCoords))
-        {
-            color = button_list->hoverColor;
-            if (button_list->textHover)
-            {
-                textFont = button_list->textHover;
-                HOffset = button_list->textHover->textHOffset;
-            }
-        }
-        if (color.alphaValue > 0)
-            create_rectangle(game->window->renderPTR, button_list->buttonCoords, color);
-        if (textFont && textFont->texture)
-        {
-            int x = button_list->buttonCoords.x + (button_list->buttonCoords.w / 2 - textFont->w / 2);
-            int y = button_list->buttonCoords.y + (button_list->buttonCoords.h / 2 - textFont->h / 2) - HOffset;
-            int w = textFont->w;
-            int h = textFont->h; 
-            SDL_Rect btn_text_dest = {x, y, w, h};
-            to_responsive(game->window, &btn_text_dest);
-            SDL_RenderCopy(game->window->renderPTR, textFont->texture, NULL, &btn_text_dest);
-        }
+        if (button_list->page_id == pageID)
+            display_button(button_list, game, mouseCoords);
         button_list = button_list->next;
     }
 }

@@ -23,8 +23,30 @@ long	get_timestamp(void)
 	return ((long)(time.tv_sec * 1000 + time.tv_usec / 1000));
 }
 
-/* Afficher les fps en haut a droite de l'ecran */
-void	display_fps(t_game *game)
+/* Renders str with the hud text font at dest (1920x1080 space) */
+static void	draw_hud_label(t_game *game, char *str, SDL_Rect dest)
+{
+	SDL_Color color = {255, 255, 255, 255};
+
+	to_responsive(game->window, &dest);
+	char *buf = ft_strdup(str);
+
+	SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, buf, color);
+	free(buf);
+	if (!surface)
+		exit_game(game, (char *)TTF_GetError());
+
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(game->window->renderPTR, surface);
+	SDL_FreeSurface(surface);
+	if (!texture)
+		exit_game(game, (char *)SDL_GetError());
+
+	SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
+	SDL_DestroyTexture(texture);
+}
+
+/* Counts the frames and updates game->fps every second. Returns 0 on the first call */
+static int	update_fps(t_game *game)
 {
 	static int fps = 0;
 	static long last_time = 0;
@@ -34,7 +56,7 @@ void	display_fps(t_game *game)
 	if (!last_time)
 	{
 		last_time = time;
-		return;
+		return (0);
 	}
 	if (last_time + 1000 <= time)
 	{
@@ -46,46 +68,17 @@ void	display_fps(t_game *game)
 	}
 	else
 		fps++;
+	return (1);
+}
 
-	SDL_Color color = {255, 255, 255, 255};
-	
-	{
-		SDL_Rect dest = {1735, 35, 70, 25};
-		to_responsive(game->window, &dest);
-		char *buf = ft_strdup("FPS ");
+/* Afficher les fps en haut a droite de l'ecran */
+void	display_fps(t_game *game)
+{
+	if (!update_fps(game))
+		return;
 
-		SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, buf, color);
-		free(buf);
-		if (!surface)
-			exit_game(game, (char *)TTF_GetError());
-
-		SDL_Texture *texture = SDL_CreateTextureFromSurface(game->window->renderPTR, surface);
-		SDL_FreeSurface(surface);
-		if (!texture)
-			exit_game(game, (char *)SDL_GetError());
-
-		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
-		SDL_DestroyTexture(texture);
-	}
-	{
-		if (!game->fps)
-			game->fps = ft_itoa(100);
-	
-		SDL_Rect dest = {1805, 35, 65, 25};
-		to_responsive(game->window, &dest);
-		char *buf = ft_strdup(game->fps);
-
-		SDL_Surface *surface = TTF_RenderText_Solid(game->hud_cache.text_font, buf, color);
-		free(buf);
-		if (!surface)
-			exit_game(game, (char *)TTF_GetError());
-
-		SDL_Texture *texture = SDL_CreateTextureFromSurface(game->window->renderPTR, surface);
-		SDL_FreeSurface(surface);
-		if (!texture)
-			exit_game(game, (char *)SDL_GetError());
-
-		SDL_RenderCopy(game->window->renderPTR, texture, NULL, &dest);
-		SDL_DestroyTexture(texture);
-	}
+	draw_hud_label(game, "FPS ", (SDL_Rect){1735, 35, 70, 25});
+	if (!game->fps)
+		game->fps = ft_itoa(100);
+	draw_hud_label(game, game->fps, (SDL_Rect){1805, 35, 65, 25});
 }

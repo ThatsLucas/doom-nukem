@@ -15,6 +15,7 @@
 
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <pthread.h>
 #include "../libft/include/libft.h"
 #include "Colors.h"
 #include "parser/PNG.h"
@@ -66,6 +67,7 @@ int SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius, t_RGB
 void create_rectangle(SDL_Renderer *renderer, SDL_Rect coords, t_RGB rgb);
 
 /*buttons*/
+int is_mouse_pos_inside_button(SDL_Rect mouseCoords, SDL_Rect buttonCoords);
 void create_button(t_buttons **button_list, void (*callback)(t_game *), SDL_Rect coords, t_RGB color, t_RGB hoverColor, t_font *text, t_font *textHover, int pageID);
 int check_button_pressed(t_game *win, t_buttons *button_list);
 void display_buttons(t_buttons *button_list, t_game *game, int pageID);
@@ -87,6 +89,9 @@ void draw_sprite_zbuf(t_game *game, t_tex *tex, SDL_Rect dest, float depth, int 
 
 /*Text*/
 void create_text(t_font *textData, SDL_Renderer *renderer, char *text, char *fontPath);
+void create_menu_button_texts(t_font *texts, SDL_Renderer *renderer, char *str);
+void create_white_text(t_font *font, SDL_Renderer *renderer, char *str, int size);
+int join_png_threads(pthread_t *threads, t_png **images, int count, SDL_Renderer *renderer);
 void create_text_multiple_lines(t_font *textData, SDL_Renderer *renderer, char *text, char *fontPath, uint32_t maxW);
 void destroy_text_texture(t_font *text);
 

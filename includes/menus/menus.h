@@ -155,11 +155,20 @@ void destroy_notif_node(t_notif_buf **notif_buf);
 /*SETTINGS*/
 void draw_settings_menu(t_game *game);
 int init_settings_menu(t_game *game, SDL_Renderer *renderer, t_settings_menu *SettingsMenu);
+void init_settings_texts(t_game *game);
 void handle_settings_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
 void handle_settings_released(t_settings_menu *menu);
+int handle_language_selection(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
+int handle_click_control(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas);
+int handle_resolution_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas);
+int handle_display_mode_click(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas);
+int grab_mouse_sensibility(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
+int grab_fov(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
+int grab_scroll(t_game *game, t_settings_menu *menu, SDL_MouseMotionEvent *MouseDatas, int click);
 void draw_texture(int x, int y, int w, int h, t_WIN *win, SDL_Texture *texture);
 int draw_FOV(int yPos, int *scrollH, t_game *game, t_settings_menu *menu);
 int draw_controls(int *scrollH, t_WIN *win, t_settings_menu *menu);
+int draw_section_header(int yPos, int *scrollH, t_WIN *win, t_font *title);
 void draw_pick_a_key(t_WIN *win);
 int handle_key_control_selected(t_game *game, int key);
 void draw_scroll_bar(t_game *game, t_settings_menu *menu);
@@ -177,6 +186,7 @@ void refresh_pause_menu_texts(t_game *game);
 /* LOBBY */
 void draw_lobby_menu(t_game *game);
 int init_lobby_menu(t_game *game, SDL_Renderer *renderer, t_lobby *lobby);
+void init_lobby_texts(t_game *game);
 void draw_lobby_multiplayer_menu(t_game *game);
 void draw_enter_host_addr(t_game *game);
 void host_game(t_game *game);
@@ -184,6 +194,10 @@ void host_game(t_game *game);
 /* CINEMATICS */
 void draw_cinematic_one(t_game *game);
 int init_cinematics_menus(t_game *game, SDL_Renderer *renderer, t_cinematic *cinematic);
+float cinematic_delta(t_cinematic *menu, Uint64 curTime);
+void update_light_pulse(t_cinematic *menu, float delta);
+void draw_cinematic_subtitle(t_cinematic *menu, t_WIN *win, int idx);
+void end_cinematic_if_over(t_game *game, t_cinematic *menu, Uint64 curTime);
 void draw_cinematic_two(t_game *game);
 void draw_cinematic_three(t_game *game);
 
@@ -192,6 +206,9 @@ void load_level(t_game *game, int level);
 void start_level_1(t_game *game);
 void start_level_2(t_game *game);
 void start_level_3(t_game *game);
+void lobby_to_main_menu(t_game *game);
+void lobby_to_multi_lobby(t_game *game);
+void lobby_to_solo_lobby(t_game *game);
 
 /*PAUSE*/
 void init_pause_texts(void *gameStruct);

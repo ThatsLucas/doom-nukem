@@ -13,10 +13,30 @@
 #include "GUI/HUD.h"
 #include "Game.h"
 
+/* Adds the time since the last call, returns 1 (and resets) every period ms */
+static int	tick_elapsed(long *last_time, long *total_time, long period)
+{
+	long	now = get_time_ms();
+
+	if (*last_time == 0)
+		*last_time = now;
+	*total_time += now - *last_time;
+	*last_time = now;
+	if (*total_time >= period)
+	{
+		*total_time = 0;
+		return (1);
+	}
+	return (0);
+}
+
+/* Drains the flashlight battery while it is used, returns its tool index */
 static int	update_flashlight_battery(t_ply *p)
 {
-	t_tool	*flashlight = NULL;
-	int i;
+	static long	last_time = 0;
+	static long	total_time = 0;
+	t_tool		*flashlight = NULL;
+	int			i;
 
 	for (i = 0; i < MAX_TOOLS; i++)
 	{
@@ -26,73 +46,41 @@ static int	update_flashlight_battery(t_ply *p)
 			break ;
 		}
 	}
-
-	static long	last_time = 0;
-	static long	total_time = 0;
-
 	if (!flashlight || !flashlight->using)
 	{
 		last_time = 0;
 		return (i);
 	}
-
-	long	now = get_time_ms();
-	if (last_time == 0)
-		last_time = now;
-
-	long	delta_time = now - last_time;
-
-	total_time += delta_time;
-	last_time = now;
-	if (total_time >= 3000)
+	if (tick_elapsed(&last_time, &total_time, 3000))
 	{
 		flashlight->data.battery -= 1;
 		if (flashlight->data.battery <= 0)
 			flashlight->data.battery = 0;
-		total_time = 0;
 	}
 	return (i);
 }
 
+/* Drains the jetpack fuel while it is used, returns the fuel left */
 static int	update_jetpack_fuel(t_ply *p)
 {
 	t_tool		*jetpack = p->inventory.jetpack;
 	static long	last_time = 0;
 	static long	total_time = 0;
-	long		now;
-	long		delta_time;
 
-	if (!jetpack)
+	if (!jetpack || !jetpack->using)
 	{
 		last_time = 0;
 		total_time = 0;
-		return (0);
-	}
-
-	if (!jetpack->using)
-	{
-		last_time = 0;
-		total_time = 0;
+		if (!jetpack)
+			return (0);
 		return (jetpack->data.fuel);
 	}
-
-	now = get_time_ms();
-
-	if (last_time == 0)
-		last_time = now;
-
-	delta_time = now - last_time;
-	total_time += delta_time;
-	last_time = now;
-
-	if (total_time >= 5000)
+	if (tick_elapsed(&last_time, &total_time, 5000))
 	{
 		jetpack->data.fuel--;
 		if (jetpack->data.fuel < 0)
 			jetpack->data.fuel = 0;
-		total_time = 0;
 	}
-
 	return (jetpack->data.fuel);
 }
 

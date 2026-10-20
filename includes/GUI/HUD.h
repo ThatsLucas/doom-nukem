@@ -108,6 +108,9 @@ void	display_gauge(t_game *game, int type);
 /* General functions */
 void		display_hud(t_game *game);
 void		init_hud_cache(t_game *game);
+void		init_3D_weapons(t_game *game);
+void		init_all_assets(t_game *game);
+void		*load_png_thread(void *arg);
 void		free_hud_cache(t_game *game);
 void		update_hud_anim(t_game *game);
 long long	get_time_ms(void);

@@ -32,6 +32,20 @@ static void go_main_menu(t_game *game)
     game->window->menus.current = 1;
 }
 
+static void init_pause_buttons(t_WIN *win, t_pause *menu)
+{
+    t_main_menu *MainMenu = &win->menus.main;
+    int button_offset = 150;
+    t_RGB color = {0, 255, 0, 0};
+    SDL_Rect coords = {1920 / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5};
+
+    create_button(&win->buttonList, &draw_game_menu, coords, color, color, &menu->texts[1], &menu->texts[2], 0);
+    coords.y += button_offset;
+    create_button(&win->buttonList, &draw_settings_menu, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 0);
+    coords.y += button_offset + 5;
+    create_button(&win->buttonList, &go_main_menu, coords, color, color, &menu->texts[3], &menu->texts[4], 0);
+}
+
 void init_pause_texts(void *gameStruct)
 {
     t_game *game = (t_game *)gameStruct;
@@ -39,8 +53,7 @@ void init_pause_texts(void *gameStruct)
     t_languages *lang = game->languages;
     SDL_Renderer *renderer = win->renderPTR;
     t_pause *menu = &win->menus.pause;
-    t_main_menu *MainMenu = &win->menus.main;
-    
+
     menu->texts[0].size = 120;
     menu->texts[0].color = (SDL_Color){255, 255, 255, 255};
     menu->texts[1].size = 60;
@@ -55,21 +68,14 @@ void init_pause_texts(void *gameStruct)
     menu->texts[4].size = 60;
     menu->texts[4].color = (SDL_Color){221, 21, 0, 255};
     menu->texts[4].textHOffset = -5;
-    
+
     create_text(&menu->texts[0], renderer, lang->pause, DNFONT);
     create_text(&menu->texts[1], renderer, lang->resume, DNFONTOUTLINED);
     create_text(&menu->texts[2], renderer, lang->resume, DNFONT);
     create_text(&menu->texts[3], renderer, lang->exit, DNFONTOUTLINED);
     create_text(&menu->texts[4], renderer, lang->exit, DNFONT);
 
-    int button_offset = 150;
-    t_RGB color = {0, 255, 0, 0};
-    SDL_Rect coords = {1920 / 2 - (MainMenu->button.w / 5) / 2, 450, MainMenu->button.w / 5, MainMenu->button.h / 5};
-    create_button(&win->buttonList, &draw_game_menu, coords, color, color, &menu->texts[1], &menu->texts[2], 0);
-    coords.y += button_offset;
-    create_button(&win->buttonList, &draw_settings_menu, coords, color, color, &MainMenu->btn_two_text, &MainMenu->btn_two_text_hover, 0);
-    coords.y += button_offset + 5;
-    create_button(&win->buttonList, &go_main_menu, coords, color, color, &menu->texts[3], &menu->texts[4], 0);
+    init_pause_buttons(win, menu);
 }
 
 void draw_pause_menu(t_game *game)
