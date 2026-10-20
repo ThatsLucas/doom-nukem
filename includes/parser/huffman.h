@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   huffman.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 12:09:50 by root-             #+#    #+#             */
-/*   Updated: 2026/05/01 09:04:22 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:55:50 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HUFFMAN_H
-#define HUFFMAN_H
+# define HUFFMAN_H
 
-#define HUFFMAN_UNCOMPRESSED 0
-#define HUFFMAN_FIXED 1
-#define HUFFMAN_DYNAMIC 2
+# define HUFFMAN_UNCOMPRESSED 0
+# define HUFFMAN_FIXED 1
+# define HUFFMAN_DYNAMIC 2
 
 /*IHDR*/
-#define RGB 2
-#define RGBA 6
-#define GRAYSCALE 0
-#define GRAYSCALE_ALPHA 4
+# define RGB 2
+# define RGBA 6
+# define GRAYSCALE 0
+# define GRAYSCALE_ALPHA 4
 
 typedef struct s_huffman_dy
 {
-    __uint8_t BTYPE;
-    __uint8_t BFINAL;
-}              t_huffman_dy;
+	__uint8_t	BTYPE;
+	__uint8_t	BFINAL;
+}				t_huffman_dy;
 
 #endif

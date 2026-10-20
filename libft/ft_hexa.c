@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hexa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:21:32 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/01 15:32:38 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:46:35 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ int	ft_hexa_fd(long nbr, int maj, int fd)
 	len += ft_putchar_fd(c, fd);
 	return (len);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_put_pointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:27:55 by edurance          #+#    #+#             */
-/*   Updated: 2026/05/01 15:30:15 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/20 13:46:13 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ int	ft_put_pointer_fd(void *pointer, int fd)
 	ft_put_hexa(ptr, &res, fd);
 	return (res);
 }
-
