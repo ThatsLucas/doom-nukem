@@ -67,6 +67,7 @@ void exit_game(t_game *game, char *type)
 
 	free_window(game->window);
 	exit_editor(game);
+	free_sounds(&game->sounds);
 	free(game);
 	TTF_Quit();
 	SDL_Quit();

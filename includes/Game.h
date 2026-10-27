@@ -25,6 +25,7 @@
 # include "multiplayer/client.h"
 # include "multiplayer/server.h"
 # include "parser/PNG.h"
+# include "sounds/sounds.h"
 # include <SDL.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -126,6 +127,7 @@ typedef struct s_game
 	t_entities			entities;
 	t_editor			*editor;
 	int					is_paused;
+	t_SOUNDS			sounds;
 }						t_game;
 
 /*init/exit game*/

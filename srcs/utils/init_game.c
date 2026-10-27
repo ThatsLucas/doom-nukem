@@ -31,6 +31,7 @@ static void init_window(t_game *game)
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS))
 		exit_game(game, "SDL_INIT");
+	init_sounds(&game->sounds);
 	get_screen_size(&game->screenSize[0], &game->screenSize[1]);
 	game->window = create_window("Doom Nukem", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game->screenSize[0], game->screenSize[1], SDL_WINDOW_OPENGL);
 	if (!game->window)
