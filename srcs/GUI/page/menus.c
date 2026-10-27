@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 23:32:07 by lucas             #+#    #+#             */
-/*   Updated: 2026/10/05 11:53:21 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/27 11:25:18 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,23 @@ void draw_current_menu(t_game *game)
 	switch (game->window->menus.current)
 	{
 	case 0:
+		play_music(&game->sounds, game->sounds.ingame_music);
 		draw_in_game(game);
 		break;
 	case 1:
+		play_music(&game->sounds, game->sounds.menu_music);
 		draw_main_menu(game);
 		break;
 	case 2:
+		play_music(&game->sounds, game->sounds.menu_music);
 		draw_settings_menu(game);
 		break;
 	case 3:
+		play_music(&game->sounds, game->sounds.menu_music);
 		draw_lobby_menu(game);
 		break;
 	case 4:
+		play_music(&game->sounds, game->sounds.menu_music);
 		draw_lobby_multiplayer_menu(game);
 		break;
 	case 5:
