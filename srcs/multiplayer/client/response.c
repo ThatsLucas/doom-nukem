@@ -43,6 +43,15 @@ void handle_game_state(t_server_udp_datas *datas, t_game *game)
     // float cote serveur, double cote client : pas de memcpy direct
     for (int i = 0; i < 4; i++)
         game->clientConnection.player_angles[i] = datas->player_angles[i];
+    ft_memcpy(game->clientConnection.player_hp, datas->player_hp, sizeof(datas->player_hp));
+
+    // degats cumules envoyes par l'hote : on n'applique que la difference
+    if (datas->damage_total > game->clientConnection.last_damage_total)
+    {
+        game->ply->hp -= datas->damage_total - game->clientConnection.last_damage_total;
+        game->clientConnection.last_damage_total = datas->damage_total;
+    }
+    apply_server_entities(datas, game);
 
     // serveur encore au lobby alors qu'on lance la partie : il n'a juste pas encore recu notre paquet
     if (datas->state == 1 && game->clientConnection.state != 3)

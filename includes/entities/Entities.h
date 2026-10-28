@@ -83,6 +83,16 @@ typedef struct s_entity
 
 }						t_entity;
 
+/* joueur que les ennemis peuvent viser (local ou distant en multi) */
+typedef struct s_target
+{
+	float				x;
+	float				y;
+	float				z;			// hauteur des yeux
+	int					sector;
+	int					net_index;	// -1 : joueur local, sinon index du joueur distant
+}						t_target;
+
 typedef struct s_entities
 {
 	t_entity			*list;
@@ -99,10 +109,11 @@ int						get_directional_frame(t_entity *e, float px, float py);
 
 /* entities_ai.c */
 float					angle_diff(float a, float b);
-int						check_vision(t_game *game, t_entity *e, t_ply *p);
-void					move_to_ply(t_game *game, t_entity *e, t_ply *p, float dt);
+int						check_vision(t_game *game, t_entity *e, t_target *t);
+void					move_to_ply(t_game *game, t_entity *e, t_target *t, float dt);
+int						entity_attack_damage(t_entity *e);
 void					attack_ply(t_ply *p, t_entity *e);
-int						check_wall_blocking(t_game *game, t_entity *e, t_ply *p);
+int						check_wall_blocking(t_game *game, t_entity *e, t_target *t);
 int						entity_can_move(t_game *game, t_entity *e, float nx, float ny);
 
 /* entities_create_utils.c */

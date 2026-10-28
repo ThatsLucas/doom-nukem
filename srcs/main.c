@@ -51,6 +51,8 @@ static void game_frame(t_game *game)
 
 	// affichage du renderer sur la page
 	SDL_RenderPresent(game->window->renderPTR);
+	if (game->settings.multiplayer_enabled && game->settings.is_host)
+		sync_host_entities(game);
 	send_corresponding_datas_to_server(game);
 	if (game->settings.multiplayer_enabled)
 		handle_server_response(game, &game->clientConnection);
@@ -68,6 +70,7 @@ int main(void)
 	ft_bzero(&game->ply->keys, sizeof(t_keys));
 	load_start_level(game);
 
+	pthread_mutex_init(&game->serverStatus.lock, NULL);
 	pthread_create(&game->serverThread, NULL, create_server, game);
 
 	while (1)

@@ -69,13 +69,13 @@ static int	portal_open_at(t_map *map, int cur, int next, t_vect2 hit, float z)
 /* Renvoie 1 si l’entité a une ligne de vue dégagée jusqu’au joueur.
    On suit la ligne de secteur en secteur à travers les portails
    (murs invisibles / transparents compris), un mur plein bloque. */
-int	check_wall_blocking(t_game *game, t_entity *e, t_ply *p)
+int	check_wall_blocking(t_game *game, t_entity *e, t_target *target)
 {
 	t_map	*map = game->map;
 	t_vect2	from = {e->x, e->y};
-	t_vect2	ray = {p->pos.x - e->x, p->pos.y - e->y};
+	t_vect2	ray = {target->x - e->x, target->y - e->y};
 	float	z_from = e->z + ENTITY_EYE_HEIGHT;
-	float	z_to = p->z;
+	float	z_to = target->z;
 	int		cur = e->sector;
 	int		came_from = -1;
 	int		wall_id;

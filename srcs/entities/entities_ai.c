@@ -24,10 +24,10 @@ float	angle_diff(float a, float b)
 }
 
 /* Vérifie si l’entité voit le joueur. */
-int	check_vision(t_game *game, t_entity *e, t_ply *p)
+int	check_vision(t_game *game, t_entity *e, t_target *t)
 {
-	float	dx = p->pos.x - e->x;
-	float	dy = p->pos.y - e->y;
+	float	dx = t->x - e->x;
+	float	dy = t->y - e->y;
 	float	distance = sqrtf(dx * dx + dy * dy);
 
 	if (distance > e->vision_range)
@@ -44,18 +44,18 @@ int	check_vision(t_game *game, t_entity *e, t_ply *p)
 	if (dot < limit)
 		return (0);
 
-	return (check_wall_blocking(game, e, p));
+	return (check_wall_blocking(game, e, t));
 }
 
 /* Rapproche l’entité du joueur sans la faire sortir de son secteur. */
-void	move_to_ply(t_game *game, t_entity *e, t_ply *p, float dt)
+void	move_to_ply(t_game *game, t_entity *e, t_target *t, float dt)
 {
 	t_vect2	dir;
 	float	nx;
 	float	ny;
 
-	dir.x = p->pos.x - e->x;
-	dir.y = p->pos.y - e->y;
+	dir.x = t->x - e->x;
+	dir.y = t->y - e->y;
 
 	float	dist = sqrtf(dir.x * dir.x + dir.y * dir.y);
 
@@ -80,8 +80,8 @@ void	move_to_ply(t_game *game, t_entity *e, t_ply *p, float dt)
 		e->y = ny;
 }
 
-/* Inflige des dégâts aléatoires au joueur selon la cadence de tir. */
-void	attack_ply(t_ply *p, t_entity *e)
+/* Tire selon la cadence de tir et renvoie des dégâts aléatoires (0 si pas de tir). */
+int	entity_attack_damage(t_entity *e)
 {
 	long long current = get_time_ms();
 
@@ -89,7 +89,7 @@ void	attack_ply(t_ply *p, t_entity *e)
 		e->last_shot_time = current;
 
 	if ((current - e->last_shot_time) / 10 < e->fire_rate)
-		return ;
+		return (0);
 
 	e->last_shot_time = current;
 
@@ -99,5 +99,11 @@ void	attack_ply(t_ply *p, t_entity *e)
 		damage = rand() % (e->damage - 4 + 1) + 4;
 	if (rand() % 10 == 0)
 		damage = 0;
-	p->hp -= damage;
+	return (damage);
+}
+
+/* Inflige des dégâts aléatoires au joueur selon la cadence de tir. */
+void	attack_ply(t_ply *p, t_entity *e)
+{
+	p->hp -= entity_attack_damage(e);
 }

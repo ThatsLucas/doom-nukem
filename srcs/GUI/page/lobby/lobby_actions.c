@@ -54,6 +54,9 @@ void load_level(t_game *game, int level)
 	SDL_RenderPresent(win->renderPTR);
 
 	game->current_level = level;
+	// nouvelles entites : les compteurs de degats repartent de zero
+	ft_bzero(game->clientConnection.dealt, sizeof(game->clientConnection.dealt));
+	game->clientConnection.hits_epoch += 1;
 	drop_key(&game->ply->inventory);
 	free_map(game->map);
 	game->map = load_map(names[level - 1], game, 0);

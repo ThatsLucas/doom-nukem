@@ -31,6 +31,9 @@ void send_corresponding_datas_to_server(t_game *game)
         datas.z = game->ply->floor_height;
 
     datas.ang = atan2f(game->ply->dir.y, game->ply->dir.x);
+    datas.hp = game->ply->hp;
+    datas.hits_epoch = game->clientConnection.hits_epoch;
+    ft_memcpy(datas.dealt, game->clientConnection.dealt, sizeof(datas.dealt));
 
     send_UDP_request(&datas, &game->clientConnection);
 }

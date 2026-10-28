@@ -58,7 +58,11 @@ void	player_shoot(t_game *game)
 	if (game->ply->inventory.weapons[idx].ammo <= 0 && game->ply->inventory.weapons[idx].ammo != -1)
 		return ;
 
-	if (e)
+	// client multi : c'est l'hote qui applique les degats et renvoie l'etat
+	if (e && game->settings.multiplayer_enabled && !game->settings.is_host)
+		report_entity_hit(game, e - game->entities.list,
+			weapon_damage(game, game->ply->inventory.weapons[idx].type, e));
+	else if (e)
 	{
 		e->hp -= weapon_damage(game, game->ply->inventory.weapons[idx].type, e);
 		if (e->hp <= 0)

@@ -37,12 +37,18 @@ typedef struct s_udp_connections
 	Uint64				last_update;
 	double				players[4][3]; // x, y, z des pieds
 	double				player_angles[4];
+	int					player_hp[4];
+	int					last_damage_total;			// dernier cumul de degats recu du serveur
+	int					hits_epoch;					// incremente a chaque chargement de niveau
+	int					dealt[MAX_NET_ENTITIES];	// degats cumules infliges aux entites
 }						t_udp_connections;
 
 void					send_UDP_request(t_client_udp_datas *datas, t_udp_connections *connection);
 int						get_server_response(t_udp_connections *connection, t_server_udp_datas *datas);
 void					handle_server_notifications_request(t_server_udp_datas *datas, t_game *game);
 void					handle_game_state(t_server_udp_datas *datas, t_game *game);
+void					apply_server_entities(t_server_udp_datas *datas, t_game *game);
+void					report_entity_hit(t_game *game, int entityIndex, int damage);
 
 /*un joueur distant projete a l'ecran*/
 typedef struct s_player_sprite

@@ -13,6 +13,30 @@
 #include "multiplayer/server.h"
 #include "Game.h"
 
+/* Remet à zéro les données de combat d’un emplacement joueur. */
+static void reset_player_slot(t_game *game, int idx)
+{
+    game->serverStatus.player_hp[idx] = 0;
+    game->serverStatus.damage_total[idx] = 0;
+    game->serverStatus.hits_epoch[idx] = 0;
+    ft_bzero(game->serverStatus.hits_seen[idx], sizeof(game->serverStatus.hits_seen[idx]));
+}
+
+/* Décale les données de combat quand le joueur i quitte la partie. */
+static void shift_player_combat(t_game *game, int i, int count)
+{
+    int n = count - i - 1;
+
+    ft_memmove(&game->serverStatus.player_hp[i], &game->serverStatus.player_hp[i + 1],
+               n * sizeof(game->serverStatus.player_hp[0]));
+    ft_memmove(&game->serverStatus.damage_total[i], &game->serverStatus.damage_total[i + 1],
+               n * sizeof(game->serverStatus.damage_total[0]));
+    ft_memmove(&game->serverStatus.hits_epoch[i], &game->serverStatus.hits_epoch[i + 1],
+               n * sizeof(game->serverStatus.hits_epoch[0]));
+    ft_memmove(&game->serverStatus.hits_seen[i], &game->serverStatus.hits_seen[i + 1],
+               n * sizeof(game->serverStatus.hits_seen[0]));
+}
+
 /* Renvoie l’indice du joueur s’il est déjà connecté. */
 int is_player_connected(t_game *game, struct sockaddr *client)
 {
@@ -48,6 +72,7 @@ int add_new_player(t_game *game, struct sockaddr *newClient)
     game->serverStatus.players[idx][1] = 0;
     game->serverStatus.players[idx][2] = 0;
     game->serverStatus.player_angles[idx] = 0.0;
+    reset_player_slot(game, idx);
     datas.state = 1;
     datas.playerCount = game->serverStatus.playerCount;
     send_to_client(&datas, newClient, game->serverStatus.serverSocket, idx);
@@ -78,6 +103,7 @@ void remove_player(t_game *game, struct sockaddr *disconnectedPlayer)
                 ft_memmove(&game->serverStatus.player_angles[i],
                            &game->serverStatus.player_angles[i + 1],
                            (count - i - 1) * sizeof(game->serverStatus.player_angles[0]));
+                shift_player_combat(game, i, count);
             }
             game->serverStatus.playerCount -= 1;
             ft_bzero(&game->serverStatus.address[game->serverStatus.playerCount], sizeof(struct sockaddr));
@@ -86,6 +112,7 @@ void remove_player(t_game *game, struct sockaddr *disconnectedPlayer)
             game->serverStatus.players[game->serverStatus.playerCount][1] = 0;
             game->serverStatus.players[game->serverStatus.playerCount][2] = 0;
             game->serverStatus.player_angles[game->serverStatus.playerCount] = 0.0;
+            reset_player_slot(game, game->serverStatus.playerCount);
             return;
         }
     }

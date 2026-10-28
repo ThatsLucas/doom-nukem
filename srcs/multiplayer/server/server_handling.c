@@ -58,6 +58,9 @@ void handle_connected_player_request(t_game *game, t_client_udp_datas datas, str
             game->serverStatus.players[playerIndex][1] = datas.y;
             game->serverStatus.players[playerIndex][2] = datas.z;
             game->serverStatus.player_angles[playerIndex] = datas.ang;
+            game->serverStatus.player_hp[playerIndex] = datas.hp;
+            if (datas.level == game->serverStatus.currentLevel)
+                apply_player_hits(game, &datas, playerIndex);
         }
         else
         {
@@ -102,12 +105,17 @@ void receive_connections(int listenfd, t_game *game)
                          0, (struct sockaddr *)&cliaddr, &len);
         if (n == -1)
             continue;
+        // le thread principal de l'hote lit/ecrit aussi serverStatus (entites, degats)
+        pthread_mutex_lock(&game->serverStatus.lock);
         int playerIndex = is_player_connected(game, (struct sockaddr *)&cliaddr);
         if (playerIndex == -1)
         {
             playerIndex = add_new_player(game, (struct sockaddr *)&cliaddr);
             if (playerIndex < 0)
+            {
+                pthread_mutex_unlock(&game->serverStatus.lock);
                 continue;
+            }
             broadcast_notifications(game, playerIndex, "A new player has joined the game", 5, 50);
             char *IPV4 = ft_inet_ntoa(cliaddr.sin_addr);
             if (IPV4)
@@ -119,6 +127,7 @@ void receive_connections(int listenfd, t_game *game)
         ft_bzero(&datas, sizeof(t_client_udp_datas));
         send_default_info_response(game);
         handle_player_timeout(game);
+        pthread_mutex_unlock(&game->serverStatus.lock);
     }
 }
 
