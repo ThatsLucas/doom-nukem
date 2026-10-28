@@ -55,13 +55,9 @@ dkms.conf
 *.dwo
 
 deps/
-
 obj/
-
 doom-nukem
-
 .vscode
-
 *.gz
-
 vgcore.*
+valgrind_error.txt
