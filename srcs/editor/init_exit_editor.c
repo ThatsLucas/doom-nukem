@@ -53,6 +53,8 @@ void	init_editor(t_game *game)
 /* Libère l’éditeur et revient au menu. */
 void	exit_editor(t_game *game)
 {
+	if (!game->editor)
+		return ;
 	TTF_CloseFont(game->editor->font); 
 	ft_lstclear(&game->editor->text_inputs, free);
 	free_buttons(game->editor->buttons);
@@ -64,11 +66,14 @@ void	exit_editor(t_game *game)
 	free(game->editor->error_text);
 	free(game->editor->textures);
 
-	free(game->editor->map->sectors);
-	free(game->editor->map->textures);
-	free(game->editor->map->vertices);
-	free(game->editor->map->walls);
-	free(game->editor->map);
+	if (game->editor->map)
+	{
+		free(game->editor->map->sectors);
+		free(game->editor->map->textures);
+		free(game->editor->map->vertices);
+		free(game->editor->map->walls);
+		free(game->editor->map);
+	}
 
 	free(game->editor);
 

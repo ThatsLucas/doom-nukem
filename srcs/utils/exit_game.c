@@ -61,9 +61,12 @@ void exit_game(t_game *game, char *type)
 	free(game->z_buffer);
 	free(game->fps);
 	free_languages(game);
-	pthread_cancel(game->serverThread);
-	pthread_join(game->serverThread, NULL);
-	close(game->serverStatus.serverSocket);
+	if (game->serverThread)
+	{
+		pthread_cancel(game->serverThread);
+		pthread_join(game->serverThread, NULL);
+		close(game->serverStatus.serverSocket);
+	}
 
 	free_window(game->window);
 	exit_editor(game);

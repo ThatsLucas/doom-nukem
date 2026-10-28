@@ -41,7 +41,9 @@ static void	load_item_texture(t_game *game, t_ground_item *item, char *png_path)
 	item->texture = create_image(&png, game->window->renderPTR);
 	if (!item->texture)
 		exit_game(game, "Failed to create item image");
-	item->texture_path = png_path;
+	item->texture_path = ft_strdup(png_path);
+	if (!item->texture_path)
+		exit_game(game, "Failed to strdup item texture path");
 	item->w = (int)png.w;
 	item->h = (int)png.h;
 	item->aspect_ratio = (float)item->w / (float)item->h;
