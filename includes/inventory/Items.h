@@ -14,6 +14,7 @@
 # define ITEMS_H
 
 # include <SDL.h>
+# include "Raycasting/Types.h"
 
 # define MAX_ITEM_DIST_RENDER_SQ 400.0f
 # define FISTS_DAMAGE 25
@@ -137,7 +138,8 @@ typedef struct s_ground_item
 	float				aspect_ratio;
 
 	char				*texture_path;
-	SDL_Texture			*texture;
+	t_tex				*texture;
+	int					sector;
 	int					w;
 	int					h;
 }						t_ground_item;

@@ -40,6 +40,12 @@ typedef struct s_keys
 } t_keys;
 
 #define DEFAULT_GRAVITY 9.8 // gravite terrestre
+#define WALK_SPEED 3.0f     // unites par seconde
+#define RUN_BONUS 3.0f      // ajoute a la marche en courant
+#define CROUCH_SPEED 1.0f
+#define TURN_SPEED 2.5f     // radians par seconde (fleches)
+#define JETPACK_THRUST 14.0f // acceleration par seconde
+#define MAX_FRAME_DT 0.1f   // evite les sauts apres un gel
 
 typedef struct s_ply_physics
 {
@@ -51,6 +57,7 @@ typedef struct s_ply_physics
 	int is_running;
 	int is_crouching;
 	float speed;
+	Uint64 move_last_time;
 } t_ply_physics;
 
 typedef struct s_ply
@@ -83,9 +90,10 @@ void init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 
 /*Physics*/
 float get_delta_time(t_ply *ply);
-void player_jump(t_game *game);
+float frame_delta(Uint64 *last);
+void player_jump(t_game *game, float dt);
 void apply_constant_forces_to_player(t_ply *ply);
-void use_jetpack(t_ply *ply);
+void use_jetpack(t_ply *ply, float dt);
 void player_crouch(t_ply *ply);
 void player_run(t_ply *ply, int is_pressed);
 

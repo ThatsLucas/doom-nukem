@@ -78,6 +78,10 @@
 #  define RAYCAST_THREADS 8
 # endif
 
+# ifndef MAX_PORTAL_DEPTH
+#  define MAX_PORTAL_DEPTH 128
+# endif
+
 # ifndef ELEVATOR_SPEED
 #  define ELEVATOR_SPEED 1.0f /* unites par seconde */
 # endif

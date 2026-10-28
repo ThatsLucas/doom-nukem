@@ -17,10 +17,10 @@ void player_crouch(t_ply *ply)
 {
     if (!ply->physic.is_crouching)
     {
-        ply->physic.speed = 0.01f;
+        ply->physic.speed = CROUCH_SPEED;
         ply->physic.is_crouching = 1;
         return;
     }
     ply->physic.is_crouching = 0;
-    ply->physic.speed = 0.03f;
+    ply->physic.speed = WALK_SPEED;
 }

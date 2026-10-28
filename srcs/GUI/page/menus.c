@@ -21,12 +21,12 @@ static void draw_in_game(t_game *game)
 	apply_constant_forces_to_player(game->ply);
 	send_rays(game);        // murs/sols/toits -> frame_buffer + z_buffer
 	render_entities(game);  // sprites dans le frame_buffer, caches par le z_buffer
+	update_item(game);
+	render_items(game);     // idem pour les objets au sol
 	SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
 	SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 	if (game->clientConnection.is_connected)
 		render_multiplayer_players(game);
-	update_item(game);
-	render_items(game);
 	pickup_flash(game);
 	display_hud(game);
 	draw_pause_menu(game);

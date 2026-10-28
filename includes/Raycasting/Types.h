@@ -95,6 +95,7 @@ typedef struct s_sector
 typedef struct s_ray
 {
 	t_vect2		dir;			/* direction du rayon (constante) */
+	int			depth;			/* portails traverses par cette colonne */
 	t_vect2		plane;			/* plan de camera */
 	int			screen_x;		/* colonne de l'écran */
 	int			y_top;			/* limite haute de pixels restants */

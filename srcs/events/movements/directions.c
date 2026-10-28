@@ -13,12 +13,12 @@
 #include "Events.h"
 
 /* Tourne le joueur avec les touches de direction. */
-void ply_directions(t_ply *ply)
+void ply_directions(t_ply *ply, float dt)
 {
 	float old_dir_x;
 	float angle;
 
-	angle = 0.03f;
+	angle = TURN_SPEED * dt;
 	old_dir_x = ply->dir.x;
 	if (ply->keys.right && ply->keys.left)
 		return;

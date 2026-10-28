@@ -45,7 +45,7 @@ static void	init_item_cam(t_game *game, t_item_cam *c)
 }
 
 /* Projette l’objet à l’écran, renvoie 0 s’il est invisible. */
-static int	project_item(t_item_cam *c, t_ground_item *item, SDL_Rect *dest)
+static int	project_item(t_item_cam *c, t_ground_item *item, SDL_Rect *dest, float *depth)
 {
 	float	dx = item->pos_x - c->pos.x;
 	float	dy = item->pos_y - c->pos.y;
@@ -73,15 +73,17 @@ static int	project_item(t_item_cam *c, t_ground_item *item, SDL_Rect *dest)
 	if (sX + sprite_w / 2 < 0 || sX - sprite_w / 2 >= c->sw)
 		return (0);
 	*dest = (SDL_Rect){.x = sX - sprite_w / 2, .y = y_top, .w = sprite_w, .h = sprite_h};
+	*depth = transform_y;
 	return (1);
 }
 
-/* Affiche les objets au sol. */
+/* Dessine les objets au sol dans le frame buffer, cachés par les murs. */
 void	render_items(t_game *game)
 {
 	t_item_cam		c;
 	t_ground_item	*item;
 	SDL_Rect		dest;
+	float			depth;
 
 	init_item_cam(game, &c);
 	for (int i = 0; i < game->items_count; i++)
@@ -89,9 +91,10 @@ void	render_items(t_game *game)
 		item = &game->items[i];
 		if (item->picked_up)
 			continue ;
-		if (!project_item(&c, item, &dest))
+		if (!project_item(&c, item, &dest, &depth))
 			continue ;
 		if (item->texture)
-			SDL_RenderCopy(game->window->renderPTR, item->texture, NULL, &dest);
+			draw_sprite_zbuf(game, item->texture, dest, depth,
+				game->map->sectors[item->sector].light_level);
 	}
 }

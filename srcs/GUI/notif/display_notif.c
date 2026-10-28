@@ -13,6 +13,21 @@
 #include "Window.h"
 #include "Game.h"
 
+#define NOTIF_SLIDE_SPEED 400.0f // pixels (base 1080) par seconde
+
+/* Avance la notification verticalement selon le temps écoulé. */
+static void slide_notif(t_notif *notif, float direction)
+{
+    Uint64 now = SDL_GetTicks64();
+    float dt = (now - notif->last_tick) / 1000.0f;
+
+    if (dt > 0.1f)
+        dt = 0.1f;
+    notif->last_tick = now;
+    notif->pos_y += direction * NOTIF_SLIDE_SPEED * dt;
+    notif->coords.y = (int)notif->pos_y;
+}
+
 /* Dessine le texte de la notification. */
 static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, int notifW, int notifH)
 {
@@ -38,6 +53,8 @@ static void spawn_notif(t_WIN *win, t_notif_buf **notif_buf)
     SDL_Rect new_pos = { 1920 / 2 - (win->menus.notif.Popup.w / 3 / 2) , -win->menus.notif.Popup.h / 3 + 2, win->menus.notif.Popup.w / 3, win->menus.notif.Popup.h / 3};
 
     notif->coords = new_pos;
+    notif->pos_y = new_pos.y;
+    notif->last_tick = SDL_GetTicks64();
     notif->state = NOTIF_SPAWNING;
 
     SDL_Color color = {255, 255, 255, 255};
@@ -57,11 +74,7 @@ static void spawn_notif(t_WIN *win, t_notif_buf **notif_buf)
 static void slide_in_notif(t_WIN *win, t_notif *notif)
 {
     if ((notif->coords.y * win->h) / 1080 < (win->h * 50 + (long)win->menus.notif.Popup.h / 3) / 1080)
-    {
-        SDL_Rect new_pos = notif->coords;
-        new_pos.y += 1;
-        notif->coords = new_pos;
-    }
+        slide_notif(notif, 1.0f);
     else
         notif->state = NOTIF_DELETING;
 }
@@ -72,14 +85,15 @@ static int slide_out_notif(t_WIN *win, t_notif_buf **notif_buf)
     t_notif *notif = (*notif_buf)->notif;
 
     if (notif->duration >= SDL_GetTicks())
+    {
+        notif->last_tick = SDL_GetTicks64();
         return (0);
+    }
     SDL_Rect notifPos = notif->coords;
     to_responsive(win, &notifPos);
     if (((notifPos.y + win->menus.notif.Popup.h / 3)) * win->h > 0)
     {
-        SDL_Rect new_pos = notif->coords;
-        new_pos.y -= 1;
-        notif->coords = new_pos;
+        slide_notif(notif, -1.0f);
         return (0);
     }
     destroy_notif_node(notif_buf);

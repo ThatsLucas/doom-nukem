@@ -15,7 +15,7 @@
 #include "Raycasting/Raycasting.h"
 
 /* Gère les déplacements vers l’avant et l’arrière. */
-static void medial_moves(t_ply *ply, t_game *game)
+static void medial_moves(t_ply *ply, t_game *game, float dt)
 {
 	float steps;
 	float next_x;
@@ -24,7 +24,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.w && ply->keys.s)
 		return;
-	steps = ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f);
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
@@ -39,7 +39,7 @@ static void medial_moves(t_ply *ply, t_game *game)
 }
 
 /* Gère les déplacements latéraux. */
-static void lateral_moves(t_ply *ply, t_game *game)
+static void lateral_moves(t_ply *ply, t_game *game, float dt)
 {
 	float steps;
 	float next_x;
@@ -49,7 +49,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 
 	if (ply->keys.a && ply->keys.d)
 		return;
-	steps = ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f);
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)
@@ -70,7 +70,7 @@ static void lateral_moves(t_ply *ply, t_game *game)
 }
 
 /* Déplace le joueur puis met à jour sa hauteur et son secteur. */
-void ply_movements(t_ply *ply, t_game *game)
+void ply_movements(t_ply *ply, t_game *game, float dt)
 {
 	t_vect2 oldpos;
 	oldpos = ply->pos;
@@ -80,13 +80,13 @@ void ply_movements(t_ply *ply, t_game *game)
 
 	if (ply->keys.space)
 	{
-		player_jump(game);
+		player_jump(game, dt);
 		activate_jetpack(game);
 	}
 	if (ply->keys.w || ply->keys.s)
-		medial_moves(ply, game);
+		medial_moves(ply, game, dt);
 	if (ply->keys.a || ply->keys.d)
-		lateral_moves(ply, game);
+		lateral_moves(ply, game, dt);
 	update_player_sector(game, oldpos);
 	ply->floor_height = get_plane_z(game->map->sectors[ply->sector].floor_plane,
 									ply->pos.x, ply->pos.y);

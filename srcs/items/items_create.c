@@ -38,14 +38,14 @@ static void	load_item_texture(t_game *game, t_ground_item *item, char *png_path)
 		exit_game(game, "Failed to strdup item texture path");
 	if (!process_png(&png))
 		exit_game(game, "Failed to load item texture");
-	item->texture = create_image(&png, game->window->renderPTR);
+	item->w = (int)png.w;
+	item->h = (int)png.h;
+	item->texture = create_sprite(&png);
 	if (!item->texture)
-		exit_game(game, "Failed to create item image");
+		exit_game(game, "Failed to create item sprite");
 	item->texture_path = ft_strdup(png_path);
 	if (!item->texture_path)
 		exit_game(game, "Failed to strdup item texture path");
-	item->w = (int)png.w;
-	item->h = (int)png.h;
 	item->aspect_ratio = (float)item->w / (float)item->h;
 }
 
@@ -62,6 +62,7 @@ void	create_ground_item(t_game *game, t_vect2 pos, char *png_path,
 	item.pos_y = pos.y;
 	item.pos_z = get_plane_z(game->map->sectors[sector].floor_plane,
 			pos.x, pos.y);
+	item.sector = sector;
 	item.pickup_range = ITEM_PICKUP_RANGE;
 	item.picked_up = 0;
 	item.world_height = world_height;

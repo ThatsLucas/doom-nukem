@@ -13,10 +13,9 @@
 #include "Player.h"
 
 /* Propulse le joueur vers le haut avec le jetpack. */
-void use_jetpack(t_ply *ply)
+void use_jetpack(t_ply *ply, float dt)
 {
     if (!ply->inventory.jetpack || ply->inventory.jetpack->data.fuel <= 0)
         return;
-    float acceleration = 0.2f;
-    ply->physic.velocity += acceleration;
+    ply->physic.velocity += JETPACK_THRUST * dt;
 }

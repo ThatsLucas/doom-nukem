@@ -36,6 +36,7 @@ static void *send_threads_ray(void *arg)
 	{
 		ray.perp_dist = FLT_MAX;
 		ray.wall_idx = -1;
+		ray.depth = 0;
 		ray.y_top = 0;
 		ray.y_bot = sH - 1;
 		ray.camera_x = 2.0f * x / (float)sW - 1.0f;

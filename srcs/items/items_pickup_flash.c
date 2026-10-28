@@ -15,6 +15,8 @@
 /* Affiche le flash blanc qui s’estompe après un ramassage. */
 void	pickup_flash(t_game *game)
 {
+	static Uint64	last = 0;
+
 	/* flash alpha -> intensite du flash*/
 	if (game->flash_alpha > 0.0f)
 	{
@@ -29,8 +31,10 @@ void	pickup_flash(t_game *game)
 		SDL_RenderFillRect(game->window->renderPTR, &fullscreen); // dessine le rectangle
 
 		/* on diminue le flash pour faire un effet smooth de disparition */
-		game->flash_alpha -= 0.03f;
+		game->flash_alpha -= 1.8f * frame_delta(&last);
 		if (game->flash_alpha < 0.0f)
 			game->flash_alpha = 0.0f;
 	}
+	else
+		last = 0;
 }

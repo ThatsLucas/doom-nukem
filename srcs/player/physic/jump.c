@@ -14,12 +14,12 @@
 #include "Player.h"
 
 /* Fait sauter le joueur, ou utilise le jetpack en l’air. */
-void player_jump(t_game *game)
+void player_jump(t_game *game, float dt)
 {
     t_ply *ply = game->ply;
     if (!ply->physic.is_on_ground)
     {
-        use_jetpack(ply);
+        use_jetpack(ply, dt);
         return;
     }
 

@@ -45,6 +45,8 @@ typedef struct s_notif
 	int					h;
 	t_font				font;
 	SDL_Rect			coords;
+	float				pos_y;			// position precise pour l'animation
+	Uint64				last_tick;
 }						t_notif;
 
 typedef struct s_notif_buf

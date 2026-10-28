@@ -24,7 +24,8 @@ void cleanup_items(t_game *game)
 		t_ground_item *item = &game->items[i];
 		if (item->texture)
 		{
-			SDL_DestroyTexture(item->texture);
+			free(item->texture->colors);
+			free(item->texture);
 			item->texture = NULL;
 		}
 		if (item->texture_path)

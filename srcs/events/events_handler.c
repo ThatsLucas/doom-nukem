@@ -115,6 +115,7 @@ static void dispatch_event(t_game *game, SDL_Event *event)
 void events_handler(t_game *game)
 {
 	SDL_Event event;
+	float dt;
 
 	while (SDL_PollEvent(&event))
 		dispatch_event(game, &event);
@@ -125,8 +126,9 @@ void events_handler(t_game *game)
 		ft_bzero(&game->ply->keys, sizeof(t_keys));
 		return ;
 	}
-	ply_directions(game->ply);
-	ply_movements(game->ply, game);
+	dt = frame_delta(&game->ply->physic.move_last_time);
+	ply_directions(game->ply, dt);
+	ply_movements(game->ply, game, dt);
 
 	return;
 }

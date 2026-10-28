@@ -93,7 +93,8 @@ void init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->physic.last_time = 0;
 	ply->physic.is_running = 0;
 	ply->physic.is_crouching = 0;
-	ply->physic.speed = 0.03f;
+	ply->physic.speed = WALK_SPEED;
+	ply->physic.move_last_time = 0;
 
 	config_starter(ply);
 	game->ply = ply;

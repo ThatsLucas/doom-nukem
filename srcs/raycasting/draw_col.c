@@ -87,6 +87,9 @@ void	draw_col(t_game *game, t_ray *ray, int x, int sector_id, int skip_wall)
 	int			next_id, mirror;
 	int			is_transparent = 0;
 
+	/* un rayon pile sur un coin partagé peut boucler entre secteurs */
+	if (++ray->depth > MAX_PORTAL_DEPTH)
+		return ;
 	ray->t			= FLT_MAX;
 	sector			= &game->map->sectors[sector_id];
 	find_smaller_ray(game, sector, ray, skip_wall);

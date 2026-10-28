@@ -23,3 +23,18 @@ float get_delta_time(t_ply *ply)
     ply->physic.last_time = Curtime;
     return (deltaTime);
 }
+
+/* Temps écoulé depuis *last en secondes, borné pour rester stable. */
+float frame_delta(Uint64 *last)
+{
+    Uint64 now = SDL_GetTicks64();
+    float dt;
+
+    if (!*last)
+        *last = now;
+    dt = (now - *last) / 1000.0f;
+    *last = now;
+    if (dt > MAX_FRAME_DT)
+        dt = MAX_FRAME_DT;
+    return (dt);
+}
