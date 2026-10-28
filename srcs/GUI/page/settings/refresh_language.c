@@ -122,3 +122,12 @@ void refresh_pause_menu_texts(t_game *game)
     refresh_text(&pause->texts[3], renderer, game->languages->exit, DNFONTOUTLINED);
     refresh_text(&pause->texts[4], renderer, game->languages->exit, DNFONT);
 }
+
+/* Recrée le texte du game over dans la nouvelle langue. */
+void refresh_game_over_texts(t_game *game)
+{
+    t_game_over *game_over = &game->window->menus.game_over;
+    SDL_Renderer *renderer = game->window->renderPTR;
+
+    refresh_text(&game_over->texts[0], renderer, game->languages->game_over, DNFONT);
+}

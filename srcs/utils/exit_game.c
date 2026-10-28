@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 15:06:09 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/28 10:58:10 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void exit_game(t_game *game, char *type)
 	free(game);
 	TTF_Quit();
 	SDL_Quit();
-	ft_printf("And thanks for all the fish!\n");
+	ft_printf("And fish for all the thanks!\n");
 	exit(0);
 }

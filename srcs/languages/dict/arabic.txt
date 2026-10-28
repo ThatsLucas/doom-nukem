@@ -46,3 +46,4 @@ cinematic_text_sixteen=El-muarka en-niha'iya tabda.
 pause=PAUSE
 resume=RESUME
 exit=EXIT
+game_over=GAME OVER

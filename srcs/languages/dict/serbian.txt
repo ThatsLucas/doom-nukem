@@ -46,3 +46,4 @@ cinematic_text_sixteen=Konacna bitka pocinje.
 pause=PAUSE
 resume=RESUME
 exit=EXIT
+game_over=GAME OVER

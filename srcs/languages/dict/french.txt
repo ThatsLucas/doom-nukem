@@ -46,3 +46,4 @@ cinematic_text_sixteen=La bataille finale commence.
 pause=PAUSE
 resume=RESUME
 exit=Quitter
+game_over=GAME OVER

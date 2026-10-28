@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 16:33:17 by lucas             #+#    #+#             */
-/*   Updated: 2026/10/20 13:54:01 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/28 10:33:46 by lle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,14 @@ typedef struct s_pause
 	t_font				texts[5];
 }						t_pause;
 
+#define GAME_OVER_DURATION 4
+
+typedef struct s_game_over
+{
+	t_font				texts[1];
+    Uint64 				game_over_begin_time;
+}						t_game_over;
+
 typedef struct s_menus
 {
 	int					current;
@@ -135,6 +143,7 @@ typedef struct s_menus
 	t_lobby				lobby;
 	t_cinematic			cinematic;
 	t_pause				pause;
+	t_game_over			game_over;
 }						t_menus;
 
 /*MENUS*/
@@ -182,6 +191,7 @@ void					refresh_main_menu_texts(t_game *game);
 void					refresh_lobby_texts(t_game *game);
 void					refresh_cinematics_texts(t_game *game);
 void					refresh_pause_menu_texts(t_game *game);
+void					refresh_game_over_texts(t_game *game);
 
 /* LOBBY */
 void					draw_lobby_menu(t_game *game);
@@ -213,5 +223,9 @@ void					lobby_to_solo_lobby(t_game *game);
 /*PAUSE*/
 void					init_pause_texts(void *gameStruct);
 void					draw_pause_menu(t_game *game);
+
+/*GAME OVER*/
+void					init_game_over_texts(t_game *game);
+void					draw_game_over_menu(t_game *game);
 
 #endif

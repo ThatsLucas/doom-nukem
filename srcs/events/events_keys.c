@@ -44,6 +44,8 @@ void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 
 	if (key.keysym.sym == 27)
 		exit_game(game, NULL);
+	if (player_is_dead(game))
+		return ;
 		
 	if (key.keysym.sym == SDLK_p && event->type == SDL_KEYDOWN && game->window->menus.current == 0) //pause
 	{

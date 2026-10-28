@@ -19,7 +19,7 @@ static void fill_language_texts(t_game *game, int index, char *str)
     char **tab[LANGUAGE_FIELDS];
 
     get_language_fields(game->languages, tab);
-    if (index > 48)
+    if (index >= LANGUAGE_FIELDS)
     {
         ft_dprintf(STDERR_FILENO, "Error in language file (miss configuration)\n");
         return;
