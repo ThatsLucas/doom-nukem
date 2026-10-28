@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 16:14:16 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/12 16:07:46 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/27 11:58:07 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,40 @@ static void	spawn_entities(t_map *map, t_game *game)
 				create_boss2(game, e->pos);
 			else if (e->id == 8)
 				create_boss3(game, e->pos);
+		}
+	}
+
+	return ;
+}
+
+/* Crée les items définies dans la carte. */
+static void	spawn_items(t_map *map, t_game *game)
+{
+	t_map_ent	*e;
+
+	for (int i = 0; i < map->num_entities; ++i)
+	{
+		e = &map->entities[i];
+		if (e->type == 3)
+		{
+			if (e->id == 0)
+				create_item_flashlight(game, e->pos);
+			else if (e->id == 1)
+				create_item_key(game, e->pos, 1);
+			else if (e->id == 2)
+				create_item_jetpack(game, e->pos);
+			else if (e->id == 3)
+				create_item_pistol(game, e->pos, 20);
+			else if (e->id == 4)
+				create_item_shotgun(game, e->pos, 15);
+			else if (e->id == 5)
+				create_item_rocket_launcher(game, e->pos, 8);
+			else if (e->id == 6)
+				create_item_heal(game, e->pos, 100);
+			else if (e->id == 7)
+				create_item_fuel(game, e->pos, 100);
+			else if (e->id == 8)
+				create_item_battery(game, e->pos, 100);
 		}
 	}
 
@@ -90,6 +124,7 @@ static void	setup_game_map(t_game *game, t_map *map)
 	game->ply->sector = find_sector(map, game->ply->pos);
 	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
 	spawn_entities(map, game);
+	spawn_items(map, game);
 	ft_printf("Entites: %d\n", game->entities.count);
 }
 

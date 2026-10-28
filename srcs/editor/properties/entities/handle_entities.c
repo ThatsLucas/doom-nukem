@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/15 17:19:25 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/08/11 14:41:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/27 11:56:08 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 #include "Editor.h"
 
 /* Gère le choix de l’entité à placer. */
+/* 
+	selected entity type:
+	- 1 -> player spawn
+	- 2 -> entities
+	- 3 -> items
+	- 4 -> props
+*/
 void	handle_entities(t_game *game, int x)
 {
 	t_editor	*editor			= game->editor;
 	static char	*entities[9]	= {"Tung Sahur", "Captain", "Mr White", "Soldier", "Sergeant", "Monster", "Spider", "Dc Pouf", "Elephant"};
-	static char	*items[6]		= {"Flashlight", "Key", "JetPack", "Pistol", "Shotgun", "Rocket Launcher"};
+	static char	*items[9]		= {"Flashlight", "Key", "JetPack", "Pistol", "Shotgun", "Rocket Launcher", "Heal", "Fuel", "Battery"};
 	static char	*props[4]		= {"Barrel", "Switch", "Switch_Key", "Window"};
 	static int	idx = 0;
 
@@ -35,7 +42,7 @@ void	handle_entities(t_game *game, int x)
 	}
 	if (editor->selected_entity_type == 3)
 	{
-		idx = SDL_clamp(idx, 0, 5);
+		idx = SDL_clamp(idx, 0, 8);
 		editor->entity_text = items[idx];
 	}
 	if (editor->selected_entity_type == 4)
