@@ -56,7 +56,7 @@ void mouse_moves(int x, int y, t_game *game)
 	static int middle_x = 0;
 	static int middle_y = 0;
 
-	if (game->is_paused)
+	if (game->is_paused || player_is_dead(game))
 		return;
 	if (!x && !y)
 		return;

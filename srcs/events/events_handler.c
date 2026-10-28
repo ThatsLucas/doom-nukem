@@ -14,6 +14,12 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
+/* Renvoie 1 si le joueur est mort en jeu (plus aucune action possible). */
+int	player_is_dead(t_game *game)
+{
+	return (game->window->menus.current == 0 && game->ply && game->ply->hp <= 0);
+}
+
 /* Relâche les touches quand la fenêtre perd le focus. */
 static void handle_focus(t_game *game, Uint8 window_event)
 {
@@ -37,6 +43,8 @@ static void update_mouse_capture(t_game *game)
 /* Gère l’appui sur un bouton de la souris. */
 static void on_mouse_button_down(t_game *game, SDL_Event *event)
 {
+	if (player_is_dead(game))
+		return ;
 	if (event->button.button == SDL_BUTTON_LEFT && game->window->menus.current == 0 && !game->is_paused)
 		player_shoot(game);
 	else
@@ -59,7 +67,7 @@ static void on_mouse_motion(t_game *game, SDL_Event *event)
 /* Gère la rotation de la molette de la souris. */
 static void on_mouse_wheel(t_game *game, SDL_Event *event)
 {
-	if (game->window->menus.current == 0)
+	if (game->window->menus.current == 0 && !player_is_dead(game))
 		handle_mousewheel(game, &event->wheel);
 	if (game->window->menus.current == 2)
 		handle_settings_scroll_mouse_wheel(game, &game->window->menus.settings, &event->wheel);
@@ -112,6 +120,11 @@ void events_handler(t_game *game)
 		dispatch_event(game, &event);
 
 	update_mouse_capture(game);
+	if (player_is_dead(game))
+	{
+		ft_bzero(&game->ply->keys, sizeof(t_keys));
+		return ;
+	}
 	ply_directions(game->ply);
 	ply_movements(game->ply, game);
 

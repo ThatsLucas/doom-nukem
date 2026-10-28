@@ -17,7 +17,7 @@
 
 typedef struct s_game	t_game;
 
-# define LANGUAGE_FIELDS 48
+# define LANGUAGE_FIELDS 49
 
 typedef struct s_languages
 {
@@ -69,6 +69,7 @@ typedef struct s_languages
 	char				*resume;
 	char				*pause;
 	char				*exit;
+	char				*game_over;
 }						t_languages;
 
 void					parse_languages(t_game *game, int language);

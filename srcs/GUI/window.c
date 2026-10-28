@@ -45,6 +45,7 @@ int init_all_imgs(t_game *game, t_WIN *win)
     if (!init_cinematics_menus(game, win->renderPTR, &win->menus.cinematic))
         return (0);
     init_pause_texts(game);
+    init_game_over_texts(game);
     return (1);
 }
 

@@ -65,6 +65,7 @@ void get_language_fields(t_languages *l, char ***tab)
         &l->pause,
         &l->resume,
         &l->exit,
+        &l->game_over,
     };
 
     for (int i = 0; i < LANGUAGE_FIELDS; i++)
