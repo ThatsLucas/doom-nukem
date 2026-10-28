@@ -76,37 +76,6 @@ typedef struct s_tool
 	} data;
 }						t_tool;
 
-typedef enum e_proj_state
-{
-	PROJ_FLYING,
-	PROJ_EXPLODING,
-	PROJ_DEAD
-}						t_proj_state;
-
-typedef struct s_projectile
-{
-	t_proj_state		state;
-
-	float				x;
-	float				y;
-	float				target_x;
-	float				target_y;
-	float				speed;
-	int					start_dist;
-	int					size_x;
-	int					size_y;
-
-	SDL_Texture			*fly_texture;
-	SDL_Rect			fly_dest;
-
-	SDL_Texture			*expl_frames[3];
-	int					expl_frame;
-	int					expl_tick;
-	int					expl_rate;
-
-	struct s_projectile	*next;
-}						t_projectile;
-
 /* ITEMS IN GENERAL */
 typedef enum s_item_type
 {
@@ -151,9 +120,6 @@ void					update_item(t_game *game);
 void					pickup_flash(t_game *game);
 void					render_items(t_game *game);
 void					cleanup_items(t_game *game);
-void					spawn_rocket(t_game *game, float tx, float ty);
-void					update_projectiles(t_game *game);
-void					render_projectiles(t_game *game);
 void					activate_flashlight(t_game *game);
 void					activate_jetpack(t_game *game);
 void					add_item(t_game *game, t_ground_item new_item);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lle-duc <lle-duc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:57:57 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/28 10:58:10 by lle-duc          ###   ########.fr       */
+/*   Updated: 2026/10/28 22:43:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void exit_game(t_game *game, char *type)
 		exit(1);
 
 	cleanup_items(game);
+	free_projectiles(game);
 	free_hud_cache(game);
 
 	free(game->ply);

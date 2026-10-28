@@ -118,6 +118,7 @@ static void	setup_game_map(t_game *game, t_map *map)
 {
 	game->entities.count = 0;
 	ft_bzero(game->entities.list, sizeof(t_entity));
+	clear_projectiles(game);
 	game->map = map;
 	game->ply->pos = map->player_spawn;
 	game->ply->dir = map->player_dir;

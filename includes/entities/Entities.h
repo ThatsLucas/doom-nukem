@@ -6,7 +6,7 @@
 /*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:14:41 by edurance          #+#    #+#             */
-/*   Updated: 2026/10/20 13:48:57 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/28 22:46:05 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,19 @@
 # define ENTITY_WALL_MARGIN 0.3f
 # define MAX_SIGHT_STEPS 64
 
+# define PROJ_SPEED 8.0f
+# define PROJ_ENTITY_RADIUS 0.5f
+# define PROJ_HIT_HEIGHT 2.0f
+# define PROJ_MAX_DIST 50.0f
+# define PROJ_SPAWN_DROP 0.2f
+# define PROJ_HIDE_DIST 0.5f
+# define PROJ_SPLASH_RADIUS 2.5f
+
 typedef struct s_game	t_game;
 typedef struct s_vect2	t_vect2;
 typedef struct s_tex	t_tex;
 typedef struct s_ply	t_ply;
+typedef struct s_map	t_map;
 
 typedef enum e_entity_type
 {
@@ -100,6 +109,49 @@ typedef struct s_entities
 	int					capacity;
 }						t_entities;
 
+typedef enum e_proj_state
+{
+	PROJ_FLYING,
+	PROJ_EXPLODING
+}						t_proj_state;
+
+typedef struct s_projectile
+{
+	t_proj_state		state;
+	float				x;
+	float				y;
+	float				z;
+	float				dx;
+	float				dy;
+	float				dz;
+	int					sector;
+	float				traveled;
+	float				expl_timer;
+	int					expl_frame;
+	struct s_projectile	*next;
+}						t_projectile;
+
+typedef struct s_proj_assets
+{
+	t_tex				*fly;
+	t_tex				*expl[3];
+	int					loaded;
+}						t_proj_assets;
+
+/* Segment suivi de secteur en secteur : depart (x, y, z) + deplacement (rx, ry, rz). */
+typedef struct s_trace
+{
+	float				x;
+	float				y;
+	float				z;
+	float				rx;
+	float				ry;
+	float				rz;
+	int					sector;
+	int					glass_blocks;
+	float				t;
+}						t_trace;
+
 void					free_entities(t_entities *e);
 void					init_entities(t_entities *e);
 void					add_entity(t_game *game, t_entities *e, t_entity entity);
@@ -114,6 +166,7 @@ void					move_to_ply(t_game *game, t_entity *e, t_target *t, float dt);
 int						entity_attack_damage(t_entity *e);
 void					attack_ply(t_ply *p, t_entity *e);
 int						check_wall_blocking(t_game *game, t_entity *e, t_target *t);
+int						trace_segment(t_map *map, t_trace *tr);
 int						entity_can_move(t_game *game, t_entity *e, float nx, float ny);
 
 /* entities_create_utils.c */
@@ -131,5 +184,15 @@ void					create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir);
 void					create_boss1(t_game *game, t_vect2 pos);
 void					create_boss2(t_game *game, t_vect2 pos);
 void					create_boss3(t_game *game, t_vect2 pos);
+
+/* entities_projectile.c */
+void					spawn_rocket(t_game *game);
+void					update_projectiles(t_game *game);
+
+/* entities_projectile_render.c */
+void					load_proj_assets(t_game *game);
+void					render_projectiles(t_game *game);
+void					clear_projectiles(t_game *game);
+void					free_projectiles(t_game *game);
 
 #endif

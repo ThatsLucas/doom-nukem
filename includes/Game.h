@@ -106,6 +106,7 @@ typedef struct s_game
 	t_WIN				*window;
 	int					current_level;
 	t_projectile		*projectiles;
+	t_proj_assets		proj_assets;
 	float				flash_alpha;
 	t_hud_cache			hud_cache;
 	int					screenSize[2];

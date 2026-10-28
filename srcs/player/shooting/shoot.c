@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shoot.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 12:38:16 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:19 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/28 22:46:26 by aabouyaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	weapon_damage(t_game *game, t_weapon_type type, t_entity *e)
 			damage = SHOTGUN_DAMAGE;
 			break ;
 		case WEAP_ROCKET_LAUNCHER:
-			damage = ROCKET_DAMAGE;
 			break ;
 		case WEAP_FISTS:
 			float	dx = e->x - game->ply->pos.x;
@@ -58,8 +57,10 @@ void	player_shoot(t_game *game)
 	if (game->ply->inventory.weapons[idx].ammo <= 0 && game->ply->inventory.weapons[idx].ammo != -1)
 		return ;
 
+	if (type == WEAP_ROCKET_LAUNCHER)
+		spawn_rocket(game);
 	// client multi : c'est l'hote qui applique les degats et renvoie l'etat
-	if (e && game->settings.multiplayer_enabled && !game->settings.is_host)
+	else if (e && game->settings.multiplayer_enabled && !game->settings.is_host)
 		report_entity_hit(game, e - game->entities.list,
 			weapon_damage(game, game->ply->inventory.weapons[idx].type, e));
 	else if (e)

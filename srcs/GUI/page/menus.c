@@ -23,6 +23,8 @@ static void draw_in_game(t_game *game)
 	render_entities(game);  // sprites dans le frame_buffer, caches par le z_buffer
 	update_item(game);
 	render_items(game);     // idem pour les objets au sol
+	update_projectiles(game);
+	render_projectiles(game); // roquettes et explosions
 	SDL_UpdateTexture(game->frame, NULL, game->frame_buffer, game->screenSize[0] * sizeof(Uint32));
 	SDL_RenderCopy(game->window->renderPTR, game->frame, NULL, NULL);
 	if (game->clientConnection.is_connected)

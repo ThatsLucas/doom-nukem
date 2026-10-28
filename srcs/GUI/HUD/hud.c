@@ -23,7 +23,6 @@ void	display_hud(t_game *game)
 	int h = game->window->h;
 
 	update_hud_anim(game);
-	update_projectiles(game);
 
 	display_crosshair(game, w / 2, h / 2, 15, 4);
 	display_held_weapon(game);
