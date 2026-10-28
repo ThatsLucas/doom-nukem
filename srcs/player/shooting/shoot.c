@@ -67,7 +67,10 @@ void	player_shoot(t_game *game)
 		}
 	}
 	if (game->ply->inventory.weapons[idx].type != WEAP_FISTS)
+	{
 		game->ply->inventory.weapons[idx].ammo -= 1;
+		play_sound(game->sounds.shot);
+	}
 
 	w->current_frame = 0;
 	w->is_firing = 1;
