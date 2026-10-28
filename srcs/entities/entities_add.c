@@ -18,7 +18,7 @@ void	add_entity(t_game *game, t_entities *e, t_entity entity)
 {
 	if (e->count >= e->capacity)
 	{
-		e->capacity *= 2;
+		e->capacity = (e->capacity > 0) ? e->capacity * 2 : 16;
 		e->list = realloc(e->list, sizeof(t_entity) * e->capacity);
 		if (!e->list)
 			exit_game(game, "realloc entity failed");

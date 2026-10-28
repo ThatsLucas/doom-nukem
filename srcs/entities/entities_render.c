@@ -183,6 +183,9 @@ void	render_entities(t_game *game)
 	for (int i = 0; i < game->entities.count; i++)
 	{
 		e = &game->entities.list[i];
+		if (e->sector < 0 || e->sector >= game->map->num_sectors
+			|| !isfinite(e->x) || !isfinite(e->y))
+			continue ;
 		e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, e->x, e->y);
 		tex = select_entity_texture(e, c.pos);
 		if (!project_entity(&c, e, &dest, &depth))

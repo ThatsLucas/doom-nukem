@@ -59,7 +59,7 @@ static void	load_prop_texture(t_game *game, t_entity *e, char *png_path)
 /* Place un élément de décor sur la carte. */
 int	spawn_props(t_game *game, t_vect2 pos, char *png_path)
 {
-	t_entity	e;
+	t_entity	e = {0};
 	t_map		*map;
 
 	map = game->map;

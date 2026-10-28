@@ -16,7 +16,7 @@
 /* Crée un ennemi de type 1. */
 void	create_enemy1(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_ENEMY, pos);
 	e.attack_range = 3.0f;
@@ -32,7 +32,7 @@ void	create_enemy1(t_game *game, t_vect2 pos)
 /* Crée un ennemi de type 2. */
 void	create_enemy2(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_ENEMY, pos);
 	e.attack_range = 4.0f;
@@ -48,7 +48,7 @@ void	create_enemy2(t_game *game, t_vect2 pos)
 /* Crée un ennemi de type 3. */
 void	create_enemy3(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_ENEMY, pos);
 	e.attack_range = 4.0f;

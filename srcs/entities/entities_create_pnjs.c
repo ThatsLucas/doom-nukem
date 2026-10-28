@@ -16,7 +16,7 @@
 /* Crée le PNJ 1 et son message. */
 void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
 	e.notif = "I am Tung Tung Sahur. Find the key, kill the enemies and get out of here !"; // a modif en fonction de l'histoire
@@ -27,7 +27,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 /* Crée le PNJ 2 et son message. */
 void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
 	e.notif = "Avengers... assemble!"; // a modif en fonction de l'histoire
@@ -38,7 +38,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 /* Crée le PNJ 3 et son message. */
 void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
 	e.notif = "I am the danger Skyler!"; // a modif en fonction de l'histoire

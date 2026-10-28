@@ -17,6 +17,9 @@
 # include <stdlib.h>
 
 # define MAX_ENTITY_DIST_RENDER_SQ 625.0f
+# define ENTITY_EYE_HEIGHT 1.5f
+# define ENTITY_WALL_MARGIN 0.3f
+# define MAX_SIGHT_STEPS 64
 
 typedef struct s_game	t_game;
 typedef struct s_vect2	t_vect2;
@@ -97,9 +100,10 @@ int						get_directional_frame(t_entity *e, float px, float py);
 /* entities_ai.c */
 float					angle_diff(float a, float b);
 int						check_vision(t_game *game, t_entity *e, t_ply *p);
-void					move_to_ply(t_entity *e, t_ply *p, float dt);
+void					move_to_ply(t_game *game, t_entity *e, t_ply *p, float dt);
 void					attack_ply(t_ply *p, t_entity *e);
-int						check_wall_blocking(t_game *game, float ex, float ey, int entity_sector, float px, float py);
+int						check_wall_blocking(t_game *game, t_entity *e, t_ply *p);
+int						entity_can_move(t_game *game, t_entity *e, float nx, float ny);
 
 /* entities_create_utils.c */
 void					init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir);

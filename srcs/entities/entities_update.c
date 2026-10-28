@@ -19,42 +19,26 @@
 static void	actions_base_on_state(t_entity *e, t_game *game, float dt)
 {
 	if (e->status == E_STATUS_CHASE)
-	{
-		move_to_ply(e, game->ply, dt);
-	}
-	if (e->status == E_STATUS_ATTACK)
-	{
+		move_to_ply(game, e, game->ply, dt);
+	else if (e->status == E_STATUS_ATTACK)
 		attack_ply(game->ply, e);
-	}
 }
 
-/* Met à jour l’état de l’ennemi. */
-static void	update_enemy_status(t_entity *e, float distance, int see_player)
+/* Met à jour l’état de l’ennemi.
+   Même secteur : il poursuit puis tire.
+   Autre secteur (vu à travers un portail / mur invisible) : il tire sans bouger. */
+static void	update_enemy_status(t_entity *e, float distance, int see_player, int same_sector)
 {
-	switch (e->status)
-	{
-		case E_STATUS_IDLE:
-			if (see_player)
-			{
-				e->status = E_STATUS_CHASE;
-			}
-			break ;
-
-		case E_STATUS_CHASE:
-			if (distance < e->attack_range && see_player)
-				e->status = E_STATUS_ATTACK;
-			else if (!see_player)
-				e->status = E_STATUS_IDLE;
-			break ;
-
-		case E_STATUS_ATTACK:
-			if (distance > e->attack_range)
-				e->status = E_STATUS_CHASE;
-			break ;
-
-		case E_STATUS_DEAD:
-			break ;
-	}
+	if (e->status == E_STATUS_DEAD)
+		return ;
+	if (!see_player)
+		e->status = E_STATUS_IDLE;
+	else if (distance <= e->attack_range)
+		e->status = E_STATUS_ATTACK;
+	else if (same_sector)
+		e->status = E_STATUS_CHASE;
+	else
+		e->status = E_STATUS_ATTACK;
 }
 
 /* Met à jour l’état et les actions d’un ennemi. */
@@ -63,11 +47,18 @@ static void	update_enemy(t_entity *e, t_game *game, float dt)
 	t_ply	*p = game->ply;
 	float	dx = p->pos.x - e->x;
 	float	dy = p->pos.y - e->y;
-	float	distance = sqrt(dx * dx + dy * dy);
+	float	distance = sqrtf(dx * dx + dy * dy);
+	int		see_player;
 
-	int	see_player = check_vision(game, e, game->ply);
-
-	update_enemy_status(e, distance, see_player);
+	if (e->status == E_STATUS_DEAD)
+		return ;
+	see_player = check_vision(game, e, p);
+	if (see_player && distance > 0.001f)
+	{
+		e->dir_x = dx / distance;
+		e->dir_y = dy / distance;
+	}
+	update_enemy_status(e, distance, see_player, e->sector == p->sector);
 	actions_base_on_state(e, game, dt);
 }
 

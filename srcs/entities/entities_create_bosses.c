@@ -16,7 +16,7 @@
 /* Crée le boss du niveau 1. */
 void	create_boss1(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_BOSS, pos);
 	e.attack_range = 5.0f;
@@ -32,7 +32,7 @@ void	create_boss1(t_game *game, t_vect2 pos)
 /* Crée le boss du niveau 2. */
 void	create_boss2(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_BOSS, pos);
 	e.attack_range = 5.0f;
@@ -48,7 +48,7 @@ void	create_boss2(t_game *game, t_vect2 pos)
 /* Crée le boss du niveau 3. */
 void	create_boss3(t_game *game, t_vect2 pos)
 {
-	t_entity	e;
+	t_entity	e = {0};
 
 	init_fighter_base(game, &e, ENTITY_BOSS, pos);
 	e.attack_range = 3.0f;

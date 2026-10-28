@@ -23,7 +23,8 @@ int	entities_collision(t_game *game, float next_x, float next_y)
 
 	for (int i = 0; i < game->entities.count; ++i)
 	{
-		if (game->entities.list[i].hitbox > 0)
+		if (game->entities.list[i].hitbox > 0
+			&& game->entities.list[i].status != E_STATUS_DEAD)
 		{
 			dx = next_x - game->entities.list[i].x;
 			dy = next_y - game->entities.list[i].y;

@@ -21,6 +21,8 @@ void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir)
 
 	/*a changer pour trouver le bon secteur*/
 	e->sector = find_sector(game->map, pos);
+	if (e->sector == -1)
+		exit_game(game, "Failed to find pnj sector");
 	e->dir_x = dir.x;
 	e->dir_y = dir.y;
 	e->z = get_plane_z(game->map->sectors[e->sector].floor_plane, pos.x, pos.y);
