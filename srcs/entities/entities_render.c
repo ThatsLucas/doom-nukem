@@ -160,6 +160,8 @@ static void	update_crosshair_target(t_game *game, t_sprite_ctx *c, t_entity *e, 
 	int	cx = (int)c->half_sw;
 	int	cy = (int)c->half_sh;
 
+	if (e->status == E_STATUS_DEAD)
+		return ;
 	if (cx >= dest.x && cx <= dest.x + dest.w && cy >= dest.y && cy <= dest.y + dest.h
 		&& depth < c->closest && depth < game->z_buffer[cy * c->sw + cx])
 	{

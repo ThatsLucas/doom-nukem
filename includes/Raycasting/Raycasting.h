@@ -45,5 +45,6 @@ void					update_player_sector(t_game *game, t_vect2 oldpos);
 /*Elevator*/
 void					check_elevator(t_map *map);
 void					toggle_elevator(t_sector *s);
+int						is_on_level_exit(t_game *game);
 
 #endif

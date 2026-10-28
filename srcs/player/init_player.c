@@ -46,12 +46,6 @@ static void give_starter_tools(t_ply *ply)
 		.using = 0};
 	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
 
-	t_tool key = {
-		.type = TOOL_KEY,
-		.data.id = 11,
-		.using = 0};
-	ply->inventory.tools[ply->inventory.tool_count++] = key;
-
 	t_tool jetpack = {
 		.type = TOOL_JETPACK,
 		.data.fuel = 11,

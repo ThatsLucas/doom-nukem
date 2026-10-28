@@ -19,7 +19,7 @@ void	create_pnj1(t_game *game, t_vect2 pos, t_vect2 dir)
 	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
-	e.notif = "I am Tung Tung Sahur. Find the key, kill the enemies and get out of here !"; // a modif en fonction de l'histoire
+	e.notif = "The office upstairs opens the labs. The key is in containment!";
 	load_entity_frames(game, &e, "assets/png/entities/pnj/tung/tung", 400, 600);
 	add_entity(game, &game->entities, e);
 }
@@ -30,7 +30,7 @@ void	create_pnj2(t_game *game, t_vect2 pos, t_vect2 dir)
 	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
-	e.notif = "Avengers... assemble!"; // a modif en fonction de l'histoire
+	e.notif = "The control room opens the cave gate. It came through down there.";
 	load_entity_frames(game, &e, "assets/png/entities/pnj/captain/captain", 350, 750);
 	add_entity(game, &game->entities, e);
 }
@@ -41,7 +41,7 @@ void	create_pnj3(t_game *game, t_vect2 pos, t_vect2 dir)
 	t_entity	e = {0};
 
 	init_pnj_base(game, &e, pos, dir);
-	e.notif = "I am the danger Skyler!"; // a modif en fonction de l'histoire
+	e.notif = "It's behind that door. Raid the armory first... and end this.";
 	load_entity_frames(game, &e, "assets/png/entities/pnj/walter/walter", 350, 650);
 	add_entity(game, &game->entities, e);
 }

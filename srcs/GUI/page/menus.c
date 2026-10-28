@@ -31,6 +31,11 @@ static void draw_in_game(t_game *game)
 	display_hud(game);
 	draw_pause_menu(game);
 	check_elevator(game->map);
+	if (game->current_level < 3 && is_on_level_exit(game))
+	{
+		load_level(game, game->current_level + 1);
+		return ;
+	}
 	if (game->ply->hp <= 0)
 		draw_game_over_menu(game);
 }

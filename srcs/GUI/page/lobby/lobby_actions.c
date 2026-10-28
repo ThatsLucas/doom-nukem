@@ -16,6 +16,25 @@
 #include "multiplayer/client.h"
 
 /* Charge le niveau demandé. */
+/* Retire la clé de l'inventaire : chaque niveau a la sienne. */
+static void drop_key(t_inventory *inv)
+{
+    int j = 0;
+
+    for (int i = 0; i < inv->tool_count; i++)
+    {
+        if (inv->tools[i].type != TOOL_KEY)
+            inv->tools[j++] = inv->tools[i];
+    }
+    inv->tool_count = j;
+    inv->jetpack = NULL;
+    for (int i = 0; i < inv->tool_count; i++)
+    {
+        if (inv->tools[i].type == TOOL_JETPACK)
+            inv->jetpack = &inv->tools[i];
+    }
+}
+
 void load_level(t_game *game, int level)
 {
     static char *names[3] = {"level1", "level2", "level3"};
@@ -35,6 +54,7 @@ void load_level(t_game *game, int level)
 	SDL_RenderPresent(win->renderPTR);
 
 	game->current_level = level;
+	drop_key(&game->ply->inventory);
 	free_map(game->map);
 	game->map = load_map(names[level - 1], game, 0);
 	// le chargement bloque la boucle, on repart de maintenant pour pas timeout

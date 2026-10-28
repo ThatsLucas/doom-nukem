@@ -89,6 +89,7 @@ typedef struct s_sector
 	int		isElevating;
 	float	levelRemaining;		/* distance restante */
 	long	lastMove;			/* timestamp du dernier deplacement */
+	int		trips;				/* nombre de trajets termines */
 }			t_sector;
 
 typedef struct s_ray

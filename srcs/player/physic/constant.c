@@ -27,7 +27,7 @@ void apply_constant_forces_to_player(t_ply *ply)
         ply->z = ply->floor_height + EYES_HEIGTH;
 
         if (ply->physic.is_crouching) // crouch
-            ply->z = (ply->floor_height + EYES_HEIGTH) / 2;
+            ply->z = ply->floor_height + EYES_HEIGTH / 2;
 
         ply->physic.velocity = 0.0f;
         ply->physic.is_on_ground = 1;

@@ -64,6 +64,7 @@ void	player_shoot(t_game *game)
 		if (e->hp <= 0)
 		{
 			e->status = E_STATUS_DEAD;
+			e->hitbox = 0;
 		}
 	}
 	if (game->ply->inventory.weapons[idx].type != WEAP_FISTS)
