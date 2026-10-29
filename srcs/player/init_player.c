@@ -6,7 +6,7 @@
 /*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/10/29 10:36:56 by edurance         ###   ########.fr       */
+/*   Updated: 2026/10/29 12:47:15 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static void give_starter_weapons(t_ply *ply)
 /* Ajoute les outils de départ à l’inventaire du joueur. */
 static void give_starter_tools(t_ply *ply)
 {
-	//t_tool flashlight = {
-	//	.type = TOOL_FLASHLIGHT,
-	//	.data.battery = 11,
-	//	.using = 0};
-	//ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
+	t_tool flashlight = {
+		.type = TOOL_FLASHLIGHT,
+		.data.battery = 11,
+		.using = 0};
+	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
 
 	t_tool jetpack = {
 		.type = TOOL_JETPACK,
