@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:23 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 16:30:43 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:45:46 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void events_handler(t_game *game)
 	}
 	dt = frame_delta(&game->ply->physic.move_last_time);
 	ply_directions(game->ply, dt);
-	ply_movements(game->ply, game, dt);
+	ply_movements(game->ply, game);
 
 	return;
 }

@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:21:43 by edurance          #+#    #+#             */
-/*   Updated: 2026/10/20 16:30:13 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:45:08 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Events.h"
 #include "Game.h"
 #include "Raycasting/Raycasting.h"
+
+/* Temps écoulé depuis la frame précédente, en secondes (max 0.05). */
+static float frame_dt(void)
+{
+	static Uint64	last = 0;
+	Uint64			now = SDL_GetTicks64();
+	float			dt;
+
+	if (last == 0)
+		last = now;
+	dt = (now - last) / 1000.0f;
+	last = now;
+	if (dt > 0.05f)
+		dt = 0.05f;
+	return (dt);
+}
 
 /* Gère les déplacements vers l’avant et l’arrière. */
 static void medial_moves(t_ply *ply, t_game *game, float dt)
@@ -24,7 +40,7 @@ static void medial_moves(t_ply *ply, t_game *game, float dt)
 
 	if (ply->keys.w && ply->keys.s)
 		return;
-	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f)) * dt * 60.0f;
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
@@ -49,7 +65,7 @@ static void lateral_moves(t_ply *ply, t_game *game, float dt)
 
 	if (ply->keys.a && ply->keys.d)
 		return;
-	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f)) * dt * 60.0f;
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)
@@ -70,10 +86,11 @@ static void lateral_moves(t_ply *ply, t_game *game, float dt)
 }
 
 /* Déplace le joueur puis met à jour sa hauteur et son secteur. */
-void ply_movements(t_ply *ply, t_game *game, float dt)
+void ply_movements(t_ply *ply, t_game *game)
 {
 	t_vect2 oldpos;
 	oldpos = ply->pos;
+	float	dt = frame_dt();
 
 	if (!game->map)
 		return;
@@ -84,7 +101,7 @@ void ply_movements(t_ply *ply, t_game *game, float dt)
 		activate_jetpack(game);
 	}
 	if (ply->keys.w || ply->keys.s)
-		medial_moves(ply, game, dt);
+		medial_moves(ply, game, dt);	
 	if (ply->keys.a || ply->keys.d)
 		lateral_moves(ply, game, dt);
 	update_player_sector(game, oldpos);

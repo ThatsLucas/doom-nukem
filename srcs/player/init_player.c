@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 11:27:57 by edurance          #+#    #+#             */
-/*   Updated: 2026/08/11 14:21:09 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:36:56 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,16 @@ static void give_starter_weapons(t_ply *ply)
 		.type = WEAP_PISTOL,
 		.ammo = 50};
 	ply->inventory.weapons[ply->inventory.weap_count++] = pistol;
-
-	t_weapon shotgun = {
-		.type = WEAP_SHOTGUN,
-		.ammo = 50};
-	ply->inventory.weapons[ply->inventory.weap_count++] = shotgun;
-
-	t_weapon rocket = {
-		.type = WEAP_ROCKET_LAUNCHER,
-		.ammo = 50};
-	ply->inventory.weapons[ply->inventory.weap_count++] = rocket;
 }
 
 /* Ajoute les outils de départ à l’inventaire du joueur. */
 static void give_starter_tools(t_ply *ply)
 {
-	t_tool flashlight = {
-		.type = TOOL_FLASHLIGHT,
-		.data.battery = 11,
-		.using = 0};
-	ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
+	//t_tool flashlight = {
+	//	.type = TOOL_FLASHLIGHT,
+	//	.data.battery = 11,
+	//	.using = 0};
+	//ply->inventory.tools[ply->inventory.tool_count++] = flashlight;
 
 	t_tool jetpack = {
 		.type = TOOL_JETPACK,
@@ -60,6 +50,30 @@ static void config_starter(t_ply *ply)
 	give_starter_weapons(ply);
 	give_starter_tools(ply);
 	ply->held_weap = &ply->inventory.weapons[ply->current_weap_index];
+}
+
+void reset_player(t_game *game)
+{
+	t_ply *ply = game->ply;
+
+	ft_bzero(&ply->keys, sizeof(t_keys));
+	ft_bzero(&ply->inventory, sizeof(t_inventory));
+	ply->pitch = 0;
+	ply->dir_z = 0.0f;
+	ply->crosshair_target = NULL;
+	ply->current_weap_index = 0;
+	ply->hp = 100;
+
+	/*physics*/
+	ply->physic.gravity = DEFAULT_GRAVITY;
+	ply->physic.velocity = 0;
+	ply->physic.is_on_ground = 1;
+	ply->physic.last_time = 0;
+	ply->physic.is_running = 0;
+	ply->physic.is_crouching = 0;
+	ply->physic.speed = 0.03f;
+
+	config_starter(ply);
 }
 
 /* Initialise le joueur : position, santé et équipement de départ. */
@@ -84,18 +98,6 @@ void init_player(t_game *game, float pos_x, float pos_y, float dir_x, float dir_
 	ply->plane.x = -ply->dir.y * FOV;
 	ply->plane.y = ply->dir.x * FOV;
 
-	ply->hp = 100;
-
-	/*physics*/
-	ply->physic.gravity = DEFAULT_GRAVITY;
-	ply->physic.velocity = 0;
-	ply->physic.is_on_ground = 1;
-	ply->physic.last_time = 0;
-	ply->physic.is_running = 0;
-	ply->physic.is_crouching = 0;
-	ply->physic.speed = WALK_SPEED;
-	ply->physic.move_last_time = 0;
-
-	config_starter(ply);
 	game->ply = ply;
+	reset_player(game);
 }

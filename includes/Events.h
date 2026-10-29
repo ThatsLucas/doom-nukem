@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 15:53:36 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/02 11:29:22 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:45:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	events_handler(t_game *game);
 int		player_is_dead(t_game *game);
 void	key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event);
-void	ply_movements(t_ply *ply, t_game *game, float dt);
+void	ply_movements(t_ply *ply, t_game *game);
 int		wall_collision(t_game *game, float next_x, float next_y);
 void	ply_directions(t_ply *ply, float dt);
 void	handle_mousewheel(t_game *game, SDL_MouseWheelEvent *wheel);

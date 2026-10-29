@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 12:24:01 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 16:31:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:38:03 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ Uint32  write_color(int x, int y, t_game *game, t_RGB c, int sect_light)
 	if (!flashlight)
 		flashlight = get_flashlight(game);
 	if (!flashlight)
-		return (0);
+	{
+		c.r = (c.r * sect_light) >> 8;
+		c.g = (c.g * sect_light) >> 8;
+		c.b = (c.b * sect_light) >> 8;
+		return ((c.r << 16) | (c.g << 8) | c.b);
+	}
 
 	int		radius = 400;
 	int		radius2 = radius * radius;

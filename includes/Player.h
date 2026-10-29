@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:21:26 by edurance          #+#    #+#             */
-/*   Updated: 2026/10/02 11:29:26 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:26:14 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void apply_constant_forces_to_player(t_ply *ply);
 void use_jetpack(t_ply *ply, float dt);
 void player_crouch(t_ply *ply);
 void player_run(t_ply *ply, int is_pressed);
+void reset_player(t_game *game);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lobby_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 13:07:30 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 13:07:30 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 10:48:43 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void load_level(t_game *game, int level)
 	SDL_RenderPresent(win->renderPTR);
 
 	game->current_level = level;
+	if (game->ply->hp <= 0)
+		reset_player(game);
 	// nouvelles entites : les compteurs de degats repartent de zero
 	ft_bzero(game->clientConnection.dealt, sizeof(game->clientConnection.dealt));
 	game->clientConnection.hits_epoch += 1;
