@@ -50,6 +50,20 @@ void	init_editor(t_game *game)
 	return ;
 }
 
+/* Libère les libellés alloués des boutons de l’éditeur, puis les boutons. */
+static void	free_editor_buttons(t_buttons *buttons)
+{
+	for (t_buttons *b = buttons; b; b = b->next)
+	{
+		if (b->text)
+		{
+			destroy_text_texture(b->text);
+			free(b->text);
+		}
+	}
+	free_buttons(buttons);
+}
+
 /* Libère l’éditeur et revient au menu. */
 void	exit_editor(t_game *game)
 {
@@ -57,23 +71,19 @@ void	exit_editor(t_game *game)
 		return ;
 	TTF_CloseFont(game->editor->font); 
 	ft_lstclear(&game->editor->text_inputs, free);
-	free_buttons(game->editor->buttons);
+	ft_lstclear(&game->editor->texture_selector_buttons, free);
+	free_editor_buttons(game->editor->buttons);
+	free_editor_buttons(game->editor->buttons_entities);
 	if (game->editor->textures)
 	{
 		free(game->editor->textures->png);
+		free(game->editor->textures->textures);
 	}
 	TTF_CloseFont(game->editor->properties.font);
 	free(game->editor->error_text);
 	free(game->editor->textures);
 
-	if (game->editor->map)
-	{
-		free(game->editor->map->sectors);
-		free(game->editor->map->textures);
-		free(game->editor->map->vertices);
-		free(game->editor->map->walls);
-		free(game->editor->map);
-	}
+	free_map(game->editor->map);
 
 	free(game->editor);
 

@@ -45,7 +45,10 @@ static void	create_png_list(t_game *game, t_editor *editor, int fd)
 			realloc_png(game, editor->textures);
 
 		if (ft_strncmp(&line[ft_strlen(line) - 5], ".png", 4))
+		{
+			free(line);
 			continue ;
+		}
 
 		line[ft_strlen(line) - 1] = 0;
 

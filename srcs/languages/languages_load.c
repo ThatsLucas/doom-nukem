@@ -80,4 +80,5 @@ void parse_languages(t_game *game, int language)
         exit_game(game, "Invalid Language File\n");
     }
     split_buffer(game, buf);
+    free(buf);
 }

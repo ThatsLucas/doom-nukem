@@ -170,6 +170,7 @@ typedef struct s_trace
 }						t_trace;
 
 void					free_entities(t_entities *e);
+void					clear_entities(t_entities *e);
 void					init_entities(t_entities *e);
 t_tex					*get_cached_sprite(t_game *game, char *path, int w, int h);
 void					free_sprite_cache(t_sprite_cache *cache);

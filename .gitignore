@@ -61,3 +61,4 @@ doom-nukem
 *.gz
 vgcore.*
 valgrind_error.txt
+tests/leaks/build/
