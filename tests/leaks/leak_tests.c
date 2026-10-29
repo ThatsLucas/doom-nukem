@@ -21,6 +21,7 @@
 #include "Events.h"
 #include "menus/menus.h"
 #include "multiplayer/server.h"
+#include "Editor.h"
 
 /* Une image du jeu, comme game_frame dans main.c (sans lire le clavier/souris). */
 static void	frame(t_game *game)
@@ -189,6 +190,87 @@ static void	test_cinematics(t_game *game)
 	}
 }
 
+/* Une image de l'éditeur, comme editor_frame dans main.c (sans lire le clavier/souris). */
+static void	editor_frame_for(t_game *game, Uint64 ms)
+{
+	Uint64	end = SDL_GetTicks64() + ms;
+
+	while (SDL_GetTicks64() < end)
+	{
+		SDL_PumpEvents();
+		SDL_RenderClear(game->window->renderPTR);
+		display_editor(game);
+		SDL_RenderPresent(game->window->renderPTR);
+	}
+}
+
+/* Remplace la carte de l'éditeur, comme le bouton "load". */
+static void	editor_load(t_game *game, char *name)
+{
+	t_map	*map;
+
+	map = load_map(name, game, 1);
+	check(game, map != NULL, "editor could not load map");
+	free_map(game->editor->map);
+	game->editor->map = map;
+	fit_grid_view(game);
+}
+
+/* Dessine une pièce carrée dans l'éditeur. */
+static void	editor_draw_room(t_game *game)
+{
+	int	v[4];
+
+	clear_editor_plan(game);
+	v[0] = editor_add_vertice(game, 1.0f, 1.0f);
+	v[1] = editor_add_vertice(game, 5.0f, 1.0f);
+	v[2] = editor_add_vertice(game, 5.0f, 5.0f);
+	v[3] = editor_add_vertice(game, 1.0f, 5.0f);
+	for (int i = 0; i < 4; i++)
+		editor_add_wall(game, v[i], v[(i + 1) % 4]);
+	compute_sectors(game->editor->map);
+	precompute_lengths(game->editor->map);
+	precompute_next_sectors(game->editor->map);
+}
+
+/* Utilise les principales actions de l'éditeur. */
+static void	test_editor(t_game *game)
+{
+	t_editor	*editor = game->editor;
+	t_vect2		wall_mid = {3.0f, 1.0f};
+	SDL_Texture	*selected = NULL;
+	int			selected_index = 0;
+
+	game->window->menus.current = -1;
+	editor_frame_for(game, 500);
+	editor_load(game, "level1");
+	editor_frame_for(game, 500);
+	editor_load(game, "level3");
+	editor_frame_for(game, 500);
+	editor_draw_room(game);
+	editor_frame_for(game, 300);
+	check(game, editor->map->num_sectors > 0, "editor room has no sector");
+	check(game, add_decal(game, editor->map, "assets/png/items/decals/switch.png", 0.5f, wall_mid) == 0, "add_decal failed");
+	check(game, add_decal(game, editor->map, "assets/png/items/decals/window_tree.png", 2.0f, wall_mid) == 0, "add_decal failed");
+	check(game, suppress_decal(game, wall_mid) == 1, "suppress_decal failed");
+	create_texture_selector(game, &selected, &selected_index);
+	editor_frame_for(game, 300);
+	editor->texture_selector.display = 0;
+	check(game, save_map("leak_test_map", editor->map) == 0, "save_map failed");
+	editor_load(game, "leak_test_map");
+	unlink("saves/leak_test_map");
+	editor_frame_for(game, 300);
+	editor_draw_room(game);
+	suppress_wall(game, 0);
+	compute_sectors(editor->map);
+	suppress_vertice(game, 5.0f, 5.0f);
+	compute_sectors(editor->map);
+	editor_frame_for(game, 300);
+	editor_draw_room(game);
+	game->window->menus.current = 1;
+	run_for(game, 300);
+}
+
 typedef struct s_leak_test
 {
 	char	*name;
@@ -206,6 +288,7 @@ int	main(int argc, char **argv)
 		{"languages", test_languages},
 		{"combat", test_combat},
 		{"cinematics", test_cinematics},
+		{"editor", test_editor},
 	};
 	int					count = sizeof(tests) / sizeof(tests[0]);
 	t_game				*game;

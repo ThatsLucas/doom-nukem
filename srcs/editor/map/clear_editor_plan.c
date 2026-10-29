@@ -18,6 +18,11 @@ void	clear_editor_plan(t_game *game)
 {
 	t_map	*map = game->editor->map;
 
+	for (int i = 0; i < map->num_sectors; i++)
+	{
+		free(map->sectors[i].walls);
+		map->sectors[i].walls = NULL;
+	}
 	map->num_sectors = 0;
 	map->num_vertices = 0;
 	map->num_walls = 0;

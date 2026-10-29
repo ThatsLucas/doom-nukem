@@ -135,7 +135,7 @@ ASAN_CC = $(CC) -fsanitize=address -fno-omit-frame-pointer
 LEAKS_OBJ = $(filter-out %/srcs/main.o, $(patsubst %.c, $(LEAKS_BUILD)/obj/%.o, $(FILES)))
 
 leaks: deps libft
-	@$(MAKE) --no-print-directory OBJDIR=$(LEAKS_BUILD)/obj CC="$(ASAN_CC)" $(LEAKS_OBJ)
+	@$(MAKE) -s OBJDIR=$(LEAKS_BUILD)/obj CC="$(ASAN_CC)" $(LEAKS_OBJ)
 	@$(ASAN_CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $(LEAKS_DIR)/leak_tests.c -o $(LEAKS_BUILD)/leak_tests.o
 	@$(ASAN_CC) $(LEAKS_OBJ) $(LEAKS_BUILD)/leak_tests.o -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(LEAKS_BUILD)/leak_tests
 	@sh $(LEAKS_DIR)/run_leak_tests.sh $(LEAKS_BUILD)/leak_tests $(TEST)
