@@ -125,6 +125,7 @@ static void	setup_game_map(t_game *game, t_map *map)
 	game->ply->sector = find_sector(map, game->ply->pos);
 	game->ply->z = get_plane_z(map->sectors[game->ply->sector].floor_plane, game->ply->pos.x, game->ply->pos.y);
 	spawn_entities(map, game);
+	cleanup_items(game);
 	spawn_items(map, game);
 	ft_printf("Entites: %d\n", game->entities.count);
 }

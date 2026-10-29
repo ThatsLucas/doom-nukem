@@ -271,6 +271,132 @@ static void	test_editor(t_game *game)
 	run_for(game, 300);
 }
 
+/* Une image du jeu qui lit les événements, comme game_frame dans main.c. */
+static void	play_for(t_game *game, Uint64 ms)
+{
+	Uint64	end = SDL_GetTicks64() + ms;
+
+	do
+	{
+		if (game->ply->hp > 0)
+			game->ply->hp = 100; // les ennemis ne doivent pas tuer le joueur pendant le test
+		SDL_RenderClear(game->window->renderPTR);
+		events_handler(game);
+		draw_current_menu(game);
+		display_notif(game->window, &game->window->menus.notif.notif_buf);
+		display_fps(game);
+		SDL_RenderPresent(game->window->renderPTR);
+	} while (SDL_GetTicks64() < end);
+}
+
+/* Envoie un appui ou un relâchement de touche, comme le clavier. */
+static void	push_key(SDL_Keycode key, int down)
+{
+	SDL_Event	e;
+
+	ft_bzero(&e, sizeof(e));
+	e.type = down ? SDL_KEYDOWN : SDL_KEYUP;
+	e.key.state = down ? SDL_PRESSED : SDL_RELEASED;
+	e.key.keysym.sym = key;
+	SDL_PushEvent(&e);
+}
+
+/* Maintient une touche enfoncée pendant ms millisecondes. */
+static void	hold_key(t_game *game, SDL_Keycode key, Uint64 ms)
+{
+	push_key(key, 1);
+	play_for(game, ms);
+	push_key(key, 0);
+	play_for(game, 50);
+}
+
+/* Envoie un clic, un mouvement ou une molette de souris. */
+static void	push_mouse(Uint32 type, int a, int b)
+{
+	SDL_Event	e;
+
+	ft_bzero(&e, sizeof(e));
+	e.type = type;
+	if (type == SDL_MOUSEBUTTONDOWN || type == SDL_MOUSEBUTTONUP)
+	{
+		e.button.button = SDL_BUTTON_LEFT;
+		e.button.state = (type == SDL_MOUSEBUTTONDOWN) ? SDL_PRESSED : SDL_RELEASED;
+	}
+	else if (type == SDL_MOUSEMOTION)
+	{
+		e.motion.xrel = a;
+		e.motion.yrel = b;
+	}
+	else if (type == SDL_MOUSEWHEEL)
+		e.wheel.y = a;
+	SDL_PushEvent(&e);
+}
+
+/* Ramasse tous les objets du niveau en téléportant le joueur dessus. */
+static void	pick_up_all_items(t_game *game)
+{
+	for (int i = 0; i < game->items_count; i++)
+	{
+		if (game->items[i].picked_up)
+			continue ;
+		game->ply->pos = (t_vect2){game->items[i].pos_x, game->items[i].pos_y};
+		game->ply->sector = find_sector(game->map, game->ply->pos);
+		play_for(game, 100);
+	}
+}
+
+/* Joue comme un joueur : clavier, souris, tirs, objets, pause, changement de niveau. */
+static void	test_gameplay(t_game *game)
+{
+	t_settings	*set = &game->settings;
+
+	for (int level = 1; level <= 3; level++)
+	{
+		load_level(game, level);
+		game->window->menus.current = 0;
+		play_for(game, 300);
+		hold_key(game, set->move_forward, 400);
+		hold_key(game, set->move_left, 200);
+		hold_key(game, set->move_backward, 200);
+		hold_key(game, set->move_right, 200);
+		push_key(SDLK_LSHIFT, 1);
+		hold_key(game, set->move_forward, 300);
+		push_key(SDLK_LSHIFT, 0);
+		push_key(SDLK_LCTRL, 1);
+		hold_key(game, set->move_forward, 300);
+		push_key(SDLK_LCTRL, 0);
+		hold_key(game, SDLK_SPACE, 200);
+		hold_key(game, 1073741904, 200);	// flèche gauche
+		hold_key(game, 1073741903, 200);	// flèche droite
+		hold_key(game, 1073741906, 100);	// flèche haut
+		hold_key(game, 1073741905, 100);	// flèche bas
+		push_mouse(SDL_MOUSEMOTION, 40, 10);
+		mouse_moves(40, 10, game);
+		play_for(game, 100);
+		pick_up_all_items(game);
+		for (int i = 0; i < 4; i++)
+		{
+			push_mouse(SDL_MOUSEWHEEL, 1, 0);
+			push_mouse(SDL_MOUSEBUTTONDOWN, 0, 0);
+			push_mouse(SDL_MOUSEBUTTONUP, 0, 0);
+			play_for(game, 400);
+		}
+		hold_key(game, SDLK_f, 100);
+		hold_key(game, SDLK_e, 100);
+		hold_key(game, SDLK_p, 100);
+		play_for(game, 200);
+		hold_key(game, SDLK_p, 100);
+		hold_key(game, SDLK_f, 100);
+		play_for(game, 500);
+		int picked = 0;
+		for (int i = 0; i < game->items_count; i++)
+			picked += game->items[i].picked_up;
+		ft_printf("gameplay: level %d, items %d/%d, weapons %d, pos %d,%d\n", level,
+			picked, game->items_count, game->ply->inventory.weap_count,
+			(int)game->ply->pos.x, (int)game->ply->pos.y);
+	}
+}
+
 typedef struct s_leak_test
 {
 	char	*name;
@@ -289,6 +415,7 @@ int	main(int argc, char **argv)
 		{"combat", test_combat},
 		{"cinematics", test_cinematics},
 		{"editor", test_editor},
+		{"gameplay", test_gameplay},
 	};
 	int					count = sizeof(tests) / sizeof(tests[0]);
 	t_game				*game;

@@ -140,6 +140,14 @@ leaks: deps libft
 	@$(ASAN_CC) $(LEAKS_OBJ) $(LEAKS_BUILD)/leak_tests.o -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(LEAKS_BUILD)/leak_tests
 	@sh $(LEAKS_DIR)/run_leak_tests.sh $(LEAKS_BUILD)/leak_tests $(TEST)
 
+# make valgrind            -> memes scenarios sous valgrind (plus lent, voit aussi les erreurs dans SDL)
+# make valgrind TEST=editor
+valgrind: all
+	@mkdir -p $(LEAKS_BUILD)
+	@$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $(LEAKS_DIR)/leak_tests.c -o $(LEAKS_BUILD)/leak_tests_vg.o
+	@$(CC) $(filter-out %/srcs/main.o, $(OBJ)) $(LEAKS_BUILD)/leak_tests_vg.o -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(LEAKS_BUILD)/leak_tests_vg
+	@sh $(LEAKS_DIR)/run_valgrind_tests.sh $(LEAKS_BUILD)/leak_tests_vg $(TEST)
+
 # -------- CLEAN --------
 
 clean:
@@ -157,4 +165,4 @@ dclean:
 
 re: fclean all
 
-.PHONY: all clean fclean dclean re deps libft leaks
+.PHONY: all clean fclean dclean re deps libft leaks valgrind
