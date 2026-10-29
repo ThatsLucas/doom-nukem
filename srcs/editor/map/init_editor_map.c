@@ -45,9 +45,15 @@ static t_RGB	*read_texture_colors(t_game *game, SDL_Texture *texture, int width,
 	SDL_Surface		*surface;
 	t_RGB			*colors;
 
+	SDL_BlendMode	blend;
+
 	target = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
 	SDL_SetRenderTarget(renderer, target);
+	// copie brute (sans mélange) : la cible vient d'être créée et n'est pas initialisée
+	SDL_GetTextureBlendMode(texture, &blend);
+	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_NONE);
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_SetTextureBlendMode(texture, blend);
 
 	surface = SDL_CreateRGBSurface(0, width, height, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 	SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_RGBA8888, surface->pixels, surface->pitch);

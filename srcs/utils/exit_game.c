@@ -72,8 +72,8 @@ void exit_game(t_game *game, char *type)
 		close(game->serverStatus.serverSocket);
 	}
 
-	free_window(game->window);
 	exit_editor(game);
+	free_window(game->window);
 	free_sounds(&game->sounds);
 	free(game);
 	TTF_Quit();

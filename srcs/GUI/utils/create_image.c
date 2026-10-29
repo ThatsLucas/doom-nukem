@@ -59,20 +59,48 @@ SDL_Rect get_png_opaque_bounds(t_png *pngFile)
     return ((SDL_Rect){min_x, min_y, max_x - min_x + 1, max_y - min_y + 1});
 }
 
+/* Convertit une ligne en niveaux de gris vers le format RGB/RGBA de la texture. */
+static void expand_gray_row(t_png *pngFile, uint8_t *src, uint8_t *dst, int dst_bpp)
+{
+    int bpp = pngFile->IHDR.bytes_per_pixel;
+
+    for (uint32_t x = 0; x < pngFile->w; x++)
+    {
+        dst[x * dst_bpp] = src[x * bpp];
+        dst[x * dst_bpp + 1] = src[x * bpp];
+        dst[x * dst_bpp + 2] = src[x * bpp];
+        if (dst_bpp == 4)
+            dst[x * dst_bpp + 3] = src[x * bpp + 1];
+    }
+}
+
 /* Crée une texture SDL à partir d’un PNG décodé. */
 SDL_Texture *create_image(t_png *pngFile, SDL_Renderer *renderer)
 {
     SDL_PixelFormatEnum format = decidePixelFormat(pngFile->IHDR.color_type);
     SDL_Texture *texture = SDL_CreateTexture(renderer, format,
         SDL_TEXTUREACCESS_STREAMING, pngFile->w, pngFile->h);
-    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    int is_gray = (pngFile->IHDR.color_type == GRAYSCALE
+        || pngFile->IHDR.color_type == GRAYSCALE_ALPHA);
+    int dst_bpp = (pngFile->IHDR.color_type == GRAYSCALE) ? 3 : 4;
+    uint8_t *gray_row = NULL;
 
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    if (is_gray)
+        gray_row = malloc(pngFile->w * dst_bpp);
     for (uint32_t h = 0; h < pngFile->h; h++)
     {
         SDL_Rect line = {0, h, pngFile->w, 1};
-        SDL_UpdateTexture(texture, &line, pngFile->buf[h],
-            pngFile->w * pngFile->IHDR.bytes_per_pixel);
+        if (is_gray && gray_row)
+        {
+            expand_gray_row(pngFile, pngFile->buf[h], gray_row, dst_bpp);
+            SDL_UpdateTexture(texture, &line, gray_row, pngFile->w * dst_bpp);
+        }
+        else if (!is_gray)
+            SDL_UpdateTexture(texture, &line, pngFile->buf[h],
+                pngFile->w * pngFile->IHDR.bytes_per_pixel);
     }
+    free(gray_row);
     for (uint32_t i = 0; i < pngFile->h; i++) //on en a plus besoin normalements
     {
         free(pngFile->buf[i]);
