@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entities_create_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabouyaz <aabouyaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edurance <edurance@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/20 11:40:40 by aabouyaz          #+#    #+#             */
-/*   Updated: 2026/10/20 11:40:40 by aabouyaz         ###   ########.fr       */
+/*   Updated: 2026/10/29 12:18:25 by edurance         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir)
 /* Charge les 8 images directionnelles d’un PNJ. */
 void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 {
-	char	path[200];
+	char	*path;
 
 	e->num_frames = 8;
 	e->textures = malloc(sizeof(t_tex *) * e->num_frames);
@@ -43,8 +43,13 @@ void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 
 	for (int i = 0; i < e->num_frames; i++)
 	{
-		sprintf(path, "%s%d.png", prefix, i + 1);
+		char *index = ft_itoa(i + 1);
+		char *result = ft_strjoin(prefix, index);
+		path = ft_strjoin(result, ".png");
 		e->textures[i] = get_cached_sprite(game, path, w, h);
+		free(index);
+		free(result);
+		free(path);
 	}
 
 	e->texture = e->textures[0];
