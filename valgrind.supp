@@ -145,6 +145,34 @@
    obj:*/libEGL*
 }
 {
+   ALSA_config_cache_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible
+   ...
+   obj:*/libasound*
+}
+{
+   pipewire_thread_loop_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible
+   ...
+   fun:pw_loop_iterate
+}
+{
+   pipewire_lib_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible
+   ...
+   obj:*/libpipewire*
+}
+{
+   pipewire_spa_plugin_leak
+   Memcheck:Leak
+   match-leak-kinds: definite,indirect,possible
+   ...
+   obj:*/spa-0.2/*
+}
+{
    pipewire_sssd_passwd_cache_fd
    CoreError:FdNotClosed
    fun:open
