@@ -23,6 +23,8 @@ float cinematic_delta(t_cinematic *menu, Uint64 curTime)
         menu->last_time = curTime;
     delta = (curTime - menu->last_time) / 1000.0f;
     menu->last_time = curTime;
+    if (delta > 0.1f)
+        delta = 0.1f;
     return (delta);
 }
 
@@ -39,6 +41,8 @@ void update_light_pulse(t_cinematic *menu, float delta)
 
     if (menu->blue_light_ratio < -70)
         menu->blue_light_ratio = -70;
+    else if (menu->blue_light_ratio > 70)
+        menu->blue_light_ratio = 70;
 }
 
 /* Affiche un sous-titre de la cinématique. */
@@ -56,6 +60,7 @@ void end_cinematic_if_over(t_game *game, t_cinematic *menu, Uint64 curTime)
     {
         menu->cinematatic_begin_time = 0;
         menu->cinematatic_duration = 0;
+        menu->last_time = 0;
         game->window->menus.current = 0;
     }
 }

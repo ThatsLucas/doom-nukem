@@ -134,6 +134,7 @@ typedef struct s_game
 	int					is_paused;
 	t_SOUNDS			sounds;
 	int					is_game_over;
+	int					is_victory;
 }						t_game;
 
 /*init/exit game*/

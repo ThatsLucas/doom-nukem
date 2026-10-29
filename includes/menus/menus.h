@@ -136,6 +136,14 @@ typedef struct s_game_over
     Uint64 				game_over_begin_time;
 }						t_game_over;
 
+#define VICTORY_DURATION 4
+
+typedef struct s_victory
+{
+	t_font				texts[2];
+	Uint64				begin_time;
+}						t_victory;
+
 typedef struct s_menus
 {
 	int					current;
@@ -146,6 +154,7 @@ typedef struct s_menus
 	t_cinematic			cinematic;
 	t_pause				pause;
 	t_game_over			game_over;
+	t_victory			victory;
 }						t_menus;
 
 /*MENUS*/
@@ -194,6 +203,7 @@ void					refresh_lobby_texts(t_game *game);
 void					refresh_cinematics_texts(t_game *game);
 void					refresh_pause_menu_texts(t_game *game);
 void					refresh_game_over_texts(t_game *game);
+void					refresh_victory_texts(t_game *game);
 
 /* LOBBY */
 void					draw_lobby_menu(t_game *game);
@@ -229,5 +239,10 @@ void					draw_pause_menu(t_game *game);
 /*GAME OVER*/
 void					init_game_over_texts(t_game *game);
 void					draw_game_over_menu(t_game *game);
+
+/*VICTORY*/
+void					init_victory_texts(t_game *game);
+void					draw_victory_menu(t_game *game);
+int						is_final_boss_dead(t_game *game);
 
 #endif

@@ -47,3 +47,5 @@ pause=iqaaf mu'aqqat
 resume=istikmaal
 exit=khurooj
 game_over=intahat al-la'ba
+the_end=an-nihaya
+beat_the_game=laqad anhayta al-la'ba!

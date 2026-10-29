@@ -22,10 +22,14 @@
 # define MENU_MUSIC_PATH "assets/sounds/menu_music.ogg"
 # define INGAME_MUSIC_PATH "assets/sounds/ingame_music.ogg"
 # define SHOT_SOUND_PATH "assets/sounds/shot.wav"
+# define ROCKET_SOUND_PATH "assets/sounds/rocket.wav"
+# define ITEM_GET_SOUND_PATH "assets/sounds/item_get.wav"
 
 typedef struct s_SOUNDS
 {
     Mix_Chunk *shot; // pour les effets
+    Mix_Chunk *rocket; // tir du lance-roquettes
+    Mix_Chunk *item_get; // ramassage d'un objet
     Mix_Music *menu_music; // musique menu
     Mix_Music *ingame_music; // musique en jeu
     Mix_Music *current_music; // musique en cours de lecture

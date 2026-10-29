@@ -71,7 +71,7 @@ void reset_player(t_game *game)
 	ply->physic.last_time = 0;
 	ply->physic.is_running = 0;
 	ply->physic.is_crouching = 0;
-	ply->physic.speed = 0.03f;
+	ply->physic.speed = WALK_SPEED;
 
 	config_starter(ply);
 }

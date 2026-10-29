@@ -47,3 +47,5 @@ pause=PAUSE
 resume=RESUME
 exit=EXIT
 game_over=GAME OVER
+the_end=THE END
+beat_the_game=YOU BEAT THE GAME!

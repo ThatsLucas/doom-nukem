@@ -68,7 +68,7 @@ void key_handler(t_game *game, SDL_KeyboardEvent key, SDL_Event *event)
 		player_run(ply, event->type == SDL_KEYDOWN);
 
 	if (key.keysym.sym == SDLK_LCTRL)
-		player_crouch(ply);
+		player_crouch(ply, event->type == SDL_KEYDOWN);
 		
 	if (ply->keys.space && (game->window->menus.current == 5 || game->window->menus.current == 6 || game->window->menus.current == 7))
 		game->window->menus.current = 0;

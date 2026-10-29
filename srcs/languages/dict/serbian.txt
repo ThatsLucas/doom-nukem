@@ -47,3 +47,5 @@ pause=PAUZA
 resume=NASTAVI
 exit=IZLAZ
 game_over=KRAJ IGRE
+the_end=KRAJ
+beat_the_game=PRESAO SI IGRU!

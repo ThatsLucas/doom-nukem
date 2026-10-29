@@ -131,3 +131,13 @@ void refresh_game_over_texts(t_game *game)
 
     refresh_text(&game_over->texts[0], renderer, game->languages->game_over, DNFONT);
 }
+
+/* Recrée les textes de l'écran de fin dans la nouvelle langue. */
+void refresh_victory_texts(t_game *game)
+{
+    t_victory *victory = &game->window->menus.victory;
+    SDL_Renderer *renderer = game->window->renderPTR;
+
+    refresh_text(&victory->texts[0], renderer, game->languages->the_end, DNFONT);
+    refresh_text(&victory->texts[1], renderer, game->languages->beat_the_game, DNFONT);
+}

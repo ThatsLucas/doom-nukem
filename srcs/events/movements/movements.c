@@ -40,7 +40,7 @@ static void medial_moves(t_ply *ply, t_game *game, float dt)
 
 	if (ply->keys.w && ply->keys.s)
 		return;
-	steps = (ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f)) * dt * 60.0f;
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
 	if (ply->keys.w)
 		direction = 1;
 	if (ply->keys.s)
@@ -65,7 +65,7 @@ static void lateral_moves(t_ply *ply, t_game *game, float dt)
 
 	if (ply->keys.a && ply->keys.d)
 		return;
-	steps = (ply->physic.speed + ((ply->physic.is_running) ? 0.03f : 0.0f)) * dt * 60.0f;
+	steps = (ply->physic.speed + ((ply->physic.is_running) ? RUN_BONUS : 0.0f)) * dt;
 	ax = ply->dir.x * cosf((M_PI / 2) * -1) - ply->dir.y * sinf((M_PI / 2) * -1);
 	ay = ply->dir.x * sinf((M_PI / 2) * -1) + ply->dir.y * cosf((M_PI / 2) * -1);
 	if (ply->keys.a)

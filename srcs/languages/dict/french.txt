@@ -47,3 +47,5 @@ pause=PAUSE
 resume=REPRENDRE
 exit=QUITTER
 game_over=PARTIE TERMINEE
+the_end=FIN
+beat_the_game=VOUS AVEZ TERMINE LE JEU !

@@ -38,7 +38,9 @@ static void draw_in_game(t_game *game)
 		load_level(game, game->current_level + 1);
 		return ;
 	}
-	if (game->ply->hp <= 0)
+	if (game->is_victory || is_final_boss_dead(game))
+		draw_victory_menu(game);
+	else if (game->ply->hp <= 0)
 		draw_game_over_menu(game);
 }
 

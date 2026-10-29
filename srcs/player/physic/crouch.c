@@ -12,13 +12,14 @@
 
 #include "Player.h"
 
-/* Accroupit ou relève le joueur. */
-void player_crouch(t_ply *ply)
+/* Accroupit le joueur tant que la touche est enfoncée. */
+void player_crouch(t_ply *ply, int is_pressed)
 {
-    if (!ply->physic.is_crouching)
+    if (is_pressed)
     {
         ply->physic.speed = CROUCH_SPEED;
         ply->physic.is_crouching = 1;
+        ply->physic.is_running = 0;
         return;
     }
     ply->physic.is_crouching = 0;

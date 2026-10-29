@@ -42,18 +42,7 @@ static void	init_prop_fields(t_entity *e, t_map *map, t_vect2 pos)
 /* Charge la texture de l’objet à placer. */
 static void	load_prop_texture(t_game *game, t_entity *e, char *png_path)
 {
-	t_png	png;
-
-	png.w = 0;
-	png.h = 0;
-	png.path = ft_strdup(png_path);
-	if (!png.path)
-		exit_game(game, "Failed to strdup prop texture path");
-	if (!process_png(&png))
-		exit_game(game, "Failed to load prop texture");
-	e->texture = create_sprite(&png);
-	if (!e->texture)
-		exit_game(game, "Failed to create prop image");
+	e->texture = get_cached_sprite(game, png_path, 0, 0);
 }
 
 /* Place un élément de décor sur la carte. */

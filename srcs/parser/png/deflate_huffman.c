@@ -34,14 +34,10 @@ void read_compressed_datas(__uint8_t *buf, __uint32_t *buf_len, size_t max_len, 
 /* Alloue et initialise les tables de décodage Huffman. */
 static void alloc_huffman_tables(int **lit_symbol, int **lit_len, int **dist_symbol, int **dist_len)
 {
-    *lit_symbol  = malloc(32768 * sizeof(int));
-    *lit_len     = malloc(32768 * sizeof(int));
-    *dist_symbol = malloc(32768 * sizeof(int));
-    *dist_len    = malloc(32768 * sizeof(int));
-    ft_bzero(*lit_symbol,  32768 * sizeof(int));
-    ft_bzero(*lit_len,     32768 * sizeof(int));
-    ft_bzero(*dist_symbol, 32768 * sizeof(int));
-    ft_bzero(*dist_len,    32768 * sizeof(int));
+    *lit_symbol  = calloc(32768, sizeof(int));
+    *lit_len     = calloc(32768, sizeof(int));
+    *dist_symbol = calloc(32768, sizeof(int));
+    *dist_len    = calloc(32768, sizeof(int));
 }
 
 /* Libère les tables de décodage Huffman. */

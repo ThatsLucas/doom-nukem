@@ -46,6 +46,7 @@ int init_all_imgs(t_game *game, t_WIN *win)
         return (0);
     init_pause_texts(game);
     init_game_over_texts(game);
+    init_victory_texts(game);
     return (1);
 }
 

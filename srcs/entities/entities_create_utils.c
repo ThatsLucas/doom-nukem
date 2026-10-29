@@ -34,7 +34,6 @@ void	init_pnj_base(t_game *game, t_entity *e, t_vect2 pos, t_vect2 dir)
 /* Charge les 8 images directionnelles d’un PNJ. */
 void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 {
-	t_png	png;
 	char	path[200];
 
 	e->num_frames = 8;
@@ -44,17 +43,8 @@ void	load_entity_frames(t_game *game, t_entity *e, char *prefix, int w, int h)
 
 	for (int i = 0; i < e->num_frames; i++)
 	{
-		png.w = w;
-		png.h = h;
 		sprintf(path, "%s%d.png", prefix, i + 1);
-		png.path = ft_strdup(path);
-		if (!png.path)
-			exit_game(game, "Failed to strdup pnj frame");
-		if (!process_png(&png))
-			exit_game(game, "Failed to process pnj frame");
-		e->textures[i] = create_sprite(&png);
-		if (!e->textures[i])
-			exit_game(game, "Failed to create image pnj frame");
+		e->textures[i] = get_cached_sprite(game, path, w, h);
 	}
 
 	e->texture = e->textures[0];
@@ -88,19 +78,14 @@ void	init_fighter_base(t_game *game, t_entity *e, t_entity_type type, t_vect2 po
 /* Charge la texture correspondant à l’état de l’entité. */
 static t_tex	*load_state_texture(t_game *game, char *dir, char *file, int w, int h)
 {
-	t_png	png;
+	char	*path;
 	t_tex	*tex;
 
-	png.w = w;
-	png.h = h;
-	png.path = ft_strjoin(dir, file);
-	if (!png.path)
+	path = ft_strjoin(dir, file);
+	if (!path)
 		exit_game(game, "Failed to join entity texture path");
-	if (!process_png(&png))
-		exit_game(game, "Failed to load entity texture");
-	tex = create_sprite(&png);
-	if (!tex)
-		exit_game(game, "Failed to create entity image");
+	tex = get_cached_sprite(game, path, w, h);
+	free(path);
 	return (tex);
 }
 

@@ -102,11 +102,28 @@ typedef struct s_target
 	int					net_index;	// -1 : joueur local, sinon index du joueur distant
 }						t_target;
 
+typedef struct s_cached_sprite
+{
+	char				*path;
+	int					w;
+	int					h;
+	t_tex				*tex;
+}						t_cached_sprite;
+
+/* Textures déjà décodées, partagées entre les entités. */
+typedef struct s_sprite_cache
+{
+	t_cached_sprite		*list;
+	int					count;
+	int					capacity;
+}						t_sprite_cache;
+
 typedef struct s_entities
 {
 	t_entity			*list;
 	int					count;
 	int					capacity;
+	t_sprite_cache		sprites;
 }						t_entities;
 
 typedef enum e_proj_state
@@ -154,6 +171,8 @@ typedef struct s_trace
 
 void					free_entities(t_entities *e);
 void					init_entities(t_entities *e);
+t_tex					*get_cached_sprite(t_game *game, char *path, int w, int h);
+void					free_sprite_cache(t_sprite_cache *cache);
 void					add_entity(t_game *game, t_entities *e, t_entity entity);
 int						entities_collision(t_game *game, float next_x, float next_y);
 void					update_entities(t_game *game, t_entities *e);

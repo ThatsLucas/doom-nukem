@@ -14,10 +14,11 @@
 #include "GUI/GUI.h"
 #include "Game.h"
 
-/* Renvoie 1 si le joueur est mort en jeu (plus aucune action possible). */
+/* Renvoie 1 si le joueur ne peut plus agir en jeu (mort ou jeu terminé). */
 int	player_is_dead(t_game *game)
 {
-	return (game->window->menus.current == 0 && game->ply && game->ply->hp <= 0);
+	return (game->window->menus.current == 0 && game->ply
+		&& (game->ply->hp <= 0 || game->is_victory));
 }
 
 /* Relâche les touches quand la fenêtre perd le focus. */

@@ -75,7 +75,10 @@ void	player_shoot(t_game *game)
 	if (game->ply->inventory.weapons[idx].type != WEAP_FISTS)
 	{
 		game->ply->inventory.weapons[idx].ammo -= 1;
-		play_sound(game->sounds.shot);
+		if (type == WEAP_ROCKET_LAUNCHER)
+			play_sound(game->sounds.rocket);
+		else
+			play_sound(game->sounds.shot);
 	}
 
 	w->current_frame = 0;

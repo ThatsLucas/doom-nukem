@@ -50,7 +50,7 @@ static void draw_notif_text(t_WIN *win, t_notif *notif, int notifX, int notifY, 
 static void spawn_notif(t_WIN *win, t_notif_buf **notif_buf)
 {
     t_notif *notif = (*notif_buf)->notif;
-    SDL_Rect new_pos = { 1920 / 2 - (win->menus.notif.Popup.w / 3 / 2) , -win->menus.notif.Popup.h / 3 + 2, win->menus.notif.Popup.w / 3, win->menus.notif.Popup.h / 3};
+    SDL_Rect new_pos = { 1920 / 2 - (win->menus.notif.Popup.w / 3 / 2) , -(int)win->menus.notif.Popup.h / 3 + 2, win->menus.notif.Popup.w / 3, win->menus.notif.Popup.h / 3};
 
     notif->coords = new_pos;
     notif->pos_y = new_pos.y;
@@ -91,7 +91,7 @@ static int slide_out_notif(t_WIN *win, t_notif_buf **notif_buf)
     }
     SDL_Rect notifPos = notif->coords;
     to_responsive(win, &notifPos);
-    if (((notifPos.y + win->menus.notif.Popup.h / 3)) * win->h > 0)
+    if (notifPos.y + (int)win->menus.notif.Popup.h / 3 > 0)
     {
         slide_notif(notif, -1.0f);
         return (0);

@@ -133,5 +133,6 @@ void pickup_item(t_game *game, t_ground_item *item)
 		pickup_tool(game, item);
 
 	game->flash_alpha = 0.5f;
+	play_sound(game->sounds.item_get);
 	item->picked_up = 1;
 }

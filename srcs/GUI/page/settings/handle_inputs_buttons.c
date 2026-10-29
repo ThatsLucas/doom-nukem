@@ -45,6 +45,7 @@ int handle_language_selection(t_game *game, t_settings_menu *menu,
             refresh_cinematics_texts(game);
             refresh_pause_menu_texts(game);
             refresh_game_over_texts(game);
+            refresh_victory_texts(game);
             return (1);
         }
     }

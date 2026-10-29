@@ -48,6 +48,8 @@ void	init_sounds(t_SOUNDS *sounds)
 	}
 	Mix_AllocateChannels(AUDIO_CHANNELS);
 	sounds->shot = load_chunk(SHOT_SOUND_PATH);
+	sounds->rocket = load_chunk(ROCKET_SOUND_PATH);
+	sounds->item_get = load_chunk(ITEM_GET_SOUND_PATH);
 	sounds->menu_music = load_music(MENU_MUSIC_PATH);
 	sounds->ingame_music = load_music(INGAME_MUSIC_PATH);
 }
@@ -56,9 +58,13 @@ void	free_sounds(t_SOUNDS *sounds)
 {
 	Mix_HaltMusic();
 	Mix_FreeChunk(sounds->shot);
+	Mix_FreeChunk(sounds->rocket);
+	Mix_FreeChunk(sounds->item_get);
 	Mix_FreeMusic(sounds->menu_music);
 	Mix_FreeMusic(sounds->ingame_music);
 	sounds->shot = NULL;
+	sounds->rocket = NULL;
+	sounds->item_get = NULL;
 	sounds->menu_music = NULL;
 	sounds->ingame_music = NULL;
 	sounds->current_music = NULL;

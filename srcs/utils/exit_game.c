@@ -53,6 +53,7 @@ void exit_game(t_game *game, char *type)
 		exit(1);
 
 	cleanup_items(game);
+	free_sprite_cache(&game->entities.sprites);
 	free_projectiles(game);
 	free_hud_cache(game);
 
