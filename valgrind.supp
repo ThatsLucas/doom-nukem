@@ -115,8 +115,39 @@
    fun:SDL_EGL_LoadLibrary
 }
 {
-   GPU_driver_leak
+   GPU_driver_gallium_leak
    Memcheck:Leak
    ...
-   obj:*
+   obj:*/libgallium*
+}
+{
+   GPU_driver_dri_leak
+   Memcheck:Leak
+   ...
+   obj:*/dri/*
+}
+{
+   GPU_driver_drm_leak
+   Memcheck:Leak
+   ...
+   obj:*/libdrm*
+}
+{
+   GPU_driver_glx_leak
+   Memcheck:Leak
+   ...
+   obj:*/libGLX*
+}
+{
+   GPU_driver_egl_leak
+   Memcheck:Leak
+   ...
+   obj:*/libEGL*
+}
+{
+   pipewire_sssd_passwd_cache_fd
+   CoreError:FdNotClosed
+   fun:open
+   ...
+   fun:getpwuid
 }
