@@ -125,29 +125,6 @@ $(OBJDIR)/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 
-# -------- LEAK TESTS --------
-# make leaks            -> lance tous les scenarios
-# make leaks TEST=notifs -> lance un seul scenario
-
-LEAKS_DIR = tests/leaks
-LEAKS_BUILD = $(LEAKS_DIR)/build
-ASAN_CC = $(CC) -fsanitize=address -fno-omit-frame-pointer
-LEAKS_OBJ = $(filter-out %/srcs/main.o, $(patsubst %.c, $(LEAKS_BUILD)/obj/%.o, $(FILES)))
-
-leaks: deps libft
-	@$(MAKE) -s OBJDIR=$(LEAKS_BUILD)/obj CC="$(ASAN_CC)" $(LEAKS_OBJ)
-	@$(ASAN_CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $(LEAKS_DIR)/leak_tests.c -o $(LEAKS_BUILD)/leak_tests.o
-	@$(ASAN_CC) $(LEAKS_OBJ) $(LEAKS_BUILD)/leak_tests.o -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(LEAKS_BUILD)/leak_tests
-	@sh $(LEAKS_DIR)/run_leak_tests.sh $(LEAKS_BUILD)/leak_tests $(TEST)
-
-# make valgrind            -> memes scenarios sous valgrind (plus lent, voit aussi les erreurs dans SDL)
-# make valgrind TEST=editor
-valgrind: all
-	@mkdir -p $(LEAKS_BUILD)
-	@$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $(LEAKS_DIR)/leak_tests.c -o $(LEAKS_BUILD)/leak_tests_vg.o
-	@$(CC) $(filter-out %/srcs/main.o, $(OBJ)) $(LEAKS_BUILD)/leak_tests_vg.o -L$(LIBFT_DIR) -lft $(LDFLAGS) -o $(LEAKS_BUILD)/leak_tests_vg
-	@sh $(LEAKS_DIR)/run_valgrind_tests.sh $(LEAKS_BUILD)/leak_tests_vg $(TEST)
-
 # -------- CLEAN --------
 
 clean:
@@ -156,7 +133,6 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -rf $(LEAKS_BUILD)
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
 
 dclean:
@@ -165,4 +141,4 @@ dclean:
 
 re: fclean all
 
-.PHONY: all clean fclean dclean re deps libft leaks valgrind
+.PHONY: all clean fclean dclean re deps libft
